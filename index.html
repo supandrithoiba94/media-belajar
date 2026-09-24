@@ -1,1 +1,174 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rekap Kehadiran & Aktivitas Tahfiz</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased p-4 md:p-8">
 
+    <div class="max-w-3xl mx-auto space-y-6">
+
+        <!-- HEADER KELAS -->
+        <div class="bg-emerald-700 text-white rounded-2xl p-6 shadow-lg relative overflow-hidden">
+            <div class="absolute -right-10 -bottom-10 opacity-10 text-white">
+                <i class="fa-solid fa-quran text-9xl"></i>
+            </div>
+            <div class="relative z-10">
+                <span class="bg-emerald-800 text-emerald-100 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider">
+                    Jurnal Harian Tahfiz
+                </span>
+                <h1 class="text-2xl font-bold mt-2">Rekap Pembelajaran Al-Qur'an</h1>
+                <p class="text-emerald-100 text-sm mt-1">Kelas VII | Kamis, 24 September 2026</p>
+            </div>
+        </div>
+
+        <!-- PESAN EDUKATIF UNTUK ORANG TUA (MINDSET SHIFT) -->
+        <div class="bg-amber-50 border-l-4 border-amber-500 p-4 rounded-xl shadow-sm text-sm text-amber-900 flex items-start gap-3">
+            <i class="fa-solid fa-lightbulb text-amber-500 text-lg mt-0.5"></i>
+            <div>
+                <strong class="font-semibold block mb-0.5">Pesan untuk Ayah & Bunda:</strong>
+                <p class="text-xs leading-relaxed text-amber-800">
+                    Menghafal Al-Qur'an adalah perjalanan panjang yang unik bagi setiap anak. Mari fokus pada <strong>konsistensi dan adab bersamai Al-Qur'an</strong>, bukan pada kecepatan atau banyaknya ayat. Rayakan setiap proses dan usaha ananda hari ini!
+                </p>
+            </div>
+        </div>
+
+        <!-- RINGKASAN AGENDA HARI INI -->
+        <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-100 grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold">
+                    <i class="fa-solid fa-book-open"></i>
+                </div>
+                <div>
+                    <span class="text-xs text-slate-500 uppercase font-semibold">Murojaah Kolosal</span>
+                    <p class="text-sm font-semibold text-slate-700">Surah Al-Mulk (Ayat 1 - 15)</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center font-bold">
+                    <i class="fa-solid fa-star"></i>
+                </div>
+                <div>
+                    <span class="text-xs text-slate-500 uppercase font-semibold">Fokus Pembelajaran</span>
+                    <p class="text-sm font-semibold text-slate-700">Ketepatan Makhraj & Kelancaran</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- DAFTAR SISWA (FOKUS KONSISTENSI & KEHADIRAN) -->
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
+            <div class="px-6 py-4 border-b border-slate-100 flex justify-between items-center">
+                <h2 class="font-bold text-slate-800 text-base">Presensi & Keaktifan Setoran</h2>
+                <span class="text-xs font-semibold text-slate-500 bg-slate-100 px-2.5 py-1 rounded-lg">24 Siswa</span>
+            </div>
+
+            <div class="divide-y divide-slate-100 text-sm">
+                
+                <!-- ROW SISWA 1 -->
+                <div class="p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:bg-slate-50/80 transition">
+                    <div class="flex items-center gap-3">
+                        <div class="w-9 h-9 rounded-full bg-slate-200 flex items-center justify-center text-slate-600 font-semibold text-xs">
+                            01
+                        </div>
+                        <div>
+                            <p class="font-semibold text-slate-800">Abdurrahman</p>
+                            <span class="inline-flex items-center gap-1 text-[11px] text-emerald-600 font-medium">
+                                <i class="fa-solid fa-circle-check"></i> Setor Murojaah & Ziyadah
+                            </span>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2 text-xs">
+                        <span class="px-2.5 py-1 bg-emerald-50 text-emerald-700 rounded-md font-medium border border-emerald-100">
+                            <i class="fa-solid fa-award mr-1 text-amber-500"></i> Sangat Tekun
+                        </span>
+                    </div>
+                </div>
+
+                <!-- ROW SISWA 2 -->
+                <div class="p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:bg-slate-50/80 transition">
+                    <div class="flex items-center gap-3">
+                        <div class="w-9 h-9 rounded-full bg-slate-200 flex items-center justify-center text-slate-600 font-semibold text-xs">
+                            02
+                        </div>
+                        <div>
+                            <p class="font-semibold text-slate-800">Aisyah</p>
+                            <span class="inline-flex items-center gap-1 text-[11px] text-emerald-600 font-medium">
+                                <i class="fa-solid fa-circle-check"></i> Setor Murojaah
+                            </span>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2 text-xs">
+                        <span class="px-2.5 py-1 bg-blue-50 text-blue-700 rounded-md font-medium border border-blue-100">
+                            <i class="fa-solid fa-check mr-1"></i> Konsisten
+                        </span>
+                    </div>
+                </div>
+
+                <!-- ROW SISWA 3 -->
+                <div class="p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:bg-slate-50/80 transition">
+                    <div class="flex items-center gap-3">
+                        <div class="w-9 h-9 rounded-full bg-slate-200 flex items-center justify-center text-slate-600 font-semibold text-xs">
+                            03
+                        </div>
+                        <div>
+                            <p class="font-semibold text-slate-800">Daffa</p>
+                            <span class="inline-flex items-center gap-1 text-[11px] text-emerald-600 font-medium">
+                                <i class="fa-solid fa-circle-check"></i> Setor Ziyadah
+                            </span>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2 text-xs">
+                        <span class="px-2.5 py-1 bg-purple-50 text-purple-700 rounded-md font-medium border border-purple-100">
+                            <i class="fa-solid fa-sparkles mr-1 text-purple-500"></i> Tajwid Rapi
+                        </span>
+                    </div>
+                </div>
+
+                <!-- ROW SISWA 4 (BELUM SETOR / IZIN) -->
+                <div class="p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:bg-slate-50/80 transition">
+                    <div class="flex items-center gap-3">
+                        <div class="w-9 h-9 rounded-full bg-slate-100 flex items-center justify-center text-slate-400 font-semibold text-xs">
+                            04
+                        </div>
+                        <div>
+                            <p class="font-semibold text-slate-800">Khadijah</p>
+                            <span class="inline-flex items-center gap-1 text-[11px] text-rose-500 font-medium">
+                                <i class="fa-solid fa-circle-xmark"></i> Belum Setor Hari Ini
+                            </span>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2 text-xs">
+                        <span class="px-2.5 py-1 bg-slate-100 text-slate-600 rounded-md font-medium">
+                            Perlu Pendampingan
+                        </span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- FOOTER & CATATAN BUKU KONTROL PRIVAT -->
+        <div class="bg-white p-5 rounded-2xl border border-slate-100 text-center space-y-3">
+            <p class="text-xs text-slate-500">
+                <i class="fa-solid fa-lock mr-1"></i> Rincian jumlah ayat, halaman, dan catatan tajwid spesifik telah dicatat secara privat di <strong>Buku Kontrol Tahfiz / Aplikasi Pribadi Siswa</strong>.
+            </p>
+            <div class="pt-2 border-t border-slate-100 text-xs text-slate-400">
+                Pengampu Tahfiz: <strong>Ustadz / Guru Pembimbing</strong>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
