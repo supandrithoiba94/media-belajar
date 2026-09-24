@@ -1,0 +1,1259 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Asesmen Mandiri Himpunan - Pertemuan 3</title>
+
+<style>
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:#f1f5f9;
+    color:#172033;
+}
+
+header{
+    background:linear-gradient(135deg,#2563eb,#7c3aed);
+    color:white;
+    padding:30px 20px;
+    text-align:center;
+}
+
+header h1{
+    margin:0 0 8px;
+}
+
+.container{
+    max-width:900px;
+    margin:auto;
+    padding:20px;
+}
+
+.card{
+    background:white;
+    padding:22px;
+    border-radius:18px;
+    margin-bottom:20px;
+    box-shadow:0 5px 18px rgba(0,0,0,.08);
+}
+
+input{
+    width:100%;
+    padding:13px;
+    border:2px solid #cbd5e1;
+    border-radius:10px;
+    font-size:16px;
+    margin:8px 0 15px;
+}
+
+.question{
+    padding:18px;
+    border:1px solid #e2e8f0;
+    border-radius:15px;
+    margin:15px 0;
+    background:#f8fafc;
+}
+
+.option{
+    display:block;
+    width:100%;
+    text-align:left;
+    background:white;
+    border:2px solid #cbd5e1;
+    padding:13px;
+    margin:8px 0;
+    border-radius:10px;
+    cursor:pointer;
+    font-size:15px;
+}
+
+.option:hover{
+    background:#eff6ff;
+}
+
+.option.selected{
+    background:#dbeafe;
+    border-color:#2563eb;
+}
+
+button{
+    border:none;
+    border-radius:12px;
+    padding:13px 20px;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.btn{
+    background:#2563eb;
+    color:white;
+}
+
+.btn:hover{
+    opacity:.85;
+}
+
+.result{
+    display:none;
+}
+
+.result-box{
+    padding:25px;
+    border-radius:15px;
+    text-align:center;
+    background:#eff6ff;
+}
+
+.nilai{
+    font-size:50px;
+    font-weight:bold;
+    color:#2563eb;
+}
+
+.status{
+    font-size:24px;
+    font-weight:bold;
+    margin:10px;
+}
+
+.indikator{
+    text-align:left;
+    background:white;
+    padding:15px;
+    margin:10px 0;
+    border-radius:12px;
+}
+
+.bar{
+    height:15px;
+    background:#e2e8f0;
+    border-radius:20px;
+    overflow:hidden;
+}
+
+.fill{
+    height:100%;
+    width:0;
+    background:#2563eb;
+}
+
+.warning{
+    background:#fef3c7;
+    padding:15px;
+    border-radius:12px;
+    margin-top:15px;
+}
+
+.success{
+    background:#dcfce7;
+    padding:15px;
+    border-radius:12px;
+    margin-top:15px;
+}
+
+.refleksi{
+    width:100%;
+    min-height:120px;
+    padding:15px;
+    border:2px solid #cbd5e1;
+    border-radius:12px;
+    resize:vertical;
+}
+
+.hidden{
+    display:none;
+}
+
+footer{
+    text-align:center;
+    padding:30px;
+    color:#64748b;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+
+<h1>🧠 ASESMEN MANDIRI</h1>
+
+<p>
+Matematika — Himpunan Pertemuan 3
+</p>
+
+<p>
+Himpunan Kosong • Himpunan Semesta • Kardinalitas
+</p>
+
+</header>
+
+
+<div class="container">
+
+
+<!-- IDENTITAS -->
+
+<div class="card">
+
+<h2>👤 Identitas</h2>
+
+<label>
+<b>Nama:</b>
+</label>
+
+<input
+type="text"
+id="nama"
+placeholder="Tuliskan nama kamu"
+>
+
+<p>
+Kerjakan dengan jujur. Tujuan asesmen ini bukan untuk mencari siapa yang paling pintar,
+tetapi untuk mengetahui bagian mana yang sudah kamu pahami dan bagian mana yang masih perlu dipelajari.
+</p>
+
+</div>
+
+
+<!-- PETUNJUK -->
+
+<div class="card">
+
+<h2>📌 Petunjuk</h2>
+
+<ol>
+
+<li>Baca setiap soal dengan teliti.</li>
+
+<li>Pilih satu jawaban yang menurutmu paling tepat.</li>
+
+<li>Kerjakan tanpa melihat jawaban teman.</li>
+
+<li>Setelah selesai, lihat hasil pemahamanmu.</li>
+
+<li>Jika masih ada bagian yang belum dipahami, pelajari kembali bagian tersebut.</li>
+
+</ol>
+
+</div>
+
+
+<!-- SOAL -->
+
+<div id="quiz">
+
+
+<!-- SOAL 1 -->
+
+<div class="question">
+
+<h3>
+1. Himpunan yang tidak mempunyai anggota disebut...
+</h3>
+
+<button
+class="option"
+onclick="pilih(0,0,this)">
+A. Himpunan semesta
+</button>
+
+<button
+class="option"
+onclick="pilih(0,1,this)">
+B. Himpunan kosong
+</button>
+
+<button
+class="option"
+onclick="pilih(0,2,this)">
+C. Himpunan bagian
+</button>
+
+<button
+class="option"
+onclick="pilih(0,3,this)">
+D. Himpunan bilangan
+</button>
+
+</div>
+
+
+<!-- SOAL 2 -->
+
+<div class="question">
+
+<h3>
+2. Simbol yang tepat untuk menyatakan himpunan kosong adalah...
+</h3>
+
+<button
+class="option"
+onclick="pilih(1,0,this)">
+A. ∈
+</button>
+
+<button
+class="option"
+onclick="pilih(1,1,this)">
+B. ⊂
+</button>
+
+<button
+class="option"
+onclick="pilih(1,2,this)">
+C. ∅
+</button>
+
+<button
+class="option"
+onclick="pilih(1,3,this)">
+D. =
+</button>
+
+</div>
+
+
+<!-- SOAL 3 -->
+
+<div class="question">
+
+<h3>
+3. A = {2,4,6,8,10}. Banyak anggota A adalah...
+</h3>
+
+<button
+class="option"
+onclick="pilih(2,0,this)">
+A. 4
+</button>
+
+<button
+class="option"
+onclick="pilih(2,1,this)">
+B. 5
+</button>
+
+<button
+class="option"
+onclick="pilih(2,2,this)">
+C. 6
+</button>
+
+<button
+class="option"
+onclick="pilih(2,3,this)">
+D. 10
+</button>
+
+</div>
+
+
+<!-- SOAL 4 -->
+
+<div class="question">
+
+<h3>
+4. Himpunan semesta adalah...
+</h3>
+
+<button
+class="option"
+onclick="pilih(3,0,this)">
+A. Himpunan yang tidak memiliki anggota
+</button>
+
+<button
+class="option"
+onclick="pilih(3,1,this)">
+B. Himpunan yang hanya mempunyai satu anggota
+</button>
+
+<button
+class="option"
+onclick="pilih(3,2,this)">
+C. Himpunan yang memuat semua objek yang sedang dibicarakan
+</button>
+
+<button
+class="option"
+onclick="pilih(3,3,this)">
+D. Himpunan bilangan prima
+</button>
+
+</div>
+
+
+<!-- SOAL 5 -->
+
+<div class="question">
+
+<h3>
+5. S = {1,2,3,4,5,6,7,8,9,10}.
+<br>
+A adalah himpunan bilangan genap dalam S.
+<br>
+Banyak anggota A adalah...
+</h3>
+
+<button
+class="option"
+onclick="pilih(4,0,this)">
+A. 4
+</button>
+
+<button
+class="option"
+onclick="pilih(4,1,this)">
+B. 5
+</button>
+
+<button
+class="option"
+onclick="pilih(4,2,this)">
+C. 6
+</button>
+
+<button
+class="option"
+onclick="pilih(4,3,this)">
+D. 10
+</button>
+
+</div>
+
+
+<!-- SOAL 6 -->
+
+<div class="question">
+
+<h3>
+6. C = {bilangan asli yang kurang dari 0}.
+<br>
+Maka C adalah...
+</h3>
+
+<button
+class="option"
+onclick="pilih(5,0,this)">
+A. Himpunan kosong
+</button>
+
+<button
+class="option"
+onclick="pilih(5,1,this)">
+B. Himpunan semesta
+</button>
+
+<button
+class="option"
+onclick="pilih(5,2,this)">
+C. Himpunan beranggota satu
+</button>
+
+<button
+class="option"
+onclick="pilih(5,3,this)">
+D. Himpunan tak hingga
+</button>
+
+</div>
+
+
+<!-- SOAL 7 -->
+
+<div class="question">
+
+<h3>
+7. D = {a,i,u,e,o}.
+<br>
+Berapakah n(D)?
+</h3>
+
+<button
+class="option"
+onclick="pilih(6,0,this)">
+A. 3
+</button>
+
+<button
+class="option"
+onclick="pilih(6,1,this)">
+B. 4
+</button>
+
+<button
+class="option"
+onclick="pilih(6,2,this)">
+C. 5
+</button>
+
+<button
+class="option"
+onclick="pilih(6,3,this)">
+D. 6
+</button>
+
+</div>
+
+
+<!-- SOAL 8 -->
+
+<div class="question">
+
+<h3>
+8. Jika A = ∅, maka banyak anggota A adalah...
+</h3>
+
+<button
+class="option"
+onclick="pilih(7,0,this)">
+A. 0
+</button>
+
+<button
+class="option"
+onclick="pilih(7,1,this)">
+B. 1
+</button>
+
+<button
+class="option"
+onclick="pilih(7,2,this)">
+C. 2
+</button>
+
+<button
+class="option"
+onclick="pilih(7,3,this)">
+D. Tidak dapat ditentukan
+</button>
+
+</div>
+
+
+<!-- SOAL 9 -->
+
+<div class="question">
+
+<h3>
+9. S = {1,2,3,4,5,6,7,8,9,10}.
+<br>
+A = {2,4,6,8,10}.
+<br>
+Pernyataan yang benar adalah...
+</h3>
+
+<button
+class="option"
+onclick="pilih(8,0,this)">
+A. A bukan bagian dari S
+</button>
+
+<button
+class="option"
+onclick="pilih(8,1,this)">
+B. A merupakan himpunan bagian dari S
+</button>
+
+<button
+class="option"
+onclick="pilih(8,2,this)">
+C. S merupakan himpunan kosong
+</button>
+
+<button
+class="option"
+onclick="pilih(8,3,this)">
+D. A dan S tidak mempunyai hubungan
+</button>
+
+</div>
+
+
+<!-- SOAL 10 -->
+
+<div class="question">
+
+<h3>
+10. S = {1,...,20}.
+<br>
+A adalah himpunan bilangan lebih dari 20.
+<br>
+Maka A adalah...
+</h3>
+
+<button
+class="option"
+onclick="pilih(9,0,this)">
+A. Himpunan kosong
+</button>
+
+<button
+class="option"
+onclick="pilih(9,1,this)">
+B. Himpunan berisi satu anggota
+</button>
+
+<button
+class="option"
+onclick="pilih(9,2,this)">
+C. Himpunan berisi dua anggota
+</button>
+
+<button
+class="option"
+onclick="pilih(9,3,this)">
+D. Himpunan tak hingga
+</button>
+
+</div>
+
+</div>
+
+
+<!-- SUBMIT -->
+
+<div class="card">
+
+<button
+class="btn"
+style="width:100%;"
+onclick="hitungHasil()">
+
+📊 Lihat Hasil Pemahaman Saya
+
+</button>
+
+</div>
+
+
+<!-- HASIL -->
+
+<div
+id="hasil"
+class="card result">
+
+<h2>📊 Hasil Asesmen Mandiri</h2>
+
+<div class="result-box">
+
+<p id="namaHasil"></p>
+
+<div
+id="nilai"
+class="nilai">
+0
+</div>
+
+<div
+id="status"
+class="status">
+</div>
+
+<p id="pesan"></p>
+
+</div>
+
+
+<h2>🔎 Peta Pemahaman</h2>
+
+
+<div class="indikator">
+
+<b>1. Himpunan Kosong</b>
+
+<p id="detailKosong"></p>
+
+<div class="bar">
+
+<div
+id="barKosong"
+class="fill">
+</div>
+
+</div>
+
+</div>
+
+
+<div class="indikator">
+
+<b>2. Himpunan Semesta</b>
+
+<p id="detailSemesta"></p>
+
+<div class="bar">
+
+<div
+id="barSemesta"
+class="fill">
+</div>
+
+</div>
+
+</div>
+
+
+<div class="indikator">
+
+<b>3. Kardinalitas</b>
+
+<p id="detailKardinalitas"></p>
+
+<div class="bar">
+
+<div
+id="barKardinalitas"
+class="fill">
+</div>
+
+</div>
+
+</div>
+
+
+<div class="indikator">
+
+<b>4. Penerapan Konsep</b>
+
+<p id="detailPenerapan"></p>
+
+<div class="bar">
+
+<div
+id="barPenerapan"
+class="fill">
+</div>
+
+</div>
+
+</div>
+
+
+<div
+id="rekomendasi"
+class="warning">
+</div>
+
+
+<!-- REFLEKSI -->
+
+<h2>💭 Refleksi Diri</h2>
+
+<p>
+Setelah melihat hasilmu, bagaimana perasaanmu terhadap materi hari ini?
+</p>
+
+<textarea
+id="refleksi"
+class="refleksi"
+placeholder="Contoh: Saya sudah paham himpunan kosong, tetapi masih bingung menentukan kardinalitas...">
+</textarea>
+
+
+<button
+class="btn"
+onclick="simpanHasil()">
+
+💾 Simpan Hasil
+
+</button>
+
+
+<div
+id="simpanPesan">
+</div>
+
+</div>
+
+
+</div>
+
+
+<footer>
+
+Asesmen Mandiri Matematika — Himpunan Pertemuan 3
+
+</footer>
+
+
+<script>
+
+/* ==============================
+   JAWABAN BENAR
+============================== */
+
+const jawabanBenar = [
+
+1, // 1 himpunan kosong
+2, // 2 simbol kosong
+1, // 3 kardinalitas
+2, // 4 semesta
+1, // 5 kardinalitas
+0, // 6 kosong
+2, // 7 kardinalitas
+0, // 8 kosong
+1, // 9 himpunan bagian
+0  // 10 kosong
+
+];
+
+
+/* ==============================
+   JAWABAN SISWA
+============================== */
+
+let jawabanSiswa =
+Array(10).fill(null);
+
+
+/* ==============================
+   PILIH JAWABAN
+============================== */
+
+function pilih(no,jawaban,button){
+
+    jawabanSiswa[no] = jawaban;
+
+    let question =
+        button.parentElement;
+
+    let semua =
+        question.querySelectorAll(".option");
+
+    semua.forEach(function(btn){
+
+        btn.classList.remove("selected");
+
+    });
+
+    button.classList.add("selected");
+
+}
+
+
+/* ==============================
+   HITUNG HASIL
+============================== */
+
+function hitungHasil(){
+
+    let nama =
+        document.getElementById("nama")
+        .value.trim();
+
+    if(!nama){
+
+        alert("Silakan tuliskan nama terlebih dahulu.");
+
+        document
+        .getElementById("nama")
+        .focus();
+
+        return;
+
+    }
+
+
+    let belum =
+        jawabanSiswa.filter(
+            x => x === null
+        ).length;
+
+
+    if(belum > 0){
+
+        alert(
+            "Masih ada " +
+            belum +
+            " soal yang belum dijawab."
+        );
+
+        return;
+
+    }
+
+
+    let benar = 0;
+
+
+    jawabanSiswa.forEach(
+        function(jawaban,index){
+
+            if(
+                jawaban === jawabanBenar[index]
+            ){
+
+                benar++;
+
+            }
+
+        }
+    );
+
+
+    let nilai =
+        benar * 10;
+
+
+    /* ==========================
+       INDIKATOR
+    ========================== */
+
+    let kosongBenar = 0;
+
+    let semestaBenar = 0;
+
+    let kardinalitasBenar = 0;
+
+    let penerapanBenar = 0;
+
+
+    /*
+       Soal:
+       1,2,6,8 = kosong
+       4 = semesta
+       3,5,7 = kardinalitas
+       9,10 = penerapan
+    */
+
+
+    [0,1,5,7].forEach(
+        function(i){
+
+            if(
+                jawabanSiswa[i] ===
+                jawabanBenar[i]
+            ){
+
+                kosongBenar++;
+
+            }
+
+        }
+    );
+
+
+    if(
+        jawabanSiswa[3] ===
+        jawabanBenar[3]
+    ){
+
+        semestaBenar++;
+
+    }
+
+
+    [2,4,6].forEach(
+        function(i){
+
+            if(
+                jawabanSiswa[i] ===
+                jawabanBenar[i]
+            ){
+
+                kardinalitasBenar++;
+
+            }
+
+        }
+    );
+
+
+    [8,9].forEach(
+        function(i){
+
+            if(
+                jawabanSiswa[i] ===
+                jawabanBenar[i]
+            ){
+
+                penerapanBenar++;
+
+            }
+
+        }
+    );
+
+
+    /* ==========================
+       TAMPILKAN HASIL
+    ========================== */
+
+    document
+    .getElementById("hasil")
+    .style.display = "block";
+
+
+    document
+    .getElementById("namaHasil")
+    .innerHTML =
+    "Nama: <b>" + nama + "</b>";
+
+
+    document
+    .getElementById("nilai")
+    .innerHTML =
+    nilai;
+
+
+    let status = "";
+
+    let pesan = "";
+
+
+    if(nilai >= 90){
+
+        status =
+        "🌟 Sangat Paham";
+
+        pesan =
+        "Pemahamanmu terhadap materi sudah sangat baik. Pertahankan dan coba tantangan yang lebih sulit.";
+
+    }
+    else if(nilai >= 70){
+
+        status =
+        "👍 Paham";
+
+        pesan =
+        "Sebagian besar konsep sudah kamu pahami. Periksa kembali bagian yang masih belum kuat.";
+
+    }
+    else if(nilai >= 50){
+
+        status =
+        "📖 Cukup Paham";
+
+        pesan =
+        "Kamu sudah memahami sebagian konsep, tetapi masih perlu belajar kembali beberapa bagian.";
+
+    }
+    else{
+
+        status =
+        "💪 Perlu Belajar Lagi";
+
+        pesan =
+        "Jangan berkecil hati. Baca kembali materi dan coba latihan lagi secara bertahap.";
+
+    }
+
+
+    document
+    .getElementById("status")
+    .innerHTML =
+    status;
+
+
+    document
+    .getElementById("pesan")
+    .innerHTML =
+    pesan;
+
+
+    /* ==========================
+       DETAIL INDIKATOR
+    ========================== */
+
+    let persenKosong =
+        kosongBenar / 4 * 100;
+
+    let persenSemesta =
+        semestaBenar / 1 * 100;
+
+    let persenKardinalitas =
+        kardinalitasBenar / 3 * 100;
+
+    let persenPenerapan =
+        penerapanBenar / 2 * 100;
+
+
+    tampilIndikator(
+        "Kosong",
+        persenKosong,
+        kosongBenar + "/4 benar"
+    );
+
+
+    tampilIndikator(
+        "Semesta",
+        persenSemesta,
+        semestaBenar + "/1 benar"
+    );
+
+
+    tampilIndikator(
+        "Kardinalitas",
+        persenKardinalitas,
+        kardinalitasBenar + "/3 benar"
+    );
+
+
+    tampilIndikator(
+        "Penerapan",
+        persenPenerapan,
+        penerapanBenar + "/2 benar"
+    );
+
+
+    /* ==========================
+       REKOMENDASI
+    ========================== */
+
+    let rekomendasi = "";
+
+
+    if(persenKosong < 75){
+
+        rekomendasi +=
+        "📌 Pelajari kembali <b>himpunan kosong</b>.<br>";
+
+    }
+
+
+    if(persenSemesta < 75){
+
+        rekomendasi +=
+        "📌 Pelajari kembali <b>himpunan semesta</b>.<br>";
+
+    }
+
+
+    if(persenKardinalitas < 75){
+
+        rekomendasi +=
+        "📌 Latih kembali <b>kardinalitas/banyak anggota</b>.<br>";
+
+    }
+
+
+    if(persenPenerapan < 75){
+
+        rekomendasi +=
+        "📌 Kerjakan lebih banyak <b>soal penerapan</b>.<br>";
+
+    }
+
+
+    if(rekomendasi === ""){
+
+        rekomendasi =
+        "🎉 <b>Semua indikator sudah cukup kuat.</b><br>" +
+        "Kamu dapat melanjutkan ke materi berikutnya.";
+
+    }
+
+
+    document
+    .getElementById("rekomendasi")
+    .innerHTML =
+    rekomendasi;
+
+
+    document
+    .getElementById("hasil")
+    .scrollIntoView({
+        behavior:"smooth"
+    });
+
+}
+
+
+/* ==============================
+   INDIKATOR
+============================== */
+
+function tampilIndikator(
+    nama,
+    persen,
+    detail
+){
+
+    document
+    .getElementById(
+        "detail"+nama
+    )
+    .innerHTML =
+    detail;
+
+
+    document
+    .getElementById(
+        "bar"+nama
+    )
+    .style.width =
+    persen + "%";
+
+}
+
+
+/* ==============================
+   SIMPAN HASIL
+============================== */
+
+function simpanHasil(){
+
+    let nama =
+        document
+        .getElementById("nama")
+        .value;
+
+
+    let refleksi =
+        document
+        .getElementById("refleksi")
+        .value;
+
+
+    let nilai =
+        document
+        .getElementById("nilai")
+        .innerText;
+
+
+    let data = {
+
+        nama:nama,
+
+        nilai:nilai,
+
+        refleksi:refleksi,
+
+        waktu:
+        new Date().toLocaleString(
+            "id-ID"
+        )
+
+    };
+
+
+    localStorage.setItem(
+        "asesmen_himpunan_p3",
+        JSON.stringify(data)
+    );
+
+
+    document
+    .getElementById("simpanPesan")
+    .innerHTML =
+    "<div class='success'>" +
+    "✅ Hasil asesmen tersimpan di perangkat ini." +
+    "</div>";
+
+}
+
+</script>
+
+</body>
+</html>
