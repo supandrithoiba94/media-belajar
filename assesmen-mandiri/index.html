@@ -778,13 +778,13 @@ jawaban:0
 {
 kategori:"semesta",
 
-q:"S = {1,2,3,4,5,6,7,8,9,10}. A adalah bilangan genap. Himpunan semesta yang sesuai adalah...",
+q:"Diketahui A = {2, 4, 6, 8, 10}. Himpunan semesta yang mungkin untuk A adalah...",
 
 opsi:[
-"S = {1,...,10}",
-"S = {2,4,6,8,10}",
+"S = {1, 2, 3, ..., 10}",
+"S = {1, 3, 5, 7, 9}",
 "S = ∅",
-"S = {1,3,5,7,9}"
+"S = {11, 12, 13}"
 ],
 
 jawaban:0
@@ -1541,218 +1541,66 @@ function tampilkanIndikator(
     data
 ){
 
-    let persen =
-        Math.round(
-            data.benar /
-            data.total *
-            100
-        );
-
-
-    document
-        .getElementById(
-            "detail" + nama
-        )
-        .innerHTML =
-        data.benar +
-        " dari " +
-        data.total +
-        " soal benar (" +
-        persen +
-        "%)";
-
-
-    document
-        .getElementById(
-            "bar" + nama
-        )
-        .style.width =
-        persen + "%";
+    let persen = data.total > 0 ? Math.round((data.benar / data.total) * 100) : 0;
+    
+    let detailEl = document.getElementById("detail" + nama);
+    let barEl = document.getElementById("bar" + nama);
+    
+    if (detailEl) {
+        detailEl.innerHTML = `Benar <b>${data.benar}</b> dari <b>${data.total}</b> soal (${persen}%)`;
+    }
+    
+    if (barEl) {
+        barEl.style.width = persen + "%";
+    }
 
 }
 
 
 /* =====================================================
-   REKOMENDASI
+   REKOMENDASI & DUKUNGAN
 ===================================================== */
 
 function buatRekomendasi(indikator){
 
-    let rekomendasi = "";
-
-
-    let data = [
-
-        {
-            nama:"Himpunan Kosong",
-            data:indikator.kosong
-        },
-
-        {
-            nama:"Himpunan Semesta",
-            data:indikator.semesta
-        },
-
-        {
-            nama:"Kardinalitas",
-            data:indikator.kardinalitas
-        },
-
-        {
-            nama:"Penerapan Konsep",
-            data:indikator.penerapan
-        }
-
-    ];
-
-
-    data.forEach(
-        function(item){
-
-            let persen =
-                item.data.benar /
-                item.data.total *
-                100;
-
-
-            if(persen < 60){
-
-                rekomendasi +=
-                "🔴 <b>" +
-                item.nama +
-                "</b> perlu dipelajari kembali.<br><br>";
-
-            }
-
-            else if(persen < 80){
-
-                rekomendasi +=
-                "🟡 <b>" +
-                item.nama +
-                "</b> perlu sedikit penguatan.<br><br>";
-
-            }
-
-        }
-    );
-
-
-    if(rekomendasi === ""){
-
-        rekomendasi =
-        "<div class='success-box'>" +
-
-        "🎉 <b>Semua indikator cukup kuat!</b><br><br>" +
-
-        "Kamu sudah menunjukkan pemahaman yang baik " +
-        "tentang himpunan kosong, himpunan semesta, " +
-        "kardinalitas, dan penerapan konsep." +
-
-        "</div>";
-
+    let rekomEl = document.getElementById("rekomendasi");
+    if(!rekomEl) return;
+    
+    let saran = "<div class='card'><h3>💡 Rekomendasi Belajar:</h3><ul>";
+    
+    if (indikator.kosong.benar < indikator.kosong.total) {
+        saran += "<li>Pelajari kembali konsep <b>Himpunan Kosong</b> dan cara penggunaannya dengan simbol ∅.</li>";
     }
-
-    else{
-
-        rekomendasi =
-        "<div class='warning-box'>" +
-
-        "<b>📚 Saran Belajar:</b><br><br>" +
-
-        rekomendasi +
-
-        "Pelajari kembali bagian tersebut, kemudian " +
-        "coba latihan lagi." +
-
-        "</div>";
-
+    if (indikator.semesta.benar < indikator.semesta.total) {
+        saran += "<li>Perdalam pemahaman tentang cakupan <b>Himpunan Semesta (S)</b>.</li>";
     }
-
-
-    document
-        .getElementById("rekomendasi")
-        .innerHTML =
-        rekomendasi;
+    if (indikator.kardinalitas.benar < indikator.kardinalitas.total) {
+        saran += "<li>Latih lagi cara menghitung banyak anggota himpunan <b>n(A)</b>.</li>";
+    }
+    if (indikator.penerapan.benar < indikator.penerapan.total) {
+        saran += "<li>Tingkatkan latihan soal cerita dan himpunan bilangan.</li>";
+    }
+    
+    saran += "</ul></div>";
+    rekomEl.innerHTML = saran;
 
 }
-
-
-/* =====================================================
-   SIMPAN
-===================================================== */
 
 function simpanHasil(){
 
-    let nama =
-        document
-        .getElementById("nama")
-        .value;
-
-
-    let nilai =
-        document
-        .getElementById("nilai")
-        .innerText;
-
-
-    let refleksi =
-        document
-        .getElementById("refleksi")
-        .value;
-
-
-    let data = {
-
-        nama:nama,
-
-        nilai:nilai,
-
-        refleksi:refleksi,
-
-        waktu:
-        new Date()
-        .toLocaleString("id-ID")
-
-    };
-
-
-    localStorage.setItem(
-        "asesmen_himpunan_p3",
-        JSON.stringify(data)
-    );
-
-
-    document
-        .getElementById("simpanPesan")
-        .innerHTML =
-
-        "<div class='success-box'>" +
-
-        "✅ Hasil asesmen tersimpan di perangkat ini." +
-
-        "</div>";
+    let refleksi = document.getElementById("refleksi").value;
+    let pesanEl = document.getElementById("simpanPesan");
+    pesanEl.innerHTML = "<div class='success-box'>✅ Hasil dan refleksi berhasil disimpan!</div>";
 
 }
-
-
-/* =====================================================
-   SMART TV
-===================================================== */
 
 function toggleTV(){
 
-    document
-        .body
-        .classList
-        .toggle("tv");
+    document.body.classList.toggle("tv");
 
 }
 
-
-/* =====================================================
-   MULAI
-===================================================== */
-
+// Inisialisasi Tampilan Soal
 tampilkanSoal();
 
 </script>
