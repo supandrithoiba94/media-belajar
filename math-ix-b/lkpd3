@@ -1,1 +1,1685 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LKPD Himpunan - Pertemuan 3</title>
 
+<style>
+:root{
+    --primary:#2563eb;
+    --secondary:#7c3aed;
+    --success:#16a34a;
+    --warning:#f59e0b;
+    --danger:#dc2626;
+    --dark:#172033;
+    --light:#f4f7fb;
+    --white:#fff;
+}
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    font-family:Arial, sans-serif;
+    background:var(--light);
+    color:var(--dark);
+}
+
+header{
+    background:linear-gradient(135deg,#2563eb,#7c3aed);
+    color:white;
+    padding:25px 18px;
+    text-align:center;
+}
+
+header h1{
+    margin:0 0 8px;
+    font-size:30px;
+}
+
+header p{
+    margin:5px 0;
+}
+
+.container{
+    max-width:1100px;
+    margin:auto;
+    padding:20px;
+}
+
+.card{
+    background:white;
+    border-radius:18px;
+    padding:22px;
+    margin-bottom:20px;
+    box-shadow:0 5px 18px rgba(0,0,0,.08);
+}
+
+.card h2{
+    margin-top:0;
+}
+
+.badge{
+    display:inline-block;
+    padding:7px 12px;
+    border-radius:20px;
+    background:#dbeafe;
+    color:#1d4ed8;
+    font-weight:bold;
+    margin-bottom:10px;
+}
+
+.concept{
+    background:#eff6ff;
+    border-left:6px solid var(--primary);
+    padding:15px;
+    border-radius:10px;
+    margin:12px 0;
+}
+
+.example{
+    background:#f5f3ff;
+    border-left:6px solid var(--secondary);
+    padding:15px;
+    border-radius:10px;
+    margin:12px 0;
+}
+
+button{
+    border:none;
+    border-radius:12px;
+    padding:12px 18px;
+    cursor:pointer;
+    font-weight:bold;
+    font-size:15px;
+    margin:5px;
+}
+
+.btn-primary{
+    background:var(--primary);
+    color:white;
+}
+
+.btn-success{
+    background:var(--success);
+    color:white;
+}
+
+.btn-warning{
+    background:var(--warning);
+    color:white;
+}
+
+.btn-danger{
+    background:var(--danger);
+    color:white;
+}
+
+.btn-dark{
+    background:var(--dark);
+    color:white;
+}
+
+button:hover{
+    opacity:.85;
+}
+
+.game-box{
+    text-align:center;
+    background:#fafafa;
+    border:3px dashed #cbd5e1;
+    padding:25px;
+    border-radius:18px;
+}
+
+.game-number{
+    font-size:48px;
+    font-weight:bold;
+    color:var(--primary);
+    margin:20px;
+}
+
+.answer-buttons button{
+    min-width:150px;
+}
+
+.feedback{
+    margin-top:15px;
+    font-size:18px;
+    font-weight:bold;
+}
+
+.level{
+    display:none;
+}
+
+.level.active{
+    display:block;
+}
+
+.question{
+    padding:18px;
+    background:#f8fafc;
+    border-radius:15px;
+    margin:15px 0;
+    border:1px solid #e2e8f0;
+}
+
+.question h3{
+    margin-top:0;
+}
+
+.option{
+    display:block;
+    width:100%;
+    text-align:left;
+    background:white;
+    border:2px solid #cbd5e1;
+    margin:8px 0;
+}
+
+.option.correct{
+    background:#dcfce7;
+    border-color:#16a34a;
+}
+
+.option.wrong{
+    background:#fee2e2;
+    border-color:#dc2626;
+}
+
+.score{
+    font-size:26px;
+    font-weight:bold;
+    text-align:center;
+    margin:20px 0;
+}
+
+.progress{
+    width:100%;
+    height:15px;
+    background:#e2e8f0;
+    border-radius:20px;
+    overflow:hidden;
+}
+
+.progress-bar{
+    height:100%;
+    width:0%;
+    background:linear-gradient(90deg,#2563eb,#7c3aed);
+    transition:.3s;
+}
+
+.tv-mode{
+    position:fixed;
+    right:15px;
+    bottom:15px;
+    z-index:999;
+}
+
+footer{
+    text-align:center;
+    padding:30px;
+    color:#64748b;
+}
+
+.hidden{
+    display:none;
+}
+
+input{
+    padding:12px;
+    border-radius:10px;
+    border:2px solid #cbd5e1;
+    width:100%;
+    max-width:400px;
+    font-size:16px;
+}
+
+.big{
+    font-size:24px;
+    font-weight:bold;
+}
+
+ul{
+    line-height:1.8;
+}
+
+/* SMART TV */
+body.tv{
+    font-size:20px;
+}
+
+body.tv header h1{
+    font-size:42px;
+}
+
+body.tv .container{
+    max-width:1300px;
+}
+
+body.tv .card{
+    padding:35px;
+}
+
+body.tv button{
+    font-size:21px;
+    padding:16px 24px;
+}
+
+body.tv .game-number{
+    font-size:80px;
+}
+
+body.tv .question{
+    font-size:23px;
+}
+
+@media(max-width:600px){
+    header h1{
+        font-size:23px;
+    }
+
+    .container{
+        padding:10px;
+    }
+
+    .card{
+        padding:16px;
+    }
+
+    button{
+        width:100%;
+        margin:5px 0;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>🎯 LKPD INTERAKTIF HIMPUNAN</h1>
+    <p>Pertemuan 3</p>
+    <p><b>Himpunan Kosong • Himpunan Semesta • Kardinalitas</b></p>
+</header>
+
+<div class="container">
+
+<!-- IDENTITAS -->
+<div class="card">
+    <span class="badge">📝 Identitas</span>
+
+    <h2>Siapa Kamu?</h2>
+
+    <input type="text" id="nama" placeholder="Masukkan nama kamu">
+
+    <p id="sapaan"></p>
+</div>
+
+
+<!-- TUJUAN -->
+<div class="card">
+
+    <span class="badge">🎯 Tujuan Pembelajaran</span>
+
+    <h2>Hari ini kita akan belajar:</h2>
+
+    <ul>
+        <li>Mengenali himpunan kosong.</li>
+        <li>Menentukan himpunan semesta.</li>
+        <li>Menentukan banyak anggota suatu himpunan.</li>
+        <li>Menyelesaikan masalah sederhana tentang himpunan.</li>
+    </ul>
+
+</div>
+
+
+<!-- APERSEPSI -->
+<div class="card">
+
+    <span class="badge">🔥 Pemanasan</span>
+
+    <h2>Apakah Semua Himpunan Memiliki Anggota?</h2>
+
+    <div class="concept">
+
+        <p>
+            Perhatikan himpunan berikut:
+        </p>
+
+        <p class="big">
+            A = {bilangan asli yang kurang dari 0}
+        </p>
+
+        <p>
+            Apakah ada anggotanya?
+        </p>
+
+    </div>
+
+    <button class="btn-success"
+            onclick="jawabPemanasan(true)">
+        Ada
+    </button>
+
+    <button class="btn-danger"
+            onclick="jawabPemanasan(false)">
+        Tidak ada
+    </button>
+
+    <div id="feedbackPemanasan" class="feedback"></div>
+
+</div>
+
+
+<!-- MATERI -->
+<div class="card">
+
+    <span class="badge">📚 Materi</span>
+
+    <h2>1. Himpunan Kosong</h2>
+
+    <div class="concept">
+
+        <p>
+            <b>Himpunan kosong</b> adalah himpunan yang
+            tidak mempunyai anggota.
+        </p>
+
+        <p>
+            Himpunan kosong dapat ditulis:
+        </p>
+
+        <p class="big">
+            ∅ atau { }
+        </p>
+
+    </div>
+
+    <div class="example">
+
+        <b>Contoh:</b>
+
+        <p>
+            A = {bilangan asli kurang dari 0}
+        </p>
+
+        <p>
+            Tidak ada bilangan asli yang kurang dari 0.
+        </p>
+
+        <p>
+            Jadi:
+        </p>
+
+        <p class="big">
+            A = ∅
+        </p>
+
+    </div>
+
+
+    <h2>2. Himpunan Semesta</h2>
+
+    <div class="concept">
+
+        <p>
+            <b>Himpunan semesta</b> adalah himpunan yang
+            memuat semua objek yang sedang dibicarakan.
+        </p>
+
+        <p>
+            Biasanya dilambangkan dengan:
+        </p>
+
+        <p class="big">
+            S
+        </p>
+
+    </div>
+
+
+    <div class="example">
+
+        <b>Contoh:</b>
+
+        <p>
+            S = {1,2,3,4,5,6,7,8,9,10}
+        </p>
+
+        <p>
+            A = {2,4,6,8,10}
+        </p>
+
+        <p>
+            Maka A merupakan himpunan bagian dari S.
+        </p>
+
+    </div>
+
+
+    <h2>3. Kardinalitas</h2>
+
+    <div class="concept">
+
+        <p>
+            <b>Kardinalitas</b> adalah banyaknya anggota
+            suatu himpunan.
+        </p>
+
+        <p>
+            Jika:
+        </p>
+
+        <p class="big">
+            A = {2,4,6,8}
+        </p>
+
+        <p>
+            maka:
+        </p>
+
+        <p class="big">
+            n(A) = 4
+        </p>
+
+    </div>
+
+</div>
+
+
+<!-- SIMULASI -->
+<div class="card">
+
+    <span class="badge">🎮 Simulasi</span>
+
+    <h2>Hitung Anggotanya!</h2>
+
+    <div class="game-box">
+
+        <p>Berapa banyak anggota himpunan berikut?</p>
+
+        <div id="simulasiHimpunan" class="big"></div>
+
+        <div id="simulasiJawaban"></div>
+
+        <button class="btn-primary"
+                onclick="generateSimulasi()">
+            🔄 Himpunan Baru
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- GAME KOSONG -->
+<div class="card">
+
+    <span class="badge">🎯 Game 1</span>
+
+    <h2>Detektif Himpunan Kosong</h2>
+
+    <div class="game-box">
+
+        <p>Apakah himpunan berikut kosong?</p>
+
+        <div id="emptyQuestion" class="game-number"></div>
+
+        <div class="answer-buttons">
+
+            <button class="btn-success"
+                    onclick="jawabKosong(true)">
+                YA, KOSONG
+            </button>
+
+            <button class="btn-danger"
+                    onclick="jawabKosong(false)">
+                TIDAK KOSONG
+            </button>
+
+        </div>
+
+        <div id="emptyFeedback" class="feedback"></div>
+
+        <button class="btn-primary"
+                onclick="generateEmptyGame()">
+            🔄 Soal Baru
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- LEVEL -->
+<div class="card">
+
+    <span class="badge">🏆 Tantangan</span>
+
+    <h2>Pilih Levelmu</h2>
+
+    <p>
+        Kerjakan bertahap. Jangan takut salah.
+        Yang penting pahami alasannya.
+    </p>
+
+    <button class="btn-success"
+            onclick="openLevel('mudah')">
+        🟢 MUDAH
+    </button>
+
+    <button class="btn-warning"
+            onclick="openLevel('sedang')">
+        🟡 MENENGAH
+    </button>
+
+    <button class="btn-danger"
+            onclick="openLevel('sulit')">
+        🔴 SULIT
+    </button>
+
+</div>
+
+
+<!-- LEVEL MUDAH -->
+<div id="mudah" class="card level">
+
+    <span class="badge">🟢 LEVEL MUDAH</span>
+
+    <h2>Kenali Konsep</h2>
+
+    <div class="progress">
+        <div id="progressMudah" class="progress-bar"></div>
+    </div>
+
+    <div id="soalMudah"></div>
+
+    <div class="score">
+        Skor: <span id="scoreMudah">0</span>
+    </div>
+
+    <button class="btn-primary"
+            onclick="generateLevel('mudah')">
+        🔄 Latihan Lagi
+    </button>
+
+</div>
+
+
+<!-- LEVEL SEDANG -->
+<div id="sedang" class="card level">
+
+    <span class="badge">🟡 LEVEL MENENGAH</span>
+
+    <h2>Terapkan Konsep</h2>
+
+    <div class="progress">
+        <div id="progressSedang" class="progress-bar"></div>
+    </div>
+
+    <div id="soalSedang"></div>
+
+    <div class="score">
+        Skor: <span id="scoreSedang">0</span>
+    </div>
+
+    <button class="btn-warning"
+            onclick="generateLevel('sedang')">
+        🔄 Latihan Lagi
+    </button>
+
+</div>
+
+
+<!-- LEVEL SULIT -->
+<div id="sulit" class="card level">
+
+    <span class="badge">🔴 LEVEL SULIT</span>
+
+    <h2>Problem Solving</h2>
+
+    <div class="progress">
+        <div id="progressSulit" class="progress-bar"></div>
+    </div>
+
+    <div id="soalSulit"></div>
+
+    <div class="score">
+        Skor: <span id="scoreSulit">0</span>
+    </div>
+
+    <button class="btn-danger"
+            onclick="generateLevel('sulit')">
+        🔄 Tantangan Baru
+    </button>
+
+</div>
+
+
+<!-- REFLEKSI -->
+<div class="card">
+
+    <span class="badge">💭 Refleksi</span>
+
+    <h2>Sudah Paham?</h2>
+
+    <div class="question">
+
+        <p>
+            Lengkapi kalimat berikut:
+        </p>
+
+        <p>
+            "Hari ini saya baru memahami bahwa..."
+        </p>
+
+        <textarea
+            id="refleksi"
+            rows="5"
+            style="width:100%;padding:12px;border-radius:10px;border:2px solid #cbd5e1;"
+            placeholder="Tuliskan dengan kata-katamu sendiri..."></textarea>
+
+        <button class="btn-success"
+                onclick="simpanRefleksi()">
+            💾 Simpan Refleksi
+        </button>
+
+        <div id="refleksiFeedback"></div>
+
+    </div>
+
+</div>
+
+
+<!-- KESIMPULAN -->
+<div class="card">
+
+    <span class="badge">📌 Kesimpulan</span>
+
+    <h2>Ingat 3 Hal Ini!</h2>
+
+    <ol>
+        <li>
+            <b>Himpunan kosong</b> tidak mempunyai anggota.
+        </li>
+
+        <li>
+            <b>Himpunan semesta</b> memuat semua objek yang
+            sedang dibicarakan.
+        </li>
+
+        <li>
+            <b>Kardinalitas</b> menunjukkan banyaknya anggota
+            suatu himpunan.
+        </li>
+    </ol>
+
+</div>
+
+</div>
+
+
+<!-- TV BUTTON -->
+<button class="tv-mode btn-dark"
+        onclick="toggleTV()">
+    📺 Mode SMART TV
+</button>
+
+
+<footer>
+    LKPD Interaktif Matematika • Himpunan • Pertemuan 3
+</footer>
+
+
+<script>
+
+/* =========================
+   IDENTITAS
+========================= */
+
+document.getElementById("nama").addEventListener("input", function(){
+
+    let nama = this.value.trim();
+
+    if(nama){
+        document.getElementById("sapaan").innerHTML =
+        "👋 Semangat belajar, <b>" + nama + "</b>!";
+    }else{
+        document.getElementById("sapaan").innerHTML = "";
+    }
+
+});
+
+
+/* =========================
+   PEMANASAN
+========================= */
+
+function jawabPemanasan(jawaban){
+
+    let feedback =
+        document.getElementById("feedbackPemanasan");
+
+    if(jawaban === false){
+
+        feedback.innerHTML =
+        "✅ Benar! Tidak ada bilangan asli yang kurang dari 0. Jadi himpunannya kosong.";
+
+        feedback.style.color = "#16a34a";
+
+    }else{
+
+        feedback.innerHTML =
+        "❌ Coba pikirkan lagi. Apakah ada bilangan asli yang kurang dari 0?";
+
+        feedback.style.color = "#dc2626";
+
+    }
+
+}
+
+
+/* =========================
+   SIMULASI KARDINALITAS
+========================= */
+
+let angkaSimulasi = [];
+
+function generateSimulasi(){
+
+    let jumlah =
+        Math.floor(Math.random() * 7) + 2;
+
+    angkaSimulasi = [];
+
+    while(angkaSimulasi.length < jumlah){
+
+        let angka =
+            Math.floor(Math.random() * 30) + 1;
+
+        if(!angkaSimulasi.includes(angka)){
+            angkaSimulasi.push(angka);
+        }
+
+    }
+
+    angkaSimulasi.sort(function(a,b){
+        return a-b;
+    });
+
+    document.getElementById("simulasiHimpunan").innerHTML =
+        "A = {" + angkaSimulasi.join(", ") + "}";
+
+    document.getElementById("simulasiJawaban").innerHTML =
+        "<p>Berapa nilai n(A)?</p>" +
+
+        "<button class='btn-primary' onclick='cekSimulasi(" +
+        jumlah + ")'>" +
+
+        jumlah +
+
+        "</button>" +
+
+        "<button class='btn-primary' onclick='cekSimulasi(" +
+        (jumlah + 1) + ")'>" +
+
+        (jumlah + 1) +
+
+        "</button>" +
+
+        "<button class='btn-primary' onclick='cekSimulasi(" +
+        Math.max(1,jumlah - 1) + ")'>" +
+
+        Math.max(1,jumlah - 1) +
+
+        "</button>";
+
+}
+
+function cekSimulasi(jawaban){
+
+    let benar = angkaSimulasi.length;
+
+    if(jawaban === benar){
+
+        document.getElementById("simulasiJawaban").innerHTML +=
+        "<p class='feedback' style='color:#16a34a'>✅ Benar! n(A) = " +
+        benar + "</p>";
+
+    }else{
+
+        document.getElementById("simulasiJawaban").innerHTML +=
+        "<p class='feedback' style='color:#dc2626'>❌ Belum tepat. Hitung kembali banyak anggotanya.</p>";
+
+    }
+
+}
+
+generateSimulasi();
+
+
+/* =========================
+   GAME HIMPUNAN KOSONG
+========================= */
+
+let emptyCorrect = false;
+
+function generateEmptyGame(){
+
+    let data = [
+
+        {
+            text:"A = {bilangan asli yang kurang dari 0}",
+            correct:true
+        },
+
+        {
+            text:"B = {2, 4, 6, 8}",
+            correct:false
+        },
+
+        {
+            text:"C = {bilangan prima antara 10 dan 11}",
+            correct:true
+        },
+
+        {
+            text:"D = {1, 3, 5, 7}",
+            correct:false
+        },
+
+        {
+            text:"E = {bilangan bulat antara 2 dan 3}",
+            correct:true
+        },
+
+        {
+            text:"F = {5, 10, 15}",
+            correct:false
+        }
+
+    ];
+
+    let soal =
+        data[Math.floor(Math.random()*data.length)];
+
+    emptyCorrect = soal.correct;
+
+    document.getElementById("emptyQuestion").innerHTML =
+        soal.text;
+
+    document.getElementById("emptyFeedback").innerHTML = "";
+
+}
+
+function jawabKosong(jawaban){
+
+    let feedback =
+        document.getElementById("emptyFeedback");
+
+    if(jawaban === emptyCorrect){
+
+        feedback.innerHTML =
+        "🎉 BENAR! Kamu berhasil menjadi detektif himpunan.";
+
+        feedback.style.color = "#16a34a";
+
+    }else{
+
+        feedback.innerHTML =
+        "❌ Belum tepat. Perhatikan apakah ada anggota yang memenuhi syarat.";
+
+        feedback.style.color = "#dc2626";
+
+    }
+
+}
+
+generateEmptyGame();
+
+
+/* =========================
+   SOAL LEVEL
+========================= */
+
+const bankSoal = {
+
+mudah:[
+
+{
+q:"Himpunan yang tidak memiliki anggota disebut...",
+a:[
+"Himpunan kosong",
+"Himpunan semesta",
+"Himpunan bagian",
+"Himpunan bilangan"
+],
+correct:0
+},
+
+{
+q:"Simbol yang digunakan untuk himpunan kosong adalah...",
+a:[
+"∅",
+"∈",
+"⊂",
+"="
+],
+correct:0
+},
+
+{
+q:"A = {2,4,6,8}. Banyak anggota A adalah...",
+a:[
+"3",
+"4",
+"5",
+"6"
+],
+correct:1
+},
+
+{
+q:"Jika B = {a,b,c}, maka n(B) = ...",
+a:[
+"1",
+"2",
+"3",
+"4"
+],
+correct:2
+},
+
+{
+q:"Himpunan semesta biasanya dilambangkan dengan...",
+a:[
+"A",
+"B",
+"S",
+"K"
+],
+correct:2
+},
+
+{
+q:"C = {bilangan asli kurang dari 0}. Maka C adalah...",
+a:[
+"Himpunan kosong",
+"Himpunan semesta",
+"Himpunan tak hingga",
+"Himpunan bagian"
+],
+correct:0
+},
+
+{
+q:"D = {1,2,3,4,5}. Nilai n(D) adalah...",
+a:[
+"3",
+"4",
+"5",
+"6"
+],
+correct:2
+},
+
+{
+q:"E = {a,i,u,e,o}. Banyak anggota E adalah...",
+a:[
+"4",
+"5",
+"6",
+"7"
+],
+correct:1
+},
+
+{
+q:"Himpunan kosong mempunyai anggota sebanyak...",
+a:[
+"0",
+"1",
+"2",
+"Tak hingga"
+],
+correct:0
+},
+
+{
+q:"Jika A = ∅, maka n(A) = ...",
+a:[
+"0",
+"1",
+"2",
+"10"
+],
+correct:0
+},
+
+{
+q:"F = {10,20,30}. Kardinalitas F adalah...",
+a:[
+"2",
+"3",
+"4",
+"5"
+],
+correct:1
+},
+
+{
+q:"Himpunan semesta adalah himpunan yang...",
+a:[
+"Tidak punya anggota",
+"Memuat semua objek yang dibicarakan",
+"Hanya punya satu anggota",
+"Selalu kosong"
+],
+correct:1
+},
+
+{
+q:"G = {2,4,6,8,10,12}. n(G) = ...",
+a:[
+"5",
+"6",
+"7",
+"8"
+],
+correct:1
+},
+
+{
+q:"H = {bilangan prima antara 2 dan 3}. H adalah...",
+a:[
+"Kosong",
+"Berisi 1 anggota",
+"Berisi 2 anggota",
+"Tak hingga"
+],
+correct:0
+},
+
+{
+q:"Jika P = {merah, kuning, hijau}, maka n(P) = ...",
+a:[
+"2",
+"3",
+"4",
+"5"
+],
+correct:1
+}
+
+],
+
+sedang:[
+
+{
+q:"S = {1,2,3,4,5,6,7,8,9,10}. A adalah bilangan genap dalam S. n(A) = ...",
+a:["4","5","6","10"],
+correct:1
+},
+
+{
+q:"S = {1,...,20}. A adalah kelipatan 5. n(A) = ...",
+a:["3","4","5","6"],
+correct:1
+},
+
+{
+q:"A = {2,4,6,8,10}. Jika satu anggota dihapus, berapa kardinalitas A sekarang?",
+a:["3","4","5","6"],
+correct:1
+},
+
+{
+q:"S = {1,...,15}. A adalah bilangan ganjil. Banyak anggota A adalah...",
+a:["7","8","9","10"],
+correct:1
+},
+
+{
+q:"A = {bilangan asli antara 5 dan 10}. Maka n(A) = ...",
+a:["4","5","6","7"],
+correct:1
+},
+
+{
+q:"A = {3,6,9,12,15}. Jika ditambahkan 18, maka n(A) menjadi...",
+a:["5","6","7","8"],
+correct:1
+},
+
+{
+q:"S = {1,...,10}. A = {bilangan prima}. Banyak anggota A adalah...",
+a:["3","4","5","6"],
+correct:1
+},
+
+{
+q:"B = {1,2,3,4,5,6}. Himpunan bilangan genap dalam B memiliki...",
+a:["2 anggota","3 anggota","4 anggota","5 anggota"],
+correct:1
+},
+
+{
+q:"A = {a,e,i,o,u}. Jika huruf 'a' dihapus, n(A) menjadi...",
+a:["3","4","5","6"],
+correct:1
+},
+
+{
+q:"Himpunan bilangan bulat antara -2 dan 2 adalah...",
+a:[
+"{-2,-1,0,1,2}",
+"{-1,0,1}",
+"{0,1,2}",
+"{-2,2}"
+],
+correct:1
+},
+
+{
+q:"Himpunan bilangan asli kurang dari 5 memiliki anggota...",
+a:[
+"{0,1,2,3,4}",
+"{1,2,3,4}",
+"{1,2,3,4,5}",
+"{0,1,2,3,4,5}"
+],
+correct:1
+},
+
+{
+q:"S = {a,b,c,d,e}. A = {a,c,e}. n(A) = ...",
+a:["2","3","4","5"],
+correct:1
+},
+
+{
+q:"Jika n(A)=7 dan satu anggota A dihapus, maka kardinalitas A menjadi...",
+a:["5","6","7","8"],
+correct:1
+},
+
+{
+q:"A adalah himpunan bilangan genap dari 1 sampai 12. n(A) = ...",
+a:["5","6","7","12"],
+correct:1
+},
+
+{
+q:"Himpunan bilangan prima kurang dari 10 mempunyai anggota...",
+a:[
+"{1,2,3,5,7}",
+"{2,3,5,7}",
+"{2,4,6,8}",
+"{3,5,7,9}"
+],
+correct:1
+}
+
+],
+
+sulit:[
+
+{
+q:"S = {1,...,30}. A = kelipatan 3 dan B = kelipatan 5. Banyak anggota A adalah...",
+a:["8","9","10","11"],
+correct:2
+},
+
+{
+q:"S = {1,...,50}. Banyak bilangan genap dalam S adalah...",
+a:["20","25","30","50"],
+correct:1
+},
+
+{
+q:"S = {1,...,100}. A adalah bilangan kelipatan 10. n(A) = ...",
+a:["9","10","11","20"],
+correct:1
+},
+
+{
+q:"A = {bilangan prima kurang dari 20}. Banyak anggota A adalah...",
+a:["7","8","9","10"],
+correct:1
+},
+
+{
+q:"S = {1,...,20}. A adalah bilangan prima dan genap. Maka A adalah...",
+a:[
+"∅",
+"{2}",
+"{2,4}",
+"{2,6}"
+],
+correct:1
+},
+
+{
+q:"S = {1,...,20}. A adalah bilangan lebih dari 20. Maka n(A) = ...",
+a:["0","1","2","20"],
+correct:0
+},
+
+{
+q:"A = {2,4,6,8,10}. B = {1,3,5,7,9}. Banyak anggota A dan B jika digabung tanpa pengulangan adalah...",
+a:["5","8","9","10"],
+correct:3
+},
+
+{
+q:"S = {1,...,30}. Himpunan bilangan yang habis dibagi 2 dan 3 memiliki...",
+a:["4","5","6","7"],
+correct:2
+},
+
+{
+q:"A = {bilangan bulat x | -3 < x < 4}. Banyak anggota A adalah...",
+a:["5","6","7","8"],
+correct:2
+},
+
+{
+q:"S = {1,...,40}. A = kelipatan 4. n(A) = ...",
+a:["8","9","10","11"],
+correct:2
+},
+
+{
+q:"A = {1,2,3,...,10}. Jika semua anggota kelipatan 2 dihapus, tersisa...",
+a:["4","5","6","7"],
+correct:1
+},
+
+{
+q:"S = {1,...,25}. Banyak bilangan yang bukan kelipatan 5 adalah...",
+a:["15","18","20","22"],
+correct:2
+},
+
+{
+q:"A = {bilangan asli antara 10 dan 20}. n(A) = ...",
+a:["9","10","11","12"],
+correct:1
+},
+
+{
+q:"S = {1,...,50}. A = kelipatan 7. Banyak anggota A adalah...",
+a:["6","7","8","9"],
+correct:2
+},
+
+{
+q:"S = {1,...,15}. A = bilangan prima. Jika 2 dikeluarkan dari A, maka n(A) menjadi...",
+a:["5","6","7","8"],
+correct:1
+}
+
+]
+
+};
+
+
+/* =========================
+   LEVEL SYSTEM
+========================= */
+
+let levelState = {
+
+    mudah:{
+        score:0,
+        answered:0,
+        questions:[]
+    },
+
+    sedang:{
+        score:0,
+        answered:0,
+        questions:[]
+    },
+
+    sulit:{
+        score:0,
+        answered:0,
+        questions:[]
+    }
+
+};
+
+
+function openLevel(level){
+
+    document.querySelectorAll(".level")
+        .forEach(function(el){
+            el.classList.remove("active");
+        });
+
+    document.getElementById(level)
+        .classList.add("active");
+
+    generateLevel(level);
+
+    document.getElementById(level)
+        .scrollIntoView({
+            behavior:"smooth"
+        });
+
+}
+
+
+function shuffle(array){
+
+    return array.sort(function(){
+        return Math.random() - 0.5;
+    });
+
+}
+
+
+function generateLevel(level){
+
+    let state = levelState[level];
+
+    state.score = 0;
+    state.answered = 0;
+
+    state.questions =
+        shuffle([...bankSoal[level]])
+        .slice(0,5);
+
+    document.getElementById("score"+capitalize(level))
+        .textContent = 0;
+
+    document.getElementById("progress"+capitalize(level))
+        .style.width = "0%";
+
+    renderQuestions(level);
+
+}
+
+
+function renderQuestions(level){
+
+    let container =
+        document.getElementById("soal"+capitalize(level));
+
+    container.innerHTML = "";
+
+    levelState[level].questions.forEach(
+        function(soal,index){
+
+            let html = `
+
+            <div class="question">
+
+                <h3>
+                    ${index+1}. ${soal.q}
+                </h3>
+
+                <div id="options-${level}-${index}">
+            `;
+
+            soal.a.forEach(function(option,i){
+
+                html += `
+
+                <button
+                    class="option"
+                    onclick="answerQuestion(
+                        '${level}',
+                        ${index},
+                        ${i},
+                        this
+                    )">
+
+                    ${String.fromCharCode(65+i)}.
+                    ${option}
+
+                </button>
+
+                `;
+
+            });
+
+            html += `
+
+                </div>
+
+                <div id="feedback-${level}-${index}"
+                     class="feedback">
+                </div>
+
+            </div>
+
+            `;
+
+            container.innerHTML += html;
+
+        }
+    );
+
+}
+
+
+function answerQuestion(level,index,answer,button){
+
+    let state = levelState[level];
+
+    if(
+        document
+        .getElementById("feedback-"+level+"-"+index)
+        .dataset.answered === "true"
+    ){
+
+        return;
+
+    }
+
+    let soal = state.questions[index];
+
+    let feedback =
+        document.getElementById(
+            "feedback-"+level+"-"+index
+        );
+
+    feedback.dataset.answered = "true";
+
+    let buttons =
+        document.querySelectorAll(
+            "#options-"+level+"-"+index+" .option"
+        );
+
+    buttons.forEach(function(btn){
+        btn.disabled = true;
+    });
+
+    if(answer === soal.correct){
+
+        state.score++;
+
+        button.classList.add("correct");
+
+        feedback.innerHTML =
+            "✅ Benar! Bagus, lanjutkan.";
+
+        feedback.style.color =
+            "#16a34a";
+
+    }else{
+
+        button.classList.add("wrong");
+
+        buttons[soal.correct]
+            .classList.add("correct");
+
+        feedback.innerHTML =
+            "❌ Belum tepat. Jawaban yang benar adalah <b>" +
+            soal.a[soal.correct] +
+            "</b>";
+
+        feedback.style.color =
+            "#dc2626";
+
+    }
+
+    state.answered++;
+
+    document.getElementById(
+        "score"+capitalize(level)
+    ).textContent = state.score;
+
+    let progress =
+        (state.answered / state.questions.length) * 100;
+
+    document.getElementById(
+        "progress"+capitalize(level)
+    ).style.width = progress + "%";
+
+    if(state.answered === state.questions.length){
+
+        setTimeout(function(){
+
+            let nilai =
+                Math.round(
+                    state.score /
+                    state.questions.length *
+                    100
+                );
+
+            let pesan = "";
+
+            if(nilai === 100){
+                pesan =
+                "🏆 Sempurna! Kamu menguasai level ini.";
+            }
+            else if(nilai >= 80){
+                pesan =
+                "🎉 Sangat baik! Tinggal sedikit lagi menuju sempurna.";
+            }
+            else if(nilai >= 60){
+                pesan =
+                "👍 Bagus. Coba ulangi beberapa soal agar semakin kuat.";
+            }
+            else{
+                pesan =
+                "💪 Jangan menyerah. Baca kembali materi lalu coba lagi.";
+            }
+
+            alert(
+                "LEVEL SELESAI!\n\n" +
+                "Skor: " +
+                state.score +
+                "/" +
+                state.questions.length +
+                "\nNilai: " +
+                nilai +
+                "\n\n" +
+                pesan
+            );
+
+        },300);
+
+    }
+
+}
+
+
+function capitalize(text){
+
+    return text.charAt(0).toUpperCase() +
+           text.slice(1);
+
+}
+
+
+/* =========================
+   REFLEKSI
+========================= */
+
+function simpanRefleksi(){
+
+    let isi =
+        document.getElementById("refleksi")
+        .value.trim();
+
+    if(!isi){
+
+        document.getElementById(
+            "refleksiFeedback"
+        ).innerHTML =
+        "<p style='color:#dc2626'>⚠️ Tuliskan refleksimu terlebih dahulu.</p>";
+
+        return;
+    }
+
+    document.getElementById(
+        "refleksiFeedback"
+    ).innerHTML =
+    "<p style='color:#16a34a'>✅ Refleksi tersimpan di perangkat ini.</p>";
+
+    localStorage.setItem(
+        "refleksi_himpunan_p3",
+        isi
+    );
+
+}
+
+
+/* =========================
+   MODE SMART TV
+========================= */
+
+function toggleTV(){
+
+    document.body.classList.toggle("tv");
+
+    if(document.body.classList.contains("tv")){
+
+        document.querySelector(".tv-mode")
+            .textContent =
+            "📱 Kembali ke Mode Normal";
+
+    }else{
+
+        document.querySelector(".tv-mode")
+            .textContent =
+            "📺 Mode SMART TV";
+
+    }
+
+}
+
+
+/* =========================
+   LOAD DATA
+========================= */
+
+window.addEventListener("load",function(){
+
+    let refleksi =
+        localStorage.getItem(
+            "refleksi_himpunan_p3"
+        );
+
+    if(refleksi){
+
+        document.getElementById("refleksi")
+            .value = refleksi;
+
+    }
+
+});
+
+</script>
+
+</body>
+</html>
