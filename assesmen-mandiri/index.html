@@ -3,18 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Asesmen Mandiri Himpunan - Pertemuan 3</title>
 
 <style>
-
 *{
     box-sizing:border-box;
 }
 
 body{
     margin:0;
-    font-family:Arial,sans-serif;
+    font-family:Arial, sans-serif;
     background:#f1f5f9;
     color:#172033;
 }
@@ -28,37 +26,56 @@ header{
 
 header h1{
     margin:0 0 8px;
+    font-size:30px;
 }
 
 .container{
-    max-width:900px;
+    max-width:950px;
     margin:auto;
     padding:20px;
 }
 
 .card{
     background:white;
-    padding:22px;
     border-radius:18px;
+    padding:22px;
     margin-bottom:20px;
     box-shadow:0 5px 18px rgba(0,0,0,.08);
 }
 
-input{
+.badge{
+    display:inline-block;
+    padding:7px 13px;
+    border-radius:20px;
+    background:#dbeafe;
+    color:#1d4ed8;
+    font-weight:bold;
+    margin-bottom:10px;
+}
+
+input, textarea{
     width:100%;
     padding:13px;
     border:2px solid #cbd5e1;
     border-radius:10px;
     font-size:16px;
-    margin:8px 0 15px;
+}
+
+textarea{
+    resize:vertical;
 }
 
 .question{
-    padding:18px;
+    padding:20px;
+    background:#f8fafc;
     border:1px solid #e2e8f0;
     border-radius:15px;
-    margin:15px 0;
-    background:#f8fafc;
+    margin-bottom:18px;
+}
+
+.question h3{
+    margin-top:0;
+    line-height:1.5;
 }
 
 .option{
@@ -67,9 +84,9 @@ input{
     text-align:left;
     background:white;
     border:2px solid #cbd5e1;
+    border-radius:10px;
     padding:13px;
     margin:8px 0;
-    border-radius:10px;
     cursor:pointer;
     font-size:15px;
 }
@@ -83,6 +100,16 @@ input{
     border-color:#2563eb;
 }
 
+.option.correct{
+    background:#dcfce7;
+    border-color:#16a34a;
+}
+
+.option.wrong{
+    background:#fee2e2;
+    border-color:#dc2626;
+}
+
 button{
     border:none;
     border-radius:12px;
@@ -92,84 +119,121 @@ button{
     cursor:pointer;
 }
 
-.btn{
+.btn-primary{
     background:#2563eb;
     color:white;
 }
 
-.btn:hover{
-    opacity:.85;
+.btn-success{
+    background:#16a34a;
+    color:white;
+}
+
+.btn-danger{
+    background:#dc2626;
+    color:white;
+}
+
+.btn-dark{
+    background:#172033;
+    color:white;
+}
+
+.submit{
+    width:100%;
+    font-size:18px;
+    padding:16px;
 }
 
 .result{
     display:none;
 }
 
-.result-box{
-    padding:25px;
-    border-radius:15px;
-    text-align:center;
-    background:#eff6ff;
-}
-
 .nilai{
-    font-size:50px;
+    font-size:55px;
     font-weight:bold;
     color:#2563eb;
+    text-align:center;
 }
 
 .status{
     font-size:24px;
     font-weight:bold;
-    margin:10px;
+    text-align:center;
+    margin:10px 0;
+}
+
+.result-box{
+    padding:25px;
+    background:#eff6ff;
+    border-radius:15px;
 }
 
 .indikator{
-    text-align:left;
-    background:white;
-    padding:15px;
-    margin:10px 0;
-    border-radius:12px;
+    margin:18px 0;
+    padding:18px;
+    background:#f8fafc;
+    border-radius:14px;
+}
+
+.indikator-title{
+    font-size:18px;
+    font-weight:bold;
 }
 
 .bar{
-    height:15px;
+    width:100%;
+    height:18px;
     background:#e2e8f0;
     border-radius:20px;
     overflow:hidden;
+    margin-top:10px;
 }
 
 .fill{
+    width:0%;
     height:100%;
-    width:0;
+    transition:.5s;
     background:#2563eb;
 }
 
-.warning{
-    background:#fef3c7;
-    padding:15px;
-    border-radius:12px;
-    margin-top:15px;
+.feedback{
+    margin-top:10px;
+    font-weight:bold;
 }
 
-.success{
+.info{
+    background:#eff6ff;
+    padding:15px;
+    border-radius:12px;
+}
+
+.success-box{
     background:#dcfce7;
-    padding:15px;
+    padding:16px;
     border-radius:12px;
     margin-top:15px;
 }
 
-.refleksi{
-    width:100%;
-    min-height:120px;
-    padding:15px;
-    border:2px solid #cbd5e1;
+.warning-box{
+    background:#fef3c7;
+    padding:16px;
     border-radius:12px;
-    resize:vertical;
+    margin-top:15px;
 }
 
-.hidden{
-    display:none;
+.danger-box{
+    background:#fee2e2;
+    padding:16px;
+    border-radius:12px;
+    margin-top:15px;
+}
+
+.tv-button{
+    position:fixed;
+    right:15px;
+    bottom:15px;
+    z-index:1000;
 }
 
 footer{
@@ -178,8 +242,56 @@ footer{
     color:#64748b;
 }
 
+@media(max-width:600px){
+
+    header h1{
+        font-size:24px;
+    }
+
+    .container{
+        padding:10px;
+    }
+
+    .card{
+        padding:16px;
+    }
+
+    button{
+        font-size:15px;
+    }
+
+}
+
+/* SMART TV */
+
+body.tv{
+    font-size:21px;
+}
+
+body.tv header h1{
+    font-size:42px;
+}
+
+body.tv .container{
+    max-width:1300px;
+}
+
+body.tv .card{
+    padding:35px;
+}
+
+body.tv .question{
+    font-size:22px;
+}
+
+body.tv .option{
+    font-size:21px;
+    padding:18px;
+}
+
 </style>
 </head>
+
 
 <body>
 
@@ -187,13 +299,9 @@ footer{
 
 <h1>🧠 ASESMEN MANDIRI</h1>
 
-<p>
-Matematika — Himpunan Pertemuan 3
-</p>
+<p>Matematika — Himpunan</p>
 
-<p>
-Himpunan Kosong • Himpunan Semesta • Kardinalitas
-</p>
+<p><b>Pertemuan 3</b></p>
 
 </header>
 
@@ -205,22 +313,23 @@ Himpunan Kosong • Himpunan Semesta • Kardinalitas
 
 <div class="card">
 
-<h2>👤 Identitas</h2>
+<span class="badge">👤 IDENTITAS</span>
 
-<label>
-<b>Nama:</b>
-</label>
-
-<input
-type="text"
-id="nama"
-placeholder="Tuliskan nama kamu"
->
+<h2>Kenali Pemahamanmu</h2>
 
 <p>
-Kerjakan dengan jujur. Tujuan asesmen ini bukan untuk mencari siapa yang paling pintar,
-tetapi untuk mengetahui bagian mana yang sudah kamu pahami dan bagian mana yang masih perlu dipelajari.
+Asesmen ini bukan untuk membandingkan kamu dengan teman.
+Tujuannya adalah mengetahui bagian materi mana yang sudah kamu pahami
+dan bagian mana yang masih perlu dipelajari.
 </p>
+
+<label><b>Nama:</b></label>
+
+<input
+    type="text"
+    id="nama"
+    placeholder="Masukkan nama kamu"
+>
 
 </div>
 
@@ -229,396 +338,35 @@ tetapi untuk mengetahui bagian mana yang sudah kamu pahami dan bagian mana yang 
 
 <div class="card">
 
-<h2>📌 Petunjuk</h2>
+<span class="badge">📌 PETUNJUK</span>
 
-<ol>
-
+<ul>
 <li>Baca setiap soal dengan teliti.</li>
+<li>Pilih jawaban yang menurutmu paling tepat.</li>
+<li>Kerjakan secara mandiri.</li>
+<li>Jangan khawatir jika ada jawaban yang salah.</li>
+<li>Gunakan hasil akhir untuk mengetahui bagian yang perlu dipelajari kembali.</li>
+</ul>
 
-<li>Pilih satu jawaban yang menurutmu paling tepat.</li>
+<div class="info">
 
-<li>Kerjakan tanpa melihat jawaban teman.</li>
+<b>🎯 Yang akan diukur:</b>
 
-<li>Setelah selesai, lihat hasil pemahamanmu.</li>
+<br><br>
 
-<li>Jika masih ada bagian yang belum dipahami, pelajari kembali bagian tersebut.</li>
+1️⃣ Himpunan Kosong<br>
+2️⃣ Himpunan Semesta<br>
+3️⃣ Kardinalitas<br>
+4️⃣ Penerapan Konsep
 
-</ol>
+</div>
 
 </div>
 
 
-<!-- SOAL -->
+<!-- QUIZ -->
 
-<div id="quiz">
-
-
-<!-- SOAL 1 -->
-
-<div class="question">
-
-<h3>
-1. Himpunan yang tidak mempunyai anggota disebut...
-</h3>
-
-<button
-class="option"
-onclick="pilih(0,0,this)">
-A. Himpunan semesta
-</button>
-
-<button
-class="option"
-onclick="pilih(0,1,this)">
-B. Himpunan kosong
-</button>
-
-<button
-class="option"
-onclick="pilih(0,2,this)">
-C. Himpunan bagian
-</button>
-
-<button
-class="option"
-onclick="pilih(0,3,this)">
-D. Himpunan bilangan
-</button>
-
-</div>
-
-
-<!-- SOAL 2 -->
-
-<div class="question">
-
-<h3>
-2. Simbol yang tepat untuk menyatakan himpunan kosong adalah...
-</h3>
-
-<button
-class="option"
-onclick="pilih(1,0,this)">
-A. ∈
-</button>
-
-<button
-class="option"
-onclick="pilih(1,1,this)">
-B. ⊂
-</button>
-
-<button
-class="option"
-onclick="pilih(1,2,this)">
-C. ∅
-</button>
-
-<button
-class="option"
-onclick="pilih(1,3,this)">
-D. =
-</button>
-
-</div>
-
-
-<!-- SOAL 3 -->
-
-<div class="question">
-
-<h3>
-3. A = {2,4,6,8,10}. Banyak anggota A adalah...
-</h3>
-
-<button
-class="option"
-onclick="pilih(2,0,this)">
-A. 4
-</button>
-
-<button
-class="option"
-onclick="pilih(2,1,this)">
-B. 5
-</button>
-
-<button
-class="option"
-onclick="pilih(2,2,this)">
-C. 6
-</button>
-
-<button
-class="option"
-onclick="pilih(2,3,this)">
-D. 10
-</button>
-
-</div>
-
-
-<!-- SOAL 4 -->
-
-<div class="question">
-
-<h3>
-4. Himpunan semesta adalah...
-</h3>
-
-<button
-class="option"
-onclick="pilih(3,0,this)">
-A. Himpunan yang tidak memiliki anggota
-</button>
-
-<button
-class="option"
-onclick="pilih(3,1,this)">
-B. Himpunan yang hanya mempunyai satu anggota
-</button>
-
-<button
-class="option"
-onclick="pilih(3,2,this)">
-C. Himpunan yang memuat semua objek yang sedang dibicarakan
-</button>
-
-<button
-class="option"
-onclick="pilih(3,3,this)">
-D. Himpunan bilangan prima
-</button>
-
-</div>
-
-
-<!-- SOAL 5 -->
-
-<div class="question">
-
-<h3>
-5. S = {1,2,3,4,5,6,7,8,9,10}.
-<br>
-A adalah himpunan bilangan genap dalam S.
-<br>
-Banyak anggota A adalah...
-</h3>
-
-<button
-class="option"
-onclick="pilih(4,0,this)">
-A. 4
-</button>
-
-<button
-class="option"
-onclick="pilih(4,1,this)">
-B. 5
-</button>
-
-<button
-class="option"
-onclick="pilih(4,2,this)">
-C. 6
-</button>
-
-<button
-class="option"
-onclick="pilih(4,3,this)">
-D. 10
-</button>
-
-</div>
-
-
-<!-- SOAL 6 -->
-
-<div class="question">
-
-<h3>
-6. C = {bilangan asli yang kurang dari 0}.
-<br>
-Maka C adalah...
-</h3>
-
-<button
-class="option"
-onclick="pilih(5,0,this)">
-A. Himpunan kosong
-</button>
-
-<button
-class="option"
-onclick="pilih(5,1,this)">
-B. Himpunan semesta
-</button>
-
-<button
-class="option"
-onclick="pilih(5,2,this)">
-C. Himpunan beranggota satu
-</button>
-
-<button
-class="option"
-onclick="pilih(5,3,this)">
-D. Himpunan tak hingga
-</button>
-
-</div>
-
-
-<!-- SOAL 7 -->
-
-<div class="question">
-
-<h3>
-7. D = {a,i,u,e,o}.
-<br>
-Berapakah n(D)?
-</h3>
-
-<button
-class="option"
-onclick="pilih(6,0,this)">
-A. 3
-</button>
-
-<button
-class="option"
-onclick="pilih(6,1,this)">
-B. 4
-</button>
-
-<button
-class="option"
-onclick="pilih(6,2,this)">
-C. 5
-</button>
-
-<button
-class="option"
-onclick="pilih(6,3,this)">
-D. 6
-</button>
-
-</div>
-
-
-<!-- SOAL 8 -->
-
-<div class="question">
-
-<h3>
-8. Jika A = ∅, maka banyak anggota A adalah...
-</h3>
-
-<button
-class="option"
-onclick="pilih(7,0,this)">
-A. 0
-</button>
-
-<button
-class="option"
-onclick="pilih(7,1,this)">
-B. 1
-</button>
-
-<button
-class="option"
-onclick="pilih(7,2,this)">
-C. 2
-</button>
-
-<button
-class="option"
-onclick="pilih(7,3,this)">
-D. Tidak dapat ditentukan
-</button>
-
-</div>
-
-
-<!-- SOAL 9 -->
-
-<div class="question">
-
-<h3>
-9. S = {1,2,3,4,5,6,7,8,9,10}.
-<br>
-A = {2,4,6,8,10}.
-<br>
-Pernyataan yang benar adalah...
-</h3>
-
-<button
-class="option"
-onclick="pilih(8,0,this)">
-A. A bukan bagian dari S
-</button>
-
-<button
-class="option"
-onclick="pilih(8,1,this)">
-B. A merupakan himpunan bagian dari S
-</button>
-
-<button
-class="option"
-onclick="pilih(8,2,this)">
-C. S merupakan himpunan kosong
-</button>
-
-<button
-class="option"
-onclick="pilih(8,3,this)">
-D. A dan S tidak mempunyai hubungan
-</button>
-
-</div>
-
-
-<!-- SOAL 10 -->
-
-<div class="question">
-
-<h3>
-10. S = {1,...,20}.
-<br>
-A adalah himpunan bilangan lebih dari 20.
-<br>
-Maka A adalah...
-</h3>
-
-<button
-class="option"
-onclick="pilih(9,0,this)">
-A. Himpunan kosong
-</button>
-
-<button
-class="option"
-onclick="pilih(9,1,this)">
-B. Himpunan berisi satu anggota
-</button>
-
-<button
-class="option"
-onclick="pilih(9,2,this)">
-C. Himpunan berisi dua anggota
-</button>
-
-<button
-class="option"
-onclick="pilih(9,3,this)">
-D. Himpunan tak hingga
-</button>
-
-</div>
-
-</div>
+<div id="quiz"></div>
 
 
 <!-- SUBMIT -->
@@ -626,11 +374,10 @@ D. Himpunan tak hingga
 <div class="card">
 
 <button
-class="btn"
-style="width:100%;"
-onclick="hitungHasil()">
+    class="btn-primary submit"
+    onclick="hitungHasil()">
 
-📊 Lihat Hasil Pemahaman Saya
+📊 SELESAI — LIHAT HASIL PEMAHAMAN
 
 </button>
 
@@ -640,99 +387,125 @@ onclick="hitungHasil()">
 <!-- HASIL -->
 
 <div
-id="hasil"
-class="card result">
+    id="hasil"
+    class="card result">
 
-<h2>📊 Hasil Asesmen Mandiri</h2>
+<span class="badge">📊 HASIL ASESMEN</span>
+
+<h2>Hasil Pemahamanmu</h2>
 
 <div class="result-box">
 
-<p id="namaHasil"></p>
+<p id="namaHasil" style="text-align:center;"></p>
 
 <div
-id="nilai"
-class="nilai">
+    id="nilai"
+    class="nilai">
 0
 </div>
 
 <div
-id="status"
-class="status">
+    id="status"
+    class="status">
 </div>
 
-<p id="pesan"></p>
+<p
+    id="pesan"
+    style="text-align:center;">
+</p>
 
 </div>
 
 
 <h2>🔎 Peta Pemahaman</h2>
 
+<p>
+Perhatikan bagian mana yang sudah kuat dan bagian mana yang perlu
+kamu pelajari kembali.
+</p>
+
+
+<!-- KOSONG -->
 
 <div class="indikator">
 
-<b>1. Himpunan Kosong</b>
+<div class="indikator-title">
+1️⃣ Himpunan Kosong
+</div>
 
 <p id="detailKosong"></p>
 
 <div class="bar">
 
 <div
-id="barKosong"
-class="fill">
+    id="barKosong"
+    class="fill">
 </div>
 
 </div>
 
 </div>
 
+
+<!-- SEMESTA -->
 
 <div class="indikator">
 
-<b>2. Himpunan Semesta</b>
+<div class="indikator-title">
+2️⃣ Himpunan Semesta
+</div>
 
 <p id="detailSemesta"></p>
 
 <div class="bar">
 
 <div
-id="barSemesta"
-class="fill">
+    id="barSemesta"
+    class="fill">
 </div>
 
 </div>
 
 </div>
 
+
+<!-- KARDINALITAS -->
 
 <div class="indikator">
 
-<b>3. Kardinalitas</b>
+<div class="indikator-title">
+3️⃣ Kardinalitas
+</div>
 
 <p id="detailKardinalitas"></p>
 
 <div class="bar">
 
 <div
-id="barKardinalitas"
-class="fill">
+    id="barKardinalitas"
+    class="fill">
 </div>
 
 </div>
 
 </div>
 
+
+<!-- PENERAPAN -->
 
 <div class="indikator">
 
-<b>4. Penerapan Konsep</b>
+<div class="indikator-title">
+4️⃣ Penerapan Konsep
+</div>
 
 <p id="detailPenerapan"></p>
 
 <div class="bar">
 
 <div
-id="barPenerapan"
-class="fill">
+    id="barPenerapan"
+    class="fill">
 </div>
 
 </div>
@@ -741,127 +514,807 @@ class="fill">
 
 
 <div
-id="rekomendasi"
-class="warning">
+    id="rekomendasi">
 </div>
 
 
 <!-- REFLEKSI -->
 
-<h2>💭 Refleksi Diri</h2>
+<div class="card">
+
+<span class="badge">💭 REFLEKSI</span>
+
+<h2>Bagaimana Pemahamanmu?</h2>
 
 <p>
-Setelah melihat hasilmu, bagaimana perasaanmu terhadap materi hari ini?
+Setelah melihat hasilmu, tuliskan bagian yang menurutmu
+masih membingungkan.
 </p>
 
 <textarea
-id="refleksi"
-class="refleksi"
-placeholder="Contoh: Saya sudah paham himpunan kosong, tetapi masih bingung menentukan kardinalitas...">
+    id="refleksi"
+    rows="5"
+    placeholder="Contoh: Saya masih bingung membedakan himpunan kosong dan himpunan yang memiliki satu anggota.">
 </textarea>
 
+<br><br>
 
 <button
-class="btn"
-onclick="simpanHasil()">
+    class="btn-success"
+    onclick="simpanHasil()">
 
 💾 Simpan Hasil
 
 </button>
 
-
-<div
-id="simpanPesan">
-</div>
+<div id="simpanPesan"></div>
 
 </div>
 
 
 </div>
+
+</div>
+
+
+<button
+    class="btn-dark tv-button"
+    onclick="toggleTV()">
+
+📺 Mode Smart TV
+
+</button>
 
 
 <footer>
 
-Asesmen Mandiri Matematika — Himpunan Pertemuan 3
+LKPD Interaktif Matematika
+<br>
+Himpunan — Pertemuan 3
 
 </footer>
 
 
 <script>
 
-/* ==============================
-   JAWABAN BENAR
-============================== */
+/* =====================================================
+   BANK SOAL
+   20 SOAL PER INDIKATOR
+   SISTEM AKAN MENGAMBIL 15 SOAL
+   SECARA PROPORSIONAL
+===================================================== */
 
-const jawabanBenar = [
 
-1, // 1 himpunan kosong
-2, // 2 simbol kosong
-1, // 3 kardinalitas
-2, // 4 semesta
-1, // 5 kardinalitas
-0, // 6 kosong
-2, // 7 kardinalitas
-0, // 8 kosong
-1, // 9 himpunan bagian
-0  // 10 kosong
+const bankSoal = [
+
+/* =========================
+   HIMPUNAN KOSONG
+========================= */
+
+{
+kategori:"kosong",
+
+q:"Himpunan yang tidak mempunyai anggota disebut...",
+
+opsi:[
+"Himpunan kosong",
+"Himpunan semesta",
+"Himpunan bagian",
+"Himpunan bilangan"
+],
+
+jawaban:0
+},
+
+{
+kategori:"kosong",
+
+q:"Simbol yang tepat untuk menyatakan himpunan kosong adalah...",
+
+opsi:[
+"∈",
+"⊂",
+"∅",
+"="
+],
+
+jawaban:2
+},
+
+{
+kategori:"kosong",
+
+q:"A = {bilangan asli yang kurang dari 0}. Himpunan A adalah...",
+
+opsi:[
+"Himpunan kosong",
+"Himpunan semesta",
+"Himpunan berhingga",
+"Himpunan tak hingga"
+],
+
+jawaban:0
+},
+
+{
+kategori:"kosong",
+
+q:"B = {bilangan asli antara 2 dan 3}. Himpunan B adalah...",
+
+opsi:[
+"{2}",
+"{3}",
+"∅",
+"{2,3}"
+],
+
+jawaban:2
+},
+
+{
+kategori:"kosong",
+
+q:"Jika A = ∅, maka banyak anggota A adalah...",
+
+opsi:[
+"0",
+"1",
+"2",
+"Tak hingga"
+],
+
+jawaban:0
+},
+
+{
+kategori:"kosong",
+
+q:"C = {bilangan prima antara 8 dan 10}. Maka C adalah...",
+
+opsi:[
+"{8}",
+"{9}",
+"{10}",
+"∅"
+],
+
+jawaban:3
+},
+
+{
+kategori:"kosong",
+
+q:"Manakah yang merupakan himpunan kosong?",
+
+opsi:[
+"{1,2,3}",
+"{a,i,u,e,o}",
+"{bilangan asli kurang dari 0}",
+"{5,10,15}"
+],
+
+jawaban:2
+},
+
+{
+kategori:"kosong",
+
+q:"Himpunan kosong mempunyai jumlah anggota sebanyak...",
+
+opsi:[
+"0",
+"1",
+"5",
+"Tak terhingga"
+],
+
+jawaban:0
+},
+
+/* =========================
+   HIMPUNAN SEMESTA
+========================= */
+
+{
+kategori:"semesta",
+
+q:"Himpunan semesta adalah himpunan yang...",
+
+opsi:[
+"Tidak memiliki anggota",
+"Memuat semua objek yang sedang dibicarakan",
+"Hanya memiliki satu anggota",
+"Selalu berisi bilangan prima"
+],
+
+jawaban:1
+},
+
+{
+kategori:"semesta",
+
+q:"Himpunan semesta biasanya dilambangkan dengan huruf...",
+
+opsi:[
+"A",
+"B",
+"S",
+"K"
+],
+
+jawaban:2
+},
+
+{
+kategori:"semesta",
+
+q:"S = {1,2,3,4,5}. A = {2,4}. Pernyataan yang benar adalah...",
+
+opsi:[
+"A berada di luar S",
+"A merupakan bagian dari S",
+"S merupakan himpunan kosong",
+"A sama dengan S"
+],
+
+jawaban:1
+},
+
+{
+kategori:"semesta",
+
+q:"Jika sedang membicarakan siswa kelas VII, himpunan semestanya dapat berupa...",
+
+opsi:[
+"Semua siswa kelas VII",
+"Semua guru",
+"Semua kendaraan",
+"Semua buku"
+],
+
+jawaban:0
+},
+
+{
+kategori:"semesta",
+
+q:"S = {1,2,3,4,5,6,7,8,9,10}. A adalah bilangan genap. Himpunan semesta yang sesuai adalah...",
+
+opsi:[
+"S = {1,...,10}",
+"S = {2,4,6,8,10}",
+"S = ∅",
+"S = {1,3,5,7,9}"
+],
+
+jawaban:0
+},
+
+{
+kategori:"semesta",
+
+q:"Jika semesta S = {a,b,c,d,e}, maka himpunan yang merupakan bagian dari S adalah...",
+
+opsi:[
+"{a,c}",
+"{f,g}",
+"{x,y}",
+"{p}"
+],
+
+jawaban:0
+},
+
+{
+kategori:"semesta",
+
+q:"Dalam pembahasan bilangan 1 sampai 20, himpunan semestanya dapat ditulis...",
+
+opsi:[
+"{1,2,...,20}",
+"{21,22,...}",
+"∅",
+"{100,200}"
+],
+
+jawaban:0
+},
+
+{
+kategori:"semesta",
+
+q:"Sebuah kelas memiliki siswa laki-laki dan perempuan. Jika yang dibicarakan adalah seluruh siswa kelas tersebut, semestanya adalah...",
+
+opsi:[
+"Semua siswa kelas tersebut",
+"Hanya siswa laki-laki",
+"Hanya siswa perempuan",
+"Guru kelas"
+],
+
+jawaban:0
+},
+
+/* =========================
+   KARDINALITAS
+========================= */
+
+{
+kategori:"kardinalitas",
+
+q:"A = {2,4,6,8}. Nilai n(A) adalah...",
+
+opsi:[
+"2",
+"3",
+"4",
+"5"
+],
+
+jawaban:2
+},
+
+{
+kategori:"kardinalitas",
+
+q:"B = {a,b,c,d,e}. Banyak anggota B adalah...",
+
+opsi:[
+"3",
+"4",
+"5",
+"6"
+],
+
+jawaban:2
+},
+
+{
+kategori:"kardinalitas",
+
+q:"C = {1,3,5,7,9}. Maka n(C) = ...",
+
+opsi:[
+"4",
+"5",
+"6",
+"9"
+],
+
+jawaban:1
+},
+
+{
+kategori:"kardinalitas",
+
+q:"D = {10,20,30,40,50,60}. Banyak anggota D adalah...",
+
+opsi:[
+"5",
+"6",
+"7",
+"10"
+],
+
+jawaban:1
+},
+
+{
+kategori:"kardinalitas",
+
+q:"E = {a,i,u,e,o}. Nilai n(E) adalah...",
+
+opsi:[
+"4",
+"5",
+"6",
+"7"
+],
+
+jawaban:1
+},
+
+{
+kategori:"kardinalitas",
+
+q:"F = {1,2,3,4,5,6,7}. Banyak anggota F adalah...",
+
+opsi:[
+"5",
+"6",
+"7",
+"8"
+],
+
+jawaban:2
+},
+
+{
+kategori:"kardinalitas",
+
+q:"Jika A = ∅, maka n(A) = ...",
+
+opsi:[
+"0",
+"1",
+"2",
+"Tak hingga"
+],
+
+jawaban:0
+},
+
+{
+kategori:"kardinalitas",
+
+q:"G = {bilangan genap dari 2 sampai 12}. Nilai n(G) adalah...",
+
+opsi:[
+"5",
+"6",
+"7",
+"8"
+],
+
+jawaban:1
+},
+
+{
+kategori:"kardinalitas",
+
+q:"H = {bilangan ganjil dari 1 sampai 9}. Banyak anggota H adalah...",
+
+opsi:[
+"4",
+"5",
+"6",
+"9"
+],
+
+jawaban:1
+},
+
+/* =========================
+   PENERAPAN
+========================= */
+
+{
+kategori:"penerapan",
+
+q:"S = {1,...,10}. A = bilangan genap. Banyak anggota A adalah...",
+
+opsi:[
+"4",
+"5",
+"6",
+"10"
+],
+
+jawaban:1
+},
+
+{
+kategori:"penerapan",
+
+q:"S = {1,...,15}. A = bilangan ganjil. Banyak anggota A adalah...",
+
+opsi:[
+"7",
+"8",
+"9",
+"15"
+],
+
+jawaban:1
+},
+
+{
+kategori:"penerapan",
+
+q:"S = {1,...,20}. A = kelipatan 5. Maka A adalah...",
+
+opsi:[
+"{5,10,15,20}",
+"{1,5,10}",
+"{5,10,15}",
+"{10,20}"
+],
+
+jawaban:0
+},
+
+{
+kategori:"penerapan",
+
+q:"S = {1,...,10}. Himpunan bilangan prima adalah...",
+
+opsi:[
+"{1,2,3,5,7}",
+"{2,3,5,7}",
+"{2,4,6,8,10}",
+"{3,5,7,9}"
+],
+
+jawaban:1
+},
+
+{
+kategori:"penerapan",
+
+q:"A = {2,4,6,8,10}. Jika anggota 10 dihapus, maka n(A) menjadi...",
+
+opsi:[
+"3",
+"4",
+"5",
+"6"
+],
+
+jawaban:1
+},
+
+{
+kategori:"penerapan",
+
+q:"A = {1,2,3,4,5}. Jika ditambahkan anggota 6, maka n(A) menjadi...",
+
+opsi:[
+"5",
+"6",
+"7",
+"4"
+],
+
+jawaban:1
+},
+
+{
+kategori:"penerapan",
+
+q:"S = {1,...,20}. A adalah bilangan lebih dari 20. Maka A adalah...",
+
+opsi:[
+"∅",
+"{20}",
+"{21}",
+"{1,2}"
+],
+
+jawaban:0
+},
+
+{
+kategori:"penerapan",
+
+q:"S = {1,...,12}. A adalah bilangan yang habis dibagi 3. Banyak anggota A adalah...",
+
+opsi:[
+"3",
+"4",
+"5",
+"6"
+],
+
+jawaban:1
+},
+
+{
+kategori:"penerapan",
+
+q:"A = {2,4,6,8}. B = {1,3,5,7}. Jika semua anggota A dan B digabung tanpa pengulangan, banyak anggotanya adalah...",
+
+opsi:[
+"4",
+"6",
+"8",
+"10"
+],
+
+jawaban:2
+},
+
+{
+kategori:"penerapan",
+
+q:"S = {1,...,10}. A = bilangan genap dan B = bilangan ganjil. Banyak anggota A dan B jika digabung adalah...",
+
+opsi:[
+"5",
+"8",
+"10",
+"12"
+],
+
+jawaban:2
+}
 
 ];
 
 
-/* ==============================
-   JAWABAN SISWA
-============================== */
+/* =====================================================
+   ACAK
+===================================================== */
 
-let jawabanSiswa =
-Array(10).fill(null);
+function acak(array){
 
-
-/* ==============================
-   PILIH JAWABAN
-============================== */
-
-function pilih(no,jawaban,button){
-
-    jawabanSiswa[no] = jawaban;
-
-    let question =
-        button.parentElement;
-
-    let semua =
-        question.querySelectorAll(".option");
-
-    semua.forEach(function(btn){
-
-        btn.classList.remove("selected");
-
-    });
-
-    button.classList.add("selected");
+    return [...array].sort(
+        () => Math.random() - 0.5
+    );
 
 }
 
 
-/* ==============================
-   HITUNG HASIL
-============================== */
+/* =====================================================
+   AMBIL 15 SOAL
+   4 KOSONG
+   3 SEMESTA
+   4 KARDINALITAS
+   4 PENERAPAN
+===================================================== */
+
+function buatSoal(){
+
+    let kosong =
+        acak(
+            bankSoal.filter(
+                x => x.kategori === "kosong"
+            )
+        ).slice(0,4);
+
+    let semesta =
+        acak(
+            bankSoal.filter(
+                x => x.kategori === "semesta"
+            )
+        ).slice(0,3);
+
+    let kardinalitas =
+        acak(
+            bankSoal.filter(
+                x => x.kategori === "kardinalitas"
+            )
+        ).slice(0,4);
+
+    let penerapan =
+        acak(
+            bankSoal.filter(
+                x => x.kategori === "penerapan"
+            )
+        ).slice(0,4);
+
+    return acak([
+        ...kosong,
+        ...semesta,
+        ...kardinalitas,
+        ...penerapan
+    ]);
+
+}
+
+
+const soalDipakai = buatSoal();
+
+let jawabanSiswa =
+Array(15).fill(null);
+
+
+/* =====================================================
+   TAMPILKAN SOAL
+===================================================== */
+
+function tampilkanSoal(){
+
+    let quiz =
+        document.getElementById("quiz");
+
+    quiz.innerHTML = "";
+
+
+    soalDipakai.forEach(
+        function(soal,index){
+
+            let html = `
+
+            <div class="question">
+
+            <h3>
+            ${index+1}. ${soal.q}
+            </h3>
+
+            <div id="opsi-${index}">
+            `;
+
+
+            soal.opsi.forEach(
+                function(option,i){
+
+                    html += `
+
+                    <button
+                    class="option"
+                    onclick="pilih(${index},${i},this)">
+
+                    ${String.fromCharCode(65+i)}.
+                    ${option}
+
+                    </button>
+
+                    `;
+
+                }
+            );
+
+
+            html += `
+            </div>
+
+            </div>
+            `;
+
+
+            quiz.innerHTML += html;
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   PILIH JAWABAN
+===================================================== */
+
+function pilih(
+    nomor,
+    jawaban,
+    tombol
+){
+
+    jawabanSiswa[nomor] =
+        jawaban;
+
+
+    let parent =
+        tombol.parentElement;
+
+
+    parent
+        .querySelectorAll(".option")
+        .forEach(
+            function(btn){
+
+                btn.classList
+                    .remove("selected");
+
+            }
+        );
+
+
+    tombol.classList
+        .add("selected");
+
+}
+
+
+/* =====================================================
+   HITUNG
+===================================================== */
 
 function hitungHasil(){
 
     let nama =
-        document.getElementById("nama")
+        document
+        .getElementById("nama")
         .value.trim();
+
 
     if(!nama){
 
-        alert("Silakan tuliskan nama terlebih dahulu.");
-
-        document
-        .getElementById("nama")
-        .focus();
+        alert(
+            "Silakan masukkan nama terlebih dahulu."
+        );
 
         return;
-
     }
 
 
@@ -884,17 +1337,54 @@ function hitungHasil(){
     }
 
 
-    let benar = 0;
+    let totalBenar = 0;
 
 
-    jawabanSiswa.forEach(
-        function(jawaban,index){
+    let indikator = {
+
+        kosong:{
+            benar:0,
+            total:0
+        },
+
+        semesta:{
+            benar:0,
+            total:0
+        },
+
+        kardinalitas:{
+            benar:0,
+            total:0
+        },
+
+        penerapan:{
+            benar:0,
+            total:0
+        }
+
+    };
+
+
+    soalDipakai.forEach(
+        function(soal,index){
+
+            let kategori =
+                soal.kategori;
+
+
+            indikator[kategori]
+                .total++;
+
 
             if(
-                jawaban === jawabanBenar[index]
+                jawabanSiswa[index]
+                === soal.jawaban
             ){
 
-                benar++;
+                totalBenar++;
+
+                indikator[kategori]
+                    .benar++;
 
             }
 
@@ -903,112 +1393,53 @@ function hitungHasil(){
 
 
     let nilai =
-        benar * 10;
+        Math.round(
+            totalBenar /
+            soalDipakai.length *
+            100
+        );
 
 
-    /* ==========================
-       INDIKATOR
-    ========================== */
-
-    let kosongBenar = 0;
-
-    let semestaBenar = 0;
-
-    let kardinalitasBenar = 0;
-
-    let penerapanBenar = 0;
-
-
-    /*
-       Soal:
-       1,2,6,8 = kosong
-       4 = semesta
-       3,5,7 = kardinalitas
-       9,10 = penerapan
-    */
-
-
-    [0,1,5,7].forEach(
-        function(i){
-
-            if(
-                jawabanSiswa[i] ===
-                jawabanBenar[i]
-            ){
-
-                kosongBenar++;
-
-            }
-
-        }
+    tampilkanHasil(
+        nama,
+        nilai,
+        indikator
     );
 
-
-    if(
-        jawabanSiswa[3] ===
-        jawabanBenar[3]
-    ){
-
-        semestaBenar++;
-
-    }
+}
 
 
-    [2,4,6].forEach(
-        function(i){
+/* =====================================================
+   HASIL
+===================================================== */
 
-            if(
-                jawabanSiswa[i] ===
-                jawabanBenar[i]
-            ){
-
-                kardinalitasBenar++;
-
-            }
-
-        }
-    );
-
-
-    [8,9].forEach(
-        function(i){
-
-            if(
-                jawabanSiswa[i] ===
-                jawabanBenar[i]
-            ){
-
-                penerapanBenar++;
-
-            }
-
-        }
-    );
-
-
-    /* ==========================
-       TAMPILKAN HASIL
-    ========================== */
+function tampilkanHasil(
+    nama,
+    nilai,
+    indikator
+){
 
     document
-    .getElementById("hasil")
-    .style.display = "block";
+        .getElementById("hasil")
+        .style.display =
+        "block";
 
 
     document
-    .getElementById("namaHasil")
-    .innerHTML =
-    "Nama: <b>" + nama + "</b>";
+        .getElementById("namaHasil")
+        .innerHTML =
+        "Nama: <b>" +
+        nama +
+        "</b>";
 
 
     document
-    .getElementById("nilai")
-    .innerHTML =
-    nilai;
+        .getElementById("nilai")
+        .innerHTML =
+        nilai;
 
 
     let status = "";
-
     let pesan = "";
 
 
@@ -1018,189 +1449,237 @@ function hitungHasil(){
         "🌟 Sangat Paham";
 
         pesan =
-        "Pemahamanmu terhadap materi sudah sangat baik. Pertahankan dan coba tantangan yang lebih sulit.";
+        "Pemahamanmu sudah sangat baik. Kamu siap melanjutkan ke materi berikutnya.";
 
     }
-    else if(nilai >= 70){
+
+    else if(nilai >= 75){
 
         status =
-        "👍 Paham";
+        "🟢 Paham";
 
         pesan =
-        "Sebagian besar konsep sudah kamu pahami. Periksa kembali bagian yang masih belum kuat.";
+        "Konsep utama sudah kamu pahami. Tinggal memperkuat beberapa bagian.";
 
     }
-    else if(nilai >= 50){
+
+    else if(nilai >= 60){
 
         status =
-        "📖 Cukup Paham";
+        "🟡 Perlu Penguatan";
 
         pesan =
-        "Kamu sudah memahami sebagian konsep, tetapi masih perlu belajar kembali beberapa bagian.";
+        "Sebagian konsep sudah dipahami. Masih ada beberapa bagian yang perlu kamu pelajari kembali.";
 
     }
+
     else{
 
         status =
-        "💪 Perlu Belajar Lagi";
+        "🔴 Perlu Belajar Lagi";
 
         pesan =
-        "Jangan berkecil hati. Baca kembali materi dan coba latihan lagi secara bertahap.";
+        "Jangan menyerah. Pelajari kembali materi secara bertahap lalu coba asesmen lagi.";
 
     }
 
 
     document
-    .getElementById("status")
-    .innerHTML =
-    status;
+        .getElementById("status")
+        .innerHTML =
+        status;
 
 
     document
-    .getElementById("pesan")
-    .innerHTML =
-    pesan;
+        .getElementById("pesan")
+        .innerHTML =
+        pesan;
 
 
-    /* ==========================
-       DETAIL INDIKATOR
-    ========================== */
-
-    let persenKosong =
-        kosongBenar / 4 * 100;
-
-    let persenSemesta =
-        semestaBenar / 1 * 100;
-
-    let persenKardinalitas =
-        kardinalitasBenar / 3 * 100;
-
-    let persenPenerapan =
-        penerapanBenar / 2 * 100;
-
-
-    tampilIndikator(
+    tampilkanIndikator(
         "Kosong",
-        persenKosong,
-        kosongBenar + "/4 benar"
+        indikator.kosong
     );
 
 
-    tampilIndikator(
+    tampilkanIndikator(
         "Semesta",
-        persenSemesta,
-        semestaBenar + "/1 benar"
+        indikator.semesta
     );
 
 
-    tampilIndikator(
+    tampilkanIndikator(
         "Kardinalitas",
-        persenKardinalitas,
-        kardinalitasBenar + "/3 benar"
+        indikator.kardinalitas
     );
 
 
-    tampilIndikator(
+    tampilkanIndikator(
         "Penerapan",
-        persenPenerapan,
-        penerapanBenar + "/2 benar"
+        indikator.penerapan
     );
 
 
-    /* ==========================
-       REKOMENDASI
-    ========================== */
+    buatRekomendasi(indikator);
+
+
+    document
+        .getElementById("hasil")
+        .scrollIntoView({
+            behavior:"smooth"
+        });
+
+}
+
+
+/* =====================================================
+   INDIKATOR
+===================================================== */
+
+function tampilkanIndikator(
+    nama,
+    data
+){
+
+    let persen =
+        Math.round(
+            data.benar /
+            data.total *
+            100
+        );
+
+
+    document
+        .getElementById(
+            "detail" + nama
+        )
+        .innerHTML =
+        data.benar +
+        " dari " +
+        data.total +
+        " soal benar (" +
+        persen +
+        "%)";
+
+
+    document
+        .getElementById(
+            "bar" + nama
+        )
+        .style.width =
+        persen + "%";
+
+}
+
+
+/* =====================================================
+   REKOMENDASI
+===================================================== */
+
+function buatRekomendasi(indikator){
 
     let rekomendasi = "";
 
 
-    if(persenKosong < 75){
+    let data = [
 
-        rekomendasi +=
-        "📌 Pelajari kembali <b>himpunan kosong</b>.<br>";
+        {
+            nama:"Himpunan Kosong",
+            data:indikator.kosong
+        },
 
-    }
+        {
+            nama:"Himpunan Semesta",
+            data:indikator.semesta
+        },
+
+        {
+            nama:"Kardinalitas",
+            data:indikator.kardinalitas
+        },
+
+        {
+            nama:"Penerapan Konsep",
+            data:indikator.penerapan
+        }
+
+    ];
 
 
-    if(persenSemesta < 75){
+    data.forEach(
+        function(item){
 
-        rekomendasi +=
-        "📌 Pelajari kembali <b>himpunan semesta</b>.<br>";
-
-    }
-
-
-    if(persenKardinalitas < 75){
-
-        rekomendasi +=
-        "📌 Latih kembali <b>kardinalitas/banyak anggota</b>.<br>";
-
-    }
+            let persen =
+                item.data.benar /
+                item.data.total *
+                100;
 
 
-    if(persenPenerapan < 75){
+            if(persen < 60){
 
-        rekomendasi +=
-        "📌 Kerjakan lebih banyak <b>soal penerapan</b>.<br>";
+                rekomendasi +=
+                "🔴 <b>" +
+                item.nama +
+                "</b> perlu dipelajari kembali.<br><br>";
 
-    }
+            }
+
+            else if(persen < 80){
+
+                rekomendasi +=
+                "🟡 <b>" +
+                item.nama +
+                "</b> perlu sedikit penguatan.<br><br>";
+
+            }
+
+        }
+    );
 
 
     if(rekomendasi === ""){
 
         rekomendasi =
-        "🎉 <b>Semua indikator sudah cukup kuat.</b><br>" +
-        "Kamu dapat melanjutkan ke materi berikutnya.";
+        "<div class='success-box'>" +
+
+        "🎉 <b>Semua indikator cukup kuat!</b><br><br>" +
+
+        "Kamu sudah menunjukkan pemahaman yang baik " +
+        "tentang himpunan kosong, himpunan semesta, " +
+        "kardinalitas, dan penerapan konsep." +
+
+        "</div>";
+
+    }
+
+    else{
+
+        rekomendasi =
+        "<div class='warning-box'>" +
+
+        "<b>📚 Saran Belajar:</b><br><br>" +
+
+        rekomendasi +
+
+        "Pelajari kembali bagian tersebut, kemudian " +
+        "coba latihan lagi." +
+
+        "</div>";
 
     }
 
 
     document
-    .getElementById("rekomendasi")
-    .innerHTML =
-    rekomendasi;
-
-
-    document
-    .getElementById("hasil")
-    .scrollIntoView({
-        behavior:"smooth"
-    });
+        .getElementById("rekomendasi")
+        .innerHTML =
+        rekomendasi;
 
 }
 
 
-/* ==============================
-   INDIKATOR
-============================== */
-
-function tampilIndikator(
-    nama,
-    persen,
-    detail
-){
-
-    document
-    .getElementById(
-        "detail"+nama
-    )
-    .innerHTML =
-    detail;
-
-
-    document
-    .getElementById(
-        "bar"+nama
-    )
-    .style.width =
-    persen + "%";
-
-}
-
-
-/* ==============================
-   SIMPAN HASIL
-============================== */
+/* =====================================================
+   SIMPAN
+===================================================== */
 
 function simpanHasil(){
 
@@ -1210,16 +1689,16 @@ function simpanHasil(){
         .value;
 
 
-    let refleksi =
-        document
-        .getElementById("refleksi")
-        .value;
-
-
     let nilai =
         document
         .getElementById("nilai")
         .innerText;
+
+
+    let refleksi =
+        document
+        .getElementById("refleksi")
+        .value;
 
 
     let data = {
@@ -1231,9 +1710,8 @@ function simpanHasil(){
         refleksi:refleksi,
 
         waktu:
-        new Date().toLocaleString(
-            "id-ID"
-        )
+        new Date()
+        .toLocaleString("id-ID")
 
     };
 
@@ -1245,13 +1723,37 @@ function simpanHasil(){
 
 
     document
-    .getElementById("simpanPesan")
-    .innerHTML =
-    "<div class='success'>" +
-    "✅ Hasil asesmen tersimpan di perangkat ini." +
-    "</div>";
+        .getElementById("simpanPesan")
+        .innerHTML =
+
+        "<div class='success-box'>" +
+
+        "✅ Hasil asesmen tersimpan di perangkat ini." +
+
+        "</div>";
 
 }
+
+
+/* =====================================================
+   SMART TV
+===================================================== */
+
+function toggleTV(){
+
+    document
+        .body
+        .classList
+        .toggle("tv");
+
+}
+
+
+/* =====================================================
+   MULAI
+===================================================== */
+
+tampilkanSoal();
 
 </script>
 
