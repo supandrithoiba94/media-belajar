@@ -1,0 +1,2938 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#166534">
+<title>Waktu Kita — Countdown Offline</title>
+
+<style>
+:root{
+    --bg:#f4f7f5;
+    --card:#ffffff;
+    --text:#17201a;
+    --muted:#6b756e;
+    --border:#e1e7e2;
+    --primary:#166534;
+    --primary2:#15803d;
+    --soft:#e9f6ed;
+    --danger:#dc2626;
+    --shadow:0 8px 30px rgba(20,45,28,.08);
+    --radius:18px;
+}
+
+body.dark{
+    --bg:#101512;
+    --card:#18201b;
+    --text:#edf5ef;
+    --muted:#aab6ae;
+    --border:#2b382f;
+    --primary:#4ade80;
+    --primary2:#22c55e;
+    --soft:#193524;
+    --shadow:0 8px 30px rgba(0,0,0,.25);
+}
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+
+button,
+input,
+textarea,
+select{
+    font:inherit;
+}
+
+button{
+    cursor:pointer;
+    border:0;
+}
+
+.app{
+    max-width:1180px;
+    margin:auto;
+    padding:18px;
+}
+
+header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    margin-bottom:18px;
+}
+
+.brand{
+    display:flex;
+    gap:12px;
+    align-items:center;
+}
+
+.logo{
+    width:46px;
+    height:46px;
+    border-radius:14px;
+    background:var(--primary);
+    color:white;
+    display:grid;
+    place-items:center;
+    font-size:24px;
+}
+
+.brand h1{
+    margin:0;
+    font-size:20px;
+}
+
+.brand p{
+    margin:0;
+    font-size:12px;
+    color:var(--muted);
+}
+
+.actions{
+    display:flex;
+    gap:8px;
+}
+
+.icon-btn,
+.btn{
+    border:1px solid var(--border);
+    background:var(--card);
+    color:var(--text);
+    border-radius:12px;
+    padding:10px 13px;
+}
+
+.btn.primary{
+    background:var(--primary);
+    color:white;
+    border-color:var(--primary);
+}
+
+.btn.danger{
+    color:var(--danger);
+}
+
+.btn.small{
+    padding:7px 9px;
+    font-size:12px;
+}
+
+.layout{
+    display:grid;
+    grid-template-columns:1.3fr .7fr;
+    gap:18px;
+}
+
+.card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+}
+
+.hero{
+    padding:26px;
+    min-height:410px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    text-align:center;
+    position:relative;
+    overflow:hidden;
+}
+
+.hero:before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:radial-gradient(
+        circle at 50% 10%,
+        var(--soft),
+        transparent 48%
+    );
+    pointer-events:none;
+}
+
+.hero > *{
+    position:relative;
+}
+
+.badge{
+    display:inline-flex;
+    align-items:center;
+    gap:7px;
+    border-radius:999px;
+    padding:6px 11px;
+    font-size:12px;
+    background:var(--soft);
+    color:var(--primary);
+    font-weight:700;
+}
+
+.hero .badge{
+    margin:auto;
+}
+
+.hero h2{
+    font-size:clamp(24px,5vw,42px);
+    margin:15px 0 5px;
+}
+
+.hero .date{
+    color:var(--muted);
+    font-size:14px;
+}
+
+.countdown{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:8px;
+    margin:28px auto 18px;
+    width:min(680px,100%);
+}
+
+.timebox{
+    padding:14px 8px;
+    background:var(--bg);
+    border:1px solid var(--border);
+    border-radius:15px;
+}
+
+.timebox strong{
+    display:block;
+    font-size:clamp(27px,5vw,48px);
+    line-height:1;
+    font-variant-numeric:tabular-nums;
+}
+
+.timebox span{
+    font-size:11px;
+    color:var(--muted);
+    text-transform:uppercase;
+}
+
+.hero-actions{
+    display:flex;
+    justify-content:center;
+    gap:8px;
+    flex-wrap:wrap;
+}
+
+.side{
+    padding:18px;
+}
+
+.section-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+    margin-bottom:13px;
+}
+
+.section-head h2{
+    font-size:17px;
+}
+
+.search{
+    width:100%;
+    padding:11px 12px;
+    border:1px solid var(--border);
+    border-radius:12px;
+    background:var(--bg);
+    color:var(--text);
+    outline:none;
+}
+
+.filters{
+    display:flex;
+    gap:8px;
+    overflow:auto;
+    padding:10px 0 4px;
+}
+
+.filter{
+    white-space:nowrap;
+    padding:8px 11px;
+    border-radius:999px;
+    background:var(--bg);
+    color:var(--muted);
+    border:1px solid var(--border);
+    font-size:12px;
+}
+
+.filter.active{
+    background:var(--primary);
+    color:white;
+    border-color:var(--primary);
+}
+
+.event-list{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
+
+.event{
+    border:1px solid var(--border);
+    border-radius:15px;
+    padding:13px;
+    display:grid;
+    grid-template-columns:8px 1fr auto;
+    gap:11px;
+    align-items:center;
+}
+
+.dot{
+    width:8px;
+    height:42px;
+    border-radius:99px;
+}
+
+.event-title{
+    font-weight:750;
+    font-size:14px;
+}
+
+.event-meta{
+    font-size:12px;
+    color:var(--muted);
+    margin-top:4px;
+}
+
+.event-status{
+    font-size:12px;
+    font-weight:700;
+    color:var(--primary);
+    margin-top:5px;
+}
+
+.event-buttons{
+    display:flex;
+    gap:5px;
+    flex-wrap:wrap;
+    justify-content:flex-end;
+}
+
+.empty{
+    text-align:center;
+    padding:30px 10px;
+    color:var(--muted);
+    font-size:13px;
+}
+
+.bottom-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:18px;
+    margin-top:18px;
+}
+
+.panel{
+    padding:18px;
+}
+
+.form-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+}
+
+.field{
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+}
+
+.field.full{
+    grid-column:1/-1;
+}
+
+label{
+    font-size:12px;
+    font-weight:700;
+}
+
+.field input,
+.field select,
+.field textarea{
+    width:100%;
+    padding:11px;
+    border:1px solid var(--border);
+    border-radius:11px;
+    background:var(--bg);
+    color:var(--text);
+    outline:none;
+}
+
+.field textarea{
+    min-height:90px;
+    resize:vertical;
+}
+
+.form-actions{
+    display:flex;
+    justify-content:flex-end;
+    gap:8px;
+    margin-top:16px;
+}
+
+.overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.62);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:16px;
+    z-index:50;
+}
+
+.modal{
+    width:min(600px,100%);
+    max-height:90vh;
+    overflow:auto;
+    background:var(--card);
+    border-radius:20px;
+    padding:20px;
+}
+
+.modal-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:18px;
+}
+
+.modal-head h2{
+    font-size:19px;
+}
+
+.category-row{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    border:1px solid var(--border);
+    padding:10px;
+    border-radius:12px;
+    margin-bottom:8px;
+}
+
+.color{
+    width:25px;
+    height:25px;
+    border-radius:50%;
+    border:1px solid var(--border);
+    flex:none;
+}
+
+.category-row .name{
+    flex:1;
+    font-weight:650;
+}
+
+.fullscreen{
+    position:fixed;
+    inset:0;
+    background:#07110b;
+    color:white;
+    z-index:100;
+    display:none;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:30px;
+}
+
+.fullscreen h2{
+    font-size:clamp(28px,7vw,70px);
+    margin:15px 0 8px;
+}
+
+.fullscreen .fs-date{
+    opacity:.7;
+}
+
+.fs-count{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:12px;
+    width:min(1000px,100%);
+    margin:45px 0;
+}
+
+.fs-box{
+    padding:20px 8px;
+    border:1px solid rgba(255,255,255,.15);
+    border-radius:20px;
+    background:rgba(255,255,255,.06);
+}
+
+.fs-box strong{
+    display:block;
+    font-size:clamp(40px,9vw,100px);
+    line-height:1;
+    font-variant-numeric:tabular-nums;
+}
+
+.fs-box span{
+    opacity:.65;
+    font-size:13px;
+}
+
+.close-fs{
+    position:absolute;
+    right:22px;
+    top:18px;
+    padding:10px 14px;
+    border-radius:12px;
+    background:rgba(255,255,255,.1);
+    color:white;
+}
+
+.toast{
+    position:fixed;
+    right:18px;
+    bottom:18px;
+    background:#17201a;
+    color:white;
+    padding:13px 16px;
+    border-radius:13px;
+    box-shadow:var(--shadow);
+    display:none;
+    z-index:200;
+    max-width:340px;
+}
+
+footer{
+    text-align:center;
+    color:var(--muted);
+    font-size:11px;
+    padding:22px;
+}
+
+@media(max-width:850px){
+    .layout,
+    .bottom-grid{
+        grid-template-columns:1fr;
+    }
+
+    .hero{
+        min-height:380px;
+    }
+
+    .app{
+        padding:12px;
+    }
+}
+
+@media(max-width:550px){
+    .countdown,
+    .fs-count{
+        gap:5px;
+    }
+
+    .timebox,
+    .fs-box{
+        padding:12px 4px;
+    }
+
+    .timebox strong{
+        font-size:26px;
+    }
+
+    .timebox span{
+        font-size:9px;
+    }
+
+    .form-grid{
+        grid-template-columns:1fr;
+    }
+
+    .field.full{
+        grid-column:auto;
+    }
+
+    .hero{
+        padding:20px 12px;
+    }
+
+    .event{
+        grid-template-columns:7px 1fr;
+    }
+
+    .event-buttons{
+        grid-column:2;
+        justify-content:flex-start;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<header>
+    <div class="brand">
+        <div class="logo">⏱</div>
+        <div>
+            <h1>Waktu Kita</h1>
+            <p>Pengingat waktu kegiatan — offline</p>
+        </div>
+    </div>
+
+    <div class="actions">
+        <button class="icon-btn" id="themeBtn">☀️</button>
+        <button class="btn primary" onclick="openEventModal()">＋ Kegiatan</button>
+    </div>
+</header>
+
+<main>
+
+<div class="layout">
+
+<section class="card hero" id="hero"></section>
+
+<section class="card side">
+
+    <div class="section-head">
+        <h2>📅 Kegiatan</h2>
+        <button class="btn small" onclick="openCategoryModal()">
+            Kategori
+        </button>
+    </div>
+
+    <input
+        class="search"
+        id="search"
+        placeholder="Cari kegiatan..."
+        oninput="renderEvents()"
+    >
+
+    <div class="filters" id="filters"></div>
+
+    <div class="event-list" id="eventList"></div>
+
+</section>
+
+</div>
+
+<div class="bottom-grid">
+
+<section class="card panel">
+
+    <div class="section-head">
+        <h2>💾 Data</h2>
+    </div>
+
+    <p style="font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:13px">
+        Data tersimpan di browser perangkat ini.
+        Gunakan Backup untuk menyimpan salinan data.
+    </p>
+
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+
+        <button
+            class="btn primary"
+            onclick="exportData()">
+            ⬇ Backup Data
+        </button>
+
+        <button
+            class="btn"
+            onclick="document.getElementById('importFile').click()">
+            ⬆ Restore Data
+        </button>
+
+        <input
+            id="importFile"
+            type="file"
+            accept=".json,application/json"
+            hidden
+            onchange="importData(event)"
+        >
+
+    </div>
+
+</section>
+
+<section class="card panel">
+
+    <div class="section-head">
+        <h2>ℹ️ Tentang</h2>
+    </div>
+
+    <p style="font-size:13px;color:var(--muted);line-height:1.6">
+        Aplikasi berjalan tanpa internet.
+        Countdown mengikuti waktu perangkat.
+        Alarm dapat berbunyi ketika halaman aplikasi sedang terbuka.
+    </p>
+
+</section>
+
+</div>
+
+</main>
+
+<footer>
+    Waktu Kita • Countdown Offline
+</footer>
+
+</div>
+
+
+<!-- MODAL KEGIATAN -->
+
+<div class="overlay" id="eventModal">
+
+<div class="modal">
+
+<div class="modal-head">
+
+<h2 id="eventModalTitle">
+Tambah Kegiatan
+</h2>
+
+<button
+class="icon-btn"
+onclick="closeModal('eventModal')">
+✕
+</button>
+
+</div>
+
+<form id="eventForm" onsubmit="saveEvent(event)">
+
+<input type="hidden" id="eventId">
+
+<div class="form-grid">
+
+<div class="field full">
+
+<label>Nama Kegiatan *</label>
+
+<input
+id="eventTitle"
+required
+maxlength="100"
+placeholder="Contoh: Muswil Wahdah Islamiyah">
+
+</div>
+
+<div class="field">
+
+<label>Tanggal *</label>
+
+<input
+id="eventDate"
+type="date"
+required>
+
+</div>
+
+<div class="field">
+
+<label>Jam *</label>
+
+<input
+id="eventTime"
+type="time"
+required>
+
+</div>
+
+<div class="field">
+
+<label>Kategori *</label>
+
+<select id="eventCategory"></select>
+
+</div>
+
+<div class="field">
+
+<label>Warna Kategori</label>
+
+<div
+id="categoryPreview"
+style="
+height:43px;
+border-radius:11px;
+border:1px solid var(--border);
+">
+</div>
+
+</div>
+
+<div class="field full">
+
+<label>Keterangan</label>
+
+<textarea
+id="eventDescription"
+maxlength="500"
+placeholder="Keterangan tambahan...">
+</textarea>
+
+</div>
+
+</div>
+
+<div class="form-actions">
+
+<button
+type="button"
+class="btn"
+onclick="closeModal('eventModal')">
+Batal
+</button>
+
+<button
+class="btn primary">
+Simpan Kegiatan
+</button>
+
+</div>
+
+</form>
+
+</div>
+
+</div>
+
+
+<!-- MODAL KATEGORI -->
+
+<div class="overlay" id="categoryModal">
+
+<div class="modal">
+
+<div class="modal-head">
+
+<h2>Kelola Kategori</h2>
+
+<button
+class="icon-btn"
+onclick="closeModal('categoryModal')">
+✕
+</button>
+
+</div>
+
+<form onsubmit="saveCategory(event)">
+
+<div class="form-grid">
+
+<div class="field">
+
+<label>Nama Kategori *</label>
+
+<input
+id="catName"
+required
+maxlength="40"
+placeholder="Contoh: Rapat">
+
+</div>
+
+<div class="field">
+
+<label>Warna *</label>
+
+<input
+id="catColor"
+type="color"
+value="#2563eb"
+style="height:43px;padding:3px">
+
+</div>
+
+</div>
+
+<div class="form-actions">
+
+<button class="btn primary">
+＋ Tambah Kategori
+</button>
+
+</div>
+
+</form>
+
+<hr style="
+border:0;
+border-top:1px solid var(--border);
+margin:18px 0;
+">
+
+<div id="categoryList"></div>
+
+</div>
+
+</div>
+
+
+<!-- FULLSCREEN -->
+
+<div class="fullscreen" id="fullscreen">
+
+<button
+class="close-fs"
+onclick="closeFullscreen()">
+✕ Tutup
+</button>
+
+<div id="fsCat"></div>
+
+<h2 id="fsTitle"></h2>
+
+<div
+class="fs-date"
+id="fsDate">
+</div>
+
+<div class="fs-count">
+
+<div class="fs-box">
+<strong id="fsD">00</strong>
+<span>HARI</span>
+</div>
+
+<div class="fs-box">
+<strong id="fsH">00</strong>
+<span>JAM</span>
+</div>
+
+<div class="fs-box">
+<strong id="fsM">00</strong>
+<span>MENIT</span>
+</div>
+
+<div class="fs-box">
+<strong id="fsS">00</strong>
+<span>DETIK</span>
+</div>
+
+</div>
+
+<div id="fsStatus"></div>
+
+</div>
+
+
+<div class="toast" id="toast"></div>
+
+
+<script>
+
+const STORAGE_KEY = "waktuKita_v1";
+
+
+const defaultData = {
+
+settings:{
+    theme:"light",
+    mainEventId:null
+},
+
+categories:[
+
+{
+    id:"cat_sekolah",
+    name:"Sekolah",
+    color:"#2563eb"
+},
+
+{
+    id:"cat_yayasan",
+    name:"Yayasan",
+    color:"#f59e0b"
+},
+
+{
+    id:"cat_rapat",
+    name:"Rapat",
+    color:"#16a34a"
+},
+
+{
+    id:"cat_pribadi",
+    name:"Pribadi",
+    color:"#8b5cf6"
+},
+
+{
+    id:"cat_deadline",
+    name:"Deadline",
+    color:"#dc2626"
+}
+
+],
+
+events:[]
+
+};
+
+
+let data = loadData();
+
+let activeCategory = "all";
+
+let fullscreenId = null;
+
+let alarmedIds = new Set();
+
+
+function loadData(){
+
+try{
+
+const raw =
+localStorage.getItem(STORAGE_KEY);
+
+if(!raw){
+
+return structuredClone(defaultData);
+
+}
+
+const d = JSON.parse(raw);
+
+d.settings ||= {
+    theme:"light",
+    mainEventId:null
+};
+
+d.categories ||= [];
+
+d.events ||= [];
+
+return d;
+
+}catch(error){
+
+return structuredClone(defaultData);
+
+}
+
+}
+
+
+function persist(){
+
+localStorage.setItem(
+    STORAGE_KEY,
+    JSON.stringify(data)
+);
+
+}
+
+
+function uid(prefix){
+
+return prefix +
+"_" +
+Date.now().toString(36) +
+"_" +
+Math.random()
+.toString(36)
+.slice(2,7);
+
+}
+
+
+function esc(value){
+
+return String(value ?? "")
+.replace(/[&<>"']/g, function(match){
+
+return {
+
+"&":"&amp;",
+"<":"&lt;",
+">":"&gt;",
+'"':"&quot;",
+"'":"&#039;"
+
+}[match];
+
+});
+
+}
+
+
+function pad(number){
+
+return String(number).padStart(2,"0");
+
+}
+
+
+function getCat(id){
+
+return data.categories.find(
+    category => category.id === id
+);
+
+}
+
+
+function targetDate(event){
+
+return new Date(
+    `${event.date}T${event.time}:00`
+);
+
+}
+
+
+function formatDate(event){
+
+const date =
+new Date(
+    `${event.date}T${event.time}:00`
+);
+
+return date.toLocaleDateString(
+    "id-ID",
+    {
+        weekday:"long",
+        day:"2-digit",
+        month:"long",
+        year:"numeric"
+    }
+) +
+" • " +
+event.time;
+
+}
+
+
+function statusOf(event){
+
+const now = new Date();
+
+const target =
+targetDate(event);
+
+const end =
+new Date(
+    target.getTime() +
+    60 * 60 * 1000
+);
+
+if(now < target){
+
+return "upcoming";
+
+}
+
+if(now < end){
+
+return "ongoing";
+
+}
+
+return "done";
+
+}
+
+
+function statusText(event){
+
+const status =
+statusOf(event);
+
+if(status === "ongoing"){
+
+return "SEDANG BERLANGSUNG";
+
+}
+
+if(status === "done"){
+
+return "SELESAI";
+
+}
+
+const seconds =
+Math.max(
+    0,
+    Math.floor(
+        (targetDate(event)-new Date()) / 1000
+    )
+);
+
+const days =
+Math.floor(seconds / 86400);
+
+const hours =
+Math.floor(
+    seconds % 86400 / 3600
+);
+
+const minutes =
+Math.floor(
+    seconds % 3600 / 60
+);
+
+if(days > 0){
+
+return `${days} hari lagi`;
+
+}
+
+if(hours > 0){
+
+return `${hours} jam ${minutes} menit lagi`;
+
+}
+
+if(minutes > 0){
+
+return `${minutes} menit lagi`;
+
+}
+
+return "Kurang dari 1 menit";
+
+}
+
+
+function countdownParts(event){
+
+let seconds =
+Math.max(
+    0,
+    Math.floor(
+        (targetDate(event)-new Date()) / 1000
+    )
+);
+
+return {
+
+d:Math.floor(seconds / 86400),
+
+h:Math.floor(
+    seconds % 86400 / 3600
+),
+
+m:Math.floor(
+    seconds % 3600 / 60
+),
+
+s:seconds % 60
+
+};
+
+}
+
+
+/* =========================
+   RENDER
+========================= */
+
+function render(){
+
+applyTheme();
+
+renderHero();
+
+renderFilters();
+
+renderEvents();
+
+renderCategories();
+
+fillCategorySelect();
+
+}
+
+
+function renderHero(){
+
+let event =
+data.events.find(
+    e => e.id === data.settings.mainEventId
+);
+
+
+if(!event){
+
+const candidates =
+data.events
+.filter(e => statusOf(e) !== "done")
+.sort(
+    (a,b) =>
+    targetDate(a)-targetDate(b)
+);
+
+event = candidates[0];
+
+if(event){
+
+data.settings.mainEventId =
+event.id;
+
+persist();
+
+}
+
+}
+
+
+const hero =
+document.getElementById("hero");
+
+
+if(!event){
+
+hero.innerHTML = `
+
+<span class="badge">
+⏱ BELUM ADA KEGIATAN
+</span>
+
+<h2>
+Mulai buat kegiatan
+</h2>
+
+<div class="date">
+Tambahkan kegiatan pertama
+untuk memulai countdown.
+</div>
+
+<div class="hero-actions"
+style="margin-top:25px">
+
+<button
+class="btn primary"
+onclick="openEventModal()">
+
+＋ Tambah Kegiatan
+
+</button>
+
+</div>
+
+`;
+
+return;
+
+}
+
+
+const category =
+getCat(event.categoryId) ||
+{
+    name:"Tanpa Kategori",
+    color:"#64748b"
+};
+
+
+const parts =
+countdownParts(event);
+
+
+hero.innerHTML = `
+
+<span
+class="badge"
+style="color:${category.color}">
+
+● ${esc(category.name)}
+• COUNTDOWN UTAMA
+
+</span>
+
+<h2>
+${esc(event.title)}
+</h2>
+
+<div class="date">
+
+${esc(formatDate(event))}
+
+</div>
+
+<div class="countdown">
+
+<div class="timebox">
+
+<strong id="mainD">
+${pad(parts.d)}
+</strong>
+
+<span>Hari</span>
+
+</div>
+
+<div class="timebox">
+
+<strong id="mainH">
+${pad(parts.h)}
+</strong>
+
+<span>Jam</span>
+
+</div>
+
+<div class="timebox">
+
+<strong id="mainM">
+${pad(parts.m)}
+</strong>
+
+<span>Menit</span>
+
+</div>
+
+<div class="timebox">
+
+<strong id="mainS">
+${pad(parts.s)}
+</strong>
+
+<span>Detik</span>
+
+</div>
+
+</div>
+
+<div
+id="mainStatus"
+style="
+font-size:13px;
+color:var(--muted);
+margin-bottom:16px;
+">
+
+${esc(statusText(event))}
+
+</div>
+
+<div class="hero-actions">
+
+<button
+class="btn primary"
+onclick="openFullscreen('${event.id}')">
+
+⛶ Fullscreen
+
+</button>
+
+<button
+class="btn"
+onclick="editEvent('${event.id}')">
+
+✎ Edit
+
+</button>
+
+</div>
+
+`;
+
+}
+
+
+function renderFilters(){
+
+const box =
+document.getElementById("filters");
+
+box.innerHTML = `
+
+<button
+class="filter ${activeCategory==="all"?"active":""}"
+onclick="setFilter('all')">
+
+Semua
+
+</button>
+
+` +
+
+data.categories.map(category => `
+
+<button
+class="filter ${
+activeCategory===category.id
+?"active":""
+}"
+onclick="setFilter('${category.id}')">
+
+<span style="color:${category.color}">
+●
+</span>
+
+${esc(category.name)}
+
+</button>
+
+`).join("");
+
+}
+
+
+function setFilter(id){
+
+activeCategory = id;
+
+renderFilters();
+
+renderEvents();
+
+}
+
+
+function renderEvents(){
+
+const search =
+document
+.getElementById("search")
+.value
+.toLowerCase()
+.trim();
+
+
+let events =
+data.events.filter(event => {
+
+const categoryMatch =
+activeCategory === "all" ||
+event.categoryId === activeCategory;
+
+const searchMatch =
+`${event.title} ${event.description || ""}`
+.toLowerCase()
+.includes(search);
+
+return categoryMatch && searchMatch;
+
+});
+
+
+const order = {
+
+upcoming:0,
+ongoing:1,
+done:2
+
+};
+
+
+events.sort(
+(a,b) => {
+
+const statusDifference =
+order[statusOf(a)] -
+order[statusOf(b)];
+
+if(statusDifference !== 0){
+
+return statusDifference;
+
+}
+
+return targetDate(a)-targetDate(b);
+
+});
+
+
+const list =
+document.getElementById("eventList");
+
+
+if(!events.length){
+
+list.innerHTML = `
+
+<div class="empty">
+
+Belum ada kegiatan
+yang sesuai.
+
+</div>
+
+`;
+
+return;
+
+}
+
+
+list.innerHTML =
+events.map(event => {
+
+const category =
+getCat(event.categoryId) ||
+{
+    name:"Tanpa Kategori",
+    color:"#64748b"
+};
+
+return `
+
+<article class="event">
+
+<div
+class="dot"
+style="background:${category.color}">
+</div>
+
+<div>
+
+<div class="event-title">
+
+${esc(event.title)}
+
+</div>
+
+<div class="event-meta">
+
+${esc(formatDate(event))}
+
+</div>
+
+<div class="event-status">
+
+${esc(statusText(event))}
+
+</div>
+
+</div>
+
+<div class="event-buttons">
+
+<button
+class="btn small"
+title="Jadikan countdown utama"
+onclick="setMain('${event.id}')">
+
+★
+</button>
+
+<button
+class="btn small"
+title="Fullscreen"
+onclick="openFullscreen('${event.id}')">
+
+⛶
+
+</button>
+
+<button
+class="btn small"
+title="Edit"
+onclick="editEvent('${event.id}')">
+
+✎
+
+</button>
+
+<button
+class="btn small danger"
+title="Hapus"
+onclick="deleteEvent('${event.id}')">
+
+🗑
+
+</button>
+
+</div>
+
+</article>
+
+`;
+
+}).join("");
+
+}
+
+
+/* =========================
+   EVENT
+========================= */
+
+function openEventModal(id=null){
+
+document
+.getElementById("eventForm")
+.reset();
+
+
+document
+.getElementById("eventId")
+.value = id || "";
+
+
+document
+.getElementById("eventModalTitle")
+.textContent =
+id
+? "Edit Kegiatan"
+: "Tambah Kegiatan";
+
+
+if(id){
+
+const event =
+data.events.find(
+    e => e.id === id
+);
+
+if(!event)return;
+
+eventTitle.value =
+event.title;
+
+eventDate.value =
+event.date;
+
+eventTime.value =
+event.time;
+
+eventCategory.value =
+event.categoryId;
+
+eventDescription.value =
+event.description || "";
+
+}else{
+
+const now =
+new Date();
+
+const localDate =
+new Date(
+now.getTime() -
+now.getTimezoneOffset()*60000
+);
+
+eventDate.value =
+localDate
+.toISOString()
+.slice(0,10);
+
+eventTime.value =
+pad(now.getHours()) +
+":" +
+pad(now.getMinutes());
+
+eventCategory.value =
+data.categories[0]?.id || "";
+
+}
+
+updateCategoryPreview();
+
+openModal("eventModal");
+
+}
+
+
+function editEvent(id){
+
+openEventModal(id);
+
+}
+
+
+function saveEvent(event){
+
+event.preventDefault();
+
+
+const id =
+document
+.getElementById("eventId")
+.value;
+
+
+const obj = {
+
+title:
+document
+.getElementById("eventTitle")
+.value
+.trim(),
+
+date:
+document
+.getElementById("eventDate")
+.value,
+
+time:
+document
+.getElementById("eventTime")
+.value,
+
+categoryId:
+document
+.getElementById("eventCategory")
+.value,
+
+description:
+document
+.getElementById("eventDescription")
+.value
+.trim()
+
+};
+
+
+if(!obj.title ||
+!obj.date ||
+!obj.time){
+
+toast("Lengkapi data wajib.");
+
+return;
+
+}
+
+
+if(id){
+
+const index =
+data.events.findIndex(
+    e => e.id === id
+);
+
+if(index !== -1){
+
+data.events[index] = {
+
+...data.events[index],
+
+...obj
+
+};
+
+}
+
+}else{
+
+const newEvent = {
+
+id:uid("evt"),
+
+...obj,
+
+createdAt:
+new Date().toISOString()
+
+};
+
+data.events.push(newEvent);
+
+
+if(!data.settings.mainEventId){
+
+data.settings.mainEventId =
+newEvent.id;
+
+}
+
+}
+
+
+persist();
+
+closeModal("eventModal");
+
+render();
+
+toast(
+id
+? "Kegiatan diperbarui."
+: "Kegiatan berhasil ditambahkan."
+);
+
+}
+
+
+function setMain(id){
+
+data.settings.mainEventId =
+id;
+
+persist();
+
+render();
+
+toast(
+"Countdown utama diperbarui."
+);
+
+}
+
+
+function deleteEvent(id){
+
+const event =
+data.events.find(
+    e => e.id === id
+);
+
+if(!event)return;
+
+
+if(!confirm(
+`Hapus kegiatan "${event.title}"?`
+)){
+
+return;
+
+}
+
+
+data.events =
+data.events.filter(
+    e => e.id !== id
+);
+
+
+if(
+data.settings.mainEventId === id
+){
+
+data.settings.mainEventId = null;
+
+}
+
+
+persist();
+
+render();
+
+toast("Kegiatan dihapus.");
+
+}
+
+
+/* =========================
+   CATEGORY
+========================= */
+
+function fillCategorySelect(){
+
+const select =
+document.getElementById("eventCategory");
+
+const oldValue =
+select.value;
+
+
+select.innerHTML =
+data.categories.map(
+category => `
+
+<option value="${category.id}">
+
+${esc(category.name)}
+
+</option>
+
+`
+).join("");
+
+
+if(
+oldValue &&
+data.categories.some(
+    category => category.id === oldValue
+)
+){
+
+select.value = oldValue;
+
+}
+
+
+updateCategoryPreview();
+
+}
+
+
+function updateCategoryPreview(){
+
+const category =
+getCat(
+document.getElementById("eventCategory").value
+);
+
+
+document
+.getElementById("categoryPreview")
+.style.background =
+category
+? category.color
+: "#64748b";
+
+}
+
+
+document.addEventListener(
+"change",
+function(event){
+
+if(
+event.target.id === "eventCategory"
+){
+
+updateCategoryPreview();
+
+}
+
+});
+
+
+function openCategoryModal(){
+
+renderCategories();
+
+openModal("categoryModal");
+
+}
+
+
+function saveCategory(event){
+
+event.preventDefault();
+
+
+const name =
+document
+.getElementById("catName")
+.value
+.trim();
+
+
+const color =
+document
+.getElementById("catColor")
+.value;
+
+
+if(!name)return;
+
+
+const exists =
+data.categories.some(
+category =>
+category.name.toLowerCase()
+===
+name.toLowerCase()
+);
+
+
+if(exists){
+
+toast(
+"Nama kategori sudah ada."
+);
+
+return;
+
+}
+
+
+data.categories.push({
+
+id:uid("cat"),
+
+name:name,
+
+color:color
+
+});
+
+
+persist();
+
+document
+.getElementById("catName")
+.value = "";
+
+
+render();
+
+renderCategories();
+
+toast(
+"Kategori berhasil ditambahkan."
+);
+
+}
+
+
+function renderCategories(){
+
+const box =
+document.getElementById("categoryList");
+
+
+box.innerHTML =
+data.categories.map(
+category => `
+
+<div class="category-row">
+
+<div
+class="color"
+style="background:${category.color}">
+</div>
+
+<div class="name">
+
+${esc(category.name)}
+
+</div>
+
+<button
+class="btn small"
+onclick="editCategory('${category.id}')">
+
+Edit
+
+</button>
+
+<button
+class="btn small danger"
+onclick="deleteCategory('${category.id}')">
+
+Hapus
+
+</button>
+
+</div>
+
+`
+).join("");
+
+}
+
+
+function editCategory(id){
+
+const category =
+data.categories.find(
+    c => c.id === id
+);
+
+if(!category)return;
+
+
+const name =
+prompt(
+"Nama kategori:",
+category.name
+);
+
+if(name === null)return;
+
+
+const color =
+prompt(
+"Warna HEX, contoh #2563eb:",
+category.color
+);
+
+if(color === null)return;
+
+
+if(
+!/^#[0-9a-fA-F]{6}$/.test(color)
+){
+
+toast(
+"Format warna harus HEX."
+);
+
+return;
+
+}
+
+
+category.name =
+name.trim() || category.name;
+
+category.color =
+color;
+
+
+persist();
+
+render();
+
+renderCategories();
+
+toast(
+"Kategori diperbarui."
+);
+
+}
+
+
+function deleteCategory(id){
+
+if(data.categories.length <= 1){
+
+toast(
+"Minimal harus ada satu kategori."
+);
+
+return;
+
+}
+
+
+const category =
+data.categories.find(
+    c => c.id === id
+);
+
+if(!category)return;
+
+
+if(!confirm(
+`Hapus kategori "${category.name}"?`
+)){
+
+return;
+
+}
+
+
+const fallback =
+data.categories.find(
+    c => c.id !== id
+);
+
+
+data.events.forEach(
+event => {
+
+if(event.categoryId === id){
+
+event.categoryId =
+fallback.id;
+
+}
+
+});
+
+
+data.categories =
+data.categories.filter(
+    c => c.id !== id
+);
+
+
+if(activeCategory === id){
+
+activeCategory = "all";
+
+}
+
+
+persist();
+
+render();
+
+renderCategories();
+
+toast(
+"Kategori dihapus. Kegiatan tetap aman."
+);
+
+}
+
+
+/* =========================
+   MODAL
+========================= */
+
+function openModal(id){
+
+document
+.getElementById(id)
+.style.display = "flex";
+
+}
+
+
+function closeModal(id){
+
+document
+.getElementById(id)
+.style.display = "none";
+
+}
+
+
+document
+.querySelectorAll(".overlay")
+.forEach(
+overlay => {
+
+overlay.addEventListener(
+"click",
+function(event){
+
+if(event.target === overlay){
+
+overlay.style.display = "none";
+
+}
+
+});
+
+});
+
+
+/* =========================
+   FULLSCREEN
+========================= */
+
+function openFullscreen(id){
+
+const event =
+data.events.find(
+    e => e.id === id
+);
+
+if(!event)return;
+
+
+fullscreenId = id;
+
+
+document
+.getElementById("fullscreen")
+.style.display = "flex";
+
+
+updateFullscreen();
+
+
+if(
+document.documentElement.requestFullscreen
+){
+
+document.documentElement
+.requestFullscreen()
+.catch(()=>{});
+
+}
+
+}
+
+
+function closeFullscreen(){
+
+fullscreenId = null;
+
+
+document
+.getElementById("fullscreen")
+.style.display = "none";
+
+
+if(document.fullscreenElement){
+
+document
+.exitFullscreen()
+.catch(()=>{});
+
+}
+
+}
+
+
+function updateFullscreen(){
+
+const event =
+data.events.find(
+    e => e.id === fullscreenId
+);
+
+if(!event){
+
+closeFullscreen();
+
+return;
+
+}
+
+
+const category =
+getCat(event.categoryId) ||
+{
+    name:"Tanpa Kategori",
+    color:"#64748b"
+};
+
+
+const parts =
+countdownParts(event);
+
+
+document
+.getElementById("fsCat")
+.innerHTML = `
+
+<span
+class="badge"
+style="
+color:${category.color};
+background:rgba(255,255,255,.08);
+">
+
+● ${esc(category.name)}
+
+</span>
+
+`;
+
+
+document
+.getElementById("fsTitle")
+.textContent =
+event.title;
+
+
+document
+.getElementById("fsDate")
+.textContent =
+formatDate(event);
+
+
+document
+.getElementById("fsD")
+.textContent =
+pad(parts.d);
+
+
+document
+.getElementById("fsH")
+.textContent =
+pad(parts.h);
+
+
+document
+.getElementById("fsM")
+.textContent =
+pad(parts.m);
+
+
+document
+.getElementById("fsS")
+.textContent =
+pad(parts.s);
+
+
+document
+.getElementById("fsStatus")
+textContent =
+statusText(event);
+
+}
+
+
+/* =========================
+   BACKUP
+========================= */
+
+function exportData(){
+
+const payload = {
+
+...data,
+
+backupVersion:1,
+
+backupAt:
+new Date().toISOString(),
+
+app:"Waktu Kita"
+
+};
+
+
+const blob =
+new Blob(
+[
+JSON.stringify(
+payload,
+null,
+2
+)
+],
+{
+type:"application/json"
+}
+);
+
+
+const url =
+URL.createObjectURL(blob);
+
+
+const link =
+document.createElement("a");
+
+
+link.href = url;
+
+
+link.download =
+`waktu-kita-backup-${
+new Date()
+.toISOString()
+.slice(0,10)
+}.json`;
+
+
+link.click();
+
+
+URL.revokeObjectURL(url);
+
+
+toast(
+"Backup berhasil dibuat."
+);
+
+}
+
+
+function importData(event){
+
+const file =
+event.target.files[0];
+
+
+if(!file)return;
+
+
+const reader =
+new FileReader();
+
+
+reader.onload =
+function(){
+
+try{
+
+const backup =
+JSON.parse(
+reader.result
+);
+
+
+if(
+!backup ||
+!Array.isArray(backup.events) ||
+!Array.isArray(backup.categories)
+){
+
+throw new Error(
+"Format tidak valid"
+);
+
+}
+
+
+if(!confirm(
+"Restore akan mengganti data saat ini. Lanjutkan?"
+)){
+
+return;
+
+}
+
+
+data = {
+
+settings:
+backup.settings ||
+{
+    theme:"light",
+    mainEventId:null
+},
+
+categories:
+backup.categories,
+
+events:
+backup.events
+
+};
+
+
+if(!data.categories.length){
+
+data.categories =
+structuredClone(
+defaultData.categories
+);
+
+}
+
+
+persist();
+
+activeCategory =
+"all";
+
+
+render();
+
+toast(
+"Data berhasil dipulihkan."
+);
+
+
+}catch(error){
+
+toast(
+"File backup tidak valid."
+);
+
+}
+
+
+event.target.value = "";
+
+};
+
+
+reader.readAsText(file);
+
+}
+
+
+/* =========================
+   TEMA
+========================= */
+
+function applyTheme(){
+
+document
+.body
+.classList
+.toggle(
+"dark",
+data.settings.theme === "dark"
+);
+
+
+document
+.getElementById("themeBtn")
+.textContent =
+data.settings.theme === "dark"
+? "🌙"
+: "☀️";
+
+}
+
+
+document
+.getElementById("themeBtn")
+.onclick =
+function(){
+
+data.settings.theme =
+data.settings.theme === "dark"
+? "light"
+: "dark";
+
+
+persist();
+
+applyTheme();
+
+};
+
+
+/* =========================
+   TOAST
+========================= */
+
+function toast(message){
+
+const element =
+document.getElementById("toast");
+
+
+element.textContent =
+message;
+
+
+element.style.display =
+"block";
+
+
+clearTimeout(
+window.__toast
+);
+
+
+window.__toast =
+setTimeout(
+function(){
+
+element.style.display =
+"none";
+
+},
+2800
+);
+
+}
+
+
+/* =========================
+   ALARM
+========================= */
+
+let audioContext = null;
+
+
+function alarm(){
+
+try{
+
+audioContext ||=
+new (
+window.AudioContext ||
+window.webkitAudioContext
+)();
+
+
+const now =
+audioContext.currentTime;
+
+
+[0,.22,.44].forEach(
+offset => {
+
+const oscillator =
+audioContext
+.createOscillator();
+
+
+const gain =
+audioContext
+.createGain();
+
+
+oscillator.frequency.value =
+880;
+
+
+oscillator.connect(gain);
+
+gain.connect(
+audioContext.destination
+);
+
+
+gain.gain.setValueAtTime(
+.0001,
+now + offset
+);
+
+
+gain.gain.exponentialRampToValueAtTime(
+.2,
+now + offset + .02
+);
+
+
+gain.gain.exponentialRampToValueAtTime(
+.0001,
+now + offset + .18
+);
+
+
+oscillator.start(
+now + offset
+);
+
+
+oscillator.stop(
+now + offset + .2
+);
+
+});
+
+}catch(error){}
+
+}
+
+
+function checkAlarms(){
+
+const now =
+new Date();
+
+
+data.events.forEach(
+event => {
+
+const target =
+targetDate(event);
+
+
+const difference =
+now - target;
+
+
+if(
+!alarmedIds.has(event.id) &&
+difference >= 0 &&
+difference < 5000
+){
+
+alarmedIds.add(event.id);
+
+alarm();
+
+toast(
+`🔔 Waktunya tiba: ${event.title}`
+);
+
+}
+
+});
+
+}
+
+
+/* =========================
+   REALTIME
+========================= */
+
+function tick(){
+
+const main =
+data.events.find(
+event =>
+event.id ===
+data.settings.mainEventId
+);
+
+
+if(main){
+
+const parts =
+countdownParts(main);
+
+
+const elements = [
+
+["mainD",parts.d],
+
+["mainH",parts.h],
+
+["mainM",parts.m],
+
+["mainS",parts.s]
+
+];
+
+
+elements.forEach(
+([id,value]) => {
+
+const element =
+document.getElementById(id);
+
+if(element){
+
+element.textContent =
+pad(value);
+
+}
+
+});
+
+
+const statusElement =
+document.getElementById(
+"mainStatus"
+);
+
+
+if(statusElement){
+
+statusElement.textContent =
+statusText(main);
+
+}
+
+}
+
+
+if(fullscreenId){
+
+updateFullscreen();
+
+}
+
+
+checkAlarms();
+
+}
+
+
+document.addEventListener(
+"visibilitychange",
+function(){
+
+if(
+document.visibilityState ===
+"visible"
+){
+
+checkAlarms();
+
+render();
+
+}
+
+});
+
+
+/* =========================
+   MULAI APLIKASI
+========================= */
+
+render();
+
+setInterval(
+tick,
+1000
+);
+
+</script>
+
+</body>
+</html>
