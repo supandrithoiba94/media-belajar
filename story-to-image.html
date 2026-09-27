@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vertical Story Generator (9:16)</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- html2canvas Library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <style>
+    /* Mengunci aspek rasio 9:16 untuk story vertikal */
+    .aspect-9-16 {
+      aspect-ratio: 9 / 16;
+    }
+  </style>
+</head>
+<body class="bg-slate-100 min-h-screen text-slate-800 p-4 md:p-8">
+
+  <div class="max-w-4xl mx-auto space-y-6">
+    
+    <!-- Header -->
+    <div class="text-center">
+      <h1 class="text-2xl font-bold text-slate-900">Vertical Story Generator</h1>
+      <p class="text-sm text-slate-600">Ubah teks cerita menjadi gambar Story Vertikal (9:16)</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+      
+      <!-- Form Input Controls -->
+      <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 space-y-4">
+        <div>
+          <label for="storyText" class="block text-sm font-medium text-slate-700 mb-1">
+            Teks Cerita (Max <span id="charLimit">280</span> Karakter)
+          </label>
+          <textarea 
+            id="storyText" 
+            rows="6" 
+            maxlength="280"
+            placeholder="Tuliskan ceritamu di sini..." 
+            class="w-full p-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition resize-none text-sm"
+          ></textarea>
+          <div class="flex justify-between text-xs text-slate-500 mt-1">
+            <span>Gunakan Enter/baris baru sesuai keinginan.</span>
+            <span><span id="charCount">0</span>/280</span>
+          </div>
+        </div>
+
+        <!-- Opsi Mode Warna -->
+        <div>
+          <label class="block text-sm font-medium text-slate-700 mb-2">Pilih Mode Latar Belakang</label>
+          <div class="grid grid-cols-2 gap-3">
+            <button 
+              type="button" 
+              id="btnDark" 
+              onclick="setTheme('dark')"
+              class="flex items-center justify-center gap-2 py-2.5 px-4 rounded-lg border border-slate-800 bg-slate-900 text-white font-medium text-sm hover:opacity-90 transition ring-2 ring-indigo-500"
+            >
+              <div class="w-3 h-3 rounded-full bg-white"></div> Latar Hitam
+            </button>
+            <button 
+              type="button" 
+              id="btnLight" 
+              onclick="setTheme('light')"
+              class="flex items-center justify-center gap-2 py-2.5 px-4 rounded-lg border border-slate-300 bg-white text-slate-900 font-medium text-sm hover:bg-slate-50 transition"
+            >
+              <div class="w-3 h-3 rounded-full bg-slate-900 border"></div> Latar Putih
+            </button>
+          </div>
+        </div>
+
+        <!-- Tombol Download -->
+        <button 
+          type="button" 
+          onclick="downloadImage()" 
+          class="w-full py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-lg shadow transition flex items-center justify-center gap-2"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+          </svg>
+          Download Gambar (9:16)
+        </button>
+      </div>
+
+      <!-- Live Preview Area -->
+      <div class="flex flex-col items-center space-y-2">
+        <label class="block text-sm font-medium text-slate-700 self-start">Preview Canvas (9:16 Story)</label>
+
+        <!-- Wrapper luar untuk estetika rounded di UI preview -->
+        <div class="w-full max-w-[320px] rounded-2xl overflow-hidden shadow-lg border border-slate-200">
+          <!-- Area Kartu Vertikal yang di-export (Presisi Siku / Square Corner) -->
+          <div 
+            id="exportCanvas" 
+            class="aspect-9-16 w-full bg-black text-white p-8 flex items-center justify-center text-center transition-colors duration-200"
+          >
+            <p id="previewText" class="text-lg font-medium leading-relaxed whitespace-pre-wrap break-words px-2 w-full">Tuliskan ceritamu pada kolom di samping untuk melihat pratinjau di sini.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    const storyInput = document.getElementById('storyText');
+    const previewText = document.getElementById('previewText');
+    const charCount = document.getElementById('charCount');
+    const exportCanvas = document.getElementById('exportCanvas');
+    const btnDark = document.getElementById('btnDark');
+    const btnLight = document.getElementById('btnLight');
+
+    let currentTheme = 'dark';
+
+    // Update Live Preview & Counter
+    storyInput.addEventListener('input', (e) => {
+      const value = e.target.value;
+      charCount.textContent = value.length;
+      
+      if (value.trim() === "") {
+        previewText.textContent = "Tuliskan ceritamu pada kolom di samping untuk melihat pratinjau di sini.";
+      } else {
+        previewText.textContent = value;
+      }
+    });
+
+    // Mengganti Tema / Latar Belakang
+    function setTheme(theme) {
+      currentTheme = theme;
+      if (theme === 'dark') {
+        exportCanvas.classList.remove('bg-white', 'text-black');
+        exportCanvas.classList.add('bg-black', 'text-white');
+
+        btnDark.classList.add('ring-2', 'ring-indigo-500');
+        btnLight.classList.remove('ring-2', 'ring-indigo-500');
+      } else {
+        exportCanvas.classList.remove('bg-black', 'text-white');
+        exportCanvas.classList.add('bg-white', 'text-black');
+
+        btnLight.classList.add('ring-2', 'ring-indigo-500');
+        btnDark.classList.remove('ring-2', 'ring-indigo-500');
+      }
+    }
+
+    // Fungsi Download Gambar menggunakan html2canvas
+    function downloadImage() {
+      html2canvas(exportCanvas, {
+        scale: 3,
+        useCORS: true,
+        logging: false,
+        backgroundColor: null // Mengabaikan warna latar belakang luar canvas
+      }).then(canvas => {
+        const image = canvas.toDataURL("image/png");
+        const link = document.createElement('a');
+        link.download = `story-9x16-${Date.now()}.png`;
+        link.href = image;
+        link.click();
+      });
+    }
+  </script>
+</body>
+</html>
