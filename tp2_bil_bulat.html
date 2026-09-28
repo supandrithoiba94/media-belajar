@@ -1,0 +1,879 @@
+﻿<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TP2 - Membandingkan Bilangan Bulat</title>
+
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: #f4f6f8;
+        color: #222;
+    }
+
+    .container {
+        max-width: 900px;
+        margin: auto;
+        padding: 15px;
+    }
+
+    header {
+        background: linear-gradient(135deg, #1e3a8a, #2563eb);
+        color: white;
+        padding: 22px;
+        border-radius: 16px;
+        margin-bottom: 15px;
+    }
+
+    header h1 {
+        margin: 0 0 8px;
+        font-size: 25px;
+    }
+
+    header p {
+        margin: 4px 0;
+        opacity: .95;
+    }
+
+    .target {
+        background: white;
+        border-radius: 14px;
+        padding: 15px;
+        margin-bottom: 15px;
+        border-left: 5px solid #2563eb;
+    }
+
+    .levels {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        margin-bottom: 15px;
+    }
+
+    .level-btn {
+        border: none;
+        padding: 13px 8px;
+        border-radius: 12px;
+        cursor: pointer;
+        font-weight: bold;
+        background: #e5e7eb;
+        color: #374151;
+    }
+
+    .level-btn.active {
+        background: #2563eb;
+        color: white;
+    }
+
+    .level-btn.locked {
+        opacity: .5;
+        cursor: not-allowed;
+    }
+
+    .card {
+        background: white;
+        padding: 18px;
+        border-radius: 16px;
+        margin-bottom: 15px;
+        box-shadow: 0 3px 12px rgba(0,0,0,.07);
+    }
+
+    .level-title {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 15px;
+    }
+
+    .level-title h2 {
+        margin: 0;
+        font-size: 20px;
+    }
+
+    .badge {
+        background: #dbeafe;
+        color: #1d4ed8;
+        padding: 6px 10px;
+        border-radius: 20px;
+        font-size: 13px;
+        font-weight: bold;
+    }
+
+    .number-line {
+        overflow-x: auto;
+        margin: 20px 0;
+        padding: 10px 0;
+    }
+
+    .line {
+        min-width: 620px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        height: 70px;
+    }
+
+    .line::before {
+        content: "";
+        position: absolute;
+        left: 20px;
+        right: 20px;
+        top: 34px;
+        height: 3px;
+        background: #374151;
+    }
+
+    .point {
+        position: relative;
+        z-index: 2;
+        width: 52px;
+        text-align: center;
+        font-size: 13px;
+    }
+
+    .dot {
+        width: 12px;
+        height: 12px;
+        background: #374151;
+        border-radius: 50%;
+        margin: 0 auto 8px;
+    }
+
+    .zero .dot {
+        width: 16px;
+        height: 16px;
+        background: #2563eb;
+    }
+
+    .question {
+        border: 1px solid #e5e7eb;
+        border-radius: 12px;
+        padding: 15px;
+        margin-bottom: 12px;
+        background: #fafafa;
+    }
+
+    .question.correct {
+        border: 2px solid #16a34a;
+        background: #f0fdf4;
+    }
+
+    .question.wrong {
+        border: 2px solid #dc2626;
+        background: #fef2f2;
+    }
+
+    .question-text {
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 12px;
+    }
+
+    .choices {
+        display: flex;
+        gap: 10px;
+    }
+
+    .choice {
+        flex: 1;
+        border: 2px solid #d1d5db;
+        background: white;
+        padding: 12px;
+        border-radius: 10px;
+        font-size: 20px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    .choice:hover {
+        border-color: #2563eb;
+        background: #eff6ff;
+    }
+
+    .choice.selected {
+        background: #2563eb;
+        color: white;
+        border-color: #2563eb;
+    }
+
+    .choice.correct-answer {
+        background: #16a34a;
+        color: white;
+        border-color: #16a34a;
+    }
+
+    .choice.wrong-answer {
+        background: #dc2626;
+        color: white;
+        border-color: #dc2626;
+    }
+
+    .btn {
+        border: none;
+        padding: 12px 18px;
+        border-radius: 10px;
+        cursor: pointer;
+        font-weight: bold;
+        font-size: 15px;
+    }
+
+    .btn-primary {
+        background: #2563eb;
+        color: white;
+    }
+
+    .btn-secondary {
+        background: #e5e7eb;
+        color: #111827;
+    }
+
+    .btn-success {
+        background: #16a34a;
+        color: white;
+    }
+
+    .actions {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+
+    .score {
+        text-align: center;
+        background: #eff6ff;
+        border-radius: 14px;
+        padding: 18px;
+        margin-top: 15px;
+    }
+
+    .score-number {
+        font-size: 35px;
+        font-weight: bold;
+        color: #2563eb;
+    }
+
+    .explanation {
+        margin-top: 10px;
+        font-size: 14px;
+        color: #374151;
+    }
+
+    .lock-info {
+        text-align: center;
+        padding: 30px 15px;
+        color: #6b7280;
+    }
+
+    footer {
+        text-align: center;
+        color: #6b7280;
+        font-size: 13px;
+        padding: 20px;
+    }
+
+    @media(max-width:600px) {
+        .levels {
+            grid-template-columns: 1fr;
+        }
+
+        header h1 {
+            font-size: 21px;
+        }
+
+        .question-text {
+            font-size: 17px;
+        }
+
+        .choices {
+            gap: 6px;
+        }
+
+        .choice {
+            padding: 10px 5px;
+        }
+    }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<header>
+    <h1>📘 TP2 — Membandingkan Bilangan Bulat</h1>
+    <p>Matematika Kelas VII-B</p>
+    <p>Gunakan garis bilangan untuk membantu menentukan bilangan yang lebih besar.</p>
+</header>
+
+<div class="target">
+    <strong>🎯 Tujuan Pembelajaran</strong>
+    <p>
+        Peserta didik mampu membandingkan bilangan bulat positif,
+        negatif, dan nol menggunakan simbol <strong>&gt;</strong>,
+        <strong>&lt;</strong>, atau <strong>=</strong>.
+    </p>
+</div>
+
+<div class="levels">
+    <button class="level-btn active" onclick="pilihLevel(1)">
+        🟢 Level 1<br>Mudah
+    </button>
+
+    <button class="level-btn" id="btnLevel2" onclick="pilihLevel(2)">
+        🟡 Level 2<br>Menengah
+    </button>
+
+    <button class="level-btn" id="btnLevel3" onclick="pilihLevel(3)">
+        🔴 Level 3<br>Sulit
+    </button>
+</div>
+
+<div class="card">
+
+    <div class="level-title">
+        <h2 id="judulLevel">🟢 Level 1 — Mudah</h2>
+        <span class="badge">5 soal tampil</span>
+    </div>
+
+    <div id="petunjuk"></div>
+
+    <div id="soalContainer"></div>
+
+    <div class="actions">
+        <button class="btn btn-success" onclick="periksaJawaban()">
+            ✓ Periksa Jawaban
+        </button>
+
+        <button class="btn btn-secondary" onclick="generateSoal()">
+            🔄 Generate Soal Baru
+        </button>
+    </div>
+
+    <div id="hasil"></div>
+
+</div>
+
+<footer>
+    TP2 • Membandingkan Bilangan Bulat
+</footer>
+
+</div>
+
+<script>
+
+/* =========================================================
+   DATA
+========================================================= */
+
+let levelAktif = 1;
+let soalAktif = [];
+let sudahLulus = {
+    1: false,
+    2: false,
+    3: false
+};
+
+/* =========================================================
+   UTILITAS
+========================================================= */
+
+function angkaAcak(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function ambilSoalBerbeda(array, jumlah) {
+
+    let hasil = [];
+    let salinan = [...array];
+
+    while (hasil.length < jumlah && salinan.length > 0) {
+
+        const index = Math.floor(Math.random() * salinan.length);
+
+        hasil.push(salinan[index]);
+
+        salinan.splice(index, 1);
+    }
+
+    return hasil;
+}
+
+function buatSoal(a, b) {
+
+    let simbol;
+
+    if (a > b) simbol = ">";
+    else if (a < b) simbol = "<";
+    else simbol = "=";
+
+    return {
+        a: a,
+        b: b,
+        jawaban: simbol
+    };
+}
+
+/* =========================================================
+   GENERATOR LEVEL 1
+   Membandingkan dengan bantuan konsep garis bilangan
+========================================================= */
+
+function bankLevel1() {
+
+    let bank = [];
+
+    for (let i = 0; i < 15; i++) {
+
+        let a = angkaAcak(-10, 10);
+        let b = angkaAcak(-10, 10);
+
+        bank.push(buatSoal(a, b));
+    }
+
+    return bank;
+}
+
+/* =========================================================
+   GENERATOR LEVEL 2
+   Angka lebih besar dan kombinasi negatif
+========================================================= */
+
+function bankLevel2() {
+
+    let bank = [];
+
+    for (let i = 0; i < 15; i++) {
+
+        let a = angkaAcak(-50, 50);
+        let b = angkaAcak(-50, 50);
+
+        bank.push(buatSoal(a, b));
+    }
+
+    return bank;
+}
+
+/* =========================================================
+   GENERATOR LEVEL 3
+   Kontekstual
+========================================================= */
+
+function bankLevel3() {
+
+    const template = [
+        {
+            tipe: "suhu",
+            teks: (a,b) =>
+                `Suhu di Kota A adalah ${a}°C dan suhu di Kota B adalah ${b}°C.`
+        },
+        {
+            tipe: "ketinggian",
+            teks: (a,b) =>
+                `Posisi A berada pada ${a} meter dan posisi B berada pada ${b} meter dari permukaan laut.`
+        },
+        {
+            tipe: "lantai",
+            teks: (a,b) =>
+                `Andi berada di lantai ${a}, sedangkan Budi berada di lantai ${b}.`
+        },
+        {
+            tipe: "saldo",
+            teks: (a,b) =>
+                `Saldo rekening A adalah ${a} ribu rupiah dan saldo rekening B adalah ${b} ribu rupiah.`
+        }
+    ];
+
+    let bank = [];
+
+    for (let i = 0; i < 15; i++) {
+
+        let a = angkaAcak(-30, 30);
+        let b = angkaAcak(-30, 30);
+
+        let t = template[i % template.length];
+
+        let soal = buatSoal(a, b);
+
+        soal.konteks = t.teks(a,b);
+
+        bank.push(soal);
+    }
+
+    return bank;
+}
+
+/* =========================================================
+   GARIS BILANGAN
+========================================================= */
+
+function tampilkanGarisBilangan() {
+
+    let html = `
+        <div class="number-line">
+            <div class="line">
+    `;
+
+    for (let i = -5; i <= 5; i++) {
+
+        html += `
+            <div class="point ${i === 0 ? 'zero' : ''}">
+                <div class="dot"></div>
+                ${i}
+            </div>
+        `;
+    }
+
+    html += `
+            </div>
+        </div>
+    `;
+
+    return html;
+}
+
+/* =========================================================
+   PILIH LEVEL
+========================================================= */
+
+function pilihLevel(level) {
+
+    if (level === 2 && !sudahLulus[1]) {
+
+        alert("Selesaikan Level 1 terlebih dahulu.");
+        return;
+    }
+
+    if (level === 3 && !sudahLulus[2]) {
+
+        alert("Selesaikan Level 2 terlebih dahulu.");
+        return;
+    }
+
+    levelAktif = level;
+
+    document.querySelectorAll(".level-btn")
+        .forEach(btn => btn.classList.remove("active"));
+
+    document.querySelectorAll(".level-btn")[level - 1]
+        .classList.add("active");
+
+    generateSoal();
+}
+
+/* =========================================================
+   GENERATE SOAL
+========================================================= */
+
+function generateSoal() {
+
+    let bank;
+
+    if (levelAktif === 1) {
+        bank = bankLevel1();
+    }
+    else if (levelAktif === 2) {
+        bank = bankLevel2();
+    }
+    else {
+        bank = bankLevel3();
+    }
+
+    /*
+       Hanya 5 soal yang ditampilkan.
+       Setiap generate angka dibuat ulang.
+    */
+
+    soalAktif = ambilSoalBerbeda(bank, 5);
+
+    tampilkanSoal();
+}
+
+/* =========================================================
+   TAMPILKAN SOAL
+========================================================= */
+
+function tampilkanSoal() {
+
+    let container = document.getElementById("soalContainer");
+
+    let judul = document.getElementById("judulLevel");
+
+    let petunjuk = document.getElementById("petunjuk");
+
+    if (levelAktif === 1) {
+
+        judul.innerHTML = "🟢 Level 1 — Mudah";
+
+        petunjuk.innerHTML = `
+            <p>
+                📌 Tentukan bilangan yang lebih besar.
+                Ingat: semakin ke kanan pada garis bilangan,
+                nilainya semakin besar.
+            </p>
+            ${tampilkanGarisBilangan()}
+        `;
+    }
+
+    else if (levelAktif === 2) {
+
+        judul.innerHTML = "🟡 Level 2 — Menengah";
+
+        petunjuk.innerHTML = `
+            <p>
+                📌 Bandingkan bilangan tanpa bantuan garis bilangan.
+                Perhatikan tanda negatif.
+            </p>
+        `;
+    }
+
+    else {
+
+        judul.innerHTML = "🔴 Level 3 — Sulit";
+
+        petunjuk.innerHTML = `
+            <p>
+                📌 Baca situasinya, kemudian tentukan hubungan
+                kedua bilangan tersebut.
+            </p>
+        `;
+    }
+
+    container.innerHTML = "";
+
+    soalAktif.forEach((soal, index) => {
+
+        let teksSoal;
+
+        if (levelAktif === 3) {
+
+            teksSoal = `
+                <div style="margin-bottom:10px">
+                    ${soal.konteks}
+                </div>
+                <div>
+                    Bandingkan:
+                    <strong>${soal.a}</strong>
+                    ⬜
+                    <strong>${soal.b}</strong>
+                </div>
+            `;
+
+        } else {
+
+            teksSoal = `
+                Bandingkan:
+                <strong>${soal.a}</strong>
+                ⬜
+                <strong>${soal.b}</strong>
+            `;
+        }
+
+        container.innerHTML += `
+            <div class="question" id="question-${index}">
+
+                <div class="question-text">
+                    ${index + 1}. ${teksSoal}
+                </div>
+
+                <div class="choices">
+
+                    <button class="choice"
+                        onclick="pilihJawaban(${index}, '>')">
+                        &gt;
+                    </button>
+
+                    <button class="choice"
+                        onclick="pilihJawaban(${index}, '<')">
+                        &lt;
+                    </button>
+
+                    <button class="choice"
+                        onclick="pilihJawaban(${index}, '=')">
+                        =
+                    </button>
+
+                </div>
+
+                <div id="feedback-${index}"></div>
+
+            </div>
+        `;
+    });
+
+    document.getElementById("hasil").innerHTML = "";
+}
+
+/* =========================================================
+   PILIH JAWABAN
+========================================================= */
+
+let jawabanSiswa = [];
+
+function pilihJawaban(index, jawaban) {
+
+    jawabanSiswa[index] = jawaban;
+
+    const box = document.getElementById(`question-${index}`);
+
+    box.querySelectorAll(".choice")
+        .forEach(btn => {
+
+            btn.classList.remove("selected");
+
+            if (btn.innerText === jawaban) {
+                btn.classList.add("selected");
+            }
+
+        });
+}
+
+/* =========================================================
+   PERIKSA JAWABAN
+========================================================= */
+
+function periksaJawaban() {
+
+    if (jawabanSiswa.length < 5 ||
+        jawabanSiswa.some(j => !j)) {
+
+        alert("Jawab semua soal terlebih dahulu.");
+        return;
+    }
+
+    let benar = 0;
+
+    soalAktif.forEach((soal, index) => {
+
+        const box =
+            document.getElementById(`question-${index}`);
+
+        const feedback =
+            document.getElementById(`feedback-${index}`);
+
+        const buttons =
+            box.querySelectorAll(".choice");
+
+        buttons.forEach(btn => {
+
+            btn.classList.remove(
+                "correct-answer",
+                "wrong-answer"
+            );
+
+            if (btn.innerText === soal.jawaban) {
+
+                btn.classList.add("correct-answer");
+            }
+
+        });
+
+        if (jawabanSiswa[index] === soal.jawaban) {
+
+            benar++;
+
+            box.classList.add("correct");
+
+            feedback.innerHTML = `
+                <div class="explanation">
+                    ✅ Benar.
+                </div>
+            `;
+
+        } else {
+
+            box.classList.add("wrong");
+
+            feedback.innerHTML = `
+                <div class="explanation">
+                    ❌ Belum tepat.
+                    Jawaban yang benar adalah
+                    <strong>${soal.jawaban}</strong>.
+                </div>
+            `;
+        }
+    });
+
+    const nilai = benar * 20;
+
+    document.getElementById("hasil").innerHTML = `
+        <div class="score">
+
+            <div>Hasil Level ${levelAktif}</div>
+
+            <div class="score-number">
+                ${nilai}
+            </div>
+
+            <div>
+                Benar ${benar} dari 5 soal
+            </div>
+
+            ${
+                nilai >= 80
+                ?
+                `<p>
+                    🎉 Level selesai!
+                    Kamu boleh lanjut ke level berikutnya.
+                </p>`
+                :
+                `<p>
+                    💡 Belum tuntas.
+                    Coba generate soal baru dan latihan lagi.
+                </p>`
+            }
+
+        </div>
+    `;
+
+    /*
+       Syarat naik level:
+       minimal 80
+    */
+
+    if (nilai >= 80) {
+
+        sudahLulus[levelAktif] = true;
+
+        if (levelAktif === 1) {
+
+            document.getElementById("btnLevel2")
+                .classList.remove("locked");
+
+        }
+
+        if (levelAktif === 2) {
+
+            document.getElementById("btnLevel3")
+                .classList.remove("locked");
+
+        }
+    }
+}
+
+/* =========================================================
+   RESET JAWABAN
+========================================================= */
+
+function resetJawaban() {
+
+    jawabanSiswa = [];
+}
+
+/* =========================================================
+   INIT
+========================================================= */
+
+generateSoal();
+
+</script>
+
+</body>
+</html>

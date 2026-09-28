@@ -1,0 +1,1807 @@
+﻿<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>LKPD Interaktif - Bilangan Bulat</title>
+
+<style>
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:#f3f6fa;
+    color:#172033;
+}
+
+.container{
+    max-width:950px;
+    margin:auto;
+    padding:15px;
+}
+
+.header{
+    background:#173b6c;
+    color:white;
+    padding:22px;
+    border-radius:18px;
+    margin-bottom:15px;
+}
+
+.header h1{
+    margin:0 0 8px;
+    font-size:27px;
+}
+
+.card{
+    background:white;
+    padding:18px;
+    border-radius:16px;
+    margin-bottom:15px;
+    box-shadow:0 3px 12px rgba(0,0,0,.08);
+}
+
+.identitas{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+}
+
+input[type=text],
+input[type=number]{
+    width:100%;
+    padding:11px;
+    border:1px solid #cbd5e1;
+    border-radius:9px;
+    font-size:16px;
+}
+
+button{
+    border:0;
+    padding:11px 16px;
+    border-radius:10px;
+    background:#173b6c;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+    margin-top:10px;
+}
+
+button:hover{
+    opacity:.9;
+}
+
+button.secondary{
+    background:#64748b;
+}
+
+button.generate{
+    background:#2563eb;
+}
+
+button.sim{
+    background:#059669;
+}
+
+.misi{
+    background:#fff8df;
+    padding:13px;
+    border-radius:10px;
+}
+
+.simulator{
+    text-align:center;
+}
+
+.acuan{
+    position:relative;
+    margin:20px auto;
+    width:230px;
+    height:430px;
+}
+
+.garis{
+    position:absolute;
+    left:50%;
+    top:0;
+    bottom:0;
+    width:4px;
+    background:#64748b;
+    transform:translateX(-50%);
+}
+
+.level{
+    position:absolute;
+    left:50%;
+    transform:translateX(-50%);
+    width:190px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.level span{
+    background:#e2e8f0;
+    padding:5px 8px;
+    border-radius:6px;
+    font-size:13px;
+}
+
+.level-atas{
+    top:20px;
+}
+
+.level-atas2{
+    top:85px;
+}
+
+.level-atas3{
+    top:150px;
+}
+
+.level-atas4{
+    top:215px;
+}
+
+.level-nol{
+    top:280px;
+}
+
+.level-bawah{
+    top:345px;
+}
+
+.level-bawah2{
+    top:410px;
+}
+
+.benda{
+    position:absolute;
+    left:50%;
+    transform:translate(-50%,-50%);
+    width:42px;
+    height:42px;
+    border-radius:50%;
+    background:#f59e0b;
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:bold;
+    z-index:5;
+    transition:.3s;
+}
+
+.bendaPos{
+    top:280px;
+}
+
+.kontrol{
+    display:flex;
+    justify-content:center;
+    gap:10px;
+    flex-wrap:wrap;
+}
+
+.nilai-simulasi{
+    background:#ecfdf5;
+    padding:14px;
+    border-radius:10px;
+    margin-top:12px;
+    font-size:18px;
+    font-weight:bold;
+}
+
+.level-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+}
+
+.badge{
+    background:#e2e8f0;
+    padding:7px 10px;
+    border-radius:20px;
+    font-size:13px;
+}
+
+.mudah{
+    color:#15803d;
+}
+
+.menengah{
+    color:#b45309;
+}
+
+.sulit{
+    color:#dc2626;
+}
+
+.soal{
+    padding:14px 0;
+    border-bottom:1px solid #e5e7eb;
+}
+
+.soal:last-child{
+    border-bottom:0;
+}
+
+.pilihan{
+    display:block;
+    background:#f8fafc;
+    padding:10px;
+    margin:7px 0;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+.jawaban-input{
+    margin-top:10px;
+}
+
+.hasil{
+    display:none;
+    padding:13px;
+    border-radius:10px;
+    margin-top:12px;
+}
+
+.berhasil{
+    background:#ecfdf5;
+}
+
+.gagal{
+    background:#fff7ed;
+}
+
+.terkunci{
+    opacity:.45;
+    pointer-events:none;
+}
+
+.progress{
+    background:#e2e8f0;
+    height:12px;
+    border-radius:20px;
+    overflow:hidden;
+    margin:10px 0;
+}
+
+.progressBar{
+    height:100%;
+    width:0%;
+    background:#2563eb;
+    transition:.4s;
+}
+
+.refleksi input{
+    margin-bottom:12px;
+}
+
+.footer{
+    text-align:center;
+    font-size:13px;
+    color:#64748b;
+    padding:20px;
+}
+
+@media(max-width:600px){
+
+    .identitas{
+        grid-template-columns:1fr;
+    }
+
+    .header h1{
+        font-size:22px;
+    }
+
+    .acuan{
+        transform:scale(.85);
+        margin-top:0;
+        margin-bottom:0;
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+<div class="container">
+
+
+<!-- =====================================================
+HEADER
+===================================================== -->
+
+<div class="header">
+
+<h1>LKPD Interaktif</h1>
+
+<div>
+<b>Matematika Kelas VII-B</b>
+</div>
+
+<div>
+Bab 1: Bilangan Bulat
+</div>
+
+<div>
+TP 1: Memahami Bilangan Positif, Negatif, dan Nol
+</div>
+
+</div>
+
+
+<!-- =====================================================
+IDENTITAS
+===================================================== -->
+
+<div class="card">
+
+<h2>👤 Identitas</h2>
+
+<div class="identitas">
+
+<div>
+
+<label>Nama</label>
+
+<input
+type="text"
+id="nama"
+placeholder="Masukkan nama"
+/>
+
+</div>
+
+
+<div>
+
+<label>Kelompok</label>
+
+<input
+type="text"
+id="kelompok"
+placeholder="Contoh: Kelompok 1"
+/>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- =====================================================
+MISI
+===================================================== -->
+
+<div class="card">
+
+<h2>🎯 Misi Pembelajaran</h2>
+
+<div class="misi">
+
+<p>
+Hari ini kamu akan menemukan bagaimana bilangan
+<b>positif, negatif, dan nol</b> digunakan untuk
+menyatakan keadaan yang berlawanan terhadap
+<b>titik acuan 0</b>.
+</p>
+
+<p>
+Jangan hanya menghafal tanda.
+<strong>Amati, geser, coba, dan temukan konsepnya.</strong>
+</p>
+
+</div>
+
+</div>
+
+
+<!-- =====================================================
+SIMULASI
+===================================================== -->
+
+<div class="card simulator">
+
+<h2>🧪 SIMULASI VIRTUAL</h2>
+
+<p>
+Gunakan tombol untuk menggerakkan benda dari
+titik acuan 0.
+</p>
+
+<div class="acuan">
+
+<div class="garis"></div>
+
+<div class="level level-atas">
+<span>+4</span>
+<span>↑</span>
+</div>
+
+<div class="level level-atas2">
+<span>+3</span>
+<span>↑</span>
+</div>
+
+<div class="level level-atas3">
+<span>+2</span>
+<span>↑</span>
+</div>
+
+<div class="level level-atas4">
+<span>+1</span>
+<span>↑</span>
+</div>
+
+<div class="level level-nol">
+<span>0</span>
+<span>●</span>
+</div>
+
+<div class="level level-bawah">
+<span>-1</span>
+<span>↓</span>
+</div>
+
+<div class="level level-bawah2">
+<span>-2</span>
+<span>↓</span>
+</div>
+
+<div
+class="benda bendaPos"
+id="benda">
+●
+</div>
+
+</div>
+
+
+<div class="kontrol">
+
+<button
+class="sim"
+onclick="gerak(-1)">
+⬆️ Naik
+</button>
+
+<button
+class="secondary"
+onclick="gerak(0)">
+🎯 Kembali ke 0
+</button>
+
+<button
+class="sim"
+onclick="gerak(1)">
+⬇️ Turun
+</button>
+
+</div>
+
+
+<div
+class="nilai-simulasi"
+id="nilaiSimulasi">
+
+Posisi saat ini: 0
+
+</div>
+
+
+<p>
+Coba pikirkan:
+<strong>
+Mengapa ketika benda naik nilainya menjadi positif,
+sedangkan ketika turun nilainya menjadi negatif?
+</strong>
+</p>
+
+</div>
+
+
+<!-- =====================================================
+LEVEL 1
+===================================================== -->
+
+<div class="card" id="level1">
+
+<div class="level-header">
+
+<h2 class="mudah">
+🟢 LEVEL 1 — MUDAH
+</h2>
+
+<span class="badge">
+5 soal • 10 poin/soal
+</span>
+
+</div>
+
+<p>
+<strong>Fokus:</strong>
+Mengenali bilangan positif, negatif, dan nol.
+</p>
+
+<div class="progress">
+<div
+class="progressBar"
+id="progress1">
+</div>
+</div>
+
+<div id="soalLevel1"></div>
+
+<button onclick="periksaLevel(1)">
+✅ Periksa Jawaban
+</button>
+
+<button
+class="generate"
+onclick="generateLevel(1)">
+🔄 Generate 5 Soal Baru
+</button>
+
+<div
+id="hasil1"
+class="hasil">
+</div>
+
+</div>
+
+
+<!-- =====================================================
+LEVEL 2
+===================================================== -->
+
+<div
+class="card terkunci"
+id="level2">
+
+<div class="level-header">
+
+<h2 class="menengah">
+🟡 LEVEL 2 — MENENGAH
+</h2>
+
+<span class="badge">
+5 soal • 15 poin/soal
+</span>
+
+</div>
+
+<p>
+<strong>Fokus:</strong>
+Menerjemahkan situasi sehari-hari menjadi bilangan.
+</p>
+
+<div class="progress">
+<div
+class="progressBar"
+id="progress2">
+</div>
+</div>
+
+<div id="soalLevel2"></div>
+
+<button onclick="periksaLevel(2)">
+✅ Periksa Jawaban
+</button>
+
+<button
+class="generate"
+onclick="generateLevel(2)">
+🔄 Generate 5 Soal Baru
+</button>
+
+<div
+id="hasil2"
+class="hasil">
+</div>
+
+</div>
+
+
+<!-- =====================================================
+LEVEL 3
+===================================================== -->
+
+<div
+class="card terkunci"
+id="level3">
+
+<div class="level-header">
+
+<h2 class="sulit">
+🔴 LEVEL 3 — SULIT
+</h2>
+
+<span class="badge">
+5 soal • 20 poin/soal
+</span>
+
+</div>
+
+<p>
+<strong>Fokus:</strong>
+Menalar penggunaan tanda positif, negatif,
+dan titik acuan.
+</p>
+
+<div class="progress">
+<div
+class="progressBar"
+id="progress3">
+</div>
+</div>
+
+<div id="soalLevel3"></div>
+
+<button onclick="periksaLevel(3)">
+✅ Periksa Jawaban
+</button>
+
+<button
+class="generate"
+onclick="generateLevel(3)">
+🔄 Generate 5 Soal Baru
+</button>
+
+<div
+id="hasil3"
+class="hasil">
+</div>
+
+</div>
+
+
+<!-- =====================================================
+REFLEKSI
+===================================================== -->
+
+<div class="card">
+
+<h2>🧠 Refleksi</h2>
+
+<div class="refleksi">
+
+<p>
+<b>1. Bilangan positif digunakan ketika...</b>
+</p>
+
+<input
+type="text"
+id="ref1"
+placeholder="Tulis dengan bahasamu sendiri"
+>
+
+
+<p>
+<b>2. Bilangan negatif digunakan ketika...</b>
+</p>
+
+<input
+type="text"
+id="ref2"
+placeholder="Tulis dengan bahasamu sendiri"
+>
+
+
+<p>
+<b>3. Bilangan nol digunakan ketika...</b>
+</p>
+
+<input
+type="text"
+id="ref3"
+placeholder="Tulis dengan bahasamu sendiri"
+>
+
+</div>
+
+<button onclick="simpanHasil()">
+💾 Simpan Hasil
+</button>
+
+<div
+id="hasilSimpan"
+class="hasil berhasil">
+</div>
+
+</div>
+
+
+<div class="footer">
+
+LKPD Interaktif • Matematika Kelas VII-B
+
+</div>
+
+</div>
+
+
+<script>
+
+
+/* =====================================================
+DATA
+===================================================== */
+
+let posisi = 0;
+
+let poin = 0;
+
+let soalAktif = {
+
+    1: [],
+    2: [],
+    3: []
+
+};
+
+
+/* =====================================================
+BANK SOAL LEVEL 1
+15 POLA
+===================================================== */
+
+const bankMudah = [
+
+function(){
+
+let a=random(1,20);
+
+return {
+    tipe:"pilihan",
+    teks:`Suhu ${a}°C berada ${a}°C di atas 0°C. Bilangan yang tepat adalah...`,
+    pilihan:[a,-a,0],
+    jawaban:String(a)
+};
+
+},
+
+function(){
+
+let a=random(1,20);
+
+return {
+    tipe:"pilihan",
+    teks:`Sebuah kapal berada ${a} meter di bawah permukaan laut. Bilangannya adalah...`,
+    pilihan:[a,-a,0],
+    jawaban:String(-a)
+};
+
+},
+
+function(){
+
+let a=random(1,20);
+
+return {
+    tipe:"pilihan",
+    teks:`Sebuah benda berada ${a} meter di atas titik acuan. Bilangannya adalah...`,
+    pilihan:[a,-a,0],
+    jawaban:String(a)
+};
+
+},
+
+function(){
+
+let a=random(1,20);
+
+return {
+    tipe:"pilihan",
+    teks:`Sebuah benda berada ${a} meter di bawah titik acuan. Bilangannya adalah...`,
+    pilihan:[a,-a,0],
+    jawaban:String(-a)
+};
+
+},
+
+function(){
+
+return {
+    tipe:"pilihan",
+    teks:`Benda tepat berada pada titik acuan. Bilangannya adalah...`,
+    pilihan:[1,-1,0],
+    jawaban:"0"
+};
+
+},
+
+function(){
+
+let a=random(1,20);
+
+return {
+    tipe:"pilihan",
+    teks:`Lift berada di lantai ${a} di atas lantai dasar. Bilangannya adalah...`,
+    pilihan:[a,-a,0],
+    jawaban:String(a)
+};
+
+},
+
+function(){
+
+let a=random(1,20);
+
+return {
+    tipe:"pilihan",
+    teks:`Parkir berada ${a} lantai di bawah lantai dasar. Bilangannya adalah...`,
+    pilihan:[a,-a,0],
+    jawaban:String(-a)
+};
+
+},
+
+function(){
+
+let a=random(1,20);
+
+return {
+    tipe:"pilihan",
+    teks:`Seorang penyelam berada ${a} meter di bawah permukaan air. Bilangannya adalah...`,
+    pilihan:[a,-a,0],
+    jawaban:String(-a)
+};
+
+},
+
+function(){
+
+let a=random(1,20);
+
+return {
+    tipe:"pilihan",
+    teks:`Burung terbang ${a} meter di atas titik acuan. Bilangannya adalah...`,
+    pilihan:[a,-a,0],
+    jawaban:String(a)
+};
+
+},
+
+function(){
+
+let a=random(1,20);
+
+return {
+    tipe:"pilihan",
+    teks:`Suhu suatu daerah ${a}°C di atas 0°C. Bilangannya adalah...`,
+    pilihan:[a,-a,0],
+    jawaban:String(a)
+};
+
+},
+
+function(){
+
+let a=random(1,20);
+
+return {
+    tipe:"pilihan",
+    teks:`Suhu suatu daerah ${a}°C di bawah 0°C. Bilangannya adalah...`,
+    pilihan:[a,-a,0],
+    jawaban:String(-a)
+};
+
+},
+
+function(){
+
+let a=random(1,20);
+
+return {
+    tipe:"pilihan",
+    teks:`Tanah berada ${a} meter di bawah permukaan laut. Bilangannya adalah...`,
+    pilihan:[a,-a,0],
+    jawaban:String(-a)
+};
+
+},
+
+function(){
+
+let a=random(1,20);
+
+return {
+    tipe:"pilihan",
+    teks:`Menara berada ${a} meter di atas titik acuan. Bilangannya adalah...`,
+    pilihan:[a,-a,0],
+    jawaban:String(a)
+};
+
+},
+
+function(){
+
+let a=random(1,20);
+
+return {
+    tipe:"pilihan",
+    teks:`Seseorang turun ${a} meter dari titik acuan. Bilangannya adalah...`,
+    pilihan:[a,-a,0],
+    jawaban:String(-a)
+};
+
+},
+
+function(){
+
+let a=random(1,20);
+
+return {
+    tipe:"pilihan",
+    teks:`Seseorang naik ${a} meter dari titik acuan. Bilangannya adalah...`,
+    pilihan:[a,-a,0],
+    jawaban:String(a)
+};
+
+}
+
+];
+
+
+/* =====================================================
+BANK SOAL LEVEL 2
+15 POLA
+===================================================== */
+
+const bankMenengah = [
+
+function(){
+let a=random(2,20);
+return {
+tipe:"angka",
+teks:`Sebuah gedung memiliki lantai ${a} di atas lantai dasar. Tuliskan bilangannya.`,
+jawaban:String(a)
+};
+},
+
+function(){
+let a=random(2,20);
+return {
+tipe:"angka",
+teks:`Tempat parkir berada ${a} lantai di bawah lantai dasar. Tuliskan bilangannya.`,
+jawaban:String(-a)
+};
+},
+
+function(){
+let a=random(2,20);
+return {
+tipe:"angka",
+teks:`Seorang penyelam berada ${a} meter di bawah permukaan laut. Tuliskan bilangannya.`,
+jawaban:String(-a)
+};
+},
+
+function(){
+let a=random(2,20);
+return {
+tipe:"angka",
+teks:`Seekor burung berada ${a} meter di atas permukaan tanah. Tuliskan bilangannya.`,
+jawaban:String(a)
+};
+},
+
+function(){
+let a=random(2,20);
+return {
+tipe:"angka",
+teks:`Suhu berada ${a}°C di bawah 0°C. Tuliskan bilangannya.`,
+jawaban:String(-a)
+};
+},
+
+function(){
+let a=random(2,20);
+return {
+tipe:"angka",
+teks:`Suhu berada ${a}°C di atas 0°C. Tuliskan bilangannya.`,
+jawaban:String(a)
+};
+},
+
+function(){
+let a=random(2,20);
+return {
+tipe:"angka",
+teks:`Dika memiliki utang sebesar ${a} ribu rupiah. Dengan satuan ribuan rupiah, bilangannya adalah...`,
+jawaban:String(-a)
+};
+},
+
+function(){
+let a=random(2,20);
+return {
+tipe:"angka",
+teks:`Dika mendapatkan uang sebesar ${a} ribu rupiah. Dengan satuan ribuan rupiah, bilangannya adalah...`,
+jawaban:String(a)
+};
+},
+
+function(){
+let a=random(2,20);
+return {
+tipe:"angka",
+teks:`Sebuah kapal berada ${a} meter di bawah permukaan laut.`,
+jawaban:String(-a)
+};
+},
+
+function(){
+let a=random(2,20);
+return {
+tipe:"angka",
+teks:`Pesawat berada ${a} meter di atas titik acuan.`,
+jawaban:String(a)
+};
+},
+
+function(){
+let a=random(2,20);
+return {
+tipe:"angka",
+teks:`Lift turun ${a} lantai dari lantai dasar. Tuliskan bilangannya.`,
+jawaban:String(-a)
+};
+},
+
+function(){
+let a=random(2,20);
+return {
+tipe:"angka",
+teks:`Lift naik ${a} lantai dari lantai dasar. Tuliskan bilangannya.`,
+jawaban:String(a)
+};
+},
+
+function(){
+let a=random(2,20);
+return {
+tipe:"angka",
+teks:`Sebuah terowongan berada ${a} meter di bawah permukaan tanah.`,
+jawaban:String(-a)
+};
+},
+
+function(){
+let a=random(2,20);
+return {
+tipe:"angka",
+teks:`Sebuah gedung berada ${a} meter di atas permukaan tanah.`,
+jawaban:String(a)
+};
+},
+
+function(){
+return {
+tipe:"angka",
+teks:`Sebuah benda berada tepat pada titik acuan 0. Tuliskan bilangannya.`,
+jawaban:"0"
+};
+}
+
+];
+
+
+/* =====================================================
+BANK SOAL LEVEL 3
+15 POLA
+===================================================== */
+
+const bankSulit = [
+
+function(){
+let a=random(2,20);
+return {
+tipe:"pilihan",
+teks:`Ali berada ${a} meter di atas titik acuan. Budi berada ${a} meter di bawah titik acuan. Pernyataan yang benar adalah...`,
+pilihan:[
+`Ali = +${a} dan Budi = -${a}`,
+`Ali = -${a} dan Budi = +${a}`,
+`Ali = ${a} dan Budi = ${a}`
+],
+jawaban:`Ali = +${a} dan Budi = -${a}`
+};
+},
+
+function(){
+let a=random(2,20);
+return {
+tipe:"pilihan",
+teks:`Mengapa ${a} meter di atas dan ${a} meter di bawah menggunakan tanda berbeda?`,
+pilihan:[
+"Karena arahnya berlawanan terhadap titik acuan",
+"Karena angka tersebut berbeda",
+"Karena angka negatif selalu lebih kecil"
+],
+jawaban:"Karena arahnya berlawanan terhadap titik acuan"
+};
+},
+
+function(){
+let a=random(2,20);
+return {
+tipe:"angka",
+teks:`Jika lantai dasar dianggap 0 dan seseorang berada ${a} lantai di bawahnya, tuliskan bilangannya.`,
+jawaban:String(-a)
+};
+},
+
+function(){
+let a=random(2,20);
+return {
+tipe:"angka",
+teks:`Jika permukaan laut dianggap 0 dan penyelam berada ${a} meter di bawahnya, tuliskan bilangannya.`,
+jawaban:String(-a)
+};
+},
+
+function(){
+let a=random(2,20);
+return {
+tipe:"angka",
+teks:`Jika permukaan tanah dianggap 0 dan burung berada ${a} meter di atasnya, tuliskan bilangannya.`,
+jawaban:String(a)
+};
+},
+
+function(){
+let a=random(2,20);
+return {
+tipe:"pilihan",
+teks:`Bilangan yang menunjukkan keadaan berlawanan dari +${a} adalah...`,
+pilihan:[a,-a,0],
+jawaban:String(-a)
+};
+},
+
+function(){
+let a=random(2,20);
+return {
+tipe:"pilihan",
+teks:`Bilangan yang menunjukkan keadaan berlawanan dari -${a} adalah...`,
+pilihan:[a,-a,0],
+jawaban:String(a)
+};
+},
+
+function(){
+let a=random(2,20);
+return {
+tipe:"angka",
+teks:`Sebuah benda berpindah ${a} meter ke atas dari titik acuan. Tuliskan bilangan posisinya.`,
+jawaban:String(a)
+};
+},
+
+function(){
+let a=random(2,20);
+return {
+tipe:"angka",
+teks:`Sebuah benda berpindah ${a} meter ke bawah dari titik acuan. Tuliskan bilangan posisinya.`,
+jawaban:String(-a)
+};
+},
+
+function(){
+let a=random(2,20);
+return {
+tipe:"pilihan",
+teks:`Manakah situasi yang dapat dinyatakan dengan bilangan negatif?`,
+pilihan:[
+`Berada ${a} meter di bawah permukaan laut`,
+`Berada ${a} meter di atas permukaan laut`,
+`Tepat pada permukaan laut`
+],
+jawaban:`Berada ${a} meter di bawah permukaan laut`
+};
+},
+
+function(){
+let a=random(2,20);
+return {
+tipe:"pilihan",
+teks:`Manakah situasi yang dapat dinyatakan dengan bilangan positif?`,
+pilihan:[
+`Berada ${a} meter di bawah permukaan laut`,
+`Berada ${a} meter di atas permukaan laut`,
+`Tepat pada titik acuan`
+],
+jawaban:`Berada ${a} meter di atas permukaan laut`
+};
+},
+
+function(){
+let a=random(2,20);
+return {
+tipe:"pilihan",
+teks:`Jika titik acuan berubah, apakah arti tanda positif dan negatif dapat berubah?`,
+pilihan:[
+"Ya, karena tanda bergantung pada titik acuan yang digunakan",
+"Tidak, tanda selalu memiliki arti yang sama",
+"Tidak, semua bilangan harus positif"
+],
+jawaban:"Ya, karena tanda bergantung pada titik acuan yang digunakan"
+};
+},
+
+function(){
+let a=random(2,20);
+return {
+tipe:"angka",
+teks:`Suhu awal dianggap memiliki titik acuan 0°C. Suhu berada ${a}°C di bawahnya. Tuliskan bilangannya.`,
+jawaban:String(-a)
+};
+},
+
+function(){
+let a=random(2,20);
+return {
+tipe:"angka",
+teks:`Seseorang memiliki saldo negatif sebesar ${a} ribu rupiah. Dengan satuan ribuan rupiah, tuliskan bilangannya.`,
+jawaban:String(-a)
+};
+},
+
+function(){
+return {
+tipe:"pilihan",
+teks:`Jika suatu benda tepat berada pada titik acuan, mengapa digunakan bilangan 0?`,
+pilihan:[
+"Karena benda tidak berada di atas atau di bawah titik acuan",
+"Karena bilangan 0 selalu berarti positif",
+"Karena bilangan 0 berarti negatif"
+],
+jawaban:"Karena benda tidak berada di atas atau di bawah titik acuan"
+};
+}
+
+];
+
+
+/* =====================================================
+FUNGSI RANDOM
+===================================================== */
+
+function random(min,max){
+
+return Math.floor(
+Math.random()*(max-min+1)
+)+min;
+
+}
+
+
+/* =====================================================
+ACAK 5 POLA DARI 15
+===================================================== */
+
+function ambilLima(bank){
+
+let indeks=[];
+
+while(indeks.length<5){
+
+let x=random(0,bank.length-1);
+
+if(!indeks.includes(x)){
+indeks.push(x);
+}
+
+}
+
+return indeks.map(
+i => bank[i]()
+);
+
+}
+
+
+/* =====================================================
+GENERATE
+===================================================== */
+
+function generateLevel(level){
+
+let bank;
+
+if(level===1){
+bank=bankMudah;
+}
+
+if(level===2){
+bank=bankMenengah;
+}
+
+if(level===3){
+bank=bankSulit;
+}
+
+soalAktif[level]=ambilLima(bank);
+
+tampilkanSoal(level);
+
+}
+
+
+/* =====================================================
+TAMPILKAN SOAL
+===================================================== */
+
+function tampilkanSoal(level){
+
+let container=
+document.getElementById(
+"soalLevel"+level
+);
+
+container.innerHTML="";
+
+
+soalAktif[level].forEach(
+(soal,index)=>{
+
+let nomor=index+1;
+
+let html=`
+<div class="soal">
+
+<b>${nomor}.</b>
+${soal.teks}
+`;
+
+if(soal.tipe==="pilihan"){
+
+let pilihan=[...soal.pilihan];
+
+
+// Acak pilihan
+pilihan.sort(
+()=>Math.random()-.5
+);
+
+
+pilihan.forEach(
+(p,j)=>{
+
+html+=`
+
+<label class="pilihan">
+
+<input
+type="radio"
+name="level${level}_soal${index}"
+value="${escapeHTML(String(p))}"
+>
+
+${String(p)}
+
+</label>
+
+`;
+
+});
+
+}
+
+else{
+
+html+=`
+
+<div class="jawaban-input">
+
+<input
+type="number"
+id="jawaban_${level}_${index}"
+placeholder="Masukkan angka"
+>
+
+</div>
+
+`;
+
+}
+
+
+html+=`</div>`;
+
+container.innerHTML+=html;
+
+});
+
+}
+
+
+/* =====================================================
+ESCAPE HTML
+===================================================== */
+
+function escapeHTML(str){
+
+return str
+.replace(/&/g,"&amp;")
+.replace(/</g,"&lt;")
+.replace(/>/g,"&gt;")
+.replace(/"/g,"&quot;")
+.replace(/'/g,"&#039;");
+
+}
+
+
+/* =====================================================
+PERIKSA LEVEL
+===================================================== */
+
+function periksaLevel(level){
+
+let benar=0;
+
+
+soalAktif[level].forEach(
+(soal,index)=>{
+
+let jawaban="";
+
+
+if(soal.tipe==="pilihan"){
+
+let e=document.querySelector(
+`input[name="level${level}_soal${index}"]:checked`
+);
+
+if(e){
+jawaban=e.value;
+}
+
+}
+
+else{
+
+jawaban=
+document.getElementById(
+`jawaban_${level}_${index}`
+).value;
+
+}
+
+
+if(String(jawaban)===
+String(soal.jawaban)){
+
+benar++;
+
+}
+
+});
+
+
+let nilaiPerSoal;
+
+if(level===1){
+nilaiPerSoal=10;
+}
+
+if(level===2){
+nilaiPerSoal=15;
+}
+
+if(level===3){
+nilaiPerSoal=20;
+}
+
+
+let nilai=benar*nilaiPerSoal;
+
+
+// update progress
+let persen=(benar/5)*100;
+
+document.getElementById(
+"progress"+level
+).style.width=
+persen+"%";
+
+
+let hasil=
+document.getElementById(
+"hasil"+level
+);
+
+hasil.style.display="block";
+
+
+if(benar>=4){
+
+hasil.className=
+"hasil berhasil";
+
+
+hasil.innerHTML=`
+
+🎉 <b>Level berhasil!</b>
+
+<br><br>
+
+Benar: <b>${benar}/5</b>
+
+<br>
+
+Poin percobaan: <b>${nilai}</b>
+
+<br><br>
+
+Kamu sudah memenuhi syarat
+untuk melanjutkan ke level berikutnya.
+
+`;
+
+
+if(level===1){
+
+document
+.getElementById("level2")
+.classList.remove("terkunci");
+
+}
+
+if(level===2){
+
+document
+.getElementById("level3")
+.classList.remove("terkunci");
+
+}
+
+if(level===3){
+
+hasil.innerHTML+=`
+
+<br>
+
+🏆 <b>TP 1 berhasil diselesaikan!</b>
+
+`;
+
+}
+
+poin=Math.max(
+poin,
+(level===1?0:30)+
+(level===2?0:60)+
+(level===3?0:120)+
+nilai
+);
+
+}
+
+else{
+
+hasil.className=
+"hasil gagal";
+
+
+hasil.innerHTML=`
+
+Belum berhasil.
+
+<br><br>
+
+Benar: <b>${benar}/5</b>
+
+<br>
+
+Poin percobaan: <b>${nilai}</b>
+
+<br><br>
+
+Tidak masalah.
+
+Gunakan tombol
+<b>🔄 Generate 5 Soal Baru</b>
+untuk mencoba kembali.
+
+`;
+
+}
+
+}
+
+
+/* =====================================================
+SIMULASI
+===================================================== */
+
+function gerak(arah){
+
+if(arah===0){
+
+posisi=0;
+
+}
+
+else{
+
+posisi+=arah;
+
+if(posisi>4){
+posisi=4;
+}
+
+if(posisi<-2){
+posisi=-2;
+}
+
+}
+
+
+let top;
+
+switch(posisi){
+
+case 4:
+top=20;
+break;
+
+case 3:
+top=85;
+break;
+
+case 2:
+top=150;
+break;
+
+case 1:
+top=215;
+break;
+
+case 0:
+top=280;
+break;
+
+case -1:
+top=345;
+break;
+
+case -2:
+top=410;
+break;
+
+}
+
+
+document.getElementById(
+"benda"
+).style.top=
+top+"px";
+
+
+let teks;
+
+if(posisi>0){
+
+teks=
+"Posisi saat ini: +"+posisi;
+
+}
+
+else{
+
+teks=
+"Posisi saat ini: "+posisi;
+
+}
+
+
+document.getElementById(
+"nilaiSimulasi"
+).innerHTML=
+teks;
+
+}
+
+
+/* =====================================================
+SIMPAN
+===================================================== */
+
+function simpanHasil(){
+
+let nama=
+document.getElementById("nama").value ||
+"Tanpa Nama";
+
+
+let kelompok=
+document.getElementById("kelompok").value ||
+"-";
+
+
+let data={
+
+nama:nama,
+
+kelompok:kelompok,
+
+poin:poin,
+
+refleksi:{
+
+positif:
+document.getElementById("ref1").value,
+
+negatif:
+document.getElementById("ref2").value,
+
+nol:
+document.getElementById("ref3").value
+
+}
+
+};
+
+
+localStorage.setItem(
+
+"LKPD_TP1_"+nama,
+
+JSON.stringify(data)
+
+);
+
+
+let hasil=
+document.getElementById(
+"hasilSimpan"
+);
+
+
+hasil.style.display="block";
+
+
+hasil.innerHTML=`
+
+✅ <b>Hasil berhasil disimpan.</b>
+
+<br><br>
+
+Nama: <b>${nama}</b>
+
+<br>
+
+Kelompok: <b>${kelompok}</b>
+
+<br>
+
+Poin terbaik: <b>${poin}</b>
+
+`;
+
+}
+
+
+/* =====================================================
+GENERATE AWAL
+===================================================== */
+
+generateLevel(1);
+
+</script>
+
+</body>
+</html>

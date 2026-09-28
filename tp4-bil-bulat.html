@@ -1,0 +1,879 @@
+﻿<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TP 4 - Operasi Hitung Bilangan Bulat</title>
+
+<style>
+*{box-sizing:border-box}
+
+body{
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:#f4f7fb;
+    color:#1f2937;
+}
+
+header{
+    background:#1e3a8a;
+    color:white;
+    padding:20px;
+    text-align:center;
+}
+
+header h1{
+    margin:0 0 8px;
+    font-size:25px;
+}
+
+header p{
+    margin:0;
+    opacity:.9;
+}
+
+.container{
+    max-width:1000px;
+    margin:auto;
+    padding:15px;
+}
+
+.card{
+    background:white;
+    border-radius:16px;
+    padding:20px;
+    margin-bottom:18px;
+    box-shadow:0 4px 15px rgba(0,0,0,.08);
+}
+
+h2{
+    margin-top:0;
+    color:#1e3a8a;
+}
+
+.btn{
+    border:0;
+    padding:11px 17px;
+    border-radius:10px;
+    cursor:pointer;
+    font-weight:bold;
+    margin:4px;
+}
+
+.btn-primary{
+    background:#2563eb;
+    color:white;
+}
+
+.btn-success{
+    background:#16a34a;
+    color:white;
+}
+
+.btn-warning{
+    background:#f59e0b;
+    color:white;
+}
+
+.btn-danger{
+    background:#dc2626;
+    color:white;
+}
+
+.levels{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:10px;
+}
+
+.level{
+    border:2px solid #dbeafe;
+    padding:15px;
+    border-radius:12px;
+    cursor:pointer;
+    text-align:center;
+}
+
+.level:hover{
+    background:#eff6ff;
+}
+
+.level.active{
+    background:#dbeafe;
+    border-color:#2563eb;
+}
+
+.level h3{
+    margin:5px 0;
+}
+
+.question{
+    text-align:center;
+    font-size:38px;
+    font-weight:bold;
+    margin:20px 0;
+}
+
+.answer-area{
+    text-align:center;
+}
+
+.answer-area input{
+    width:130px;
+    padding:12px;
+    font-size:22px;
+    text-align:center;
+    border:2px solid #cbd5e1;
+    border-radius:10px;
+}
+
+.result{
+    text-align:center;
+    font-size:20px;
+    font-weight:bold;
+    margin-top:15px;
+}
+
+.score{
+    display:flex;
+    justify-content:space-between;
+    background:#eff6ff;
+    padding:12px;
+    border-radius:10px;
+    margin-bottom:15px;
+}
+
+/* GARIS BILANGAN */
+
+.number-line-wrapper{
+    overflow-x:auto;
+    padding:40px 10px 25px;
+}
+
+.number-line{
+    position:relative;
+    min-width:850px;
+    height:130px;
+    margin:auto;
+}
+
+.axis{
+    position:absolute;
+    top:60px;
+    left:20px;
+    right:20px;
+    height:4px;
+    background:#334155;
+}
+
+.axis:after{
+    content:"";
+    position:absolute;
+    right:-2px;
+    top:-6px;
+    border-left:12px solid #334155;
+    border-top:8px solid transparent;
+    border-bottom:8px solid transparent;
+}
+
+.tick{
+    position:absolute;
+    top:50px;
+    width:2px;
+    height:24px;
+    background:#334155;
+}
+
+.tick-label{
+    position:absolute;
+    top:80px;
+    transform:translateX(-50%);
+    font-weight:bold;
+}
+
+.start-point{
+    position:absolute;
+    top:51px;
+    width:20px;
+    height:20px;
+    background:#2563eb;
+    border-radius:50%;
+    transform:translate(-50%,-50%);
+    z-index:5;
+}
+
+.current-point{
+    position:absolute;
+    top:51px;
+    width:24px;
+    height:24px;
+    background:#16a34a;
+    border-radius:50%;
+    transform:translate(-50%,-50%);
+    z-index:6;
+    box-shadow:0 0 0 5px rgba(22,163,74,.2);
+}
+
+.arrow{
+    position:absolute;
+    top:38px;
+    height:8px;
+    background:#f59e0b;
+    z-index:4;
+    transition:all .5s;
+}
+
+.arrow.right:after{
+    content:"";
+    position:absolute;
+    right:-10px;
+    top:-6px;
+    border-left:12px solid #f59e0b;
+    border-top:10px solid transparent;
+    border-bottom:10px solid transparent;
+}
+
+.arrow.left:after{
+    content:"";
+    position:absolute;
+    left:-10px;
+    top:-6px;
+    border-right:12px solid #f59e0b;
+    border-top:10px solid transparent;
+    border-bottom:10px solid transparent;
+}
+
+.simulation-info{
+    text-align:center;
+    font-size:18px;
+    margin-top:10px;
+}
+
+.steps{
+    background:#f8fafc;
+    padding:15px;
+    border-radius:12px;
+    margin-top:15px;
+}
+
+.step{
+    padding:7px;
+    border-bottom:1px solid #e2e8f0;
+}
+
+.explanation{
+    background:#fffbeb;
+    border-left:5px solid #f59e0b;
+    padding:15px;
+    border-radius:8px;
+}
+
+.hidden{
+    display:none;
+}
+
+@media(max-width:700px){
+    .levels{
+        grid-template-columns:1fr;
+    }
+
+    .question{
+        font-size:30px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>TP 4 — Operasi Hitung Bilangan Bulat</h1>
+    <p>Penjumlahan dan Pengurangan Bilangan Bulat</p>
+</header>
+
+<div class="container">
+
+    <div class="card">
+        <h2>🎯 Tujuan Pembelajaran</h2>
+        <p>
+            Setelah belajar, kamu mampu melakukan operasi penjumlahan
+            dan pengurangan bilangan bulat serta menjelaskan prosesnya
+            menggunakan garis bilangan.
+        </p>
+    </div>
+
+    <div class="card">
+        <h2>📚 Pilih Level</h2>
+
+        <div class="levels">
+
+            <div class="level active" onclick="setLevel(1,this)">
+                <h3>🟢 Level Mudah</h3>
+                <p>Penjumlahan sederhana</p>
+            </div>
+
+            <div class="level" onclick="setLevel(2,this)">
+                <h3>🟡 Level Menengah</h3>
+                <p>Penjumlahan & pengurangan</p>
+            </div>
+
+            <div class="level" onclick="setLevel(3,this)">
+                <h3>🔴 Level Sulit</h3>
+                <p>Operasi campuran & tantangan</p>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="card">
+
+        <div class="score">
+            <span>Soal: <b id="questionNumber">1</b>/15</span>
+            <span>Skor: <b id="score">0</b></span>
+        </div>
+
+        <div class="question" id="question">
+            5 + (-3) = ?
+        </div>
+
+        <div class="answer-area">
+
+            <input
+                type="number"
+                id="answer"
+                placeholder="Jawaban"
+                onkeydown="if(event.key==='Enter') checkAnswer()"
+            >
+
+            <br>
+
+            <button class="btn btn-success" onclick="checkAnswer()">
+                ✓ Periksa
+            </button>
+
+            <button class="btn btn-primary" onclick="newQuestion()">
+                🔄 Soal Baru
+            </button>
+
+        </div>
+
+        <div class="result" id="result"></div>
+
+    </div>
+
+
+    <!-- SIMULASI -->
+
+    <div class="card">
+
+        <h2>🎮 Simulasi Garis Bilangan</h2>
+
+        <div class="explanation">
+            <b>Perhatikan!</b><br>
+            Bilangan pertama adalah <b>titik awal</b>.
+            Bilangan kedua menentukan arah dan jumlah langkah.
+        </div>
+
+        <div class="number-line-wrapper">
+            <div class="number-line" id="numberLine">
+                <div class="axis"></div>
+            </div>
+        </div>
+
+        <div class="simulation-info" id="simulationInfo">
+            Mulai dari 5, kemudian bergerak 3 langkah ke kiri.
+        </div>
+
+        <div class="steps" id="steps"></div>
+
+    </div>
+
+
+    <div class="card">
+
+        <h2>💡 Ingat Konsep</h2>
+
+        <div class="explanation">
+
+            <p>
+                <b>Penjumlahan bilangan positif</b><br>
+                Bergerak ke kanan.
+            </p>
+
+            <p>
+                <b>Penjumlahan bilangan negatif</b><br>
+                Bergerak ke kiri.
+            </p>
+
+            <p>
+                <b>Pengurangan</b><br>
+                Ubah menjadi penjumlahan lawannya.
+            </p>
+
+            <p>
+                Contoh:
+                <br>
+                5 − (−3)
+                <br>
+                = 5 + 3
+                <br>
+                = 8
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+let level = 1;
+let currentQuestion = {};
+let questionCount = 1;
+let score = 0;
+let answered = false;
+
+
+/* ===============================
+   LEVEL
+================================ */
+
+function setLevel(lvl, element){
+
+    level = lvl;
+
+    document.querySelectorAll(".level")
+        .forEach(x => x.classList.remove("active"));
+
+    element.classList.add("active");
+
+    questionCount = 1;
+    score = 0;
+
+    document.getElementById("score").textContent = score;
+    document.getElementById("questionNumber").textContent = questionCount;
+
+    newQuestion();
+}
+
+
+/* ===============================
+   RANDOM ANGKA
+================================ */
+
+function randomInt(min,max){
+    return Math.floor(Math.random()*(max-min+1))+min;
+}
+
+
+/* ===============================
+   GENERATE SOAL
+================================ */
+
+function generateQuestion(){
+
+    let a,b,operation;
+
+    if(level === 1){
+
+        /*
+        LEVEL MUDAH
+        Penjumlahan
+        angka relatif kecil
+        */
+
+        a = randomInt(-10,10);
+        b = randomInt(-10,10);
+
+        operation = "+";
+
+    }
+
+    else if(level === 2){
+
+        /*
+        LEVEL MENENGAH
+        Penjumlahan dan pengurangan
+        */
+
+        a = randomInt(-20,20);
+        b = randomInt(-15,15);
+
+        operation = Math.random() < .5 ? "+" : "-";
+
+    }
+
+    else{
+
+        /*
+        LEVEL SULIT
+        Angka lebih besar
+        operasi pengurangan negatif
+        */
+
+        a = randomInt(-30,30);
+        b = randomInt(-25,25);
+
+        operation = Math.random() < .5 ? "+" : "-";
+
+    }
+
+    let answer;
+
+    if(operation === "+"){
+        answer = a+b;
+    }else{
+        answer = a-b;
+    }
+
+    return {
+        a:a,
+        b:b,
+        operation:operation,
+        answer:answer
+    };
+}
+
+
+/* ===============================
+   FORMAT SOAL
+================================ */
+
+function formatNumber(n){
+
+    if(n < 0){
+        return "(" + n + ")";
+    }
+
+    return n;
+}
+
+
+/* ===============================
+   SOAL BARU
+================================ */
+
+function newQuestion(){
+
+    currentQuestion = generateQuestion();
+
+    answered = false;
+
+    document.getElementById("answer").value = "";
+
+    document.getElementById("result").textContent = "";
+
+    document.getElementById("question").textContent =
+        formatNumber(currentQuestion.a)
+        + " "
+        + currentQuestion.operation
+        + " "
+        + formatNumber(currentQuestion.b)
+        + " = ?";
+
+    simulateNumberLine();
+
+    document.getElementById("answer").focus();
+}
+
+
+/* ===============================
+   PERIKSA
+================================ */
+
+function checkAnswer(){
+
+    if(answered) return;
+
+    let input = document.getElementById("answer").value;
+
+    if(input === ""){
+        document.getElementById("result").textContent =
+            "Masukkan jawaban terlebih dahulu.";
+        return;
+    }
+
+    let userAnswer = Number(input);
+
+    let result = document.getElementById("result");
+
+    if(userAnswer === currentQuestion.answer){
+
+        result.textContent =
+            "✅ Benar! Jawaban kamu tepat.";
+
+        result.style.color = "#16a34a";
+
+        score += 10;
+
+        document.getElementById("score").textContent = score;
+
+    }else{
+
+        result.textContent =
+            "❌ Belum tepat. Perhatikan simulasi garis bilangan.";
+
+        result.style.color = "#dc2626";
+    }
+
+    answered = true;
+
+    setTimeout(() => {
+
+        if(questionCount < 15){
+
+            questionCount++;
+
+            document.getElementById("questionNumber").textContent =
+                questionCount;
+
+            newQuestion();
+
+        }else{
+
+            result.textContent =
+                "🎉 Level selesai! Skor kamu: " + score;
+
+        }
+
+    },1200);
+
+}
+
+
+/* ===============================
+   SIMULASI GARIS BILANGAN
+================================ */
+
+function simulateNumberLine(){
+
+    const container =
+        document.getElementById("numberLine");
+
+    container.innerHTML =
+        '<div class="axis"></div>';
+
+    let a = currentQuestion.a;
+
+    let b = currentQuestion.b;
+
+    let operation = currentQuestion.operation;
+
+    /*
+    Tentukan perpindahan.
+
+    + b  => bergerak sesuai tanda b
+    - b  => bergerak berlawanan tanda b
+    */
+
+    let movement;
+
+    if(operation === "+"){
+        movement = b;
+    }else{
+        movement = -b;
+    }
+
+    let result = a + movement;
+
+    /*
+    Tentukan rentang garis
+    */
+
+    let minValue =
+        Math.min(a,result) - 5;
+
+    let maxValue =
+        Math.max(a,result) + 5;
+
+    if(minValue < -40) minValue = -40;
+    if(maxValue > 40) maxValue = 40;
+
+    let range = maxValue - minValue;
+
+    /*
+    Membuat angka pada garis
+    */
+
+    for(let n=minValue; n<=maxValue; n++){
+
+        let percent =
+            ((n-minValue)/range)*100;
+
+        let tick =
+            document.createElement("div");
+
+        tick.className = "tick";
+
+        tick.style.left = percent + "%";
+
+        container.appendChild(tick);
+
+
+        let label =
+            document.createElement("div");
+
+        label.className = "tick-label";
+
+        label.style.left = percent + "%";
+
+        label.textContent = n;
+
+        container.appendChild(label);
+
+    }
+
+
+    /*
+    Titik awal
+    */
+
+    let startPercent =
+        ((a-minValue)/range)*100;
+
+    let start =
+        document.createElement("div");
+
+    start.className = "start-point";
+
+    start.style.left =
+        startPercent + "%";
+
+    container.appendChild(start);
+
+
+    /*
+    Titik akhir
+    */
+
+    let resultPercent =
+        ((result-minValue)/range)*100;
+
+    let current =
+        document.createElement("div");
+
+    current.className = "current-point";
+
+    current.style.left =
+        resultPercent + "%";
+
+    container.appendChild(current);
+
+
+    /*
+    Panah perpindahan
+    */
+
+    if(movement !== 0){
+
+        let leftValue =
+            Math.min(startPercent,resultPercent);
+
+        let widthValue =
+            Math.abs(resultPercent-startPercent);
+
+        let arrow =
+            document.createElement("div");
+
+        arrow.className =
+            "arrow "
+            + (movement > 0 ? "right" : "left");
+
+        arrow.style.left =
+            leftValue + "%";
+
+        arrow.style.width =
+            widthValue + "%";
+
+        container.appendChild(arrow);
+
+    }
+
+
+    /*
+    Informasi
+    */
+
+    let direction;
+
+    if(movement > 0){
+        direction = "ke kanan";
+    }
+    else if(movement < 0){
+        direction = "ke kiri";
+    }
+    else{
+        direction = "tidak bergerak";
+    }
+
+    document.getElementById("simulationInfo").innerHTML =
+        "Mulai dari <b>"
+        + a
+        + "</b>, bergerak <b>"
+        + Math.abs(movement)
+        + " langkah "
+        + direction
+        + "</b>, berhenti di <b>"
+        + result
+        + "</b>.";
+
+
+    /*
+    Langkah satu per satu
+    */
+
+    let stepsHTML =
+        "<b>Langkah:</b>";
+
+    let currentValue = a;
+
+    if(movement === 0){
+
+        stepsHTML +=
+            "<div class='step'>Tetap di " +
+            currentValue +
+            "</div>";
+
+    }else{
+
+        let directionStep =
+            movement > 0 ? 1 : -1;
+
+        for(
+            let i=1;
+            i<=Math.abs(movement);
+            i++
+        ){
+
+            currentValue += directionStep;
+
+            stepsHTML +=
+                "<div class='step'>" +
+                i +
+                ". " +
+                (directionStep > 0 ? "→ " : "← ") +
+                currentValue +
+                "</div>";
+
+        }
+
+    }
+
+    document.getElementById("steps").innerHTML =
+        stepsHTML;
+
+}
+
+
+/* ===============================
+   MULAI
+================================ */
+
+newQuestion();
+
+</script>
+
+</body>
+</html>
