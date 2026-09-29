@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Petualangan Bentuk Akar</title>
+<style>
+:root{
+  --bg:#f4f7fb;--card:#fff;--ink:#172033;--muted:#687386;
+  --primary:#3157d5;--primary2:#203eaa;--green:#16855b;
+  --gold:#d99b16;--danger:#c74646;--border:#dfe5ef;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--ink);line-height:1.5}
+header{background:linear-gradient(135deg,#182b67,#3157d5);color:white;padding:28px 16px}
+.container{max-width:1050px;margin:auto;padding:0 16px}
+.hero{display:flex;justify-content:space-between;gap:20px;align-items:center}
+h1{margin:0 0 6px;font-size:clamp(28px,5vw,46px)}
+h2{margin-top:0} h3{margin-bottom:8px}
+.subtitle{opacity:.9}
+.xpbox{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.25);padding:14px 18px;border-radius:16px;text-align:center;min-width:150px}
+.xpbox strong{display:block;font-size:28px}
+nav{position:sticky;top:0;z-index:10;background:white;border-bottom:1px solid var(--border);box-shadow:0 2px 10px #0000000b}
+.navinner{display:flex;gap:8px;overflow:auto;padding:9px 16px}
+.navinner button{white-space:nowrap;border:1px solid var(--border);background:#fff;border-radius:10px;padding:9px 13px;cursor:pointer}
+.navinner button.active{background:var(--primary);color:#fff;border-color:var(--primary)}
+main{padding:24px 0 50px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:22px;margin-bottom:18px;box-shadow:0 5px 20px #1720330a}
+.info{background:#eef3ff;border-left:5px solid var(--primary);padding:13px 15px;border-radius:10px}
+.story{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:15px}
+.mission{padding:14px;border-radius:13px;background:#f7f8fc;border:1px solid var(--border)}
+.mission b{display:block}
+.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+input,select{width:100%;padding:11px 12px;border:1px solid #cbd3e0;border-radius:10px;font-size:15px}
+button.primary,button.check,button.next{border:0;background:var(--primary);color:#fff;padding:11px 16px;border-radius:10px;font-weight:bold;cursor:pointer}
+button.primary:hover,button.check:hover,button.next:hover{background:var(--primary2)}
+button.secondary{border:1px solid var(--border);background:#fff;padding:10px 14px;border-radius:10px;cursor:pointer}
+.question{border:1px solid var(--border);border-radius:15px;padding:17px;margin:14px 0;background:#fcfdff}
+.answerrow{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center}
+.feedback{margin-top:10px;font-weight:bold}
+.correct{color:var(--green)} .wrong{color:var(--danger)}
+.xpbar{height:13px;background:#e5e9f0;border-radius:20px;overflow:hidden;margin:10px 0}
+.xpfill{height:100%;background:linear-gradient(90deg,#3157d5,#55a4ff);width:0;transition:.4s}
+.levelgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.level{border:1px solid var(--border);border-radius:14px;padding:15px}
+.level.done{border-color:#43a77c;background:#f0fbf6}
+.badges{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+.badge{padding:14px 8px;border:1px solid var(--border);border-radius:12px;text-align:center;background:#fff}
+.badge.active{background:#fff5d8;border-color:#e4b747}
+.scoretable{width:100%;border-collapse:collapse}
+.scoretable th,.scoretable td{border-bottom:1px solid var(--border);padding:10px;text-align:left}
+.teacher{background:#fff8e7;border-color:#ecd18a}
+.teacher textarea{width:100%;min-height:90px;border:1px solid #d8c37f;border-radius:10px;padding:10px;font-size:15px}
+.hidden{display:none}
+.small{font-size:13px;color:var(--muted)}
+.math{font-size:22px;text-align:center;padding:12px;background:#f7f8fc;border-radius:10px;margin:10px 0}
+.footer{text-align:center;color:var(--muted);padding:20px}
+@media(max-width:700px){
+ .hero{display:block}.xpbox{margin-top:15px}.story,.levelgrid,.badges{grid-template-columns:1fr 1fr}.formgrid{grid-template-columns:1fr}
+ .answerrow{grid-template-columns:1fr}.math{font-size:19px}
+}
+@media(max-width:450px){.story,.levelgrid,.badges{grid-template-columns:1fr}}
+@media print{
+ nav,.teacher,.no-print,header .xpbox{display:none!important}
+ body{background:white}.card{box-shadow:none;break-inside:avoid}
+}
+</style>
+</head>
+<body>
+
+<header>
+<div class="container hero">
+  <div>
+    <div class="subtitle">🎮 LKPD GAMIFIKASI MATEMATIKA</div>
+    <h1>Petualangan Bentuk Akar</h1>
+    <div>Perkalian • Pembagian • Perpangkatan</div>
+  </div>
+  <div class="xpbox">
+    <span>Total XP</span>
+    <strong id="totalXP">0</strong>
+    <span>/ 500 XP</span>
+  </div>
+</div>
+</header>
+
+<nav>
+<div class="container navinner">
+<button class="active" onclick="showTab('awal',this)">🏠 Awal</button>
+<button onclick="showTab('misi1',this)">🌱 Misi 1</button>
+<button onclick="showTab('misi2',this)">🌿 Misi 2</button>
+<button onclick="showTab('misi3',this)">🌳 Misi 3</button>
+<button onclick="showTab('boss',this)">👑 Boss Battle</button>
+<button onclick="showTab('hasil',this)">🏆 Hasil</button>
+</div>
+</nav>
+
+<main class="container">
+
+<section id="awal" class="tab">
+<div class="card">
+<h2>🧭 Data Penjelajah</h2>
+<div class="formgrid">
+<label>Nama<input id="nama" placeholder="Tulis nama kamu"></label>
+<label>Kelas<input id="kelas" placeholder="Contoh: VII B"></label>
+<label>Tanggal<input id="tanggal" type="date"></label>
+</div>
+<br>
+<div class="info"><b>Misi utama:</b> Kumpulkan sebanyak mungkin XP dan buktikan bahwa kamu mampu menaklukkan bentuk akar.</div>
+</div>
+
+<div class="card">
+<h2>🗺️ Cerita Permainan</h2>
+<p>Kalian adalah <b>Tim Penjelajah Akar</b>. Hari ini kalian harus melewati 3 wilayah untuk mendapatkan gelar <b>MASTER BENTUK AKAR</b>.</p>
+<div class="story">
+<div class="mission">🌱 <b>Misi 1</b>Perkalian Akar<br><strong>100 XP</strong></div>
+<div class="mission">🌿 <b>Misi 2</b>Pembagian Akar<br><strong>100 XP</strong></div>
+<div class="mission">🌳 <b>Misi 3</b>Perpangkatan Akar<br><strong>100 XP</strong></div>
+<div class="mission">👑 <b>Boss Battle</b>Campuran<br><strong>200 XP</strong></div>
+</div>
+</div>
+
+<div class="card">
+<h2>🧠 Aturan Main</h2>
+<ol>
+<li>Guru menampilkan atau menulis soal di papan.</li>
+<li>Kamu tidak perlu menyalin seluruh soal.</li>
+<li>Tulis langkah penting dan jawaban pada LKPD.</li>
+<li>Gunakan pola yang ditemukan, bukan sekadar menghafal.</li>
+<li>Setiap jawaban benar memberi XP.</li>
+</ol>
+</div>
+
+<div class="card teacher">
+<h2>🧑‍🏫 Mode Guru — Soal Papan Tulis</h2>
+<p class="small">Guru dapat mengetik soal di sini sebagai catatan sementara. Bagian ini tidak ikut dicetak.</p>
+<textarea id="boardText" placeholder="Contoh:
+LEVEL 2
+√5 × √20 = ?"></textarea>
+<br><br>
+<button class="secondary" onclick="clearBoard()">Bersihkan</button>
+</div>
+</section>
+
+<section id="misi1" class="tab hidden">
+<div class="card">
+<h2>🌱 MISI 1 — PERKALIAN BENTUK AKAR</h2>
+<p class="small">Target: 100 XP</p>
+<div class="xpbar"><div class="xpfill" id="bar1"></div></div>
+</div>
+
+<div class="card">
+<h3>🔎 Level 1 — Temukan Polanya</h3>
+<p>Perhatikan soal yang ditulis guru di papan.</p>
+<div class="question">
+<b>A.</b><div class="math">√2 × √8 = √(2 × 8) = √<input id="m1a1" style="width:80px;display:inline-block"> = <input id="m1a2" style="width:80px;display:inline-block"></div>
+</div>
+<div class="question">
+<b>B.</b><div class="math">√3 × √12 = √(3 × 12) = √<input id="m1b1" style="width:80px;display:inline-block"> = <input id="m1b2" style="width:80px;display:inline-block"></div>
+</div>
+<div class="question">
+<b>🧠 Kartu Kekuatan:</b>
+<div class="math">√a × √b = √<input id="m1pola" style="width:100px;display:inline-block"></div>
+</div>
+<button class="check" onclick="checkM1L1()">Periksa Level 1</button>
+<div id="fbM1L1" class="feedback"></div>
+</div>
+
+<div class="card">
+<h3>⚔️ Level 2 — Serang dengan Pola!</h3>
+<div class="question"><b>Soal 1</b><div class="math">√5 × √20 = ?</div><input id="m1l2q1" placeholder="Tulis jawaban"></div>
+<div class="question"><b>Soal 2</b><div class="math">√6 × √24 = ?</div><input id="m1l2q2" placeholder="Tulis jawaban"></div>
+<div class="question"><b>Soal 3</b><p>2√3 × 4√6</p>
+<p>Angka × angka: 2 × 4 = <input id="m1l2q3a" style="max-width:100px"></p>
+<p>Akar × akar: √3 × √6 = √<input id="m1l2q3b" style="max-width:100px"></p>
+<input id="m1l2q3c" placeholder="Jawaban akhir">
+</div>
+<button class="check" onclick="checkM1L2()">Periksa Level 2</button>
+<div id="fbM1L2" class="feedback"></div>
+</div>
+
+<div class="card">
+<h3>🧩 Level 3 — Jebakan Faktor</h3>
+<div class="question">
+<p>√5 × √15 = √75</p>
+<p>Apakah √75 sudah bentuk paling sederhana?</p>
+<label><input type="radio" name="m1q31" value="ya"> Ya</label>
+<label><input type="radio" name="m1q31" value="tidak"> Tidak</label>
+<p>75 = <input id="m1l3a" style="max-width:100px"> × <input id="m1l3b" style="max-width:100px"></p>
+<p>√75 = √(<input id="m1l3c" style="max-width:100px"> × <input id="m1l3d" style="max-width:100px">) = <input id="m1l3e" style="max-width:100px">√<input id="m1l3f" style="max-width:100px"></p>
+</div>
+<div class="question">
+<b>🎯 Tantangan</b>
+<div class="math">√12 × √27 = √<input id="m1l3g" style="width:90px;display:inline-block"> = <input id="m1l3h" style="width:150px;display:inline-block"></div>
+</div>
+<button class="check" onclick="checkM1L3()">Periksa Level 3</button>
+<div id="fbM1L3" class="feedback"></div>
+</div>
+</section>
+
+<section id="misi2" class="tab hidden">
+<div class="card">
+<h2>🌿 MISI 2 — PEMBAGIAN BENTUK AKAR</h2>
+<p class="small">Target: 100 XP</p>
+<div class="xpbar"><div class="xpfill" id="bar2"></div></div>
+</div>
+
+<div class="card">
+<h3>🔓 Level 1 — Buka Kunci</h3>
+<div class="math">√12 / √3 = √(12 / 3) = √<input id="m2l1a" style="width:80px;display:inline-block"> = <input id="m2l1b" style="width:80px;display:inline-block"></div>
+<div class="math">√a / √b = √<input id="m2pola" style="width:100px;display:inline-block"></div>
+<button class="check" onclick="checkM2L1()">Periksa Level 1</button>
+<div id="fbM2L1" class="feedback"></div>
+</div>
+
+<div class="card">
+<h3>⚔️ Level 2 — Serangan Pembagian</h3>
+<div class="question"><b>Soal 1</b>
+<p>√18 / √2 = √(<input id="m2l2a" style="max-width:70px"> / <input id="m2l2b" style="max-width:70px">) = √<input id="m2l2c" style="max-width:70px"> = <input id="m2l2d" style="max-width:100px"></p>
+</div>
+<div class="question"><b>Soal 2</b><div class="math">√50 / √2 = ?</div><input id="m2l2e" placeholder="Tulis jawaban"></div>
+<button class="check" onclick="checkM2L2()">Periksa Level 2</button>
+<div id="fbM2L2" class="feedback"></div>
+</div>
+
+<div class="card">
+<h3>🧠 Level 3 — Pisahkan Pasukan!</h3>
+<div class="question">
+<p>6√18 / 3√2</p>
+<div class="math">6/3 × √18/√2 = <input id="m2l3a" style="width:70px"> × √(18/2)</div>
+<div class="math">= <input id="m2l3b" style="width:70px"> × √<input id="m2l3c" style="width:70px"> = <input id="m2l3d" style="width:120px"></div>
+</div>
+<div class="question">
+<b>🎯 Tantangan</b><div class="math">8√27 / 2√3 = <input id="m2l3e" style="width:150px;display:inline-block"></div>
+</div>
+<button class="check" onclick="checkM2L3()">Periksa Level 3</button>
+<div id="fbM2L3" class="feedback"></div>
+</div>
+</section>
+
+<section id="misi3" class="tab hidden">
+<div class="card">
+<h2>🌳 MISI 3 — PERPANGKATAN BENTUK AKAR</h2>
+<p class="small">Target: 100 XP</p>
+<div class="xpbar"><div class="xpfill" id="bar3"></div></div>
+</div>
+
+<div class="card">
+<h3>🔎 Level 1 — Pecahkan Rahasianya</h3>
+<div class="math">(√3)² = √3 × √3 = √<input id="m3l1a" style="width:80px;display:inline-block"> = <input id="m3l1b" style="width:80px;display:inline-block"></div>
+<div class="math">(√a)² = <input id="m3pola" style="width:100px;display:inline-block"></div>
+<button class="check" onclick="checkM3L1()">Periksa Level 1</button>
+<div id="fbM3L1" class="feedback"></div>
+</div>
+
+<div class="card">
+<h3>⚔️ Level 2 — Naik Level</h3>
+<div class="question"><b>Soal 1</b><p>(2√3)²</p><p>2² × (√3)² = <input id="m3l2a" style="max-width:70px"> × <input id="m3l2b" style="max-width:70px"> = <input id="m3l2c" style="max-width:100px"></p></div>
+<div class="question"><b>Soal 2</b><div class="math">(3√5)² = <input id="m3l2d" style="width:150px;display:inline-block"></div></div>
+<div class="question"><b>Soal 3</b><div class="math">(4√2)² = <input id="m3l2e" style="width:150px;display:inline-block"></div></div>
+<button class="check" onclick="checkM3L2()">Periksa Level 2</button>
+<div id="fbM3L2" class="feedback"></div>
+</div>
+
+<div class="card">
+<h3>🚀 Bonus Latihan</h3>
+<p>Gunakan pola yang sudah kamu temukan.</p>
+<div class="question">√7 × √28 = <input id="m3bonus1" placeholder="jawaban"></div>
+<div class="question">(5√2)² = <input id="m3bonus2" placeholder="jawaban"></div>
+<button class="check" onclick="checkM3Bonus()">Periksa Bonus</button>
+<div id="fbM3Bonus" class="feedback"></div>
+</div>
+</section>
+
+<section id="boss" class="tab hidden">
+<div class="card">
+<h2>👑 BOSS BATTLE</h2>
+<p>Hanya untuk penjelajah yang berani.</p>
+<div class="info">Boss Battle bernilai <b>200 XP</b>. Tulis langkahmu, bukan hanya jawaban akhir.</div>
+</div>
+
+<div class="card">
+<div class="question"><h3>👹 Boss 1</h3><div class="math">√12 × √3 = ?</div><input id="b1" placeholder="Jawaban akhir"></div>
+<div class="question"><h3>👹 Boss 2</h3><div class="math">√75 / √3 = ?</div><input id="b2" placeholder="Jawaban akhir"></div>
+<div class="question"><h3>👹 Boss 3</h3><div class="math">(2√6)² = ?</div><input id="b3" placeholder="Jawaban akhir"></div>
+<div class="question"><h3>👹 FINAL BOSS</h3>
+<div class="math">2√12 × √3 / √6</div>
+<p>Langkah 1: <input id="b4a" placeholder="Tulis langkah pertama"></p>
+<p>Langkah 2: <input id="b4b" placeholder="Tulis langkah kedua"></p>
+<p>Jawaban akhir: <input id="b4c" placeholder="Jawaban akhir"></p>
+</div>
+<button class="check" onclick="checkBoss()">⚔️ Serang Boss!</button>
+<div id="fbBoss" class="feedback"></div>
+</div>
+</section>
+
+<section id="hasil" class="tab hidden">
+<div class="card">
+<h2>🏆 Kartu Hasil Akhir</h2>
+<p><b>Nama:</b> <span id="hasilNama">-</span></p>
+<p><b>Kelas:</b> <span id="hasilKelas">-</span></p>
+<p><b>Total XP:</b> <strong id="hasilXP">0</strong> / 500</p>
+<div class="xpbar"><div class="xpfill" id="barTotal"></div></div>
+<table class="scoretable">
+<tr><th>Misi</th><th>XP</th></tr>
+<tr><td>🌱 Perkalian</td><td id="s1">0 / 100</td></tr>
+<tr><td>🌿 Pembagian</td><td id="s2">0 / 100</td></tr>
+<tr><td>🌳 Perpangkatan</td><td id="s3">0 / 100</td></tr>
+<tr><td>👑 Boss Battle</td><td id="sb">0 / 200</td></tr>
+<tr><th>TOTAL</th><th id="st">0 / 500</th></tr>
+</table>
+</div>
+
+<div class="card">
+<h2>🎖️ Gelar Saya</h2>
+<div class="badges">
+<div class="badge" id="badge1">🌱<br><b>Pemula Akar</b><br>0–199</div>
+<div class="badge" id="badge2">🌿<br><b>Penjelajah Akar</b><br>200–299</div>
+<div class="badge" id="badge3">🌳<br><b>Pejuang Akar</b><br>300–399</div>
+<div class="badge" id="badge4">⚔️<br><b>Master Akar</b><br>400–449</div>
+<div class="badge" id="badge5">👑<br><b>LEGEND OF ROOTS</b><br>450–500</div>
+</div>
+<br>
+<button class="primary" onclick="window.print()">🖨️ Cetak LKPD / Hasil</button>
+<button class="secondary" onclick="resetGame()">Reset Permainan</button>
+</div>
+
+<div class="card info">
+<h3>💭 Refleksi</h3>
+<p>1. Konsep apa yang paling kamu pahami hari ini?</p>
+<input placeholder="Jawaban refleksi...">
+<p>2. Bagian mana yang masih membingungkan?</p>
+<input placeholder="Jawaban refleksi...">
+<p>3. Apa strategi yang akan kamu gunakan saat bertemu soal bentuk akar berikutnya?</p>
+<input placeholder="Jawaban refleksi...">
+</div>
+</section>
+
+</main>
+
+<div class="footer">Petualangan Bentuk Akar • LKPD Gamifikasi</div>
+
+<script>
+const state={
+ xp:[0,0,0,0],
+ done:{m1l1:false,m1l2:false,m1l3:false,m2l1:false,m2l2:false,m2l3:false,m3l1:false,m3l2:false,m3bonus:false,boss:false}
+};
+
+function val(id){return document.getElementById(id).value.trim().toLowerCase().replace(/\s+/g,'')}
+function num(id){return document.getElementById(id).value.trim()}
+function setFB(id,msg,ok=false){const e=document.getElementById(id);e.innerHTML=msg;e.className='feedback '+(ok?'correct':'wrong')}
+function addXP(i,amount,key){
+ if(state.done[key]) return 0;
+ state.done[key]=true; state.xp[i]+=amount; update();
+ return amount;
+}
+function update(){
+ const total=state.xp.reduce((a,b)=>a+b,0);
+ document.getElementById('totalXP').textContent=total;
+ document.getElementById('hasilXP').textContent=total;
+ document.getElementById('barTotal').style.width=(total/500*100)+'%';
+ document.getElementById('s1').textContent=state.xp[0]+' / 100';
+ document.getElementById('s2').textContent=state.xp[1]+' / 100';
+ document.getElementById('s3').textContent=state.xp[2]+' / 100';
+ document.getElementById('sb').textContent=state.xp[3]+' / 200';
+ document.getElementById('st').textContent=total+' / 500';
+ document.getElementById('bar1').style.width=(state.xp[0]+'%');
+ document.getElementById('bar2').style.width=(state.xp[1]+'%');
+ document.getElementById('bar3').style.width=(state.xp[2]+'%');
+ ['badge1','badge2','badge3','badge4','badge5'].forEach(x=>document.getElementById(x).classList.remove('active'));
+ const bi=total<200?1:total<300?2:total<400?3:total<450?4:5;
+ document.getElementById('badge'+bi).classList.add('active');
+ document.getElementById('hasilNama').textContent=document.getElementById('nama').value||'-';
+ document.getElementById('hasilKelas').textContent=document.getElementById('kelas').value||'-';
+}
+
+function showTab(id,btn){
+ document.querySelectorAll('.tab').forEach(x=>x.classList.add('hidden'));
+ document.getElementById(id).classList.remove('hidden');
+ document.querySelectorAll('.navinner button').forEach(x=>x.classList.remove('active'));
+ btn.classList.add('active');
+ window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function checkM1L1(){
+ const ok=val('m1a1')==='16'&&val('m1a2')==='4'&&val('m1b1')==='36'&&val('m1b2')==='6'&&val('m1pola')==='a*b';
+ if(ok){addXP(0,30,'m1l1');setFB('fbM1L1','✓ Semua pola benar. +30 XP',true)}
+ else setFB('fbM1L1','✗ Periksa lagi. Hasil A: 16 dan 4; B: 36 dan 6; pola: a × b.');
+}
+function checkM1L2(){
+ const ok=val('m1l2q1')==='10'&&val('m1l2q2')==='12'&&val('m1l2q3a')==='8'&&val('m1l2q3b')==='18'&&['24√2','24sqrt2','24 akar 2'].includes(val('m1l2q3c'));
+ if(ok){addXP(0,40,'m1l2');setFB('fbM1L2','✓ Serangan berhasil. +40 XP',true)}
+ else setFB('fbM1L2','✗ Belum tepat. Ingat: 2×4=8 dan √3×√6=√18=3√2, sehingga hasil akhirnya 24√2.');
+}
+function checkM1L3(){
+ const radio=document.querySelector('input[name="m1q31"]:checked');
+ const ok=radio&&radio.value==='tidak'&&val('m1l3a')==='25'&&val('m1l3b')==='3'&&val('m1l3c')==='25'&&val('m1l3d')==='3'&&val('m1l3e')==='5'&&val('m1l3f')==='3'&&val('m1l3g')==='324'&&['18','18'].includes(val('m1l3h'));
+ if(ok){addXP(0,30,'m1l3');setFB('fbM1L3','✓ Jebakan faktor berhasil ditaklukkan. +30 XP',true)}
+ else setFB('fbM1L3','✗ Coba lagi. √12×√27 = √324 = 18. Untuk √75 gunakan 25×3.');
+}
+
+function checkM2L1(){
+ const ok=val('m2l1a')==='4'&&val('m2l1b')==='2'&&val('m2pola')==='a/b';
+ if(ok){addXP(1,30,'m2l1');setFB('fbM2L1','✓ Kunci terbuka. +30 XP',true)}
+ else setFB('fbM2L1','✗ Polanya adalah √(a/b), dan √(12/3)=2.');
+}
+function checkM2L2(){
+ const ok=val('m2l2a')==='18'&&val('m2l2b')==='2'&&val('m2l2c')==='9'&&val('m2l2d')==='3'&&val('m2l2e')==='5';
+ if(ok){addXP(1,40,'m2l2');setFB('fbM2L2','✓ Pembagian berhasil. +40 XP',true)}
+ else setFB('fbM2L2','✗ Periksa pembagian di dalam akar. Jawaban soal 1 = 3, soal 2 = 5.');
+}
+function checkM2L3(){
+ const ok=val('m2l3a')==='2'&&val('m2l3b')==='2'&&val('m2l3c')==='9'&&val('m2l3d')==='6'&&val('m2l3e')==='12';
+ if(ok){addXP(1,30,'m2l3');setFB('fbM2L3','✓ Pasukan berhasil dipisahkan. +30 XP',true)}
+ else setFB('fbM2L3','✗ Jawaban akhir: 6 dan 12. Perhatikan bagian angka dan bagian akar.');
+}
+
+function checkM3L1(){
+ const ok=val('m3l1a')==='9'&&val('m3l1b')==='3'&&val('m3pola')==='a';
+ if(ok){addXP(2,30,'m3l1');setFB('fbM3L1','✓ Rahasia perpangkatan ditemukan. +30 XP',true)}
+ else setFB('fbM3L1','✗ (√3)² = √9 = 3 dan (√a)² = a.');
+}
+function checkM3L2(){
+ const ok=val('m3l2a')==='4'&&val('m3l2b')==='3'&&val('m3l2c')==='12'&&val('m3l2d')==='45'&&val('m3l2e')==='32';
+ if(ok){addXP(2,60,'m3l2');setFB('fbM3L2','✓ Level 2 ditaklukkan. +60 XP',true)}
+ else setFB('fbM3L2','✗ Ingat: (a√b)² = a² × b.');
+}
+function checkM3Bonus(){
+ const ok=val('m3bonus1')==='14'&&val('m3bonus2')==='50';
+ if(ok){addXP(2,10,'m3bonus');setFB('fbM3Bonus','✓ Bonus +10 XP. Total Misi 3 bisa mencapai 110 XP.',true)}
+ else setFB('fbM3Bonus','✗ Coba lagi. √7×√28=√196=14 dan (5√2)²=50.');
+}
+
+function checkBoss(){
+ const ok=val('b1')==='6'&&val('b2')==='5'&&val('b3')==='24'&&
+   val('b4c')==='4';
+ if(ok){addXP(3,200,'boss');setFB('fbBoss','✓ BOSS DIKALAHKAN! +200 XP. Jawaban akhir Final Boss = 4.',true)}
+ else setFB('fbBoss','✗ Belum berhasil. Boss 1 = 6, Boss 2 = 5, Boss 3 = 24, Final Boss = 4. Tulis langkah agar bisa mengecek prosesmu.');
+}
+
+function clearBoard(){document.getElementById('boardText').value=''}
+function resetGame(){
+ if(!confirm('Reset semua XP dan progres?'))return;
+ location.reload();
+}
+document.getElementById('tanggal').value=new Date().toISOString().slice(0,10);
+document.getElementById('nama').addEventListener('input',update);
+document.getElementById('kelas').addEventListener('input',update);
+update();
+</script>
+</body>
+</html>
