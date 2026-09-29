@@ -65,6 +65,48 @@ button.secondary{border:1px solid var(--border);background:#fff;padding:10px 14p
  body{background:white}.card{box-shadow:none;break-inside:avoid}
 }
 </style>
+
+<script>
+window.MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']],
+    processEscapes: true
+  },
+  svg: {
+    fontCache: 'global'
+  }
+};
+</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+
+
+<style>
+.math{
+  font-size:1.45rem;
+  text-align:center;
+  padding:16px;
+  background:#f7f8fc;
+  border-radius:12px;
+  margin:12px 0;
+  overflow-x:auto;
+}
+.answerline{
+  text-align:center;
+  padding:8px 4px 14px;
+  font-size:1.05rem;
+}
+.mathinput,.smallinput,.wideinput{
+  display:inline-block!important;
+  width:90px!important;
+  max-width:90px!important;
+  margin:0 4px;
+}
+.smallinput{width:70px!important;max-width:70px!important}
+.wideinput{width:160px!important;max-width:160px!important}
+mjx-container{margin:0.25em 0}
+</style>
+
 </head>
 <body>
 
@@ -152,14 +194,17 @@ LEVEL 2
 <h3>🔎 Level 1 — Temukan Polanya</h3>
 <p>Perhatikan soal yang ditulis guru di papan.</p>
 <div class="question">
-<b>A.</b><div class="math">√2 × √8 = √(2 × 8) = √<input id="m1a1" style="width:80px;display:inline-block"> = <input id="m1a2" style="width:80px;display:inline-block"></div>
+<b>A.</b><div class="math">\(\sqrt{2}\times\sqrt{8}=\sqrt{2\times8}=\sqrt{\phantom{16}}=\phantom{4}\)</div>
+<div class="answerline">√<input id="m1a1" class="mathinput"> = <input id="m1a2" class="mathinput"></div>
 </div>
 <div class="question">
-<b>B.</b><div class="math">√3 × √12 = √(3 × 12) = √<input id="m1b1" style="width:80px;display:inline-block"> = <input id="m1b2" style="width:80px;display:inline-block"></div>
+<b>B.</b><div class="math">\(\sqrt{3}\times\sqrt{12}=\sqrt{3\times12}=\sqrt{\phantom{36}}=\phantom{6}\)</div>
+<div class="answerline">√<input id="m1b1" class="mathinput"> = <input id="m1b2" class="mathinput"></div>
 </div>
 <div class="question">
 <b>🧠 Kartu Kekuatan:</b>
-<div class="math">√a × √b = √<input id="m1pola" style="width:100px;display:inline-block"></div>
+<div class="math">\(\sqrt{a}\times\sqrt{b}=\sqrt{\phantom{ab}}\)</div>
+<div class="answerline">Isi bagian yang hilang: <input id="m1pola" class="mathinput"></div>
 </div>
 <button class="check" onclick="checkM1L1()">Periksa Level 1</button>
 <div id="fbM1L1" class="feedback"></div>
@@ -167,11 +212,11 @@ LEVEL 2
 
 <div class="card">
 <h3>⚔️ Level 2 — Serang dengan Pola!</h3>
-<div class="question"><b>Soal 1</b><div class="math">√5 × √20 = ?</div><input id="m1l2q1" placeholder="Tulis jawaban"></div>
-<div class="question"><b>Soal 2</b><div class="math">√6 × √24 = ?</div><input id="m1l2q2" placeholder="Tulis jawaban"></div>
-<div class="question"><b>Soal 3</b><p>2√3 × 4√6</p>
-<p>Angka × angka: 2 × 4 = <input id="m1l2q3a" style="max-width:100px"></p>
-<p>Akar × akar: √3 × √6 = √<input id="m1l2q3b" style="max-width:100px"></p>
+<div class="question"><b>Soal 1</b><div class="math">\(\sqrt{5}\times\sqrt{20}=\ ?\)</div><input id="m1l2q1" placeholder="Tulis jawaban"></div>
+<div class="question"><b>Soal 2</b><div class="math">\(\sqrt{6}\times\sqrt{24}=\ ?\)</div><input id="m1l2q2" placeholder="Tulis jawaban"></div>
+<div class="question"><b>Soal 3</b><div class="math">\(2\sqrt{3}\times4\sqrt{6}\)</div>
+<p>Angka × angka: \(2\times4=\) <input id="m1l2q3a" class="smallinput"></p>
+<p>Akar × akar: \(\sqrt{3}\times\sqrt{6}=\sqrt{\phantom{18}}\) <input id="m1l2q3b" class="smallinput"></p>
 <input id="m1l2q3c" placeholder="Jawaban akhir">
 </div>
 <button class="check" onclick="checkM1L2()">Periksa Level 2</button>
@@ -181,16 +226,18 @@ LEVEL 2
 <div class="card">
 <h3>🧩 Level 3 — Jebakan Faktor</h3>
 <div class="question">
-<p>√5 × √15 = √75</p>
+<div class="math">\(\sqrt{5}\times\sqrt{15}=\sqrt{75}\)</div>
 <p>Apakah √75 sudah bentuk paling sederhana?</p>
 <label><input type="radio" name="m1q31" value="ya"> Ya</label>
 <label><input type="radio" name="m1q31" value="tidak"> Tidak</label>
-<p>75 = <input id="m1l3a" style="max-width:100px"> × <input id="m1l3b" style="max-width:100px"></p>
-<p>√75 = √(<input id="m1l3c" style="max-width:100px"> × <input id="m1l3d" style="max-width:100px">) = <input id="m1l3e" style="max-width:100px">√<input id="m1l3f" style="max-width:100px"></p>
+<p>\(75=\) <input id="m1l3a" class="smallinput"> \(\times\) <input id="m1l3b" class="smallinput"></p>
+<p>\(\sqrt{75}=\sqrt{\phantom{25}\times\phantom{3}}=\phantom{5}\sqrt{\phantom{3}}\)</p>
+<p><input id="m1l3c" class="smallinput"> × <input id="m1l3d" class="smallinput"> → <input id="m1l3e" class="smallinput">√<input id="m1l3f" class="smallinput"></p>
 </div>
 <div class="question">
 <b>🎯 Tantangan</b>
-<div class="math">√12 × √27 = √<input id="m1l3g" style="width:90px;display:inline-block"> = <input id="m1l3h" style="width:150px;display:inline-block"></div>
+<div class="math">\(\sqrt{12}\times\sqrt{27}=\sqrt{\phantom{324}}=\phantom{18}\)</div>
+<div class="answerline">√<input id="m1l3g" class="mathinput"> = <input id="m1l3h" class="wideinput"></div>
 </div>
 <button class="check" onclick="checkM1L3()">Periksa Level 3</button>
 <div id="fbM1L3" class="feedback"></div>
@@ -206,8 +253,10 @@ LEVEL 2
 
 <div class="card">
 <h3>🔓 Level 1 — Buka Kunci</h3>
-<div class="math">√12 / √3 = √(12 / 3) = √<input id="m2l1a" style="width:80px;display:inline-block"> = <input id="m2l1b" style="width:80px;display:inline-block"></div>
-<div class="math">√a / √b = √<input id="m2pola" style="width:100px;display:inline-block"></div>
+<div class="math">\(\frac{\sqrt{12}}{\sqrt{3}}=\sqrt{\frac{12}{3}}=\sqrt{\phantom{4}}=\phantom{2}\)</div>
+<div class="answerline">√<input id="m2l1a" class="mathinput"> = <input id="m2l1b" class="mathinput"></div>
+<div class="math">\(\frac{\sqrt{a}}{\sqrt{b}}=\sqrt{\frac{a}{b}}\)</div>
+<div class="answerline">Bagian pola yang hilang: <input id="m2pola" class="wideinput"></div>
 <button class="check" onclick="checkM2L1()">Periksa Level 1</button>
 <div id="fbM2L1" class="feedback"></div>
 </div>
@@ -215,9 +264,10 @@ LEVEL 2
 <div class="card">
 <h3>⚔️ Level 2 — Serangan Pembagian</h3>
 <div class="question"><b>Soal 1</b>
-<p>√18 / √2 = √(<input id="m2l2a" style="max-width:70px"> / <input id="m2l2b" style="max-width:70px">) = √<input id="m2l2c" style="max-width:70px"> = <input id="m2l2d" style="max-width:100px"></p>
+<div class="math">\(\frac{\sqrt{18}}{\sqrt{2}}=\sqrt{\frac{\phantom{18}}{\phantom{2}}}=\sqrt{\phantom{9}}=\phantom{3}\)</div>
+<div class="answerline"><input id="m2l2a" class="smallinput"> / <input id="m2l2b" class="smallinput"> → √<input id="m2l2c" class="smallinput"> → <input id="m2l2d" class="smallinput"></div>
 </div>
-<div class="question"><b>Soal 2</b><div class="math">√50 / √2 = ?</div><input id="m2l2e" placeholder="Tulis jawaban"></div>
+<div class="question"><b>Soal 2</b><div class="math">\(\frac{\sqrt{50}}{\sqrt{2}}=\ ?\)</div><input id="m2l2e" placeholder="Tulis jawaban"></div>
 <button class="check" onclick="checkM2L2()">Periksa Level 2</button>
 <div id="fbM2L2" class="feedback"></div>
 </div>
@@ -225,12 +275,15 @@ LEVEL 2
 <div class="card">
 <h3>🧠 Level 3 — Pisahkan Pasukan!</h3>
 <div class="question">
-<p>6√18 / 3√2</p>
-<div class="math">6/3 × √18/√2 = <input id="m2l3a" style="width:70px"> × √(18/2)</div>
-<div class="math">= <input id="m2l3b" style="width:70px"> × √<input id="m2l3c" style="width:70px"> = <input id="m2l3d" style="width:120px"></div>
+<div class="math">\(\frac{6\sqrt{18}}{3\sqrt{2}}\)</div>
+<div class="math">\(\frac{6}{3}\times\frac{\sqrt{18}}{\sqrt{2}}=\phantom{2}\times\sqrt{\frac{18}{2}}\)</div>
+<div class="answerline"><input id="m2l3a" class="smallinput"> × √(18/2)</div>
+<div class="math">\(=\phantom{2}\times\sqrt{\phantom{9}}=\phantom{6}\)</div>
+<div class="answerline"><input id="m2l3b" class="smallinput"> × √<input id="m2l3c" class="smallinput"> = <input id="m2l3d" class="wideinput"></div>
 </div>
 <div class="question">
-<b>🎯 Tantangan</b><div class="math">8√27 / 2√3 = <input id="m2l3e" style="width:150px;display:inline-block"></div>
+<b>🎯 Tantangan</b><div class="math">\(\frac{8\sqrt{27}}{2\sqrt{3}}=\phantom{12}\)</div>
+<div class="answerline">Jawaban: <input id="m2l3e" class="wideinput"></div>
 </div>
 <button class="check" onclick="checkM2L3()">Periksa Level 3</button>
 <div id="fbM2L3" class="feedback"></div>
@@ -246,17 +299,22 @@ LEVEL 2
 
 <div class="card">
 <h3>🔎 Level 1 — Pecahkan Rahasianya</h3>
-<div class="math">(√3)² = √3 × √3 = √<input id="m3l1a" style="width:80px;display:inline-block"> = <input id="m3l1b" style="width:80px;display:inline-block"></div>
-<div class="math">(√a)² = <input id="m3pola" style="width:100px;display:inline-block"></div>
+<div class="math">\((\sqrt{3})^2=\sqrt{3}\times\sqrt{3}=\sqrt{\phantom{9}}=\phantom{3}\)</div>
+<div class="answerline">√<input id="m3l1a" class="mathinput"> = <input id="m3l1b" class="mathinput"></div>
+<div class="math">\((\sqrt{a})^2=\phantom{a}\)</div>
+<div class="answerline">Pola: <input id="m3pola" class="wideinput"></div>
 <button class="check" onclick="checkM3L1()">Periksa Level 1</button>
 <div id="fbM3L1" class="feedback"></div>
 </div>
 
 <div class="card">
 <h3>⚔️ Level 2 — Naik Level</h3>
-<div class="question"><b>Soal 1</b><p>(2√3)²</p><p>2² × (√3)² = <input id="m3l2a" style="max-width:70px"> × <input id="m3l2b" style="max-width:70px"> = <input id="m3l2c" style="max-width:100px"></p></div>
-<div class="question"><b>Soal 2</b><div class="math">(3√5)² = <input id="m3l2d" style="width:150px;display:inline-block"></div></div>
-<div class="question"><b>Soal 3</b><div class="math">(4√2)² = <input id="m3l2e" style="width:150px;display:inline-block"></div></div>
+<div class="question"><b>Soal 1</b><div class="math">\((2\sqrt{3})^2\)</div><div class="math">\(2^2\times(\sqrt{3})^2=\phantom{4}\times\phantom{3}=\phantom{12}\)</div>
+<div class="answerline"><input id="m3l2a" class="smallinput"> × <input id="m3l2b" class="smallinput"> = <input id="m3l2c" class="smallinput"></div></div>
+<div class="question"><b>Soal 2</b><div class="math">\((3\sqrt{5})^2=\phantom{45}\)</div>
+<div class="answerline">Jawaban: <input id="m3l2d" class="wideinput"></div></div>
+<div class="question"><b>Soal 3</b><div class="math">\((4\sqrt{2})^2=\phantom{32}\)</div>
+<div class="answerline">Jawaban: <input id="m3l2e" class="wideinput"></div></div>
 <button class="check" onclick="checkM3L2()">Periksa Level 2</button>
 <div id="fbM3L2" class="feedback"></div>
 </div>
@@ -264,8 +322,8 @@ LEVEL 2
 <div class="card">
 <h3>🚀 Bonus Latihan</h3>
 <p>Gunakan pola yang sudah kamu temukan.</p>
-<div class="question">√7 × √28 = <input id="m3bonus1" placeholder="jawaban"></div>
-<div class="question">(5√2)² = <input id="m3bonus2" placeholder="jawaban"></div>
+<div class="question"><div class="math">\(\sqrt{7}\times\sqrt{28}=\ ?\)</div><input id="m3bonus1" placeholder="jawaban"></div>
+<div class="question"><div class="math">\((5\sqrt{2})^2=\ ?\)</div><input id="m3bonus2" placeholder="jawaban"></div>
 <button class="check" onclick="checkM3Bonus()">Periksa Bonus</button>
 <div id="fbM3Bonus" class="feedback"></div>
 </div>
@@ -279,11 +337,11 @@ LEVEL 2
 </div>
 
 <div class="card">
-<div class="question"><h3>👹 Boss 1</h3><div class="math">√12 × √3 = ?</div><input id="b1" placeholder="Jawaban akhir"></div>
-<div class="question"><h3>👹 Boss 2</h3><div class="math">√75 / √3 = ?</div><input id="b2" placeholder="Jawaban akhir"></div>
-<div class="question"><h3>👹 Boss 3</h3><div class="math">(2√6)² = ?</div><input id="b3" placeholder="Jawaban akhir"></div>
+<div class="question"><h3>👹 Boss 1</h3><div class="math">\(\sqrt{12}\times\sqrt{3}=\ ?\)</div><input id="b1" placeholder="Jawaban akhir"></div>
+<div class="question"><h3>👹 Boss 2</h3><div class="math">\(\frac{\sqrt{75}}{\sqrt{3}}=\ ?\)</div><input id="b2" placeholder="Jawaban akhir"></div>
+<div class="question"><h3>👹 Boss 3</h3><div class="math">\((2\sqrt{6})^2=\ ?\)</div><input id="b3" placeholder="Jawaban akhir"></div>
 <div class="question"><h3>👹 FINAL BOSS</h3>
-<div class="math">2√12 × √3 / √6</div>
+<div class="math">\(\frac{2\sqrt{12}\times\sqrt{3}}{\sqrt{6}}\)</div>
 <p>Langkah 1: <input id="b4a" placeholder="Tulis langkah pertama"></p>
 <p>Langkah 2: <input id="b4b" placeholder="Tulis langkah kedua"></p>
 <p>Jawaban akhir: <input id="b4c" placeholder="Jawaban akhir"></p>
