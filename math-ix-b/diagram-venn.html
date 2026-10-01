@@ -1,0 +1,1555 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pertemuan 4 - Diagram Venn</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            color: #1f2937;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, #1e3a8a, #2563eb);
+            color: white;
+            padding: 25px;
+            border-radius: 18px;
+            margin-bottom: 20px;
+        }
+
+        header h1 {
+            margin: 0 0 8px;
+            font-size: 28px;
+        }
+
+        header p {
+            margin: 0;
+            opacity: .9;
+        }
+
+        .nav {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            margin-bottom: 20px;
+            padding-bottom: 5px;
+        }
+
+        .nav button {
+            border: none;
+            background: white;
+            padding: 12px 16px;
+            border-radius: 10px;
+            cursor: pointer;
+            white-space: nowrap;
+            font-weight: bold;
+        }
+
+        .nav button.active {
+            background: #2563eb;
+            color: white;
+        }
+
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        .card {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 3px 12px rgba(0,0,0,.06);
+        }
+
+        .card h2 {
+            margin-top: 0;
+            color: #1e3a8a;
+        }
+
+        .concept-box {
+            background: #eff6ff;
+            border-left: 5px solid #2563eb;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+
+        .example {
+            background: #f8fafc;
+            padding: 15px;
+            border-radius: 12px;
+            margin-top: 15px;
+        }
+
+        /* VENN DIAGRAM */
+
+        .venn-wrapper {
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .universal {
+            width: 430px;
+            height: 280px;
+            border: 3px solid #111827;
+            border-radius: 12px;
+            position: relative;
+            background: #fff;
+        }
+
+        .universal-label {
+            position: absolute;
+            top: 8px;
+            left: 12px;
+            font-weight: bold;
+        }
+
+        .circle {
+            width: 170px;
+            height: 170px;
+            border: 3px solid #2563eb;
+            border-radius: 50%;
+            position: absolute;
+            top: 65px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            background: rgba(59,130,246,.12);
+        }
+
+        .circle-a {
+            left: 55px;
+        }
+
+        .circle-b {
+            left: 205px;
+        }
+
+        .circle span {
+            position: absolute;
+            top: 18px;
+        }
+
+        .element {
+            position: absolute;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .a1 { left: 85px; top: 120px; }
+        .a2 { left: 110px; top: 175px; }
+        .ab1 { left: 195px; top: 150px; }
+        .b1 { left: 270px; top: 120px; }
+        .b2 { left: 300px; top: 175px; }
+        .outside { left: 370px; top: 235px; }
+
+        .formula {
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+            padding: 15px;
+            background: #f1f5f9;
+            border-radius: 10px;
+            margin: 15px 0;
+        }
+
+        .level-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .level-btn {
+            border: none;
+            padding: 13px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .mudah {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .sedang {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .sulit {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .level-btn.active {
+            outline: 3px solid #2563eb;
+        }
+
+        .question {
+            border: 1px solid #e5e7eb;
+            padding: 18px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+        }
+
+        .question-number {
+            font-weight: bold;
+            color: #1e3a8a;
+            margin-bottom: 8px;
+        }
+
+        .answer-input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            margin-top: 10px;
+            font-size: 16px;
+        }
+
+        .check-btn {
+            margin-top: 15px;
+            border: none;
+            background: #2563eb;
+            color: white;
+            padding: 12px 18px;
+            border-radius: 9px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .result {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 8px;
+            display: none;
+        }
+
+        .correct {
+            display: block;
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .wrong {
+            display: block;
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .score-box {
+            background: #1e3a8a;
+            color: white;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .score-number {
+            font-size: 38px;
+            font-weight: bold;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .pagination button {
+            border: none;
+            background: #1e3a8a;
+            color: white;
+            padding: 12px 18px;
+            border-radius: 9px;
+            cursor: pointer;
+        }
+
+        .self-check label {
+            display: block;
+            margin: 10px 0;
+            padding: 12px;
+            background: #f8fafc;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .reflection {
+            width: 100%;
+            min-height: 120px;
+            padding: 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 10px;
+            resize: vertical;
+            font-family: inherit;
+        }
+
+        .pattern {
+            background: #fefce8;
+            border: 1px solid #fde68a;
+            padding: 15px;
+            border-radius: 12px;
+            margin-top: 15px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 10px;
+            }
+
+            header h1 {
+                font-size: 22px;
+            }
+
+            .universal {
+                transform: scale(.75);
+                transform-origin: center;
+                margin: -30px 0;
+            }
+
+            .venn-wrapper {
+                overflow-x: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <header>
+        <h1>📘 Pertemuan 4 — Diagram Venn</h1>
+        <p>Matematika SMP • Himpunan • Belajar → Mengamati → Menemukan Pola → Berlatih</p>
+    </header>
+
+    <div class="nav">
+        <button class="nav-btn active" data-target="materi">📚 Materi</button>
+        <button class="nav-btn" data-target="simulasi">🔎 Simulasi</button>
+        <button class="nav-btn" data-target="latihan">🎯 Latihan</button>
+        <button class="nav-btn" data-target="refleksi">📝 Refleksi</button>
+    </div>
+
+    <!-- ================= MATERI ================= -->
+
+    <section id="materi" class="section active">
+
+        <div class="card">
+            <h2>1. Apa itu Diagram Venn?</h2>
+
+            <p>
+                Diagram Venn adalah gambar yang digunakan untuk menunjukkan
+                hubungan antara himpunan dengan himpunan semestanya.
+            </p>
+
+            <div class="concept-box">
+                <strong>Perhatikan:</strong>
+                <br><br>
+                Kotak besar → Himpunan Semesta (S)
+                <br>
+                Lingkaran → Himpunan tertentu
+                <br>
+                Anggota → Ditulis di dalam daerah himpunan
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>2. Contoh Diagram Venn</h2>
+
+            <p>
+                Misalkan:
+            </p>
+
+            <div class="formula">
+                S = {1, 2, 3, 4, 5, 6, 7, 8}
+            </div>
+
+            <p>
+                A adalah himpunan bilangan genap.
+            </p>
+
+            <div class="formula">
+                A = {2, 4, 6, 8}
+            </div>
+
+            <div class="venn-wrapper">
+
+                <div class="universal">
+
+                    <div class="universal-label">S</div>
+
+                    <div
+                        class="circle circle-a"
+                        style="left:125px; width:180px; height:180px;">
+                        <span>A</span>
+                    </div>
+
+                    <div class="element" style="left:145px; top:105px;">2</div>
+                    <div class="element" style="left:205px; top:105px;">4</div>
+                    <div class="element" style="left:175px; top:165px;">6</div>
+                    <div class="element" style="left:230px; top:165px;">8</div>
+
+                    <div class="element" style="left:50px; top:70px;">1</div>
+                    <div class="element" style="left:350px; top:70px;">3</div>
+                    <div class="element" style="left:50px; top:220px;">5</div>
+                    <div class="element" style="left:350px; top:220px;">7</div>
+
+                </div>
+
+            </div>
+
+            <div class="pattern">
+                <strong>🔍 Temukan pola:</strong>
+                <br><br>
+                Anggota A berada <strong>di dalam lingkaran A</strong>.
+                <br>
+                Anggota S yang bukan anggota A berada <strong>di luar lingkaran A,
+                tetapi masih berada di dalam kotak S</strong>.
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>3. Dua Himpunan</h2>
+
+            <p>
+                Sekarang perhatikan dua himpunan yang memiliki beberapa anggota
+                yang sama.
+            </p>
+
+            <div class="formula">
+                A = {1, 2, 3, 4}
+                <br><br>
+                B = {3, 4, 5, 6}
+            </div>
+
+            <div class="venn-wrapper">
+
+                <div class="universal">
+
+                    <div class="universal-label">S</div>
+
+                    <div class="circle circle-a">
+                        <span>A</span>
+                    </div>
+
+                    <div class="circle circle-b">
+                        <span>B</span>
+                    </div>
+
+                    <div class="element a1">1</div>
+                    <div class="element a2">2</div>
+
+                    <div class="element ab1">3, 4</div>
+
+                    <div class="element b1">5</div>
+                    <div class="element b2">6</div>
+
+                </div>
+
+            </div>
+
+            <div class="concept-box">
+                <strong>Perhatikan bagian tengah!</strong>
+                <br><br>
+                Anggota yang berada di kedua lingkaran merupakan anggota
+                yang dimiliki oleh A dan B.
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>4. Cara Membaca Diagram Venn</h2>
+
+            <ol>
+                <li>Perhatikan himpunan semestanya.</li>
+                <li>Perhatikan nama setiap himpunan.</li>
+                <li>Perhatikan anggota yang berada di setiap daerah.</li>
+                <li>Perhatikan anggota yang berada di tengah dua lingkaran.</li>
+                <li>Perhatikan anggota yang berada di luar lingkaran.</li>
+            </ol>
+
+            <div class="pattern">
+                <strong>💡 Pertanyaan penting:</strong>
+                <br><br>
+                "Mengapa angka tertentu diletakkan di dalam lingkaran?"
+                <br><br>
+                Jangan hanya menghafal posisi angka.
+                <strong>Cari alasan berdasarkan sifat anggotanya.</strong>
+            </div>
+        </div>
+
+    </section>
+
+
+    <!-- ================= SIMULASI ================= -->
+
+    <section id="simulasi" class="section">
+
+        <div class="card">
+            <h2>🔎 Simulasi Diagram Venn</h2>
+
+            <p>
+                Masukkan anggota himpunan A dan B.
+                Sistem akan menunjukkan posisi anggota tersebut.
+            </p>
+
+            <label>
+                Himpunan Semesta
+                <input
+                    id="setS"
+                    class="answer-input"
+                    value="1,2,3,4,5,6,7,8,9,10">
+            </label>
+
+            <br>
+
+            <label>
+                Himpunan A
+                <input
+                    id="setA"
+                    class="answer-input"
+                    value="2,4,6,8,10">
+            </label>
+
+            <br>
+
+            <label>
+                Himpunan B
+                <input
+                    id="setB"
+                    class="answer-input"
+                    value="4,8,10">
+            </label>
+
+            <button
+                class="check-btn"
+                id="generateVenn">
+                Tampilkan Diagram
+            </button>
+        </div>
+
+        <div class="card">
+
+            <div id="simulationOutput">
+
+                <div class="venn-wrapper">
+
+                    <div class="universal">
+
+                        <div class="universal-label">S</div>
+
+                        <div
+                            id="simA"
+                            class="circle circle-a">
+                            <span>A</span>
+                        </div>
+
+                        <div
+                            id="simB"
+                            class="circle circle-b">
+                            <span>B</span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="concept-box">
+                    <strong>Keterangan:</strong>
+                    <div id="simDescription">
+                        Masukkan data kemudian klik "Tampilkan Diagram".
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= LATIHAN ================= -->
+
+    <section id="latihan" class="section">
+
+        <div class="card">
+
+            <h2>🎯 Latihan Bertingkat</h2>
+
+            <p>
+                Kerjakan mulai dari level Mudah.
+                Naik level setelah memahami pola sebelumnya.
+            </p>
+
+            <div class="level-buttons">
+
+                <button
+                    class="level-btn mudah active"
+                    data-level="mudah">
+                    LEVEL 1 — MUDAH
+                </button>
+
+                <button
+                    class="level-btn sedang"
+                    data-level="sedang">
+                    LEVEL 2 — MENENGAH
+                </button>
+
+                <button
+                    class="level-btn sulit"
+                    data-level="sulit">
+                    LEVEL 3 — SULIT
+                </button>
+
+            </div>
+
+        </div>
+
+        <div id="questionContainer"></div>
+
+        <div class="pagination">
+
+            <button id="prevQuestions">
+                ← Sebelumnya
+            </button>
+
+            <strong id="pageInfo">
+                Soal 1–5 dari 15
+            </strong>
+
+            <button id="nextQuestions">
+                Berikutnya →
+            </button>
+
+        </div>
+
+        <div class="score-box">
+
+            <div>Skor sementara</div>
+
+            <div
+                id="score"
+                class="score-number">
+                0
+            </div>
+
+            <div>
+                Jawaban benar dari soal yang telah diperiksa
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= REFLEKSI ================= -->
+
+    <section id="refleksi" class="section">
+
+        <div class="card">
+
+            <h2>📝 Asesmen Mandiri</h2>
+
+            <p>
+                Pilih jawaban yang paling sesuai dengan pemahamanmu.
+            </p>
+
+            <div class="self-check">
+
+                <label>
+                    <input type="radio" name="p1">
+                    Saya sudah memahami apa itu Diagram Venn.
+                </label>
+
+                <label>
+                    <input type="radio" name="p1">
+                    Saya masih perlu contoh tambahan.
+                </label>
+
+                <label>
+                    <input type="radio" name="p1">
+                    Saya belum memahami.
+                </label>
+
+                <br>
+
+                <label>
+                    <input type="radio" name="p2">
+                    Saya dapat menentukan anggota suatu himpunan dari Diagram Venn.
+                </label>
+
+                <label>
+                    <input type="radio" name="p2">
+                    Saya masih sering keliru.
+                </label>
+
+                <br>
+
+                <label>
+                    <input type="radio" name="p3">
+                    Saya dapat menjelaskan mengapa suatu anggota berada di daerah tertentu.
+                </label>
+
+                <label>
+                    <input type="radio" name="p3">
+                    Saya masih mengandalkan tebakan.
+                </label>
+
+            </div>
+
+        </div>
+
+        <div class="card">
+
+            <h2>💭 Apa yang Saya Temukan?</h2>
+
+            <p>
+                Tuliskan pola atau hal penting yang kamu temukan hari ini.
+            </p>
+
+            <textarea
+                id="reflection"
+                class="reflection"
+                placeholder="Contoh: Saya menemukan bahwa ..."></textarea>
+
+            <button
+                class="check-btn"
+                id="saveReflection">
+                Simpan Refleksi
+            </button>
+
+            <div
+                id="reflectionResult"
+                class="result">
+            </div>
+
+        </div>
+
+    </section>
+
+</div>
+
+
+<script>
+
+    /* =====================================================
+       NAVIGASI
+    ===================================================== */
+
+    const navButtons = document.querySelectorAll(".nav-btn");
+    const sections = document.querySelectorAll(".section");
+
+    navButtons.forEach(button => {
+
+        button.addEventListener("click", () => {
+
+            const target = button.dataset.target;
+
+            navButtons.forEach(btn => btn.classList.remove("active"));
+            sections.forEach(section => section.classList.remove("active"));
+
+            button.classList.add("active");
+            document.getElementById(target).classList.add("active");
+
+        });
+
+    });
+
+
+    /* =====================================================
+       SIMULASI DIAGRAM VENN
+    ===================================================== */
+
+    function parseSet(value) {
+
+        return value
+            .split(",")
+            .map(item => item.trim())
+            .filter(item => item !== "");
+
+    }
+
+
+    document
+        .getElementById("generateVenn")
+        .addEventListener("click", function () {
+
+            const S = parseSet(
+                document.getElementById("setS").value
+            );
+
+            const A = parseSet(
+                document.getElementById("setA").value
+            );
+
+            const B = parseSet(
+                document.getElementById("setB").value
+            );
+
+            const simA = document.getElementById("simA");
+            const simB = document.getElementById("simB");
+
+            /*
+                Hapus elemen angka sebelumnya
+            */
+
+            document
+                .querySelectorAll(".simulation-element")
+                .forEach(el => el.remove());
+
+
+            /*
+                Batasi jumlah anggota agar visual
+                tetap nyaman.
+            */
+
+            const visibleS = S.slice(0, 20);
+
+            visibleS.forEach((element, index) => {
+
+                const inA = A.includes(element);
+                const inB = B.includes(element);
+
+                const item = document.createElement("div");
+
+                item.className =
+                    "element simulation-element";
+
+                item.textContent = element;
+
+                /*
+                    Posisi berdasarkan keanggotaan.
+                */
+
+                if (inA && inB) {
+
+                    item.style.left = "195px";
+                    item.style.top =
+                        (125 + (index % 3) * 35) + "px";
+
+                } else if (inA) {
+
+                    item.style.left = "105px";
+                    item.style.top =
+                        (105 + (index % 4) * 35) + "px";
+
+                } else if (inB) {
+
+                    item.style.left = "285px";
+                    item.style.top =
+                        (105 + (index % 4) * 35) + "px";
+
+                } else {
+
+                    item.style.left =
+                        (20 + (index % 5) * 65) + "px";
+
+                    item.style.top =
+                        (35 + Math.floor(index / 5) * 35) + "px";
+
+                }
+
+                document
+                    .querySelector(".universal")
+                    .appendChild(item);
+
+            });
+
+
+            const intersection =
+                A.filter(x => B.includes(x));
+
+            const onlyA =
+                A.filter(x => !B.includes(x));
+
+            const onlyB =
+                B.filter(x => !A.includes(x));
+
+            const outside =
+                S.filter(x =>
+                    !A.includes(x) &&
+                    !B.includes(x)
+                );
+
+
+            document.getElementById("simDescription").innerHTML = `
+                <strong>A saja:</strong> ${onlyA.join(", ") || "Tidak ada"}
+                <br>
+                <strong>A dan B:</strong> ${intersection.join(", ") || "Tidak ada"}
+                <br>
+                <strong>B saja:</strong> ${onlyB.join(", ") || "Tidak ada"}
+                <br>
+                <strong>Di luar A dan B:</strong> ${outside.join(", ") || "Tidak ada"}
+            `;
+
+        });
+
+
+    /* =====================================================
+       BANK SOAL
+    ===================================================== */
+
+    const questions = {
+
+        mudah: [
+
+            {
+                q: "Jika S = {1,2,3,4,5} dan A = {2,4}, berapa banyak anggota A?",
+                a: "2"
+            },
+
+            {
+                q: "Jika A = {1,3,5}, apakah angka 3 merupakan anggota A? Ketik ya atau tidak.",
+                a: "ya"
+            },
+
+            {
+                q: "S = {1,2,3,4,5,6}. A = {2,4,6}. Anggota S yang berada di luar A adalah ...",
+                a: "1,3,5"
+            },
+
+            {
+                q: "A = {2,4,6,8}. Apakah angka 5 berada di dalam A? Ketik ya atau tidak.",
+                a: "tidak"
+            },
+
+            {
+                q: "Jika A = {1,2,3}, berapa banyak anggota A?",
+                a: "3"
+            },
+
+            {
+                q: "S = {1,2,3,4,5}. A = {1,2}. Anggota A adalah ...",
+                a: "1,2"
+            },
+
+            {
+                q: "S = {1,2,3,4}. A = {2,3}. Apakah 4 anggota A?",
+                a: "tidak"
+            },
+
+            {
+                q: "A = {5,6,7}. Berapa banyak anggota A?",
+                a: "3"
+            },
+
+            {
+                q: "Jika 8 berada di dalam lingkaran A, maka 8 merupakan ... A.",
+                a: "anggota"
+            },
+
+            {
+                q: "S = {1,2,3,4}. A = {1,4}. Anggota A adalah ...",
+                a: "1,4"
+            },
+
+            {
+                q: "Apakah semua anggota A harus berada di dalam lingkaran A pada Diagram Venn?",
+                a: "ya"
+            },
+
+            {
+                q: "Jika A = {2,4,6}, apakah 7 anggota A?",
+                a: "tidak"
+            },
+
+            {
+                q: "S = {1,2,3,4,5,6}. A = {1,3,5}. Berapa anggota A?",
+                a: "3"
+            },
+
+            {
+                q: "Jika angka berada di luar lingkaran A tetapi masih dalam kotak S, apakah angka itu anggota S?",
+                a: "ya"
+            },
+
+            {
+                q: "A = {10,20,30}. Apakah 20 anggota A?",
+                a: "ya"
+            }
+
+        ],
+
+
+        sedang: [
+
+            {
+                q: "S = {1,2,3,4,5,6,7,8}. A = {2,4,6,8}. Berapa anggota S yang bukan anggota A?",
+                a: "4"
+            },
+
+            {
+                q: "A = {1,2,3,4} dan B = {3,4,5,6}. Anggota yang berada pada kedua himpunan adalah ...",
+                a: "3,4"
+            },
+
+            {
+                q: "A = {2,4,6,8} dan B = {1,3,5,7}. Apakah ada anggota yang berada di kedua himpunan?",
+                a: "tidak"
+            },
+
+            {
+                q: "S = {1,2,3,4,5,6}. A = {1,2,3}. B = {3,4,5}. Anggota yang hanya berada di A adalah ...",
+                a: "1,2"
+            },
+
+            {
+                q: "S = {1,2,3,4,5,6}. A = {1,2,3}. B = {3,4,5}. Anggota yang hanya berada di B adalah ...",
+                a: "4,5"
+            },
+
+            {
+                q: "A = {2,3,4,5} dan B = {4,5,6,7}. Berapa anggota yang sama?",
+                a: "2"
+            },
+
+            {
+                q: "A = {1,2,3} dan B = {3,4,5}. Sebutkan anggota yang berada di A dan B.",
+                a: "3"
+            },
+
+            {
+                q: "S = {1,2,3,4,5}. A = {1,2,3}. Anggota di luar A adalah ...",
+                a: "4,5"
+            },
+
+            {
+                q: "A = {2,4,6} dan B = {4,6,8}. Anggota yang hanya terdapat di A adalah ...",
+                a: "2"
+            },
+
+            {
+                q: "A = {2,4,6} dan B = {4,6,8}. Anggota yang hanya terdapat di B adalah ...",
+                a: "8"
+            },
+
+            {
+                q: "A = {1,2,3,4} dan B = {3,4,5}. Berapa jumlah seluruh anggota berbeda dari kedua himpunan?",
+                a: "5"
+            },
+
+            {
+                q: "S = {1,2,3,4,5,6,7}. A = {2,4,6}. Berapa anggota S yang berada di luar A?",
+                a: "4"
+            },
+
+            {
+                q: "A = {a,b,c} dan B = {b,c,d}. Anggota yang sama adalah ...",
+                a: "b,c"
+            },
+
+            {
+                q: "A = {10,20,30} dan B = {20,30,40}. Berapa anggota yang hanya ada di A?",
+                a: "10"
+            },
+
+            {
+                q: "A = {5,6,7} dan B = {7,8,9}. Anggota yang berada pada kedua himpunan adalah ...",
+                a: "7"
+            }
+
+        ],
+
+
+        sulit: [
+
+            {
+                q: "Seorang siswa menggambar A = {2,4,6} dan B = {4,6,8}. Ia menempatkan 4 dan 6 hanya di lingkaran A. Apa kesalahannya? Jawab singkat.",
+                a: "4 dan 6 juga anggota B"
+            },
+
+            {
+                q: "A = {1,2,3,4,5} dan B = {3,4,5,6,7}. Jika 3 anggota A dan B, di bagian mana 3 harus diletakkan?",
+                a: "tengah"
+            },
+
+            {
+                q: "S = {1,2,3,4,5,6,7,8}. A = {2,4,6,8}. Seorang siswa mengatakan 5 harus berada di dalam A karena 5 berada di S. Apakah benar? Jelaskan.",
+                a: "tidak karena 5 bukan anggota A"
+            },
+
+            {
+                q: "A = {1,2,3} dan B = {3,4,5}. Jika anggota 3 dihapus dari A, apa yang berubah pada hubungan A dan B?",
+                a: "tidak ada anggota yang sama"
+            },
+
+            {
+                q: "S = {1,2,3,4,5,6}. A = {1,2,3}. Jika 2 dipindahkan ke luar A, apakah Diagram Venn masih benar? Mengapa?",
+                a: "tidak karena 2 anggota A"
+            },
+
+            {
+                q: "A = {2,4,6,8} dan B = {4,8}. Apakah semua anggota B juga anggota A? Jelaskan.",
+                a: "ya karena 4 dan 8 anggota A"
+            },
+
+            {
+                q: "A = {1,3,5} dan B = {2,4,6}. Seorang siswa menaruh 3 di tengah kedua lingkaran. Apa kesalahannya?",
+                a: "3 hanya anggota A"
+            },
+
+            {
+                q: "S = {1,2,3,4,5}. A = {1,2}. Jika 5 berada di luar A tetapi di dalam S, apa yang dapat kamu simpulkan tentang 5?",
+                a: "5 anggota S tetapi bukan anggota A"
+            },
+
+            {
+                q: "A = {a,b,c,d} dan B = {c,d,e}. Jika hanya tersedia satu tempat untuk anggota yang sama, anggota apa yang harus ditempatkan di sana?",
+                a: "c,d"
+            },
+
+            {
+                q: "A = {1,2,3,4} dan B = {3,4,5,6}. Seorang siswa mengatakan A dan B tidak berhubungan karena bentuk lingkarannya berbeda. Mengapa pernyataan itu salah?",
+                a: "karena memiliki anggota yang sama"
+            },
+
+            {
+                q: "S = {1,2,3,4,5,6,7,8}. A = {2,4,6}. Jika 8 diletakkan di dalam A, apa yang salah?",
+                a: "8 bukan anggota A"
+            },
+
+            {
+                q: "A = {1,2,3,4} dan B = {2,4}. Apa hubungan B terhadap A berdasarkan anggotanya?",
+                a: "semua anggota B merupakan anggota A"
+            },
+
+            {
+                q: "A = {2,4,6} dan B = {1,3,5}. Jika seseorang mengatakan kedua himpunan mempunyai anggota yang sama, bagaimana cara membuktikan bahwa ia salah?",
+                a: "tidak ada anggota yang sama"
+            },
+
+            {
+                q: "S = {1,2,3,4,5,6}. A = {1,2,3}. Jika 4 berada di dalam lingkaran A, apa yang harus diperiksa terlebih dahulu?",
+                a: "apakah 4 anggota A"
+            },
+
+            {
+                q: "Buat satu contoh A dan B yang memiliki tepat dua anggota yang sama.",
+                a: "contoh jawaban berbeda"
+            }
+
+        ]
+
+    };
+
+
+    /* =====================================================
+       SISTEM LATIHAN
+    ===================================================== */
+
+    let currentLevel = "mudah";
+    let currentPage = 0;
+
+    const QUESTIONS_PER_PAGE = 5;
+
+    const answered = {};
+
+
+    document
+        .querySelectorAll(".level-btn")
+        .forEach(button => {
+
+            button.addEventListener("click", () => {
+
+                document
+                    .querySelectorAll(".level-btn")
+                    .forEach(btn =>
+                        btn.classList.remove("active")
+                    );
+
+                button.classList.add("active");
+
+                currentLevel = button.dataset.level;
+
+                currentPage = 0;
+
+                renderQuestions();
+
+            });
+
+        });
+
+
+    function normalizeAnswer(answer) {
+
+        return answer
+            .toLowerCase()
+            .trim()
+            .replace(/\s+/g, " ")
+            .replace(/[{}[\]]/g, "");
+
+    }
+
+
+    function checkAnswer(userAnswer, correctAnswer) {
+
+        const user =
+            normalizeAnswer(userAnswer);
+
+        const correct =
+            normalizeAnswer(correctAnswer);
+
+        /*
+            Untuk jawaban berupa himpunan,
+            urutan tidak harus sama.
+        */
+
+        if (
+            correct.includes(",") &&
+            !correct.includes("contoh jawaban")
+        ) {
+
+            const userArray =
+                user
+                    .split(",")
+                    .map(x => x.trim())
+                    .filter(Boolean)
+                    .sort();
+
+            const correctArray =
+                correct
+                    .split(",")
+                    .map(x => x.trim())
+                    .filter(Boolean)
+                    .sort();
+
+            return (
+                JSON.stringify(userArray) ===
+                JSON.stringify(correctArray)
+            );
+
+        }
+
+        if (correct === "contoh jawaban berbeda") {
+
+            return user.length > 0;
+
+        }
+
+        return user === correct;
+
+    }
+
+
+    function renderQuestions() {
+
+        const container =
+            document.getElementById("questionContainer");
+
+        container.innerHTML = "";
+
+        const data = questions[currentLevel];
+
+        const start =
+            currentPage * QUESTIONS_PER_PAGE;
+
+        const end =
+            Math.min(
+                start + QUESTIONS_PER_PAGE,
+                data.length
+            );
+
+        for (let i = start; i < end; i++) {
+
+            const item = data[i];
+
+            const question =
+                document.createElement("div");
+
+            question.className = "question";
+
+            question.innerHTML = `
+
+                <div class="question-number">
+                    Soal ${i + 1}
+                </div>
+
+                <div>
+                    ${item.q}
+                </div>
+
+                <input
+                    type="text"
+                    class="answer-input"
+                    id="answer-${currentLevel}-${i}"
+                    placeholder="Ketik jawabanmu...">
+
+                <button
+                    class="check-btn"
+                    data-index="${i}">
+                    Periksa Jawaban
+                </button>
+
+                <div
+                    id="result-${currentLevel}-${i}"
+                    class="result">
+                </div>
+
+            `;
+
+            container.appendChild(question);
+
+            const saved =
+                answered[`${currentLevel}-${i}`];
+
+            if (saved) {
+
+                const input =
+                    question.querySelector(".answer-input");
+
+                input.value = saved.answer;
+
+                showResult(
+                    i,
+                    saved.correct,
+                    saved.answer
+                );
+
+            }
+
+        }
+
+
+        document
+            .querySelectorAll(".check-btn")
+            .forEach(button => {
+
+                button.addEventListener("click", () => {
+
+                    const index =
+                        Number(button.dataset.index);
+
+                    const input =
+                        document.getElementById(
+                            `answer-${currentLevel}-${index}`
+                        );
+
+                    const result =
+                        document.getElementById(
+                            `result-${currentLevel}-${index}`
+                        );
+
+                    const answer =
+                        input.value.trim();
+
+                    if (!answer) {
+
+                        result.className =
+                            "result wrong";
+
+                        result.textContent =
+                            "Silakan isi jawaban terlebih dahulu.";
+
+                        return;
+
+                    }
+
+                    const correct =
+                        checkAnswer(
+                            answer,
+                            data[index].a
+                        );
+
+                    const key =
+                        `${currentLevel}-${index}`;
+
+                    if (!answered[key]) {
+
+                        answered[key] = {
+                            answer: answer,
+                            correct: correct
+                        };
+
+                    } else {
+
+                        answered[key].answer = answer;
+
+                    }
+
+                    showResult(
+                        index,
+                        correct,
+                        answer
+                    );
+
+                    updateScore();
+
+                });
+
+            });
+
+
+        document.getElementById("pageInfo").textContent =
+            `Soal ${start + 1}–${end} dari ${data.length}`;
+
+    }
+
+
+    function showResult(index, correct, answer) {
+
+        const result =
+            document.getElementById(
+                `result-${currentLevel}-${index}`
+            );
+
+        if (!result) return;
+
+        result.className =
+            correct
+                ? "result correct"
+                : "result wrong";
+
+        if (correct) {
+
+            result.innerHTML =
+                "✓ Benar! Kamu menemukan jawabannya.";
+
+        } else {
+
+            result.innerHTML =
+                "✗ Belum tepat. Coba periksa kembali pola dan informasi pada soal.";
+
+        }
+
+    }
+
+
+    function updateScore() {
+
+        let total = 0;
+
+        Object.values(answered)
+            .forEach(item => {
+
+                if (item.correct) {
+                    total++;
+                }
+
+            });
+
+        document.getElementById("score")
+            .textContent = total;
+
+    }
+
+
+    document
+        .getElementById("nextQuestions")
+        .addEventListener("click", () => {
+
+            const maxPage =
+                Math.ceil(
+                    questions[currentLevel].length /
+                    QUESTIONS_PER_PAGE
+                ) - 1;
+
+            if (currentPage < maxPage) {
+
+                currentPage++;
+
+                renderQuestions();
+
+                window.scrollTo({
+                    top: 0,
+                    behavior: "smooth"
+                });
+
+            }
+
+        });
+
+
+    document
+        .getElementById("prevQuestions")
+        .addEventListener("click", () => {
+
+            if (currentPage > 0) {
+
+                currentPage--;
+
+                renderQuestions();
+
+                window.scrollTo({
+                    top: 0,
+                    behavior: "smooth"
+                });
+
+            }
+
+        });
+
+
+    /* =====================================================
+       REFLEKSI
+    ===================================================== */
+
+    document
+        .getElementById("saveReflection")
+        .addEventListener("click", () => {
+
+            const text =
+                document.getElementById("reflection")
+                    .value.trim();
+
+            const result =
+                document.getElementById("reflectionResult");
+
+            if (!text) {
+
+                result.className =
+                    "result wrong";
+
+                result.textContent =
+                    "Tuliskan terlebih dahulu apa yang kamu temukan.";
+
+                return;
+
+            }
+
+            result.className =
+                "result correct";
+
+            result.textContent =
+                "✓ Refleksi sudah ditulis. Sekarang baca kembali dan pastikan kamu benar-benar memahami pola yang kamu temukan.";
+
+        });
+
+
+    /* =====================================================
+       INITIALIZE
+    ===================================================== */
+
+    renderQuestions();
+
+</script>
+
+</body>
+</html>
