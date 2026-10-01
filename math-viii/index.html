@@ -3,70 +3,240 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alur Tujuan Pembelajaran (ATP) Matematika Kelas 8</title>
+    <title>ATP Matematika Kelas 8 - Kurikulum Merdeka</title>
     <style>
-        body { font-family: Arial, sans-serif; line-height: 1.6; margin: 20px; color: #333; }
-        h2 { color: #2c3e50; border-bottom: 2px solid #ecf0f1; padding-bottom: 5px; margin-top: 30px; }
-        h3 { color: #2980b9; margin-top: 20px; }
-        ul { list-style-type: none; padding-left: 0; }
-        li { margin-bottom: 8px; padding-left: 15px; position: relative; }
-        li::before { content: "•"; color: #2980b9; font-weight: bold; display: inline-block; width: 1em; margin-left: -1em; }
-        strong { color: #2c3e50; }
+        :root {
+            --primary: #6c5ce7;
+            --secondary: #a29bfe;
+            --dark: #2d3436;
+            --light: #f9f9f9;
+            --bg: #f1f2f6;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.7;
+            margin: 0;
+            padding: 40px 20px;
+            background-color: var(--bg);
+            color: var(--dark);
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .main-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .main-header h1 {
+            color: var(--primary);
+            font-size: 2.2rem;
+            margin-bottom: 5px;
+        }
+        .main-header p {
+            color: #7f8c8d;
+            font-size: 1.1rem;
+            margin-top: 0;
+        }
+        .semester-title {
+            color: var(--dark);
+            font-size: 1.6rem;
+            border-left: 5px solid var(--primary);
+            padding-left: 15px;
+            margin: 40px 0 20px 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+        @media (min-width: 768px) {
+            .grid { grid-template-columns: repeat(2, 1fr); }
+            .full-width { grid-column: span 2; }
+        }
+        .card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(108, 92, 231, 0.1);
+        }
+        .card h3 {
+            color: var(--primary);
+            margin-top: 0;
+            font-size: 1.25rem;
+            border-bottom: 1px solid var(--bg);
+            padding-bottom: 10px;
+        }
+        .tp-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .tp-item {
+            margin-bottom: 12px;
+            padding-left: 30px;
+            position: relative;
+            font-size: 0.95rem;
+        }
+        .tp-badge {
+            position: absolute;
+            left: 0;
+            top: 2px;
+            background: var(--secondary);
+            color: #fff;
+            font-size: 0.75rem;
+            font-weight: bold;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+        .tp-text strong {
+            color: var(--dark);
+        }
     </style>
 </head>
 <body>
 
-    <h2>SEMESTER 1 (GANJIL)</h2>
+<div class="container">
+    <header class="main-header">
+        <h1>Alur Tujuan Pembelajaran (ATP)</h1>
+        <p>Matematika Kelas 8 SMP | Kurikulum Merdeka (Fase D)</p>
+    </header>
 
-    <h3>Bab 1: Menyederhanakan Bentuk Aljabar</h3>
-    <ul>
-        <li><strong>TP 1.1:</strong> Peserta didik mampu mengelompokkan dan membedakan bentuk aljabar suku tunggal (monom) dan suku banyak (polinom).</li>
-        <li><strong>TP 1.2:</strong> Peserta didik mampu melakukan operasi hitung penjumlahan, pengurangan, perkalian, dan pembagian pada bentuk suku banyak dengan benar.</li>
-        <li><strong>TP 1.3:</strong> Peserta didik mampu menyederhanakan bentuk aljabar yang melibatkan dua variabel atau lebih.</li>
-        <li><strong>TP 1.4:</strong> Peserta didik mampu menentukan nilai dari suatu bentuk aljabar jika nilai variabelnya sudah diketahui.</li>
-    </ul>
+    <!-- SEMESTER 1 -->
+    <h2 class="semester-title">Semester 1 (Ganjil)</h2>
+    <div class="grid">
+        <!-- Bab 1 -->
+        <div class="card">
+            <h3>Bab 1: Menyederhanakan Bentuk Aljabar</h3>
+            <ul class="tp-list">
+                <li class="tp-item">
+                    <span class="tp-badge">1.1</span>
+                    <span class="tp-text">Mengelompokkan dan membedakan bentuk aljabar <strong>suku tunggal (monom)</strong> dan <strong>suku banyak (polinom)</strong>.</span>
+                </li>
+                <li class="tp-item">
+                    <span class="tp-badge">1.2</span>
+                    <span class="tp-text">Melakukan <strong>operasi hitung</strong> penjumlahan, pengurangan, perkalian, dan pembagian pada bentuk suku banyak.</span>
+                </li>
+                <li class="tp-item">
+                    <span class="tp-badge">1.3</span>
+                    <span class="tp-text"><strong>Menyederhanakan</strong> bentuk aljabar yang melibatkan dua variabel atau lebih.</span>
+                </li>
+                <li class="tp-item">
+                    <span class="tp-badge">1.4</span>
+                    <span class="tp-text">Menentukan <strong>nilai dari suatu bentuk aljabar</strong> jika nilai variabelnya sudah diketahui.</span>
+                </li>
+            </ul>
+        </div>
 
-    <h3>Bab 2: Sistem Persamaan Linear Dua Variabel (SPLDV)</h3>
-    <ul>
-        <li><strong>TP 2.1:</strong> Peserta didik mampu menjelaskan konsep dasar SPLDV dan membedakannya dengan persamaan linear satu variabel.</li>
-        <li><strong>TP 2.2:</strong> Peserta didik mampu menentukan himpunan penyelesaian SPLDV menggunakan metode substitusi.</li>
-        <li><strong>TP 2.3:</strong> Peserta didik mampu menentukan himpunan penyelesaian SPLDV menggunakan metode eliminasi dan metode gabungan.</li>
-        <li><strong>TP 2.4:</strong> Peserta didik mampu memodelkan dan menyelesaikan masalah kontekstual sehari-hari yang berkaitan dengan SPLDV.</li>
-    </ul>
+        <!-- Bab 2 -->
+        <div class="card">
+            <h3>Bab 2: Sistem Persamaan Linear Dua Variabel (SPLDV)</h3>
+            <ul class="tp-list">
+                <li class="tp-item">
+                    <span class="tp-badge">2.1</span>
+                    <span class="tp-text">Menjelaskan <strong>konsep dasar SPLDV</strong> dan membedakannya dengan persamaan linear satu variabel.</span>
+                </li>
+                <li class="tp-item">
+                    <span class="tp-badge">2.2</span>
+                    <span class="tp-text">Menentukan himpunan penyelesaian SPLDV menggunakan <strong>metode substitusi</strong>.</span>
+                </li>
+                <li class="tp-item">
+                    <span class="tp-badge">2.3</span>
+                    <span class="tp-text">Menentukan himpunan penyelesaian menggunakan <strong>metode eliminasi</strong> dan gabungan.</span>
+                </li>
+                <li class="tp-item">
+                    <span class="tp-badge">2.4</span>
+                    <span class="tp-text">Memodelkan dan menyelesaikan <strong>masalah kontekstual</strong> sehari-hari yang berkaitan dengan SPLDV.</span>
+                </li>
+            </ul>
+        </div>
 
-    <h3>Bab 3: Fungsi Linear & Relasi</h3>
-    <ul>
-        <li><strong>TP 3.1:</strong> Peserta didik mampu mendefinisikan relasi dan fungsi serta menentukan domain, kodomain, dan range.</li>
-        <li><strong>TP 3.2:</strong> Peserta didik mampu menyajikan fungsi dalam bentuk diagram panah, tabel, himpunan pasangan berurutan, dan grafik Kartesius.</li>
-        <li><strong>TP 3.3:</strong> Peserta didik mampu menganalisis tingkat perubahan nilai pada fungsi linear dan menentukan gradien (kemiringan) garis.</li>
-        <li><strong>TP 3.4:</strong> Peserta didik mampu grafik fungsi linear pada koordinat Kartesius dan menentukan persamaan garis lurus dari grafik atau titik yang diketahui.</li>
-    </ul>
+        <!-- Bab 3 -->
+        <div class="card full-width">
+            <h3>Bab 3: Fungsi Linear & Relasi</h3>
+            <ul class="tp-list">
+                <li class="tp-item">
+                    <span class="tp-badge">3.1</span>
+                    <span class="tp-text">Mendefinisikan relasi dan fungsi serta menentukan <strong>domain, kodomain, dan range</strong>.</span>
+                </li>
+                <li class="tp-item">
+                    <span class="tp-badge">3.2</span>
+                    <span class="tp-text"><strong>Menyajikan fungsi</strong> dalam bentuk diagram panah, tabel, himpunan pasangan berurutan, dan grafik Kartesius.</span>
+                </li>
+                <li class="tp-item">
+                    <span class="tp-badge">3.3</span>
+                    <span class="tp-text">Menganalisis tingkat perubahan nilai pada fungsi linear dan menentukan <strong>gradien (kemiringan) garis</strong>.</span>
+                </li>
+                <li class="tp-item">
+                    <span class="tp-badge">3.4</span>
+                    <span class="tp-text">Menggambar <strong>grafik fungsi linear</strong> pada koordinat Kartesius dan menentukan persamaan garis lurus.</span>
+                </li>
+            </ul>
+        </div>
+    </div>
 
-    <h2>SEMESTER 2 (GENAP)</h2>
+    <!-- SEMESTER 2 -->
+    <h2 class="semester-title">Semester 2 (Genap)</h2>
+    <div class="grid">
+        <!-- Bab 4 -->
+        <div class="card">
+            <h3>Bab 4: Teorema Pythagoras</h3>
+            <ul class="tp-list">
+                <li class="tp-item">
+                    <span class="tp-badge">4.1</span>
+                    <span class="tp-text">Menemukan konsep dan menunjukkan kebenaran <strong>Teorema Pythagoras</strong> pada segitiga siku-siku.</span>
+                </li>
+                <li class="tp-item">
+                    <span class="tp-badge">4.2</span>
+                    <span class="tp-text">Menghitung <strong>panjang salah satu sisi</strong> segitiga siku-siku jika dua sisi lainnya diketahui.</span>
+                </li>
+                <li class="tp-item">
+                    <span class="tp-badge">4.3</span>
+                    <span class="tp-text">Mengidentifikasi <strong>Jenis Segitiga</strong> dan menentukan kelompok bilangan <strong>Tripel Pythagoras</strong>.</span>
+                </li>
+                <li class="tp-item">
+                    <span class="tp-badge">4.4</span>
+                    <span class="tp-text">Menerapkan Teorema Pythagoras untuk menyelesaikan <strong>masalah nyata</strong> (jarak antara dua titik).</span>
+                </li>
+            </ul>
+        </div>
 
-    <h3>Bab 4: Teorema Pythagoras</h3>
-    <ul>
-        <li><strong>TP 4.1:</strong> Peserta didik mampu menemukan konsep dan menunjukkan kebenaran Teorema Pythagoras pada segitiga siku-siku.</li>
-        <li><strong>TP 4.2:</strong> Peserta didik mampu menghitung panjang salah satu sisi segitiga siku-siku jika dua sisi lainnya diketahui.</li>
-        <li><strong>TP 4.3:</strong> Peserta didik mampu mengidentifikasi Jenis Segitiga (lancip, tumpul, siku-siku) dan menentukan kelompok bilangan yang termasuk Tripel Pythagoras.</li>
-        <li><strong>TP 4.4:</strong> Peserta didik mampu menerapkan Teorema Pythagoras untuk menyelesaikan masalah nyata (misal: mencari jarak antara dua titik).</li>
-    </ul>
+        <!-- Bab 5 -->
+        <div class="card">
+            <h3>Bab 5: Bangun Geometri & Kekongruenan</h3>
+            <ul class="tp-list">
+                <li class="tp-item">
+                    <span class="tp-badge">5.1</span>
+                    <span class="tp-text">Memahami sifat-sifat garis sejajar, sudut transversal, dan <strong>poligon (segi banyak)</strong>.</span>
+                </li>
+                <li class="tp-item">
+                    <span class="tp-badge">5.2</span>
+                    <span class="tp-text">Menjelaskan konsep <strong>kekongruenan dan kesebangunan</strong> pada bangun datar.</span>
+                </li>
+                <li class="tp-item">
+                    <span class="tp-badge">5.3</span>
+                    <span class="tp-text">Membuktikan dan menguji kekongruenan <strong>dua buah segitiga</strong> berdasarkan syarat yang berlaku.</span>
+                </li>
+                <li class="tp-item">
+                    <span class="tp-badge">5.4</span>
+                    <span class="tp-text">Menyelidiki sifat-sifat bangun geometri <strong>lingkaran</strong> (busur, juring) dan bangun ruang sisi datar.</span>
+                </li>
+            </ul>
+        </div>
 
-    <h3>Bab 5: Bangun Geometri & Kekongruenan</h3>
-    <ul>
-        <li><strong>TP 5.1:</strong> Peserta didik mampu memahami sifat-sifat garis sejajar, sudut transversal, dan poligon (segi banyak).</li>
-        <li><strong>TP 5.2:</strong> Peserta didik mampu menjelaskan konsep kekongruenan dan kesebangunan pada bangun datar.</li>
-        <li><strong>TP 5.3:</strong> Peserta didik mampu membuktikan dan menguji kekongruenan dua buah segitiga berdasarkan syarat-syarat yang berlaku.</li>
-        <li><strong>TP 5.4:</strong> Peserta didik mampu menyelidiki sifat-sifat bangun geometri lingkaran (busur, juring) dan bangun ruang sisi datar.</li>
-    </ul>
-
-    <h3>Bab 6: Statistika & Peluang</h3>
-    <ul>
-        <li><strong>TP 6.1:</strong> Peserta didik mampu menganalisis data dan menyajikannya ke dalam bentuk tabel frekuensi, histogram, maupun diagram lingkaran.</li>
-        <li><strong>TP 6.2:</strong> Peserta didik mampu menghitung nilai ukuran pemusatan data meliputi rata-rata (mean), median, dan modus dari data tunggal.</li>
-        <li><strong>TP 6.3:</strong> Peserta didik mampu menentukan ukuran penyebaran data seperti jangkauan (range) dan kuartil.</li>
-        <li><strong>TP 6.4:</strong> Peserta didik mampu menjelaskan konsep peluang empirik serta peluang teoritik dari suatu kejadian pada percobaan sederhana.</li>
-    </ul>
-
-</body>
-</html>
+        <!-- Bab 6 -->
+        <div class="card full-width">
+            <h3>Bab 6: Statistika & Peluang</h3>
+            <ul class="tp-list">
+                <li class="tp-item">
+                    <span class="tp-badge">6.1</span>
+                    <span class="tp-text">Menganalisis data dan menyajikannya ke dalam bentuk <strong>tabel frekuensi, histogram, atau diagram lingkaran</strong>.</span>
+                </li>
+                <li class="tp-item">
