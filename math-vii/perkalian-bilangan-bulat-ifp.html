@@ -1,0 +1,1540 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Petualangan Lembah Bilangan Bulat - BGY Math Game</title>
+    <style>
+        /* Modern CSS Reset & Variable Tokens BGY System */
+        :root {
+            --bgy-teal: #0EA5A0;
+            --bgy-teal-dark: #0D7A8A;
+            --bgy-amber: #F59E0B;
+            --bgy-amber-dark: #D97706;
+            --bgy-bg: #F0F4F8;
+            --bgy-card: #FFFFFF;
+            --bgy-text: #1E293B;
+            --bgy-muted: #64748B;
+            --bgy-danger: #EF4444;
+            --bgy-success: #10B981;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --shadow-sm: 0 2px 4px rgba(0,0,0,0.06);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.1);
+            --shadow-lg: 0 8px 24px rgba(0,0,0,0.12);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bgy-bg);
+            color: var(--bgy-text);
+            min-height: 100dvh;
+            display: flex;
+            flex-direction: column;
+            line-height: 1.5;
+            font-size: 18px;
+            overflow-x: hidden;
+        }
+
+        /* Responsive Layout Container */
+        .app-container {
+            width: 100%;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 16px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header Navigation Controls */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--bgy-card);
+            padding: 12px 20px;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            margin-bottom: 16px;
+        }
+
+        .logo-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 700;
+            font-size: 1.25rem;
+            color: var(--bgy-teal-dark);
+        }
+
+        .badge-bgy {
+            background: rgba(14, 165, 160, 0.15);
+            color: var(--bgy-teal-dark);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .controls-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Generic Interactive Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            min-height: 48px;
+            padding: 10px 20px;
+            border-radius: var(--radius-md);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s ease;
+            outline-offset: 3px;
+            text-decoration: none;
+            user-select: none;
+        }
+
+        .btn:focus-visible {
+            outline: 3px solid var(--bgy-amber);
+        }
+
+        .btn:active {
+            transform: scale(0.97);
+        }
+
+        .btn-primary {
+            background-color: var(--bgy-teal);
+            color: #ffffff;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--bgy-teal-dark);
+        }
+
+        .btn-amber {
+            background-color: var(--bgy-amber);
+            color: #ffffff;
+        }
+
+        .btn-amber:hover {
+            background-color: var(--bgy-amber-dark);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--bgy-teal);
+            color: var(--bgy-teal-dark);
+        }
+
+        .btn-outline:hover {
+            background: rgba(14, 165, 160, 0.1);
+        }
+
+        .btn-icon {
+            min-width: 48px;
+            min-height: 48px;
+            padding: 0;
+            border-radius: 50%;
+        }
+
+        /* Main Game Screen Card Container */
+        .game-screen {
+            background: var(--bgy-card);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            box-shadow: var(--shadow-md);
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* Hero / Cover Section */
+        .cover-wrapper {
+            text-align: center;
+            max-width: 750px;
+            margin: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .cover-icon {
+            width: 96px;
+            height: 96px;
+            background: rgba(14, 165, 160, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: var(--bgy-teal);
+        }
+
+        .hero-title {
+            font-size: 2.2rem;
+            color: var(--bgy-teal-dark);
+            line-height: 1.2;
+        }
+
+        .hero-desc {
+            font-size: 1.15rem;
+            color: var(--bgy-muted);
+        }
+
+        .teacher-info-box {
+            background: #F8FAFC;
+            border-left: 4px solid var(--bgy-amber);
+            padding: 12px 16px;
+            border-radius: 0 var(--radius-md) var(--radius-md) 0;
+            text-align: left;
+            font-size: 0.95rem;
+            width: 100%;
+        }
+
+        /* Map Overview Section */
+        .map-title {
+            font-size: 1.5rem;
+            color: var(--bgy-teal-dark);
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        .map-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin: 20px 0;
+        }
+
+        .map-node {
+            background: #F8FAFC;
+            border: 2px solid #E2E8F0;
+            border-radius: var(--radius-md);
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            text-align: center;
+            position: relative;
+            transition: all 0.2s ease;
+        }
+
+        .map-node.active {
+            border-color: var(--bgy-teal);
+            background: rgba(14, 165, 160, 0.05);
+            box-shadow: 0 0 0 3px rgba(14, 165, 160, 0.2);
+        }
+
+        .map-node.completed {
+            border-color: var(--bgy-success);
+            background: rgba(16, 185, 129, 0.08);
+        }
+
+        .map-node-num {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #CBD5E1;
+            color: white;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .map-node.active .map-node-num {
+            background: var(--bgy-teal);
+        }
+
+        .map-node.completed .map-node-num {
+            background: var(--bgy-success);
+        }
+
+        .diff-tag {
+            font-size: 0.75rem;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .diff-dasar { background: #E0F2FE; color: #0369A1; }
+        .diff-standar { background: #FEF3C7; color: #B45309; }
+        .diff-tantangan { background: #FEE2E2; color: #B91C1C; }
+
+        /* Level Gameplay Layout */
+        .level-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 16px;
+            border-bottom: 2px solid #F1F5F9;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .level-badge-wrap {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .level-story-box {
+            background: rgba(14, 165, 160, 0.08);
+            border-radius: var(--radius-md);
+            padding: 16px;
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            border-left: 4px solid var(--bgy-teal);
+        }
+
+        .interactive-stage {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 250px;
+            background: #F8FAFC;
+            border: 2px dashed #CBD5E1;
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        /* Feedback Display Box */
+        .feedback-box {
+            padding: 16px;
+            border-radius: var(--radius-md);
+            margin-bottom: 16px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.05rem;
+        }
+
+        .feedback-hint {
+            background: #FEF3C7;
+            color: #92400E;
+            border: 1px solid #FCD34D;
+        }
+
+        .feedback-success {
+            background: #D1FAE5;
+            color: #065F46;
+            border: 1px solid #6EE7B7;
+        }
+
+        .feedback-explain {
+            background: #E0F2FE;
+            color: #075985;
+            border: 1px solid #7DD3FC;
+        }
+
+        /* Specific Interaction Components */
+        /* Doors Choice Mechanics */
+        .doors-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 16px;
+            width: 100%;
+            max-width: 600px;
+        }
+
+        .door-card {
+            background: var(--bgy-card);
+            border: 3px solid var(--bgy-teal);
+            border-radius: var(--radius-md);
+            padding: 20px;
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .door-card:hover, .door-card:focus {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+            background: rgba(14, 165, 160, 0.1);
+        }
+
+        /* Slider / Lever Controls Mechanics */
+        .slider-wrapper {
+            width: 100%;
+            max-width: 500px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            align-items: center;
+        }
+
+        .slider-value-display {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--bgy-teal-dark);
+        }
+
+        input[type=range] {
+            width: 100%;
+            height: 12px;
+            border-radius: 6px;
+            background: #E2E8F0;
+            outline: none;
+            accent-color: var(--bgy-teal);
+        }
+
+        /* Matching / Pairing Cards Mechanics */
+        .matching-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 12px;
+            width: 100%;
+        }
+
+        .match-card {
+            background: white;
+            border: 2px solid #CBD5E1;
+            padding: 16px;
+            border-radius: var(--radius-md);
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .match-card.selected {
+            border-color: var(--bgy-amber);
+            background: #FEF3C7;
+        }
+
+        .match-card.matched {
+            border-color: var(--bgy-success);
+            background: #D1FAE5;
+            cursor: default;
+            opacity: 0.6;
+        }
+
+        /* Drag & Drop Tokens Mechanics */
+        .drag-container {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .drag-item {
+            background: var(--bgy-amber);
+            color: white;
+            padding: 12px 24px;
+            border-radius: var(--radius-md);
+            font-size: 1.4rem;
+            font-weight: bold;
+            cursor: grab;
+            user-select: none;
+        }
+
+        .drop-target {
+            width: 120px;
+            height: 60px;
+            border: 3px dashed var(--bgy-teal);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            background: white;
+        }
+
+        /* Combination Pin Code Pad Mechanics */
+        .pin-pad-display {
+            font-size: 2rem;
+            letter-spacing: 8px;
+            background: white;
+            padding: 10px 24px;
+            border-radius: var(--radius-md);
+            border: 2px solid #CBD5E1;
+            margin-bottom: 16px;
+            min-width: 180px;
+            text-align: center;
+        }
+
+        .pin-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            max-width: 260px;
+        }
+
+        .pin-btn {
+            background: white;
+            border: 2px solid #E2E8F0;
+            padding: 12px;
+            font-size: 1.25rem;
+            font-weight: bold;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+        }
+
+        .pin-btn:hover {
+            background: #F1F5F9;
+        }
+
+        /* Steering Submarine Gauge Mechanics */
+        .gauge-container {
+            text-align: center;
+            width: 100%;
+        }
+
+        .depth-meter {
+            height: 30px;
+            width: 100%;
+            max-width: 400px;
+            background: #E2E8F0;
+            border-radius: 15px;
+            margin: 16px auto;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .depth-fill {
+            height: 100%;
+            background: var(--bgy-teal);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        /* Order Steps Flow Mechanics */
+        .steps-sort-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            width: 100%;
+            max-width: 550px;
+        }
+
+        .step-sort-item {
+            background: white;
+            border: 2px solid #CBD5E1;
+            padding: 12px 16px;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-weight: 600;
+        }
+
+        .step-actions {
+            display: flex;
+            gap: 6px;
+        }
+
+        /* Summary & Learning Feedback Screen */
+        .summary-card {
+            text-align: center;
+            max-width: 650px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .score-big {
+            font-size: 4rem;
+            font-weight: 900;
+            color: var(--bgy-teal-dark);
+            line-height: 1;
+        }
+
+        .analysis-box {
+            text-align: left;
+            background: #F8FAFC;
+            border-radius: var(--radius-md);
+            padding: 16px 20px;
+            border: 1px solid #E2E8F0;
+        }
+
+        .analysis-box h4 {
+            color: var(--bgy-teal-dark);
+            margin-bottom: 10px;
+        }
+
+        .analysis-list {
+            list-style-type: none;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .analysis-list li {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Teacher HUD / Large Display Utility */
+        .timer-display {
+            font-family: monospace;
+            font-size: 1.2rem;
+            font-weight: bold;
+            background: #F1F5F9;
+            padding: 6px 12px;
+            border-radius: 8px;
+            color: var(--bgy-text);
+        }
+
+        /* Accessibility Focus State Improvement */
+        a, button, input, [tabindex="0"] {
+            outline-color: var(--bgy-amber);
+        }
+
+        /* Motion Preference Safeguard */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                transition: none !important;
+                animation: none !important;
+            }
+        }
+
+        /* Screen Responsive Tweaks */
+        @media (max-width: 600px) {
+            .hero-title { font-size: 1.6rem; }
+            .game-screen { padding: 16px; }
+            .btn { min-height: 44px; padding: 8px 14px; font-size: 0.95rem; }
+            .score-big { font-size: 3rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+        <!-- Navigation Header -->
+        <header role="banner">
+            <div class="logo-title">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                <span>Bantu Guru Yuk</span>
+                <span class="badge-bgy">SMP Kelas 7</span>
+            </div>
+            <div class="controls-group">
+                <div id="timerDisplay" class="timer-display hidden" aria-label="Waktu Bermain">00:00</div>
+                <button id="btnSoundToggle" class="btn btn-outline btn-icon" title="Aktifkan/Matikan Suara" aria-label="Toggle Suara">
+                    🔊
+                </button>
+                <button id="btnHome" class="btn btn-outline" title="Kembali ke Beranda" aria-label="Beranda">
+                    🏠 <span class="hidden-mobile">Beranda</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Screen Stage -->
+        <main class="game-screen" id="mainStage" role="main" aria-live="polite">
+            
+            <!-- 1. COVER SCREEN -->
+            <section id="screenCover" class="cover-wrapper">
+                <div class="cover-icon" aria-hidden="true">🗺️</div>
+                <h1 class="hero-title">Petualangan Lembah Bilangan Bulat</h1>
+                <p class="hero-desc">
+                    Bantu Petualang Arya menjelajahi 8 zona misterius di Lembah Bilangan Bulat. Gunakan keahlian perkalian bilangan bulatmu untuk membuka rahasia kuno!
+                </p>
+
+                <div class="teacher-info-box">
+                    <strong>📢 Panduan Mode Guru / Klasikal:</strong>
+                    <ul style="margin-left: 20px; margin-top: 6px;">
+                        <li>Tampilkan game di layar besar (IFP / Proyektor).</li>
+                        <li>Ajak siswa berdiskusi dan memilih jawaban bersama secara interaktif.</li>
+                        <li>Gunakan keyboard (Tab/Enter) atau Tap Layar untuk navigasi cepat.</li>
+                    </ul>
+                </div>
+
+                <div style="display: flex; gap: 12px; flex-wrap: wrap; justify-content: center;">
+                    <button id="btnStartGame" class="btn btn-primary" style="font-size: 1.2rem; padding: 14px 32px;">
+                        🚀 Mulai Petualangan
+                    </button>
+                </div>
+            </section>
+
+            <!-- 2. MAP OVERVIEW SCREEN -->
+            <section id="screenMap" class="hidden">
+                <h2 class="map-title">Peta Ekspedisi Lembah Bilangan Bulat</h2>
+                <p style="text-align: center; color: var(--bgy-muted); margin-bottom: 16px;">
+                    Selesaikan tantangan secara berurutan untuk mencapai Istana Utama.
+                </p>
+
+                <div class="map-grid" id="mapGridContainer">
+                    <!-- Nodes will be injected dynamically -->
+                </div>
+
+                <div style="text-align: center; margin-top: 16px;">
+                    <button id="btnContinueJourney" class="btn btn-amber" style="font-size: 1.1rem;">
+                        ▶️ Lanjutkan Ke Lokasi Aktif
+                    </button>
+                </div>
+            </section>
+
+            <!-- 3. LEVEL GAMEPLAY SCREEN -->
+            <section id="screenLevel" class="hidden" style="flex: 1; display: flex; flex-direction: column;">
+                <div class="level-header">
+                    <div class="level-badge-wrap">
+                        <span id="levelNumberBadge" class="badge-bgy" style="font-size: 1rem;">Lokasi 1 dari 8</span>
+                        <span id="levelDiffBadge" class="diff-tag diff-dasar">Dasar</span>
+                    </div>
+                    <div style="font-weight: 700; color: var(--bgy-teal-dark);" id="levelTitleDisplay">
+                        Judul Lokasi
+                    </div>
+                </div>
+
+                <div class="level-story-box" id="levelStoryText">
+                    Narasi tantangan singkat akan tampil di sini.
+                </div>
+
+                <!-- Interactive Canvas / Problem Stage -->
+                <div class="interactive-stage" id="interactiveContainer">
+                    <!-- Dynamic interactive component HTML -->
+                </div>
+
+                <!-- Feedback Display Box -->
+                <div id="feedbackContainer" class="feedback-box hidden" role="status">
+                    <span id="feedbackIcon" style="font-size: 1.4rem;">💡</span>
+                    <span id="feedbackText">Feedback pesan petunjuk...</span>
+                </div>
+
+                <!-- Action Toolbar Footer -->
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: auto; padding-top: 12px; border-top: 1px solid #E2E8F0;">
+                    <button id="btnHint" class="btn btn-outline" style="min-height: 44px;">
+                        💡 Petunjuk
+                    </button>
+                    <button id="btnSubmitAnswer" class="btn btn-primary" style="min-height: 44px;">
+                        ✅ Periksa Jawaban
+                    </button>
+                    <button id="btnNextLevel" class="btn btn-amber hidden" style="min-height: 44px;">
+                        Lanjut ▶️
+                    </button>
+                </div>
+            </section>
+
+            <!-- 4. FINAL SUMMARY & FEEDBACK SCREEN -->
+            <section id="screenSummary" class="hidden">
+                <div class="summary-card">
+                    <div style="font-size: 3rem;">🏆</div>
+                    <h2 style="color: var(--bgy-teal-dark); font-size: 2rem;">Misi Selesai! Selamat!</h2>
+                    <p style="color: var(--bgy-muted);">
+                        Kelas kalian berhasil menyelesaikan seluruh rintangan matematika di Lembah Bilangan Bulat.
+                    </p>
+
+                    <div style="background: rgba(14, 165, 160, 0.08); padding: 20px; border-radius: var(--radius-lg);">
+                        <div style="font-size: 0.95rem; color: var(--bgy-muted); font-weight: 600;">SKOR AKHIR KELAS</div>
+                        <div class="score-big" id="finalScoreDisplay">100</div>
+                        <div style="font-size: 1rem; font-weight: 600; color: var(--bgy-teal-dark);" id="finalAccuracyDisplay">Akurasi: 100%</div>
+                    </div>
+
+                    <div class="analysis-box">
+                        <h4>📊 Laporan Penguasaan Konsep:</h4>
+                        <ul class="analysis-list" id="conceptAnalysisList">
+                            <!-- Injected dynamically -->
+                        </ul>
+                    </div>
+
+                    <div class="teacher-info-box" style="border-left-color: var(--bgy-teal);">
+                        <strong>💡 Rekomendasi Belajar Selanjutnya:</strong>
+                        <p id="recommendationText" style="margin-top: 4px;">
+                            Siswa telah menguasai perkalian bilangan bulat positif dan negatif dengan sangat baik! Lanjutkan ke materi Pembagian Bilangan Bulat.
+                        </p>
+                    </div>
+
+                    <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+                        <button id="btnRestartGame" class="btn btn-primary" style="font-size: 1.1rem; padding: 12px 28px;">
+                            🔄 Main Lagi
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <script>
+        /* Modern Web Audio Synthesizer for SFX (No External Assets) */
+        class SoundFX {
+            constructor() {
+                this.ctx = null;
+                this.enabled = true;
+            }
+
+            init() {
+                if (!this.ctx) {
+                    const AudioContext = window.AudioContext || window.webkitAudioContext;
+                    if (AudioContext) this.ctx = new AudioContext();
+                }
+            }
+
+            playBeep(freq = 440, type = 'sine', duration = 0.1) {
+                if (!this.enabled) return;
+                this.init();
+                if (!this.ctx) return;
+
+                try {
+                    const osc = this.ctx.createOscillator();
+                    const gain = this.ctx.createGain();
+                    osc.type = type;
+                    osc.frequency.setValueAtTime(freq, this.ctx.currentTime);
+                    gain.gain.setValueAtTime(0.15, this.ctx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + duration);
+                    osc.connect(gain);
+                    gain.connect(this.ctx.destination);
+                    osc.start();
+                    osc.stop(this.ctx.currentTime + duration);
+                } catch (e) { console.error(e); }
+            }
+
+            playCorrect() {
+                if (!this.enabled) return;
+                this.playBeep(523.25, 'triangle', 0.12);
+                setTimeout(() => this.playBeep(659.25, 'triangle', 0.12), 100);
+                setTimeout(() => this.playBeep(783.99, 'triangle', 0.2), 200);
+            }
+
+            playWrong() {
+                if (!this.enabled) return;
+                this.playBeep(220, 'sawtooth', 0.15);
+                setTimeout(() => this.playBeep(180, 'sawtooth', 0.25), 120);
+            }
+
+            playVictory() {
+                if (!this.enabled) return;
+                const notes = [440, 554.37, 659.25, 880];
+                notes.forEach((f, i) => setTimeout(() => this.playBeep(f, 'sine', 0.25), i * 150));
+            }
+        }
+
+        const sfx = new SoundFX();
+
+        /* Game State Data */
+        const gameState = {
+            currentLevelIndex: 0,
+            completedLevels: [],
+            attempts: {},
+            score: 0,
+            soundOn: true,
+            timerSeconds: 0,
+            timerInterval: null
+        };
+
+        /* 8 Challenge Levels Configuration */
+        const levelData = [
+            {
+                id: 1,
+                title: "Pintu Gerbang Gua",
+                difficulty: "Dasar",
+                diffClass: "diff-dasar",
+                concept: "Positif × Positif",
+                story: "Arya tiba di gerbang gua kuno. Di pintu terukir pesan: 'Kalikan 6 kelompok berisi 7 batu ajaib untuk menemukan kunci utama!'",
+                hint: "Perkalian dua bilangan positif menghasilkan bilangan positif. Hitung: 6 × 7.",
+                mechanicType: "doors",
+                doors: [
+                    { label: "Pintu 36", value: 36, correct: false },
+                    { label: "Pintu 42", value: 42, correct: true },
+                    { label: "Pintu 48", value: 48, correct: false }
+                ],
+                explanation: "Tepat! 6 × 7 = 42. Bilangan positif dikali positif selalu menghasilkan bilangan positif!"
+            },
+            {
+                id: 2,
+                title: "Jembatan Suhu Dingin",
+                difficulty: "Dasar",
+                diffClass: "diff-dasar",
+                concept: "Positif × Negatif",
+                story: "Suhu jembatan membeku turun sebesar 3°C setiap jamnya (-3°C). Berapa total perubahan suhu setelah 5 jam?",
+                hint: "Gunakan perkalian bilangan positif dan negatif: 5 × (-3).",
+                mechanicType: "slider",
+                min: -30,
+                max: 10,
+                step: 1,
+                initial: 0,
+                targetValue: -15,
+                unit: "°C",
+                explanation: "Hebat! 5 × (-3) = -15. Bilangan positif dikali negatif menghasilkan bilangan negatif!"
+            },
+            {
+                id: 3,
+                title: "Lembah Hutang Emas",
+                difficulty: "Standar",
+                diffClass: "diff-standar",
+                concept: "Negatif × Positif",
+                story: "Pasangkan koin hutang emas dengan perkalian yang sesuai! Jika Arya berhutang 8 koin (-8) selama 4 hari berturut-turut, berapa total hutangnya?",
+                hint: "Cari kartu operasi (-8) × 4 dan kartu hasil yang tepat.",
+                mechanicType: "matching",
+                pairs: [
+                    { id: 'p1', label: "(-8) × 4" },
+                    { id: 'p1', label: "-32" },
+                    { id: 'p2', label: "(-5) × 3" },
+                    { id: 'p2', label: "-15" }
+                ],
+                explanation: "Luar biasa! (-8) × 4 = -32. Bilangan negatif dikali positif selalu menghasilkan negatif!"
+            },
+            {
+                id: 4,
+                title: "Cermin Ajaib Dua Bayangan",
+                difficulty: "Standar",
+                diffClass: "diff-standar",
+                concept: "Negatif × Negatif = Positif",
+                story: "Arya menemukan cermin balik! Rahasia cermin: Membalik arah hutang (-6) sebanyak (-9) kali pembalikan. Pilih tanda (+ atau -) dan hasil perkalian (-6) × (-9)!",
+                hint: "Ingat aturan khusus: Negatif dikali Negatif menjadi POSITIF! (-6) × (-9) = ...",
+                mechanicType: "drag_sign",
+                items: ["+", "-"],
+                targetSign: "+",
+                numberResult: "54",
+                explanation: "Benar sekali! (-6) × (-9) = +54. Dua tanda negatif yang dikalikan membatalkan satu sama lain menjadi POSITIF!"
+            },
+            {
+                id: 5,
+                title: "Gembok Peti Sifat Komutatif",
+                difficulty: "Standar",
+                diffClass: "diff-standar",
+                concept: "Sifat Komutatif & Asosiatif",
+                story: "Peti harta karun terkunci gembok kode! Kode sandi gembok memenuhi sifat komutatif perkalian: Jika 12 × (-5) = -60, maka (-5) × 12 = ...?",
+                hint: "Sifat komutatif menyatakan a × b = b × a. Hasilnya tetap sama!",
+                mechanicType: "pincode",
+                targetPin: "-60",
+                explanation: "Tepat! Sifat komutatif (pertukaran) berlaku pada perkalian: a × b = b × a = -60."
+            },
+            {
+                id: 6,
+                title: "Eksplorasi Kapal Selam",
+                difficulty: "Tantangan",
+                diffClass: "diff-tantangan",
+                concept: "Aplikasi Cerita Kedalaman",
+                story: "Kapal selam Arya menyelam turun sejauh 12 meter per menit (-12 meter/menit). Kemudikan kapal ke posisi kedalaman total setelah menyelam selama 6 menit!",
+                hint: "Hitung perkalian kedalaman: 6 × (-12).",
+                mechanicType: "submarine_gauge",
+                min: -100,
+                max: 0,
+                targetDepth: -72,
+                explanation: "Sempurna! 6 × (-12) = -72 meter di bawah permukaan laut."
+            },
+            {
+                id: 7,
+                title: "Labirin Distributif",
+                difficulty: "Tantangan",
+                diffClass: "diff-tantangan",
+                concept: "Sifat Distributif",
+                story: "Pilih rute cabang yang menggunakan sifat distributif dengan benar untuk menyederhanakan perhitungan: 7 × (10 + (-2)).",
+                hint: "Sifat distributif: a × (b + c) = (a × b) + (a × c). Maka 7 × (10 + (-2)) = (7 × 10) + (7 × (-2)).",
+                mechanicType: "doors",
+                doors: [
+                    { label: "(7 × 10) + (7 × (-2)) = 70 + (-14) = 56", value: 56, correct: true },
+                    { label: "(7 × 10) × (7 × (-2)) = 70 × (-14) = -980", value: -980, correct: false },
+                    { label: "(7 + 10) × (7 + (-2)) = 17 × 5 = 85", value: 85, correct: false }
+                ],
+                explanation: "Keren! Sifat distributif menyebarkan perkalian: 7 × (10 + (-2)) = 70 + (-14) = 56."
+            },
+            {
+                id: 8,
+                title: "Gerbang Utama Istana",
+                difficulty: "Tantangan Bonus",
+                diffClass: "diff-tantangan",
+                concept: "Tantangan Kombinasi Kompleks",
+                story: "Tantangan Terakhir! Susun langkah hukum tanda perkalian bilangan bulat dengan benar untuk membuka Gerbang Utama Istana!",
+                hint: "Urutkan aturan perkalian tanda dari yang paling mendasar.",
+                mechanicType: "ordering",
+                steps: [
+                    { id: 1, text: "Positif × Positif = POSITIF", correctOrder: 1 },
+                    { id: 2, text: "Positif × Negatif = NEGATIF", correctOrder: 2 },
+                    { id: 3, text: "Negatif × Positif = NEGATIF", correctOrder: 3 },
+                    { id: 4, text: "Negatif × Negatif = POSITIF", correctOrder: 4 }
+                ],
+                explanation: "LUAR BIASA! Seluruh aturan perkalian bilangan bulat telah dikuasai dengan sempurna!"
+            }
+        ];
+
+        /* DOM Elements Reference */
+        const screens = {
+            cover: document.getElementById('screenCover'),
+            map: document.getElementById('screenMap'),
+            level: document.getElementById('screenLevel'),
+            summary: document.getElementById('screenSummary')
+        };
+
+        const timerDisplay = document.getElementById('timerDisplay');
+        const feedbackBox = document.getElementById('feedbackContainer');
+        const feedbackText = document.getElementById('feedbackText');
+        const feedbackIcon = document.getElementById('feedbackIcon');
+
+        /* Screen Navigation Handler */
+        function showScreen(screenKey) {
+            Object.keys(screens).forEach(key => {
+                screens[key].classList.add('hidden');
+            });
+            screens[screenKey].classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        /* Timer Handler */
+        function startTimer() {
+            if (gameState.timerInterval) clearInterval(gameState.timerInterval);
+            timerDisplay.classList.remove('hidden');
+            gameState.timerInterval = setInterval(() => {
+                gameState.timerSeconds++;
+                const mins = String(Math.floor(gameState.timerSeconds / 60)).padStart(2, '0');
+                const secs = String(gameState.timerSeconds % 60).padStart(2, '0');
+                timerDisplay.textContent = `${mins}:${secs}`;
+            }, 1000);
+        }
+
+        /* Render Map Screen Nodes */
+        function renderMap() {
+            const container = document.getElementById('mapGridContainer');
+            container.innerHTML = '';
+
+            levelData.forEach((lvl, idx) => {
+                const isCompleted = gameState.completedLevels.includes(lvl.id);
+                const isActive = gameState.currentLevelIndex === idx;
+
+                const node = document.createElement('div');
+                node.className = `map-node ${isActive ? 'active' : ''} ${isCompleted ? 'completed' : ''}`;
+                
+                node.innerHTML = `
+                    <div class="map-node-num">${isCompleted ? '✓' : lvl.id}</div>
+                    <div style="font-weight:700; font-size:1rem;">${lvl.title}</div>
+                    <span class="diff-tag ${lvl.diffClass}">${lvl.difficulty}</span>
+                    <div style="font-size:0.8rem; color:var(--bgy-muted);">${lvl.concept}</div>
+                `;
+
+                if (isCompleted || isActive) {
+                    node.style.cursor = 'pointer';
+                    node.addEventListener('click', () => {
+                        gameState.currentLevelIndex = idx;
+                        loadLevel(idx);
+                    });
+                } else {
+                    node.style.opacity = '0.6';
+                }
+
+                container.appendChild(node);
+            });
+        }
+
+        /* Temporary level interaction response storage */
+        let currentLevelState = {};
+
+        function loadLevel(index) {
+            const level = levelData[index];
+            showScreen('level');
+
+            // Header UI Updates
+            document.getElementById('levelNumberBadge').textContent = `Lokasi ${level.id} dari ${levelData.length}`;
+            const diffBadge = document.getElementById('levelDiffBadge');
+            diffBadge.textContent = level.difficulty;
+            diffBadge.className = `diff-tag ${level.diffClass}`;
+            document.getElementById('levelTitleDisplay').textContent = level.title;
+            document.getElementById('levelStoryText').textContent = level.story;
+
+            // Reset Buttons & Feedback
+            hideFeedback();
+            document.getElementById('btnSubmitAnswer').classList.remove('hidden');
+            document.getElementById('btnNextLevel').classList.add('hidden');
+
+            // Render Mechanic Stage
+            const stage = document.getElementById('interactiveContainer');
+            stage.innerHTML = '';
+            currentLevelState = { userVal: null, isValid: false };
+
+            switch(level.mechanicType) {
+                case 'doors':
+                    renderDoorsMechanic(stage, level);
+                    break;
+                case 'slider':
+                    renderSliderMechanic(stage, level);
+                    break;
+                case 'matching':
+                    renderMatchingMechanic(stage, level);
+                    break;
+                case 'drag_sign':
+                    renderDragSignMechanic(stage, level);
+                    break;
+                case 'pincode':
+                    renderPinCodeMechanic(stage, level);
+                    break;
+                case 'submarine_gauge':
+                    renderSubmarineMechanic(stage, level);
+                    break;
+                case 'ordering':
+                    renderOrderingMechanic(stage, level);
+                    break;
+            }
+        }
+
+        /* Mechanic 1: Doors Choice */
+        function renderDoorsMechanic(container, level) {
+            const grid = document.createElement('div');
+            grid.className = 'doors-container';
+
+            level.doors.forEach((door, i) => {
+                const btn = document.createElement('button');
+                btn.className = 'door-card';
+                btn.textContent = door.label;
+                btn.setAttribute('tabindex', '0');
+                btn.addEventListener('click', () => {
+                    sfx.playBeep(400, 'sine', 0.05);
+                    document.querySelectorAll('.door-card').forEach(d => d.style.borderColor = 'var(--bgy-teal)');
+                    btn.style.borderColor = 'var(--bgy-amber)';
+                    currentLevelState.userVal = door;
+                    currentLevelState.isValid = true;
+                });
+                grid.appendChild(btn);
+            });
+
+            container.appendChild(grid);
+        }
+
+        /* Mechanic 2: Temperature Slider Control */
+        function renderSliderMechanic(container, level) {
+            const wrap = document.createElement('div');
+            wrap.className = 'slider-wrapper';
+
+            const display = document.createElement('div');
+            display.className = 'slider-value-display';
+            display.textContent = `${level.initial}${level.unit}`;
+
+            const input = document.createElement('input');
+            input.type = 'range';
+            input.min = level.min;
+            input.max = level.max;
+            input.value = level.initial;
+            input.step = level.step;
+            input.setAttribute('aria-label', 'Pengatur Suhu');
+
+            input.addEventListener('input', (e) => {
+                const val = parseInt(e.target.value);
+                display.textContent = `${val}${level.unit}`;
+                currentLevelState.userVal = val;
+                currentLevelState.isValid = true;
+            });
+
+            currentLevelState.userVal = level.initial;
+            currentLevelState.isValid = true;
+
+            wrap.appendChild(display);
+            wrap.appendChild(input);
+            container.appendChild(wrap);
+        }
+
+        /* Mechanic 3: Pairing Matching Cards */
+        function renderMatchingMechanic(container, level) {
+            const grid = document.createElement('div');
+            grid.className = 'matching-grid';
+
+            let selectedCards = [];
+            let matchedPairsCount = 0;
+
+            // Shuffle cards
+            const cards = [...level.pairs].sort(() => Math.random() - 0.5);
+
+            cards.forEach((card, idx) => {
+                const el = document.createElement('div');
+                el.className = 'match-card';
+                el.textContent = card.label;
+                el.dataset.id = card.id;
+                el.dataset.index = idx;
+
+                el.addEventListener('click', () => {
+                    if (el.classList.contains('matched') || selectedCards.includes(el)) return;
+                    sfx.playBeep(450, 'sine', 0.05);
+
+                    el.classList.add('selected');
+                    selectedCards.push(el);
+
+                    if (selectedCards.length === 2) {
+                        if (selectedCards[0].dataset.id === selectedCards[1].dataset.id) {
+                            // Match
+                            sfx.playCorrect();
+                            selectedCards.forEach(c => {
+                                c.classList.remove('selected');
+                                c.classList.add('matched');
+                            });
+                            matchedPairsCount++;
+                            selectedCards = [];
+
+                            if (matchedPairsCount === level.pairs.length / 2) {
+                                currentLevelState.isValid = true;
+                                currentLevelState.userVal = true;
+                            }
+                        } else {
+                            // Mismatch
+                            sfx.playWrong();
+                            setTimeout(() => {
+                                selectedCards.forEach(c => c.classList.remove('selected'));
+                                selectedCards = [];
+                            }, 600);
+                        }
+                    }
+                });
+
+                grid.appendChild(el);
+            });
+
+            container.appendChild(grid);
+        }
+
+        /* Mechanic 4: Drag / Select Sign Mirror */
+        function renderDragSignMechanic(container, level) {
+            const wrap = document.createElement('div');
+            wrap.style.textAlign = 'center';
+
+            const equationText = document.createElement('div');
+            equationText.style.fontSize = '2rem';
+            equationText.style.fontWeight = 'bold';
+            equationText.style.marginBottom = '20px';
+            equationText.innerHTML = `(-6) × (-9) = <span id="signDropZone" class="drop-target" style="display:inline-flex; vertical-align:middle;">?</span> ${level.numberResult}`;
+
+            const dragGroup = document.createElement('div');
+            dragGroup.className = 'drag-container';
+
+            level.items.forEach(sign => {
+                const item = document.createElement('button');
+                item.className = 'drag-item btn';
+                item.textContent = sign;
+                item.addEventListener('click', () => {
+                    sfx.playBeep(500, 'sine', 0.05);
+                    const zone = document.getElementById('signDropZone');
+                    zone.textContent = sign;
+                    zone.style.borderColor = 'var(--bgy-amber)';
+                    currentLevelState.userVal = sign;
+                    currentLevelState.isValid = true;
+                });
+                dragGroup.appendChild(item);
+            });
+
+            wrap.appendChild(equationText);
+            wrap.appendChild(dragGroup);
+            container.appendChild(wrap);
+        }
+
+        /* Mechanic 5: Pin Code Lock Pad */
+        function renderPinCodeMechanic(container, level) {
+            const wrap = document.createElement('div');
+            wrap.style.display = 'flex';
+            wrap.style.flexDirection = 'column';
+            wrap.style.alignItems = 'center';
+
+            const display = document.createElement('div');
+            display.className = 'pin-pad-display';
+            display.textContent = '---';
+
+            let currentPin = '';
+
+            const pad = document.createElement('div');
+            pad.className = 'pin-grid';
+
+            const buttons = ['7','8','9','4','5','6','1','2','3','-','0','⌫'];
+            buttons.forEach(btn => {
+                const b = document.createElement('button');
+                b.className = 'pin-btn';
+                b.textContent = btn;
+                b.addEventListener('click', () => {
+                    sfx.playBeep(350, 'sine', 0.05);
+                    if (btn === '⌫') {
+                        currentPin = currentPin.slice(0, -1);
+                    } else if (currentPin.length < 5) {
+                        currentPin += btn;
+                    }
+                    display.textContent = currentPin || '---';
+                    currentLevelState.userVal = currentPin;
+                    currentLevelState.isValid = currentPin.length > 0;
+                });
+                pad.appendChild(b);
+            });
+
+            wrap.appendChild(display);
+            wrap.appendChild(pad);
+            container.appendChild(wrap);
+        }
+
+        /* Mechanic 6: Submarine Depth Control */
+        function renderSubmarineMechanic(container, level) {
+            const wrap = document.createElement('div');
+            wrap.className = 'gauge-container';
+
+            const display = document.createElement('div');
+            display.style.fontSize = '2rem';
+            display.style.fontWeight = 'bold';
+            display.style.color = 'var(--bgy-teal-dark)';
+            display.textContent = `Kedalaman: 0 meter`;
+
+            const meter = document.createElement('div');
+            meter.className = 'depth-meter';
+            const fill = document.createElement('div');
+            fill.className = 'depth-fill';
+            meter.appendChild(fill);
+
+            const slider = document.createElement('input');
+            slider.type = 'range';
+            slider.min = level.min;
+            slider.max = level.max;
+            slider.value = 0;
+            slider.style.width = '100%';
+            slider.style.maxWidth = '400px';
+
+            slider.addEventListener('input', (e) => {
+                const val = parseInt(e.target.value);
+                display.textContent = `Kedalaman: ${val} meter`;
+                const pct = Math.abs(val) / Math.abs(level.min) * 100;
+                fill.style.width = `${pct}%`;
+                currentLevelState.userVal = val;
+                currentLevelState.isValid = true;
+            });
+
+            wrap.appendChild(display);
+            wrap.appendChild(meter);
+            wrap.appendChild(slider);
+            container.appendChild(wrap);
+        }
+
+        /* Mechanic 8: Ordering Steps Flow */
+        function renderOrderingMechanic(container, level) {
+            const list = document.createElement('div');
+            list.className = 'steps-sort-list';
+
+            // Local state array copy
+            let currentSteps = [...level.steps].sort(() => Math.random() - 0.5);
+
+            function updateListUI() {
+                list.innerHTML = '';
+                currentSteps.forEach((step, idx) => {
+                    const item = document.createElement('div');
+                    item.className = 'step-sort-item';
+                    item.innerHTML = `
+                        <span>${idx + 1}. ${step.text}</span>
+                        <div class="step-actions">
+                            <button class="btn btn-outline" style="padding:4px 8px; min-height:36px;" ${idx === 0 ? 'disabled' : ''}>▲</button>
+                            <button class="btn btn-outline" style="padding:4px 8px; min-height:36px;" ${idx === currentSteps.length - 1 ? 'disabled' : ''}>▼</button>
+                        </div>
+                    `;
+
+                    const btns = item.querySelectorAll('button');
+                    btns[0].addEventListener('click', () => {
+                        if (idx > 0) {
+                            [currentSteps[idx], currentSteps[idx - 1]] = [currentSteps[idx - 1], currentSteps[idx]];
+                            updateListUI();
+                        }
+                    });
+                    btns[1].addEventListener('click', () => {
+                        if (idx < currentSteps.length - 1) {
+                            [currentSteps[idx], currentSteps[idx + 1]] = [currentSteps[idx + 1], currentSteps[idx]];
+                            updateListUI();
+                        }
+                    });
+
+                    list.appendChild(item);
+                });
+
+                currentLevelState.userVal = currentSteps;
+                currentLevelState.isValid = true;
+            }
+
+            updateListUI();
+            container.appendChild(list);
+        }
+
+        /* Answer Verification Logic */
+        function checkAnswer() {
+            const level = levelData[gameState.currentLevelIndex];
+            if (!currentLevelState.isValid) {
+                showFeedback('Pilih atau selesaikan aksi tantangan terlebih dahulu!', 'hint');
+                return;
+            }
+
+            // Track Attempts
+            if (!gameState.attempts[level.id]) gameState.attempts[level.id] = 0;
+            gameState.attempts[level.id]++;
+
+            let isCorrect = false;
+
+            switch(level.mechanicType) {
+                case 'doors':
+                    isCorrect = currentLevelState.userVal && currentLevelState.userVal.correct === true;
+                    break;
+                case 'slider':
+                    isCorrect = currentLevelState.userVal === level.targetValue;
+                    break;
+                case 'matching':
+                    isCorrect = currentLevelState.userVal === true;
+                    break;
+                case 'drag_sign':
+                    isCorrect = currentLevelState.userVal === level.targetSign;
+                    break;
+                case 'pincode':
+                    isCorrect = currentLevelState.userVal === level.targetPin;
+                    break;
+                case 'submarine_gauge':
+                    isCorrect = currentLevelState.userVal === level.targetDepth;
+                    break;
+                case 'ordering':
+                    isCorrect = currentLevelState.userVal.every((s, i) => s.correctOrder === i + 1);
+                    break;
+            }
+
+            if (isCorrect) {
+                sfx.playCorrect();
+                showFeedback(`🎉 ${level.explanation}`, 'success');
+                
+                if (!gameState.completedLevels.includes(level.id)) {
+                    gameState.completedLevels.push(level.id);
+                }
+
+                document.getElementById('btnSubmitAnswer').classList.add('hidden');
+                document.getElementById('btnNextLevel').classList.remove('hidden');
+            } else {
+                sfx.playWrong();
+                if (gameState.attempts[level.id] === 1) {
+                    // First wrong attempt -> Hint
+                    showFeedback(`💡 Petunjuk: ${level.hint}`, 'hint');
+                } else {
+                    // Subsequent wrong attempts -> Positive Reinforcement Guidance
+                    showFeedback(`Coba pertimbangkan lagi. ${level.hint}`, 'explain');
+                }
+            }
+        }
+
+        function showFeedback(text, type) {
+            feedbackBox.className = `feedback-box feedback-${type}`;
+            feedbackText.textContent = text;
+            feedbackIcon.textContent = type === 'success' ? '✅' : (type === 'hint' ? '💡' : '📘');
+            feedbackBox.classList.remove('hidden');
+        }
+
+        function hideFeedback() {
+            feedbackBox.classList.add('hidden');
+        }
+
+        /* Render Final Game Summary Screen */
+        function finishGame() {
+            sfx.playVictory();
+            showScreen('summary');
+
+            // Calculate Score & Accuracy
+            const totalLevels = levelData.length;
+            let totalAttempts = 0;
+            Object.values(gameState.attempts).forEach(a => totalAttempts += a);
+
+            const accuracy = Math.round((totalLevels / Math.max(totalLevels, totalAttempts)) * 100);
+            const score = Math.round(accuracy * 10);
+
+            document.getElementById('finalScoreDisplay').textContent = score;
+            document.getElementById('finalAccuracyDisplay').textContent = `Akurasi Jawaban: ${accuracy}%`;
+
+            // Concept Analysis List
+            const list = document.getElementById('conceptAnalysisList');
+            list.innerHTML = '';
+
+            levelData.forEach(lvl => {
+                const attempts = gameState.attempts[lvl.id] || 1;
+                const li = document.createElement('li');
+                li.innerHTML = `
+                    <span>${attempts === 1 ? '✅' : '🟡'}</span>
+                    <span><strong>${lvl.concept}</strong> (${lvl.title}): ${attempts === 1 ? 'Dikuasai Sangat Baik' : 'Perlu Berlatih Lagi'}</span>
+                `;
+                list.appendChild(li);
+            });
+        }
+
+        /* Event Listeners Binding */
+        document.getElementById('btnStartGame').addEventListener('click', () => {
+            sfx.playBeep(600, 'sine', 0.1);
+            startTimer();
+            renderMap();
+            showScreen('map');
+        });
+
+        document.getElementById('btnContinueJourney').addEventListener('click', () => {
+            sfx.playBeep(500, 'sine', 0.1);
+            loadLevel(gameState.currentLevelIndex);
+        });
+
+        document.getElementById('btnSubmitAnswer').addEventListener('click', () => {
+            checkAnswer();
+        });
+
+        document.getElementById('btnHint').addEventListener('click', () => {
+            const level = levelData[gameState.currentLevelIndex];
+            showFeedback(`💡 Petunjuk: ${level.hint}`, 'hint');
+        });
+
+        document.getElementById('btnNextLevel').addEventListener('click', () => {
+            sfx.playBeep(500, 'sine', 0.1);
+            if (gameState.currentLevelIndex < levelData.length - 1) {
+                gameState.currentLevelIndex++;
+                renderMap();
+                showScreen('map');
+            } else {
+                finishGame();
+            }
+        });
+
+        document.getElementById('btnRestartGame').addEventListener('click', () => {
+            sfx.playBeep(500, 'sine', 0.1);
+            gameState.currentLevelIndex = 0;
+            gameState.completedLevels = [];
+            gameState.attempts = {};
+            gameState.score = 0;
+            gameState.timerSeconds = 0;
+            renderMap();
+            showScreen('cover');
+        });
+
+        document.getElementById('btnHome').addEventListener('click', () => {
+            if (confirm("Kembali ke menu beranda? Progres petualanganmu tetap tersimpan.")) {
+                renderMap();
+                showScreen('map');
+            }
+        });
+
+        document.getElementById('btnSoundToggle').addEventListener('click', () => {
+            gameState.soundOn = !gameState.soundOn;
+            sfx.enabled = gameState.soundOn;
+            document.getElementById('btnSoundToggle').textContent = gameState.soundOn ? '🔊' : '🔇';
+        });
+
+        // Keyboard Navigation Safeguard (Enter / Space to submit)
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && !screens.level.classList.contains('hidden')) {
+                const submitBtn = document.getElementById('btnSubmitAnswer');
+                const nextBtn = document.getElementById('btnNextLevel');
+                if (!nextBtn.classList.contains('hidden')) {
+                    nextBtn.click();
+                } else if (!submitBtn.classList.contains('hidden')) {
+                    submitBtn.click();
+                }
+            }
+        });
+    </script>
+</body>
+</html>
