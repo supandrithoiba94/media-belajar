@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualisasi Garis Bilangan Interaktif - Perkalian Bilangan Bulat</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F8FAFC;
+        }
+        .font-heading {
+            font-family: 'Fredoka', cursive, sans-serif;
+        }
+        canvas {
+            touch-action: none;
+        }
+        .btn-bounce {
+            transition: transform 0.1s ease, box-shadow 0.1s ease;
+        }
+        .btn-bounce:active {
+            transform: scale(0.96);
+        }
+    </style>
+</head>
+<body class="min-h-screen text-slate-800 flex flex-col justify-between">
+
+    <!-- Header Section -->
+    <header class="bg-indigo-600 text-white shadow-md py-4 px-4 sm:px-6">
+        <div class="max-w-6xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-3">
+            <div class="flex items-center gap-3">
+                <div class="bg-white text-indigo-600 p-2.5 rounded-xl shadow-md">
+                    <i class="fa-solid fa-car-side text-2xl"></i>
+                </div>
+                <div>
+                    <h1 class="text-xl sm:text-2xl font-bold font-heading tracking-wide">Simulasi Garis Bilangan Interaktif</h1>
+                    <p class="text-xs sm:text-sm text-indigo-200">Konsep Perkalian Negatif & Positif dengan Animasi Smooth</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-2">
+                <button id="presetNegNeg" class="bg-amber-400 hover:bg-amber-300 text-slate-900 font-bold text-xs sm:text-sm px-3 py-2 rounded-xl shadow-sm transition flex items-center gap-1.5 btn-bounce">
+                    <i class="fa-solid fa-star text-amber-800"></i> Contoh Utama: (-2) × (-3) = +6
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-6xl w-full mx-auto p-3 sm:p-6 flex-1 flex flex-col gap-5">
+
+        <!-- Visual Canvas Stage Area -->
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-4 sm:p-5 flex flex-col gap-3">
+            <div class="flex flex-wrap justify-between items-center gap-2">
+                <div class="flex items-center gap-2">
+                    <span class="w-3 h-3 rounded-full bg-emerald-500 animate-pulse"></span>
+                    <span class="text-xs sm:text-sm font-semibold uppercase tracking-wider text-slate-500">Area Visual Animasi</span>
+                </div>
+                <div id="equationDisplay" class="text-xl sm:text-3xl font-extrabold font-heading px-5 py-1.5 bg-indigo-50 text-indigo-700 rounded-2xl border border-indigo-200 shadow-sm">
+                    -2 × -3 = +6
+                </div>
+            </div>
+
+            <!-- Responsive Canvas Container -->
+            <div class="relative w-full bg-slate-50 border border-slate-200 rounded-xl overflow-hidden shadow-inner flex items-center justify-center min-h-[220px]">
+                <canvas id="simCanvas" class="w-full h-[240px] block"></canvas>
+            </div>
+
+            <!-- Legend/Guidelines Bar -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs sm:text-sm pt-1">
+                <div class="flex items-center gap-2 bg-indigo-50/80 p-2.5 rounded-xl border border-indigo-100">
+                    <span class="w-6 h-6 rounded-lg bg-indigo-600 text-white font-bold flex items-center justify-center shrink-0 text-xs">A</span>
+                    <p class="text-slate-700 leading-tight"><b>Angka Pertama (Faktor A):</b> Arah Menghadap Mobil (<b>+</b> = Kanan, <b>-</b> = Kiri)</p>
+                </div>
+                <div class="flex items-center gap-2 bg-indigo-50/80 p-2.5 rounded-xl border border-indigo-100">
+                    <span class="w-6 h-6 rounded-lg bg-indigo-600 text-white font-bold flex items-center justify-center shrink-0 text-xs">B</span>
+                    <p class="text-slate-700 leading-tight"><b>Angka Kedua (Faktor B):</b> Arah Gerak Langkah (<b>+</b> = Maju, <b>-</b> = Mundur)</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
+
+            <!-- Interactive Controls Panel (5 Columns) -->
+            <div class="lg:col-span-5 bg-white rounded-2xl shadow-sm border border-slate-200 p-4 sm:p-5 flex flex-col justify-between gap-4">
+                <h2 class="text-base font-bold font-heading text-slate-800 flex items-center gap-2 border-b border-slate-100 pb-2">
+                    <i class="fa-solid fa-sliders text-indigo-600"></i> Kontrol Simulasi
+                </h2>
+
+                <!-- Inputs Area -->
+                <div class="space-y-3">
+                    <!-- Input Factor A -->
+                    <div class="bg-slate-50 p-3 rounded-xl border border-slate-200">
+                        <div class="flex justify-between items-center mb-1.5">
+                            <label for="inputA" class="font-semibold text-xs sm:text-sm text-slate-700">Angka Pertama (A - Menghadap)</label>
+                            <span id="labelValA" class="font-bold text-sm bg-indigo-100 text-indigo-700 px-2.5 py-0.5 rounded-lg border border-indigo-200">-2</span>
+                        </div>
+                        <input type="range" id="inputA" min="-5" max="5" value="-2" step="1"
+                            class="w-full accent-indigo-600 cursor-pointer h-2 bg-slate-200 rounded-lg">
+                        <div class="flex justify-between text-[11px] text-slate-500 mt-1">
+                            <span>-5 (Kiri)</span>
+                            <span>0</span>
+                            <span>+5 (Kanan)</span>
+                        </div>
+                    </div>
+
+                    <!-- Input Factor B -->
+                    <div class="bg-slate-50 p-3 rounded-xl border border-slate-200">
+                        <div class="flex justify-between items-center mb-1.5">
+                            <label for="inputB" class="font-semibold text-xs sm:text-sm text-slate-700">Angka Kedua (B - Langkah)</label>
+                            <span id="labelValB" class="font-bold text-sm bg-indigo-100 text-indigo-700 px-2.5 py-0.5 rounded-lg border border-indigo-200">-3</span>
+                        </div>
+                        <input type="range" id="inputB" min="-5" max="5" value="-3" step="1"
+                            class="w-full accent-indigo-600 cursor-pointer h-2 bg-slate-200 rounded-lg">
+                        <div class="flex justify-between text-[11px] text-slate-500 mt-1">
+                            <span>-5 (Mundur)</span>
+                            <span>0</span>
+                            <span>+5 (Maju)</span>
+                        </div>
+                    </div>
+
+                    <!-- Animation Speed Slider -->
+                    <div class="px-1 flex items-center justify-between gap-3 text-xs text-slate-600">
+                        <span class="font-semibold shrink-0"><i class="fa-solid fa-gauge-high text-slate-400 mr-1"></i>Kecepatan:</span>
+                        <input type="range" id="inputSpeed" min="0.5" max="2.5" value="1" step="0.25"
+                            class="w-full accent-slate-600 cursor-pointer h-1.5 bg-slate-200 rounded-lg">
+                    </div>
+                </div>
+
+                <!-- Action Button Group -->
+                <div class="space-y-2 pt-1">
+                    <div class="grid grid-cols-2 gap-2">
+                        <button id="btnPlay" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2.5 px-3 rounded-xl shadow transition flex items-center justify-center gap-1.5 text-sm btn-bounce">
+                            <i class="fa-solid fa-play"></i> <span id="btnPlayText">Jalankan</span>
+                        </button>
+                        <button id="btnPause" class="bg-amber-500 hover:bg-amber-600 text-white font-bold py-2.5 px-3 rounded-xl shadow transition flex items-center justify-center gap-1.5 text-sm btn-bounce">
+                            <i class="fa-solid fa-pause"></i> Pause
+                        </button>
+                    </div>
+                    <div class="grid grid-cols-2 gap-2">
+                        <button id="btnStep" class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2.5 px-3 rounded-xl shadow transition flex items-center justify-center gap-1.5 text-sm btn-bounce">
+                            <i class="fa-solid fa-forward-step"></i> Step
+                        </button>
+                        <button id="btnReset" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-semibold py-2.5 px-3 rounded-xl transition flex items-center justify-center gap-1.5 text-sm btn-bounce">
+                            <i class="fa-solid fa-rotate-left"></i> Reset
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dynamic Live Narrative & Pedagogy Panel (7 Columns) -->
+            <div class="lg:col-span-7 bg-white rounded-2xl shadow-sm border border-slate-200 p-4 sm:p-5 flex flex-col justify-between gap-4">
+                <div>
+                    <h2 class="text-base font-bold font-heading text-slate-800 flex items-center gap-2 border-b border-slate-100 pb-2 mb-3">
+                        <i class="fa-solid fa-chalkboard-user text-indigo-600"></i> Narasi Langkah Penjelasan
+                    </h2>
+
+                    <!-- Steps List -->
+                    <div class="space-y-2.5">
+                        <!-- Step 1: Start -->
+                        <div id="narrative1" class="p-2.5 rounded-xl bg-slate-50 border border-slate-200 transition-all text-xs sm:text-sm flex items-start gap-2.5">
+                            <span class="w-5 h-5 rounded-full bg-slate-200 text-slate-700 font-bold text-xs flex items-center justify-center shrink-0 mt-0.5">1</span>
+                            <div>
+                                <span class="font-bold text-slate-700">Posisi Awal:</span>
+                                <p id="textStep1" class="text-slate-600 mt-0.5">Mobil selalu mulai di titik netral <b>0</b>.</p>
+                            </div>
+                        </div>
+
+                        <!-- Step 2: Facing -->
+                        <div id="narrative2" class="p-2.5 rounded-xl bg-slate-50 border border-slate-200 transition-all text-xs sm:text-sm flex items-start gap-2.5">
+                            <span class="w-5 h-5 rounded-full bg-slate-200 text-slate-700 font-bold text-xs flex items-center justify-center shrink-0 mt-0.5">2</span>
+                            <div>
+                                <span class="font-bold text-slate-700">Arah Hadap (A):</span>
+                                <p id="textStep2" class="text-slate-600 mt-0.5">---</p>
+                            </div>
+                        </div>
+
+                        <!-- Step 3: Movement -->
+                        <div id="narrative3" class="p-2.5 rounded-xl bg-slate-50 border border-slate-200 transition-all text-xs sm:text-sm flex items-start gap-2.5">
+                            <span class="w-5 h-5 rounded-full bg-slate-200 text-slate-700 font-bold text-xs flex items-center justify-center shrink-0 mt-0.5">3</span>
+                            <div>
+                                <span class="font-bold text-slate-700">Arah Gerakan (B):</span>
+                                <p id="textStep3" class="text-slate-600 mt-0.5">---</p>
+                            </div>
+                        </div>
+
+                        <!-- Step 4: Result -->
+                        <div id="narrative4" class="p-2.5 rounded-xl bg-slate-50 border border-slate-200 transition-all text-xs sm:text-sm flex items-start gap-2.5">
+                            <span class="w-5 h-5 rounded-full bg-slate-200 text-slate-700 font-bold text-xs flex items-center justify-center shrink-0 mt-0.5">4</span>
+                            <div>
+                                <span class="font-bold text-slate-700">Hasil Akhir:</span>
+                                <p id="textStep4" class="text-slate-600 mt-0.5">---</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Teacher Tip Highlight Box -->
+                <div class="p-3 bg-amber-50 rounded-xl border border-amber-200 flex items-center gap-3">
+                    <div class="p-2 bg-amber-200/80 rounded-lg text-amber-800 text-lg shrink-0">
+                        <i class="fa-solid fa-lightbulb"></i>
+                    </div>
+                    <p id="teacherTip" class="text-xs text-amber-900 leading-relaxed font-medium">
+                        <b>Tips Logika Guru:</b> Menghadap Kiri (Negatif) lalu melangkah Mundur (Negatif) secara fisik membuat tubuh bergerak mengarah ke <b>Sisi Kanan (Positif)</b>!
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-100 border-t border-slate-200 py-3 text-center text-xs text-slate-500">
+        Simulasi Garis Bilangan Interaktif Pembelajaran Matematika • Canvas HTML5 Powered
+    </footer>
+
+    <!-- JavaScript Logic & Animation Loop -->
+    <script>
+        // DOM Elements
+        const canvas = document.getElementById('simCanvas');
+        const ctx = canvas.getContext('2d');
+
+        const inputA = document.getElementById('inputA');
+        const inputB = document.getElementById('inputB');
+        const inputSpeed = document.getElementById('inputSpeed');
+
+        const labelValA = document.getElementById('labelValA');
+        const labelValB = document.getElementById('labelValB');
+        const equationDisplay = document.getElementById('equationDisplay');
+
+        const btnPlay = document.getElementById('btnPlay');
+        const btnPlayText = document.getElementById('btnPlayText');
+        const btnPause = document.getElementById('btnPause');
+        const btnStep = document.getElementById('btnStep');
+        const btnReset = document.getElementById('btnReset');
+        const presetNegNeg = document.getElementById('presetNegNeg');
+
+        const textStep1 = document.getElementById('textStep1');
+        const textStep2 = document.getElementById('textStep2');
+        const textStep3 = document.getElementById('textStep3');
+        const textStep4 = document.getElementById('textStep4');
+        const teacherTip = document.getElementById('teacherTip');
+
+        const narrative1 = document.getElementById('narrative1');
+        const narrative2 = document.getElementById('narrative2');
+        const narrative3 = document.getElementById('narrative3');
+        const narrative4 = document.getElementById('narrative4');
+
+        // Simulation State
+        const RANGE_MIN = -15;
+        const RANGE_MAX = 15;
+
+        let valA = parseInt(inputA.value);
+        let valB = parseInt(inputB.value);
+
+        let currentPosition = 0; // Floating point position on number line
+        let completedSteps = 0;
+        let isPlaying = false;
+        let isPaused = false;
+        let completedArcs = []; // Stores completed arc paths: { from, to, stepNum }
+
+        // Animation timing
+        let animProgress = 0; // 0 to 1 for current step
+        let lastTimestamp = 0;
+
+        // Resize Canvas dynamically
+        function resizeCanvas() {
+            const rect = canvas.parentElement.getBoundingClientRect();
+            canvas.width = rect.width;
+            canvas.height = rect.height;
+            drawScene();
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+
+        // Convert number line value (-15 to 15) to canvas X coordinates
+        function valToX(val) {
+            const padding = 35;
+            const width = canvas.width - (padding * 2);
+            const ratio = (val - RANGE_MIN) / (RANGE_MAX - RANGE_MIN);
+            return padding + (ratio * width);
+        }
+
+        // Draw Complete Scene
+        function drawScene() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            const centerY = canvas.height * 0.72;
+
+            // 1. Draw Number Line Base
+            ctx.beginPath();
+            ctx.moveTo(valToX(RANGE_MIN) - 10, centerY);
+            ctx.lineTo(valToX(RANGE_MAX) + 10, centerY);
+            ctx.strokeStyle = '#94A3B8';
+            ctx.lineWidth = 3;
+            ctx.stroke();
+
+            // Arrows at ends
+            drawArrowHead(valToX(RANGE_MAX) + 12, centerY, 0);
+            drawArrowHead(valToX(RANGE_MIN) - 12, centerY, Math.PI);
+
+            // 2. Draw Ticks and Numbers
+            for (let i = RANGE_MIN; i <= RANGE_MAX; i++) {
+                const x = valToX(i);
+                const isMajor = (i === 0 || i % 5 === 0);
+
+                ctx.beginPath();
+                ctx.moveTo(x, centerY - (isMajor ? 10 : 5));
+                ctx.lineTo(x, centerY + (isMajor ? 10 : 5));
+                ctx.strokeStyle = isMajor ? '#475569' : '#CBD5E1';
+                ctx.lineWidth = isMajor ? 2 : 1;
+                ctx.stroke();
+
+                // Numbers
+                ctx.font = isMajor ? 'bold 12px Inter' : '10px Inter';
+                ctx.textAlign = 'center';
+                ctx.fillStyle = (i === 0) ? '#D97706' : (i > 0 ? '#059669' : '#DC2626');
+                ctx.fillText(i > 0 ? '+' + i : i, x, centerY + 24);
+            }
+
+            // Highlight Origin 0
+            const originX = valToX(0);
+            ctx.beginPath();
+            ctx.arc(originX, centerY, 5, 0, Math.PI * 2);
+            ctx.fillStyle = '#F59E0B';
+            ctx.fill();
+
+            // 3. Draw Completed Step Arcs
+            completedArcs.forEach(arc => {
+                drawStepArc(arc.from, arc.to, arc.stepNum, 1);
+            });
+
+            // 4. Draw Current Step Arc (if animating)
+            if (isPlaying && !isPaused && completedSteps < Math.abs(valB) && valA !== 0 && valB !== 0) {
+                const stepMag = Math.abs(valA);
+                // Direction of step
+                // Forward if B > 0, Backward if B < 0
+                let stepDir = 0;
+                if (valB > 0) stepDir = (valA >= 0) ? 1 : -1;
+                else stepDir = (valA >= 0) ? -1 : 1;
+
+                const startVal = completedSteps * stepDir * stepMag;
+                const targetVal = (completedSteps + 1) * stepDir * stepMag;
+
+                drawStepArc(startVal, targetVal, completedSteps + 1, animProgress);
+            }
+
+            // 5. Draw Car / Avatar
+            drawCar(valToX(currentPosition), centerY - 16, valA >= 0);
+        }
+
+        function drawArrowHead(x, y, angle) {
+            ctx.save();
+            ctx.translate(x, y);
+            ctx.rotate(angle);
+            ctx.beginPath();
+            ctx.moveTo(0, 0);
+            ctx.lineTo(-8, -5);
+            ctx.lineTo(-8, 5);
+            ctx.closePath();
+            ctx.fillStyle = '#94A3B8';
+            ctx.fill();
+            ctx.restore();
+        }
+
+        // Draw Parabolic Jump Arcs
+        function drawStepArc(fromVal, toVal, stepNum, progress) {
+            const startX = valToX(fromVal);
+            const targetX = valToX(toVal);
+            const currentX = startX + (targetX - startX) * progress;
+            const baseY = canvas.height * 0.72 - 16;
+
+            const distance = Math.abs(targetX - startX);
+            const arcHeight = Math.min(Math.max(distance * 0.4, 25), 65);
+
+            ctx.save();
+            ctx.beginPath();
+
+            // Quadratic curve up to progress
+            for (let t = 0; t <= progress; t += 0.02) {
+                const px = startX + (targetX - startX) * t;
+                const py = baseY - Math.sin(t * Math.PI) * arcHeight;
+                if (t === 0) ctx.moveTo(px, py);
+                else ctx.lineTo(px, py);
+            }
+
+            ctx.strokeStyle = '#4F46E5';
+            ctx.lineWidth = 2.5;
+            ctx.setLineDash([5, 3]);
+            ctx.stroke();
+            ctx.restore();
+
+            // Draw Step Label at Apex
+            if (progress >= 0.5) {
+                const midX = (startX + targetX) / 2;
+                const apexY = baseY - arcHeight - 6;
+
+                ctx.font = 'bold 11px Inter';
+                ctx.fillStyle = '#4338CA';
+                ctx.textAlign = 'center';
+                ctx.fillText(`Langkah ${stepNum}`, midX, apexY);
+            }
+        }
+
+        // Draw Responsive Vector Car Avatar
+        function drawCar(x, y, facingRight) {
+            ctx.save();
+            ctx.translate(x, y);
+
+            if (!facingRight) {
+                ctx.scale(-1, 1); // Flip horizontally if facing left
+            }
+
+            // Body Main
+            ctx.beginPath();
+            ctx.roundRect(-22, -14, 44, 14, [4, 4, 2, 2]);
+            ctx.fillStyle = '#4F46E5';
+            ctx.fill();
+
+            // Roof / Cabin
+            ctx.beginPath();
+            ctx.roundRect(-12, -24, 24, 12, [6, 6, 0, 0]);
+            ctx.fillStyle = '#6366F1';
+            ctx.fill();
+
+            // Windows
+            ctx.fillStyle = '#E0E7FF';
+            ctx.fillRect(1, -21, 8, 8);
+            ctx.fillRect(-9, -21, 8, 8);
+
+            // Wheels
+            ctx.fillStyle = '#1E293B';
+            ctx.beginPath();
+            ctx.arc(-12, 0, 5, 0, Math.PI * 2);
+            ctx.arc(12, 0, 5, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Wheel Hubs
+            ctx.fillStyle = '#94A3B8';
+            ctx.beginPath();
+            ctx.arc(-12, 0, 2, 0, Math.PI * 2);
+            ctx.arc(12, 0, 2, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Headlight (facing right)
+            ctx.fillStyle = '#FDE047';
+            ctx.fillRect(19, -10, 3, 5);
+
+            ctx.restore();
+
+            // Position Indicator Halo beneath
+            ctx.beginPath();
+            ctx.arc(x, y + 16, 12, 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba(79, 70, 229, 0.15)';
+            ctx.fill();
+        }
+
+        // Update UI Text & Pedagogical Explanations
+        function updateUI() {
+            valA = parseInt(inputA.value);
+            valB = parseInt(inputB.value);
+            const result = valA * valB;
+
+            labelValA.textContent = valA > 0 ? `+${valA}` : valA;
+            labelValB.textContent = valB > 0 ? `+${valB}` : valB;
+
+            const strA = valA < 0 ? `(${valA})` : `${valA}`;
+            const strB = valB < 0 ? `(${valB})` : `${valB}`;
+            const strRes = result > 0 ? `+${result}` : `${result}`;
+            equationDisplay.textContent = `${strA} × ${strB} = ${strRes}`;
+
+            // Reset narrative highlights
+            resetNarrativeStyles();
+
+            // Step 1 Text
+            textStep1.innerHTML = `Mobil selalu mulai di titik <b>0</b>.`;
+
+            // Step 2 Text (Facing)
+            if (valA < 0) {
+                textStep2.innerHTML = `Karena A = <b class="text-rose-600">${valA}</b> (negatif), mobil <b>MENGHADAP KE KIRI</b>. Panjang 1 lompatan = <b>${Math.abs(valA)} unit</b>.`;
+            } else if (valA > 0) {
+                textStep2.innerHTML = `Karena A = <b class="text-emerald-600">+${valA}</b> (positif), mobil <b>MENGHADAP KE KANAN</b>. Panjang 1 lompatan = <b>${valA} unit</b>.`;
+            } else {
+                textStep2.innerHTML = `Karena A = <b>0</b>, mobil diam di tempat.`;
+            }
+
+            // Step 3 Text (Movement)
+            if (valB < 0) {
+                textStep3.innerHTML = `Karena B = <b class="text-rose-600">${valB}</b> (negatif), mobil melangkah <b>MUNDUR</b> sebanyak <b>${Math.abs(valB)} kali</b>.`;
+            } else if (valB > 0) {
+                textStep3.innerHTML = `Karena B = <b class="text-emerald-600">+${valB}</b> (positif), mobil melangkah <b>MAJU</b> sebanyak <b>${valB} kali</b>.`;
+            } else {
+                textStep3.innerHTML = `Karena B = <b>0</b>, mobil tidak melangkah sama sekali.`;
+            }
+
+            // Step 4 Text (Result)
+            const colorClass = result > 0 ? 'text-emerald-600' : (result < 0 ? 'text-rose-600' : 'text-slate-800');
+            textStep4.innerHTML = `Posisi akhir mobil berhenti di angka <b class="${colorClass}">${strRes}</b>.`;
+
+            // Dynamic Teacher Tip
+            if (valA < 0 && valB < 0) {
+                teacherTip.innerHTML = `<b>Konsep Utama:</b> Menghadap Kiri (Negatif) lalu bergerak Mundur (Negatif) secara alami membuat posisi tubuh berpindah semakin ke <b>Sisi Kanan (Positif ${result})</b>!`;
+            } else if (valA < 0 && valB > 0) {
+                teacherTip.innerHTML = `<b>Konsep:</b> Menghadap Kiri (Negatif) dan bergerak Maju (Positif) membuat posisi bergerak makin ke <b>Sisi Kiri (Negatif ${result})</b>.`;
+            } else if (valA > 0 && valB < 0) {
+                teacherTip.innerHTML = `<b>Konsep:</b> Menghadap Kanan (Positif) dan bergerak Mundur (Negatif) membuat posisi bergerak ke <b>Sisi Kiri (Negatif ${result})</b>.`;
+            } else {
+                teacherTip.innerHTML = `<b>Konsep:</b> Menghadap Kanan (Positif) dan bergerak Maju (Positif) membawa posisi makin jauh ke <b>Sisi Kanan (Positif ${result})</b>.`;
+            }
+
+            drawScene();
+        }
+
+        function resetNarrativeStyles() {
+            [narrative1, narrative2, narrative3, narrative4].forEach(el => {
+                el.className = 'p-2.5 rounded-xl bg-slate-50 border border-slate-200 transition-all text-xs sm:text-sm flex items-start gap-2.5';
+            });
+        }
+
+        function highlightNarrative(stepNumber) {
+            resetNarrativeStyles();
+            const target = [narrative1, narrative2, narrative3, narrative4][stepNumber - 1];
+            if (target) {
+                target.className = 'p-2.5 rounded-xl bg-indigo-50 border border-indigo-300 shadow-sm transition-all text-xs sm:text-sm flex items-start gap-2.5 ring-2 ring-indigo-400/30';
+            }
+        }
+
+        // Main Animation Loop
+        function animLoop(timestamp) {
+            if (!lastTimestamp) lastTimestamp = timestamp;
+            const deltaTime = (timestamp - lastTimestamp) / 1000;
+            lastTimestamp = timestamp;
+
+            if (isPlaying && !isPaused) {
+                const speedMult = parseFloat(inputSpeed.value);
+                animProgress += deltaTime * 1.2 * speedMult;
+
+                const totalSteps = Math.abs(valB);
+                const stepMag = Math.abs(valA);
+
+                // Determine physical movement direction per step
+                let stepDir = 0;
+                if (valB > 0) stepDir = (valA >= 0) ? 1 : -1;
+                else stepDir = (valA >= 0) ? -1 : 1;
+
+                if (completedSteps < totalSteps && valA !== 0 && valB !== 0) {
+                    highlightNarrative(3);
+
+                    const startVal = completedSteps * stepDir * stepMag;
+                    const targetVal = (completedSteps + 1) * stepDir * stepMag;
+
+                    currentPosition = startVal + (targetVal - startVal) * Math.min(animProgress, 1);
+
+                    if (animProgress >= 1) {
+                        completedSteps++;
+                        completedArcs.push({ from: startVal, to: targetVal, stepNum: completedSteps });
+                        animProgress = 0;
+                    }
+                } else {
+                    // Animation Finished
+                    isPlaying = false;
+                    currentPosition = valA * valB;
+                    highlightNarrative(4);
+                    btnPlayText.textContent = 'Jalankan';
+                }
+            }
+
+            drawScene();
+            requestAnimationFrame(animLoop);
+        }
+
+        // Control Handlers
+        function startSimulation() {
+            if (isPlaying && isPaused) {
+                isPaused = false;
+                btnPlayText.textContent = 'Jalankan';
+                return;
+            }
+
+            resetSimulation();
+            isPlaying = true;
+            isPaused = false;
+            highlightNarrative(2);
+            btnPlayText.textContent = 'Jalankan';
+        }
+
+        function pauseSimulation() {
+            if (isPlaying) {
+                isPaused = true;
+                btnPlayText.textContent = 'Lanjut';
+            }
+        }
+
+        function stepSimulation() {
+            const totalSteps = Math.abs(valB);
+            if (valA === 0 || valB === 0) return;
+
+            if (!isPlaying) {
+                isPlaying = true;
+                isPaused = true;
+            }
+
+            if (completedSteps < totalSteps) {
+                let stepDir = 0;
+                if (valB > 0) stepDir = (valA >= 0) ? 1 : -1;
+                else stepDir = (valA >= 0) ? -1 : 1;
+
+                const stepMag = Math.abs(valA);
+                const startVal = completedSteps * stepDir * stepMag;
+                const targetVal = (completedSteps + 1) * stepDir * stepMag;
+
+                completedSteps++;
+                currentPosition = targetVal;
+                completedArcs.push({ from: startVal, to: targetVal, stepNum: completedSteps });
+                animProgress = 0;
+
+                highlightNarrative(completedSteps === totalSteps ? 4 : 3);
+                drawScene();
+            }
+        }
+
+        function resetSimulation() {
+            isPlaying = false;
+            isPaused = false;
+            completedSteps = 0;
+            currentPosition = 0;
+            animProgress = 0;
+            completedArcs = [];
+            btnPlayText.textContent = 'Jalankan';
+            highlightNarrative(1);
+            drawScene();
+        }
+
+        // Event Listeners
+        inputA.addEventListener('input', () => { resetSimulation(); updateUI(); });
+        inputB.addEventListener('input', () => { resetSimulation(); updateUI(); });
+
+        btnPlay.addEventListener('click', startSimulation);
+        btnPause.addEventListener('click', pauseSimulation);
+        btnStep.addEventListener('click', stepSimulation);
+        btnReset.addEventListener('click', resetSimulation);
+
+        presetNegNeg.addEventListener('click', () => {
+            inputA.value = -2;
+            inputB.value = -3;
+            resetSimulation();
+            updateUI();
+            startSimulation();
+        });
+
+        // Initialize App
+        window.onload = () => {
+            resizeCanvas();
+            updateUI();
+            requestAnimationFrame(animLoop);
+        };
+    </script>
+</body>
+</html>
