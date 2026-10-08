@@ -1,0 +1,1724 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>LKPD Himpunan Pertemuan 5</title>
+
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Lucide -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- MathJax -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [
+                    ['$', '$'],
+                    ['\\(', '\\)']
+                ],
+                displayMath: [
+                    ['$$', '$$'],
+                    ['\\[', '\\]']
+                ]
+            }
+        };
+    </script>
+
+    <script
+        async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
+
+    <style>
+
+        body {
+            font-family: Inter, Arial, sans-serif;
+            background: #f1f5f9;
+        }
+
+        .card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 24px;
+        }
+
+        .option {
+            transition: .2s;
+        }
+
+        .option:hover {
+            background: #eff6ff;
+            border-color: #2563eb;
+        }
+
+        .teacher-box {
+            border-left: 5px solid #7c3aed;
+        }
+
+        .step {
+            border-left: 3px solid #2563eb;
+            padding-left: 15px;
+        }
+
+        .venn {
+            position: relative;
+            height: 190px;
+            max-width: 360px;
+            margin: auto;
+        }
+
+        .circle {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 3px solid;
+            top: 20px;
+        }
+
+        .circle-a {
+            left: 30px;
+            border-color: #2563eb;
+            background: rgba(37, 99, 235, .08);
+        }
+
+        .circle-b {
+            right: 30px;
+            border-color: #16a34a;
+            background: rgba(22, 163, 74, .08);
+        }
+
+        .intersection {
+            position: absolute;
+            width: 70px;
+            height: 120px;
+            left: 145px;
+            top: 35px;
+            border-radius: 50%;
+            background: rgba(124, 58, 237, .20);
+        }
+
+        .hidden-section {
+            display: none;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+<div class="max-w-5xl mx-auto px-4 py-6">
+
+
+    <!-- HEADER -->
+
+    <div class="card overflow-hidden mb-6">
+
+        <div class="bg-gradient-to-r from-blue-700 to-cyan-600 text-white p-6">
+
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+
+                <div>
+
+                    <div class="text-sm opacity-80">
+                        MATEMATIKA • KELAS IX-B
+                    </div>
+
+                    <h1 class="text-2xl md:text-3xl font-black mt-1">
+                        LKPD Pertemuan 5
+                    </h1>
+
+                    <p class="mt-2 opacity-90">
+                        Irisan & Gabungan Himpunan
+                    </p>
+
+                </div>
+
+
+                <!-- MODE -->
+
+                <button
+                    id="modeButton"
+                    onclick="toggleMode()"
+                    class="bg-white text-blue-700 px-5 py-3 rounded-xl font-bold flex items-center justify-center gap-2">
+
+                    <i data-lucide="presentation"></i>
+
+                    Mode Guru
+
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <div class="p-5">
+
+            <div class="grid md:grid-cols-3 gap-4">
+
+                <div class="bg-blue-50 rounded-2xl p-4">
+
+                    <div class="text-blue-700 font-bold text-sm">
+                        TUJUAN
+                    </div>
+
+                    <p class="text-sm mt-1">
+                        Memahami irisan dan gabungan.
+                    </p>
+
+                </div>
+
+
+                <div class="bg-green-50 rounded-2xl p-4">
+
+                    <div class="text-green-700 font-bold text-sm">
+                        AKTIVITAS
+                    </div>
+
+                    <p class="text-sm mt-1">
+                        Konsep → latihan → masalah nyata → HOTS.
+                    </p>
+
+                </div>
+
+
+                <div class="bg-purple-50 rounded-2xl p-4">
+
+                    <div class="text-purple-700 font-bold text-sm">
+                        MODE
+                    </div>
+
+                    <p id="modeText" class="text-sm mt-1">
+                        Mode Siswa
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- TEACHER INTRO -->
+
+    <section
+        id="teacherIntro"
+        class="hidden-section card p-6 mb-6 teacher-box bg-purple-50">
+
+        <div class="flex gap-3">
+
+            <div class="bg-purple-600 text-white p-3 rounded-xl h-fit">
+
+                <i data-lucide="presentation"></i>
+
+            </div>
+
+            <div>
+
+                <h2 class="font-bold text-xl">
+                    Mode Guru — Cara Menjelaskan Materi
+                </h2>
+
+                <p class="text-slate-600 mt-2">
+                    Gunakan bagian ini saat menjelaskan materi kepada siswa.
+                    Jangan langsung memberikan rumus. Ajak siswa memahami
+                    makna irisan dan gabungan terlebih dahulu.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="mt-5 grid md:grid-cols-2 gap-4">
+
+            <div class="bg-white rounded-2xl p-5">
+
+                <h3 class="font-bold text-blue-700">
+                    Pertanyaan Pemantik
+                </h3>
+
+                <p class="text-sm mt-2">
+                    "Jika beberapa siswa menyukai Matematika dan beberapa
+                    menyukai IPA, bagaimana kita mencari siswa yang menyukai
+                    keduanya?"
+                </p>
+
+            </div>
+
+
+            <div class="bg-white rounded-2xl p-5">
+
+                <h3 class="font-bold text-green-700">
+                    Ide Utama
+                </h3>
+
+                <p class="text-sm mt-2">
+                    Irisan berarti mencari anggota yang sama.
+                    Gabungan berarti mengumpulkan seluruh anggota tanpa
+                    menghitung anggota yang sama dua kali.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- IDENTITAS -->
+
+    <section class="card p-5 mb-6">
+
+        <h2 class="font-bold text-lg mb-4">
+            Identitas Siswa
+        </h2>
+
+        <div class="grid md:grid-cols-2 gap-4">
+
+            <input
+                id="nama"
+                type="text"
+                placeholder="Nama siswa..."
+                class="border border-slate-300 rounded-xl px-4 py-3">
+
+            <input
+                type="text"
+                value="IX-B"
+                readonly
+                class="border border-slate-300 rounded-xl px-4 py-3 bg-slate-100">
+
+        </div>
+
+    </section>
+
+
+
+    <!-- MATERI -->
+
+    <section class="card p-6 mb-6">
+
+        <h2 class="text-xl font-black mb-4">
+            1. Memahami Irisan & Gabungan
+        </h2>
+
+
+        <div class="grid md:grid-cols-2 gap-4">
+
+            <div class="bg-blue-50 rounded-2xl p-5">
+
+                <div class="text-blue-700 font-bold">
+                    GABUNGAN
+                </div>
+
+                <div class="text-3xl font-black text-center my-4">
+
+                    $$A \cup B$$
+
+                </div>
+
+                <p class="text-sm text-slate-600">
+
+                    Semua anggota yang berada di A atau B,
+                    termasuk anggota yang berada di keduanya.
+
+                </p>
+
+            </div>
+
+
+            <div class="bg-green-50 rounded-2xl p-5">
+
+                <div class="text-green-700 font-bold">
+                    IRISAN
+                </div>
+
+                <div class="text-3xl font-black text-center my-4">
+
+                    $$A \cap B$$
+
+                </div>
+
+                <p class="text-sm text-slate-600">
+
+                    Hanya anggota yang terdapat pada A dan B.
+
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="mt-6">
+
+            <div class="venn">
+
+                <div class="circle circle-a"></div>
+
+                <div class="circle circle-b"></div>
+
+                <div class="intersection"></div>
+
+                <span class="absolute left-20 top-10 font-black text-blue-700">
+                    A
+                </span>
+
+                <span class="absolute right-20 top-10 font-black text-green-700">
+                    B
+                </span>
+
+                <span class="absolute left-1/2 top-24 -translate-x-1/2 text-xs font-bold text-purple-700">
+                    A ∩ B
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- GURU -->
+
+        <div class="teacher-only hidden-section mt-5 bg-purple-50 rounded-2xl p-5">
+
+            <h3 class="font-bold text-purple-700">
+                Penjelasan Guru
+            </h3>
+
+            <p class="text-sm mt-2">
+
+                Tanyakan kepada siswa:
+
+                <b>
+                    "Bagian mana yang dimiliki A dan B sekaligus?"
+                </b>
+
+            </p>
+
+            <p class="text-sm mt-2">
+
+                Jawabannya adalah bagian tengah.
+                Bagian tengah inilah yang disebut
+
+                <b>irisan</b>.
+
+            </p>
+
+            <p class="text-sm mt-2">
+
+                Sedangkan jika kita mengambil seluruh daerah A dan seluruh
+                daerah B, kita mendapatkan
+
+                <b>gabungan</b>.
+
+            </p>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- GAME -->
+
+    <section class="card p-6 mb-6">
+
+        <h2 class="text-xl font-black mb-2">
+            2. Pemanasan — Tebak Operasi
+        </h2>
+
+        <p class="text-sm text-slate-500 mb-5">
+            Jika kita mencari anggota yang terdapat pada kedua himpunan,
+            operasi apa yang digunakan?
+        </p>
+
+
+        <div class="grid md:grid-cols-2 gap-3">
+
+            <button
+                onclick="game('union')"
+                class="border rounded-xl p-4 text-left">
+
+                $$A \cup B$$
+
+            </button>
+
+
+            <button
+                onclick="game('intersection')"
+                class="border rounded-xl p-4 text-left">
+
+                $$A \cap B$$
+
+            </button>
+
+        </div>
+
+
+        <div
+            id="gameResult"
+            class="hidden mt-4 p-4 rounded-xl text-sm">
+        </div>
+
+
+        <!-- GURU -->
+
+        <div class="teacher-only hidden-section mt-5 bg-purple-50 rounded-2xl p-5">
+
+            <h3 class="font-bold text-purple-700">
+                Cara Guru Menjelaskan
+            </h3>
+
+            <p class="text-sm mt-2">
+
+                Kata kunci soal adalah
+
+                <b>"terdapat pada kedua himpunan"</b>.
+
+            </p>
+
+            <p class="text-sm mt-2">
+
+                Kata "kedua" menunjukkan bahwa anggota tersebut
+                harus berada di A sekaligus B.
+
+            </p>
+
+            <div class="bg-white rounded-xl p-3 mt-3 text-center">
+
+                $$A \cap B$$
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- LEVEL 1 -->
+
+    <section class="mb-8">
+
+        <div class="flex items-center gap-3 mb-4">
+
+            <span class="bg-green-100 text-green-700 px-4 py-2 rounded-full font-bold text-sm">
+                LEVEL 1
+            </span>
+
+            <h2 class="text-xl font-black">
+                Mudah
+            </h2>
+
+        </div>
+
+
+        <!-- SOAL 1 -->
+
+        <div class="card p-5 mb-5">
+
+            <p class="font-bold mb-3">
+                Soal 1
+            </p>
+
+            <p>
+                Diketahui:
+            </p>
+
+            <p class="mt-2">
+                A = {1, 2, 3, 4}
+                <br>
+                B = {3, 4, 5, 6}
+            </p>
+
+            <p class="mt-4 font-semibold">
+                Tentukan $A \cap B$.
+            </p>
+
+
+            <div class="space-y-2 mt-4">
+
+                <button
+                    onclick="answer(1,'a')"
+                    class="option w-full text-left border rounded-xl p-4">
+
+                    A. {1, 2}
+
+                </button>
+
+
+                <button
+                    onclick="answer(1,'b')"
+                    class="option w-full text-left border rounded-xl p-4">
+
+                    B. {3, 4}
+
+                </button>
+
+
+                <button
+                    onclick="answer(1,'c')"
+                    class="option w-full text-left border rounded-xl p-4">
+
+                    C. {1, 2, 3, 4, 5, 6}
+
+                </button>
+
+            </div>
+
+
+            <div
+                id="feedback1"
+                class="hidden mt-4 p-4 rounded-xl text-sm">
+            </div>
+
+
+            <!-- PEMBAHASAN GURU -->
+
+            <div class="teacher-only hidden-section mt-5 bg-purple-50 rounded-2xl p-5">
+
+                <h3 class="font-bold text-purple-700">
+                    Pembahasan Guru — Soal 1
+                </h3>
+
+                <div class="space-y-4 mt-4">
+
+                    <div class="step">
+
+                        <b>Langkah 1 — Perhatikan himpunan</b>
+
+                        <p class="text-sm mt-1">
+                            A = {1, 2, 3, 4}
+                        </p>
+
+                        <p class="text-sm">
+                            B = {3, 4, 5, 6}
+                        </p>
+
+                    </div>
+
+
+                    <div class="step">
+
+                        <b>Langkah 2 — Cari anggota yang sama</b>
+
+                        <p class="text-sm mt-1">
+                            Angka 3 terdapat di A dan B.
+                        </p>
+
+                        <p class="text-sm">
+                            Angka 4 terdapat di A dan B.
+                        </p>
+
+                    </div>
+
+
+                    <div class="step">
+
+                        <b>Langkah 3 — Tuliskan irisan</b>
+
+                        <div class="text-center text-xl mt-2">
+
+                            $$A \cap B = \{3,4\}$$
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="bg-yellow-100 rounded-xl p-4">
+
+                        <b>Kesalahan umum:</b>
+
+                        <p class="text-sm mt-1">
+                            Siswa memasukkan semua anggota A dan B.
+                            Itu adalah gabungan, bukan irisan.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- SOAL 2 -->
+
+        <div class="card p-5">
+
+            <p class="font-bold mb-3">
+                Soal 2
+            </p>
+
+            <p>
+                A = {2, 4, 6}
+                <br>
+                B = {1, 2, 3}
+            </p>
+
+            <p class="mt-4 font-semibold">
+                Tentukan $A \cup B$.
+            </p>
+
+
+            <div class="space-y-2 mt-4">
+
+                <button
+                    onclick="answer(2,'a')"
+                    class="option w-full text-left border rounded-xl p-4">
+
+                    A. {1, 2, 3, 4, 6}
+
+                </button>
+
+
+                <button
+                    onclick="answer(2,'b')"
+                    class="option w-full text-left border rounded-xl p-4">
+
+                    B. {2}
+
+                </button>
+
+
+                <button
+                    onclick="answer(2,'c')"
+                    class="option w-full text-left border rounded-xl p-4">
+
+                    C. {1, 2, 3, 4, 5, 6}
+
+                </button>
+
+            </div>
+
+
+            <div
+                id="feedback2"
+                class="hidden mt-4 p-4 rounded-xl text-sm">
+            </div>
+
+
+            <div class="teacher-only hidden-section mt-5 bg-purple-50 rounded-2xl p-5">
+
+                <h3 class="font-bold text-purple-700">
+                    Pembahasan Guru — Soal 2
+                </h3>
+
+                <div class="space-y-4 mt-4">
+
+                    <div class="step">
+
+                        <b>Langkah 1</b>
+
+                        <p class="text-sm mt-1">
+                            Tuliskan semua anggota A:
+                        </p>
+
+                        <div class="text-center">
+                            $$A=\{2,4,6\}$$
+                        </div>
+
+                    </div>
+
+
+                    <div class="step">
+
+                        <b>Langkah 2</b>
+
+                        <p class="text-sm mt-1">
+                            Tambahkan anggota B yang belum ada:
+                        </p>
+
+                        <div class="text-center">
+                            $$B=\{1,2,3\}$$
+                        </div>
+
+                    </div>
+
+
+                    <div class="step">
+
+                        <b>Langkah 3 — Jangan ulangi angka 2</b>
+
+                        <div class="text-center text-xl">
+                            $$A\cup B=\{1,2,3,4,6\}$$
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- LEVEL 2 -->
+
+    <section class="mb-8">
+
+        <div class="flex items-center gap-3 mb-4">
+
+            <span class="bg-yellow-100 text-yellow-700 px-4 py-2 rounded-full font-bold text-sm">
+                LEVEL 2
+            </span>
+
+            <h2 class="text-xl font-black">
+                Menengah
+            </h2>
+
+        </div>
+
+
+        <!-- SOAL 3 -->
+
+        <div class="card p-5 mb-5">
+
+            <p class="font-bold">
+                Soal 3 — Survei Kelas
+            </p>
+
+            <p class="mt-4">
+                Dari 30 siswa:
+            </p>
+
+            <ul class="list-disc ml-5 mt-2 text-slate-600">
+
+                <li>18 siswa menyukai Matematika</li>
+
+                <li>15 siswa menyukai IPA</li>
+
+                <li>8 siswa menyukai keduanya</li>
+
+            </ul>
+
+
+            <p class="mt-4 font-semibold">
+                Berapa siswa yang menyukai minimal salah satu?
+            </p>
+
+
+            <div class="bg-blue-50 rounded-xl p-4 text-center my-4">
+
+                $$n(A\cup B)=n(A)+n(B)-n(A\cap B)$$
+
+            </div>
+
+
+            <input
+                id="answer3"
+                type="number"
+                placeholder="Masukkan jawaban..."
+                class="w-full border rounded-xl p-4">
+
+
+            <button
+                onclick="numberAnswer(3,25)"
+                class="bg-blue-600 text-white px-5 py-3 rounded-xl font-bold mt-3">
+
+                Periksa
+
+            </button>
+
+
+            <div
+                id="feedback3"
+                class="hidden mt-4 p-4 rounded-xl text-sm">
+            </div>
+
+
+            <div class="teacher-only hidden-section mt-5 bg-purple-50 rounded-2xl p-5">
+
+                <h3 class="font-bold text-purple-700">
+                    Pembahasan Guru — Soal 3
+                </h3>
+
+
+                <div class="space-y-4 mt-4">
+
+                    <div class="step">
+
+                        <b>Langkah 1 — Tuliskan data</b>
+
+                        <p class="text-sm mt-1">
+                            Matematika = 18
+                            <br>
+                            IPA = 15
+                            <br>
+                            Keduanya = 8
+                        </p>
+
+                    </div>
+
+
+                    <div class="step">
+
+                        <b>Langkah 2 — Gunakan rumus</b>
+
+                        <div class="text-center mt-2">
+
+                            $$n(A\cup B)=n(A)+n(B)-n(A\cap B)$$
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="step">
+
+                        <b>Langkah 3 — Masukkan angka</b>
+
+                        <div class="text-center mt-2">
+
+                            $$=18+15-8$$
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="step">
+
+                        <b>Langkah 4 — Hitung</b>
+
+                        <div class="text-center text-xl">
+
+                            $$=25$$
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="bg-green-100 rounded-xl p-4">
+
+                        <b>Jawaban:</b>
+
+                        25 siswa menyukai minimal salah satu.
+
+                    </div>
+
+
+                    <div class="bg-yellow-100 rounded-xl p-4">
+
+                        <b>Mengapa dikurangi 8?</b>
+
+                        <p class="text-sm mt-1">
+
+                            Karena 8 siswa yang menyukai keduanya
+                            terhitung dua kali ketika 18 dan 15 dijumlahkan.
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- SOAL 4 -->
+
+        <div class="card p-5">
+
+            <p class="font-bold">
+                Soal 4 — Hanya Salah Satu
+            </p>
+
+            <p class="mt-4">
+                20 siswa suka sepak bola.
+                <br>
+                14 siswa suka basket.
+                <br>
+                6 siswa suka keduanya.
+            </p>
+
+            <p class="mt-4 font-semibold">
+                Berapa siswa yang hanya menyukai salah satu olahraga?
+            </p>
+
+
+            <input
+                id="answer4"
+                type="number"
+                placeholder="Masukkan jawaban..."
+                class="w-full border rounded-xl p-4 mt-4">
+
+
+            <button
+                onclick="numberAnswer(4,22)"
+                class="bg-blue-600 text-white px-5 py-3 rounded-xl font-bold mt-3">
+
+                Periksa
+
+            </button>
+
+
+            <div
+                id="feedback4"
+                class="hidden mt-4 p-4 rounded-xl text-sm">
+            </div>
+
+
+            <div class="teacher-only hidden-section mt-5 bg-purple-50 rounded-2xl p-5">
+
+                <h3 class="font-bold text-purple-700">
+                    Pembahasan Guru — Soal 4
+                </h3>
+
+
+                <div class="space-y-4 mt-4">
+
+                    <div class="step">
+
+                        <b>Langkah 1</b>
+
+                        <p class="text-sm">
+                            Yang hanya sepak bola:
+                        </p>
+
+                        <div class="text-center">
+                            $$20-6=14$$
+                        </div>
+
+                    </div>
+
+
+                    <div class="step">
+
+                        <b>Langkah 2</b>
+
+                        <p class="text-sm">
+                            Yang hanya basket:
+                        </p>
+
+                        <div class="text-center">
+                            $$14-6=8$$
+                        </div>
+
+                    </div>
+
+
+                    <div class="step">
+
+                        <b>Langkah 3</b>
+
+                        <div class="text-center text-xl">
+                            $$14+8=22$$
+                        </div>
+
+                    </div>
+
+
+                    <div class="bg-green-100 rounded-xl p-4">
+
+                        <b>Jawaban:</b>
+
+                        22 siswa.
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- HOTS -->
+
+    <section class="mb-8">
+
+        <div class="flex items-center gap-3 mb-4">
+
+            <span class="bg-red-100 text-red-700 px-4 py-2 rounded-full font-bold text-sm">
+                LEVEL 3
+            </span>
+
+            <h2 class="text-xl font-black">
+                Sulit / HOTS
+            </h2>
+
+        </div>
+
+
+
+        <!-- SOAL 5 -->
+
+        <div class="card p-5 mb-5">
+
+            <p class="font-bold">
+                Soal 5 — Detektif Himpunan
+            </p>
+
+            <p class="mt-4">
+
+                Sebuah kelas memiliki 40 siswa.
+
+                <br><br>
+
+                25 siswa mengikuti klub Tahfiz.
+
+                <br>
+
+                18 siswa mengikuti klub Matematika.
+
+                <br>
+
+                10 siswa mengikuti keduanya.
+
+            </p>
+
+
+            <p class="mt-4 font-semibold">
+
+                Berapa siswa yang mengikuti
+
+                <b>tepat salah satu</b>
+
+                klub?
+
+            </p>
+
+
+            <input
+                id="answer5"
+                type="number"
+                placeholder="Masukkan jawaban..."
+                class="w-full border rounded-xl p-4 mt-4">
+
+
+            <button
+                onclick="numberAnswer(5,23)"
+                class="bg-blue-600 text-white px-5 py-3 rounded-xl font-bold mt-3">
+
+                Periksa
+
+            </button>
+
+
+            <div
+                id="feedback5"
+                class="hidden mt-4 p-4 rounded-xl text-sm">
+            </div>
+
+
+            <div class="teacher-only hidden-section mt-5 bg-purple-50 rounded-2xl p-5">
+
+                <h3 class="font-bold text-purple-700">
+                    Pembahasan Guru — Soal 5
+                </h3>
+
+
+                <div class="space-y-4 mt-4">
+
+                    <div class="step">
+
+                        <b>Langkah 1</b>
+
+                        <p class="text-sm">
+                            Yang hanya Tahfiz:
+                        </p>
+
+                        <div class="text-center">
+                            $$25-10=15$$
+                        </div>
+
+                    </div>
+
+
+                    <div class="step">
+
+                        <b>Langkah 2</b>
+
+                        <p class="text-sm">
+                            Yang hanya Matematika:
+                        </p>
+
+                        <div class="text-center">
+                            $$18-10=8$$
+                        </div>
+
+                    </div>
+
+
+                    <div class="step">
+
+                        <b>Langkah 3</b>
+
+                        <p class="text-sm">
+                            Tepat salah satu berarti hanya Tahfiz
+                            atau hanya Matematika.
+                        </p>
+
+                        <div class="text-center text-xl">
+                            $$15+8=23$$
+                        </div>
+
+                    </div>
+
+
+                    <div class="bg-green-100 rounded-xl p-4">
+
+                        <b>Jawaban:</b>
+
+                        23 siswa.
+
+                    </div>
+
+
+                    <div class="bg-yellow-100 rounded-xl p-4">
+
+                        <b>Kesalahan umum:</b>
+
+                        <p class="text-sm mt-1">
+
+                            Jangan langsung menghitung
+                            $25+18$ karena 10 siswa yang mengikuti
+                            keduanya akan terhitung dua kali.
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- SOAL 6 -->
+
+        <div class="card p-5">
+
+            <p class="font-bold">
+                Soal 6 — Temukan Nilai yang Hilang
+            </p>
+
+            <p class="mt-4">
+
+                Dari 50 siswa:
+
+                <br><br>
+
+                32 siswa menyukai Bahasa Arab.
+
+                <br>
+
+                21 siswa menyukai Bahasa Inggris.
+
+                <br>
+
+                9 siswa menyukai keduanya.
+
+            </p>
+
+
+            <p class="mt-4 font-semibold">
+
+                Berapa siswa yang tidak menyukai
+                Bahasa Arab maupun Bahasa Inggris?
+
+            </p>
+
+
+            <input
+                id="answer6"
+                type="number"
+                placeholder="Masukkan jawaban..."
+                class="w-full border rounded-xl p-4 mt-4">
+
+
+            <button
+                onclick="numberAnswer(6,6)"
+                class="bg-blue-600 text-white px-5 py-3 rounded-xl font-bold mt-3">
+
+                Periksa
+
+            </button>
+
+
+            <div
+                id="feedback6"
+                class="hidden mt-4 p-4 rounded-xl text-sm">
+            </div>
+
+
+            <div class="teacher-only hidden-section mt-5 bg-purple-50 rounded-2xl p-5">
+
+                <h3 class="font-bold text-purple-700">
+                    Pembahasan Guru — Soal 6
+                </h3>
+
+
+                <div class="space-y-4 mt-4">
+
+                    <div class="step">
+
+                        <b>Langkah 1 — Cari gabungan</b>
+
+                        <div class="text-center">
+                            $$32+21-9=44$$
+                        </div>
+
+                    </div>
+
+
+                    <div class="step">
+
+                        <b>Langkah 2 — Cari yang berada di luar kedua himpunan</b>
+
+                        <div class="text-center">
+                            $$50-44=6$$
+                        </div>
+
+                    </div>
+
+
+                    <div class="bg-green-100 rounded-xl p-4">
+
+                        <b>Jawaban:</b>
+
+                        6 siswa.
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- SCORE -->
+
+    <section class="card p-6 text-center mb-6">
+
+        <div class="bg-blue-100 text-blue-700 p-4 rounded-2xl inline-block">
+
+            <i data-lucide="trophy"></i>
+
+        </div>
+
+
+        <h2 class="font-black text-xl mt-3">
+            Hasil Belajar
+        </h2>
+
+
+        <div class="text-5xl font-black text-blue-600 my-4">
+
+            <span id="score">
+                0
+            </span>
+
+            /6
+
+        </div>
+
+
+        <p id="message" class="text-slate-500">
+            Kerjakan soal terlebih dahulu.
+        </p>
+
+
+        <button
+            onclick="resetAll()"
+            class="bg-slate-800 text-white px-6 py-3 rounded-xl font-bold mt-5">
+
+            Ulangi LKPD
+
+        </button>
+
+    </section>
+
+
+</div>
+
+
+
+<script>
+
+lucide.createIcons();
+
+
+let guruMode = false;
+
+let score = 0;
+
+let answered = {};
+
+
+function toggleMode() {
+
+    guruMode = !guruMode;
+
+
+    const teacherElements =
+        document.querySelectorAll(".teacher-only");
+
+
+    const teacherIntro =
+        document.getElementById("teacherIntro");
+
+
+    const button =
+        document.getElementById("modeButton");
+
+
+    const modeText =
+        document.getElementById("modeText");
+
+
+    if (guruMode) {
+
+        teacherElements.forEach(element => {
+
+            element.classList.remove("hidden-section");
+
+        });
+
+
+        teacherIntro.classList.remove("hidden-section");
+
+
+        button.innerHTML =
+            '<i data-lucide="graduation-cap"></i> Mode Siswa';
+
+
+        modeText.textContent =
+            "Mode Guru — Pembahasan aktif";
+
+    }
+
+    else {
+
+        teacherElements.forEach(element => {
+
+            element.classList.add("hidden-section");
+
+        });
+
+
+        teacherIntro.classList.add("hidden-section");
+
+
+        button.innerHTML =
+            '<i data-lucide="presentation"></i> Mode Guru';
+
+
+        modeText.textContent =
+            "Mode Siswa";
+
+    }
+
+
+    lucide.createIcons();
+
+}
+
+
+function answer(question, selected) {
+
+    if (answered[question]) return;
+
+
+    let correct = false;
+
+    let explanation = "";
+
+
+    if (question === 1) {
+
+        correct = selected === "b";
+
+        explanation =
+            "Irisan adalah anggota yang terdapat pada kedua himpunan. " +
+            "Jadi A ∩ B = {3, 4}.";
+
+    }
+
+
+    if (question === 2) {
+
+        correct = selected === "a";
+
+        explanation =
+            "Gabungan mengumpulkan semua anggota A dan B " +
+            "tanpa mengulang anggota yang sama.";
+
+    }
+
+
+    answered[question] = true;
+
+
+    if (correct) {
+
+        score++;
+
+        showFeedback(
+            question,
+            true,
+            "Benar! " + explanation
+        );
+
+    }
+
+    else {
+
+        showFeedback(
+            question,
+            false,
+            "Belum tepat. " + explanation
+        );
+
+    }
+
+
+    updateScore();
+
+}
+
+
+function numberAnswer(question, correctAnswer) {
+
+    if (answered[question]) return;
+
+
+    const input =
+        document.getElementById("answer" + question);
+
+
+    const value =
+        input.value.trim();
+
+
+    if (value === "") {
+
+        showFeedback(
+            question,
+            false,
+            "Masukkan jawaban terlebih dahulu."
+        );
+
+        return;
+
+    }
+
+
+    const correct =
+        Number(value) === Number(correctAnswer);
+
+
+    answered[question] = true;
+
+
+    if (correct) {
+
+        score++;
+
+        showFeedback(
+            question,
+            true,
+            "Benar! Jawabanmu tepat."
+        );
+
+    }
+
+    else {
+
+        showFeedback(
+            question,
+            false,
+            "Belum tepat. Gunakan langkah penyelesaian pada Mode Guru."
+        );
+
+    }
+
+
+    updateScore();
+
+}
+
+
+function showFeedback(question, correct, message) {
+
+    const box =
+        document.getElementById("feedback" + question);
+
+
+    box.classList.remove("hidden");
+
+
+    if (correct) {
+
+        box.className =
+            "mt-4 p-4 rounded-xl text-sm bg-green-100 text-green-700";
+
+    }
+
+    else {
+
+        box.className =
+            "mt-4 p-4 rounded-xl text-sm bg-red-100 text-red-700";
+
+    }
+
+
+    box.innerHTML = message;
+
+}
+
+
+function game(answer) {
+
+    const result =
+        document.getElementById("gameResult");
+
+
+    result.classList.remove("hidden");
+
+
+    if (answer === "intersection") {
+
+        result.className =
+            "mt-4 p-4 rounded-xl text-sm bg-green-100 text-green-700";
+
+
+        result.innerHTML =
+            "<b>Benar!</b> " +
+            "Jika mencari anggota yang terdapat pada kedua himpunan, " +
+            "gunakan irisan: A ∩ B.";
+
+    }
+
+    else {
+
+        result.className =
+            "mt-4 p-4 rounded-xl text-sm bg-red-100 text-red-700";
+
+
+        result.innerHTML =
+            "<b>Belum tepat.</b> " +
+            "Kata kuncinya adalah 'kedua himpunan', " +
+            "sehingga operasi yang digunakan adalah A ∩ B.";
+
+    }
+
+}
+
+
+function updateScore() {
+
+    document.getElementById("score").textContent =
+        score;
+
+
+    const message =
+        document.getElementById("message");
+
+
+    if (score === 6) {
+
+        message.textContent =
+            "Luar biasa! Semua soal berhasil.";
+
+    }
+
+    else if (score >= 4) {
+
+        message.textContent =
+            "Bagus! Pemahamanmu sudah cukup baik.";
+
+    }
+
+    else if (score >= 2) {
+
+        message.textContent =
+            "Sudah mulai memahami. Pelajari kembali konsep.";
+
+    }
+
+    else {
+
+        message.textContent =
+            "Baca kembali materi kemudian coba lagi.";
+
+    }
+
+}
+
+
+function resetAll() {
+
+    score = 0;
+
+    answered = {};
+
+
+    document.querySelectorAll("input").forEach(input => {
+
+        if (input.id !== "nama") {
+
+            input.value = "";
+
+        }
+
+    });
+
+
+    document.querySelectorAll("[id^='feedback']")
+        .forEach(element => {
+
+            element.classList.add("hidden");
+
+            element.innerHTML = "";
+
+        });
+
+
+    document.getElementById("gameResult")
+        .classList.add("hidden");
+
+
+    updateScore();
+
+}
+
+
+updateScore();
+
+</script>
+
+
+</body>
+</html>
