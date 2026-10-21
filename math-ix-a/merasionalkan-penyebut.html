@@ -1,0 +1,1665 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>LKPD - Merasionalkan Penyebut</title>
+
+  <!-- MathJax -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['\\(', '\\)']],
+        displayMath: [['\\[', '\\]']]
+      },
+      svg: {
+        fontCache: 'global'
+      }
+    };
+  </script>
+
+  <script
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+  </script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f7fb;
+      color: #1f2937;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: auto;
+      padding: 16px;
+    }
+
+    /* HEADER */
+    .header {
+      background: linear-gradient(135deg, #2563eb, #4f46e5);
+      color: white;
+      padding: 24px 20px;
+      border-radius: 18px;
+      margin-bottom: 16px;
+      box-shadow: 0 8px 20px rgba(37, 99, 235, 0.18);
+    }
+
+    .header .label {
+      font-size: 13px;
+      opacity: .85;
+      margin-bottom: 5px;
+    }
+
+    .header h1 {
+      margin: 0;
+      font-size: 25px;
+    }
+
+    .header p {
+      margin: 8px 0 0;
+      font-size: 14px;
+      opacity: .92;
+    }
+
+    /* PROGRESS */
+    .progress-card {
+      background: white;
+      border-radius: 15px;
+      padding: 15px;
+      margin-bottom: 16px;
+      box-shadow: 0 3px 12px rgba(0,0,0,.06);
+    }
+
+    .progress-info {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      margin-bottom: 8px;
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 9px;
+      background: #e5e7eb;
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      width: 0%;
+      height: 100%;
+      background: #2563eb;
+      transition: .3s;
+    }
+
+    /* SECTION */
+    .section {
+      display: none;
+    }
+
+    .section.active {
+      display: block;
+    }
+
+    .level-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+
+    .level-badge {
+      padding: 7px 12px;
+      border-radius: 10px;
+      font-size: 12px;
+      font-weight: bold;
+      color: white;
+    }
+
+    .mudah {
+      background: #16a34a;
+    }
+
+    .sedang {
+      background: #d97706;
+    }
+
+    .hots {
+      background: #dc2626;
+    }
+
+    .level-title h2 {
+      margin: 0;
+      font-size: 20px;
+    }
+
+    /* CARD */
+    .card {
+      background: white;
+      border-radius: 16px;
+      padding: 18px;
+      margin-bottom: 15px;
+      box-shadow: 0 3px 12px rgba(0,0,0,.06);
+    }
+
+    .card h3 {
+      margin-top: 0;
+      font-size: 17px;
+    }
+
+    .concept {
+      background: #eff6ff;
+      border-left: 4px solid #2563eb;
+      padding: 14px;
+      border-radius: 8px;
+      margin: 12px 0;
+    }
+
+    .question {
+      border: 1px solid #e5e7eb;
+      border-radius: 13px;
+      padding: 16px;
+      margin-bottom: 14px;
+    }
+
+    .question-number {
+      font-weight: bold;
+      color: #2563eb;
+      margin-bottom: 8px;
+    }
+
+    .math {
+      font-size: 22px;
+      text-align: center;
+      margin: 15px 0;
+    }
+
+    /* INPUT */
+    .input-group {
+      margin-top: 12px;
+    }
+
+    .input-group label {
+      display: block;
+      font-size: 13px;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    input,
+    textarea,
+    select {
+      width: 100%;
+      padding: 11px 12px;
+      border: 1px solid #d1d5db;
+      border-radius: 9px;
+      font-size: 15px;
+      outline: none;
+      transition: .2s;
+      background: white;
+    }
+
+    input:focus,
+    textarea:focus,
+    select:focus {
+      border-color: #2563eb;
+      box-shadow: 0 0 0 3px rgba(37,99,235,.1);
+    }
+
+    textarea {
+      min-height: 90px;
+      resize: vertical;
+    }
+
+    /* FEEDBACK */
+    .feedback {
+      margin-top: 10px;
+      padding: 9px 12px;
+      border-radius: 8px;
+      font-size: 13px;
+      display: none;
+    }
+
+    .feedback.correct {
+      display: block;
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .feedback.wrong {
+      display: block;
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    /* BUTTON */
+    .actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 18px;
+      flex-wrap: wrap;
+    }
+
+    button {
+      border: none;
+      border-radius: 10px;
+      padding: 11px 17px;
+      font-size: 14px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: #2563eb;
+      color: white;
+    }
+
+    .btn-secondary {
+      background: #e5e7eb;
+      color: #374151;
+    }
+
+    .btn-success {
+      background: #16a34a;
+      color: white;
+    }
+
+    .btn-danger {
+      background: #dc2626;
+      color: white;
+    }
+
+    button:hover {
+      opacity: .9;
+    }
+
+    /* SCORE */
+    .score-box {
+      text-align: center;
+      background: white;
+      border-radius: 18px;
+      padding: 30px 20px;
+      box-shadow: 0 5px 20px rgba(0,0,0,.08);
+    }
+
+    .score-number {
+      font-size: 48px;
+      font-weight: bold;
+      color: #2563eb;
+    }
+
+    .score-message {
+      margin: 10px 0 20px;
+      font-size: 15px;
+    }
+
+    /* FOOTER */
+    .footer {
+      text-align: center;
+      color: #6b7280;
+      font-size: 12px;
+      padding: 20px 0;
+    }
+
+    @media (max-width: 600px) {
+
+      .container {
+        padding: 10px;
+      }
+
+      .header {
+        padding: 20px 16px;
+      }
+
+      .header h1 {
+        font-size: 21px;
+      }
+
+      .card {
+        padding: 14px;
+      }
+
+      .math {
+        font-size: 19px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="label">LKPD MATEMATIKA KELAS IX</div>
+    <h1>Merasionalkan Penyebut</h1>
+    <p>
+      Menemukan pola dan menggunakan bentuk sekawan
+      untuk merasionalkan penyebut pecahan bentuk akar.
+    </p>
+  </div>
+
+  <!-- PROGRESS -->
+  <div class="progress-card">
+    <div class="progress-info">
+      <span id="progressText">Level 1 dari 3</span>
+      <strong id="scoreText">Skor: 0</strong>
+    </div>
+
+    <div class="progress-bar">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
+  </div>
+
+
+  <!-- ================================================= -->
+  <!-- LEVEL 1 MUDAH -->
+  <!-- ================================================= -->
+
+  <section class="section active" id="level1">
+
+    <div class="level-title">
+      <span class="level-badge mudah">MUDAH</span>
+      <h2>Menemukan Pola</h2>
+    </div>
+
+    <div class="card">
+
+      <h3>Aktivitas 1 — Amati</h3>
+
+      <p>Perhatikan bentuk berikut:</p>
+
+      <div class="math">
+        \[
+        \frac{3}{\sqrt{2}}
+        \]
+      </div>
+
+      <p>
+        Agar penyebut tidak mengandung akar, kita dapat mengalikan
+        pembilang dan penyebut dengan:
+      </p>
+
+      <div class="math">
+        \[
+        \frac{\sqrt{2}}{\sqrt{2}}
+        \]
+      </div>
+
+      <div class="concept">
+
+        \[
+        \frac{3}{\sqrt2}
+        \times
+        \frac{\sqrt2}{\sqrt2}
+        =
+        \frac{3\sqrt2}{2}
+        \]
+
+      </div>
+
+      <p>
+        Sekarang temukan pola tersebut melalui latihan berikut.
+      </p>
+
+    </div>
+
+
+    <!-- SOAL 1 -->
+    <div class="card">
+
+      <div class="question">
+
+        <div class="question-number">
+          Soal 1
+        </div>
+
+        <div class="math">
+          \[
+          \frac{5}{\sqrt3}
+          \]
+        </div>
+
+        <p>
+          Hasil akhirnya berbentuk:
+          \[
+          \frac{a\sqrt3}{b}
+          \]
+        </p>
+
+        <div class="input-group">
+          <label>Nilai a</label>
+          <input type="number" id="q1a">
+        </div>
+
+        <div class="input-group">
+          <label>Nilai b</label>
+          <input type="number" id="q1b">
+        </div>
+
+        <div class="feedback" id="f1"></div>
+
+      </div>
+
+
+      <div class="question">
+
+        <div class="question-number">
+          Soal 2
+        </div>
+
+        <div class="math">
+          \[
+          \frac{4}{\sqrt5}
+          \]
+        </div>
+
+        <p>
+          Hasil akhirnya berbentuk:
+          \[
+          \frac{a\sqrt5}{b}
+          \]
+        </p>
+
+        <div class="input-group">
+          <label>Nilai a</label>
+          <input type="number" id="q2a">
+        </div>
+
+        <div class="input-group">
+          <label>Nilai b</label>
+          <input type="number" id="q2b">
+        </div>
+
+        <div class="feedback" id="f2"></div>
+
+      </div>
+
+
+      <div class="question">
+
+        <div class="question-number">
+          Soal 3
+        </div>
+
+        <div class="math">
+          \[
+          \frac{7}{\sqrt2}
+          \]
+        </div>
+
+        <p>
+          Hasil akhirnya berbentuk:
+          \[
+          \frac{a\sqrt2}{b}
+          \]
+        </p>
+
+        <div class="input-group">
+          <label>Nilai a</label>
+          <input type="number" id="q3a">
+        </div>
+
+        <div class="input-group">
+          <label>Nilai b</label>
+          <input type="number" id="q3b">
+        </div>
+
+        <div class="feedback" id="f3"></div>
+
+      </div>
+
+
+      <div class="question">
+
+        <div class="question-number">
+          Soal 4
+        </div>
+
+        <div class="math">
+          \[
+          \frac{6}{\sqrt7}
+          \]
+        </div>
+
+        <p>
+          Hasil akhirnya berbentuk:
+          \[
+          \frac{a\sqrt7}{b}
+          \]
+        </p>
+
+        <div class="input-group">
+          <label>Nilai a</label>
+          <input type="number" id="q4a">
+        </div>
+
+        <div class="input-group">
+          <label>Nilai b</label>
+          <input type="number" id="q4b">
+        </div>
+
+        <div class="feedback" id="f4"></div>
+
+      </div>
+
+
+      <div class="question">
+
+        <div class="question-number">
+          Soal 5
+        </div>
+
+        <div class="math">
+          \[
+          \frac{8}{\sqrt3}
+          \]
+        </div>
+
+        <p>
+          Hasil akhirnya berbentuk:
+          \[
+          \frac{a\sqrt3}{b}
+          \]
+        </p>
+
+        <div class="input-group">
+          <label>Nilai a</label>
+          <input type="number" id="q5a">
+        </div>
+
+        <div class="input-group">
+          <label>Nilai b</label>
+          <input type="number" id="q5b">
+        </div>
+
+        <div class="feedback" id="f5"></div>
+
+      </div>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Temukan Kesimpulan</h3>
+
+      <p>
+        Jika:
+      </p>
+
+      <div class="math">
+        \[
+        \frac{a}{\sqrt b}
+        \]
+      </div>
+
+      <p>
+        maka kita dapat mengalikan dengan:
+      </p>
+
+      <div class="math">
+        \[
+        \frac{\sqrt b}{\sqrt b}
+        \]
+      </div>
+
+      <div class="concept">
+
+        \[
+        \boxed{
+        \frac{a}{\sqrt b}
+        =
+        \frac{a\sqrt b}{b}
+        }
+        \]
+
+      </div>
+
+    </div>
+
+
+    <div class="actions">
+      <button class="btn-primary" onclick="checkLevel1()">
+        Periksa Jawaban
+      </button>
+
+      <button class="btn-success" onclick="goToLevel(2)">
+        Lanjut Level 2 →
+      </button>
+    </div>
+
+  </section>
+
+
+  <!-- ================================================= -->
+  <!-- LEVEL 2 SEDANG -->
+  <!-- ================================================= -->
+
+  <section class="section" id="level2">
+
+    <div class="level-title">
+      <span class="level-badge sedang">SEDANG</span>
+      <h2>Menggunakan Bentuk Sekawan</h2>
+    </div>
+
+
+    <div class="card">
+
+      <h3>Amati Polanya</h3>
+
+      <p>Perhatikan:</p>
+
+      <div class="math">
+        \[
+        \frac{2}{\sqrt3+\sqrt2}
+        \]
+      </div>
+
+      <p>
+        Bentuk sekawan dari:
+      </p>
+
+      <div class="math">
+        \[
+        \sqrt3+\sqrt2
+        \]
+      </div>
+
+      <p>adalah:</p>
+
+      <div class="math">
+        \[
+        \sqrt3-\sqrt2
+        \]
+      </div>
+
+      <div class="concept">
+
+        \[
+        (\sqrt3+\sqrt2)(\sqrt3-\sqrt2)
+        =
+        3-2
+        =
+        1
+        \]
+
+      </div>
+
+      <p>
+        Perhatikan bahwa tanda di tengah berubah:
+        <strong>+ menjadi −</strong>, atau
+        <strong>− menjadi +</strong>.
+      </p>
+
+    </div>
+
+
+    <!-- SOAL SEDANG -->
+
+    <div class="card">
+
+      <div class="question">
+
+        <div class="question-number">
+          Soal 1
+        </div>
+
+        <div class="math">
+          \[
+          \frac{3}{\sqrt5+\sqrt2}
+          \]
+        </div>
+
+        <p>
+          Hasil akhirnya berbentuk:
+          \[
+          a\sqrt5-b\sqrt2
+          \]
+        </p>
+
+        <label>Nilai a</label>
+        <input type="number" id="s1a">
+
+        <label style="margin-top:10px;display:block;">
+          Nilai b
+        </label>
+        <input type="number" id="s1b">
+
+        <div class="feedback" id="sf1"></div>
+
+      </div>
+
+
+      <div class="question">
+
+        <div class="question-number">
+          Soal 2
+        </div>
+
+        <div class="math">
+          \[
+          \frac{4}{\sqrt7+\sqrt3}
+          \]
+        </div>
+
+        <p>
+          Hasil akhirnya berbentuk:
+          \[
+          a\sqrt7-b\sqrt3
+          \]
+        </p>
+
+        <label>Nilai a</label>
+        <input type="number" id="s2a">
+
+        <label style="margin-top:10px;display:block;">
+          Nilai b
+        </label>
+        <input type="number" id="s2b">
+
+        <div class="feedback" id="sf2"></div>
+
+      </div>
+
+
+      <div class="question">
+
+        <div class="question-number">
+          Soal 3
+        </div>
+
+        <div class="math">
+          \[
+          \frac{5}{\sqrt6-\sqrt2}
+          \]
+        </div>
+
+        <p>
+          Hasil akhirnya berbentuk:
+          \[
+          a\sqrt6+b\sqrt2
+          \]
+        </p>
+
+        <label>Nilai a</label>
+        <input type="number" id="s3a">
+
+        <label style="margin-top:10px;display:block;">
+          Nilai b
+        </label>
+        <input type="number" id="s3b">
+
+        <div class="feedback" id="sf3"></div>
+
+      </div>
+
+
+      <div class="question">
+
+        <div class="question-number">
+          Soal 4
+        </div>
+
+        <div class="math">
+          \[
+          \frac{6}{\sqrt5-\sqrt3}
+          \]
+        </div>
+
+        <p>
+          Hasil akhirnya berbentuk:
+          \[
+          a\sqrt5+b\sqrt3
+          \]
+        </p>
+
+        <label>Nilai a</label>
+        <input type="number" id="s4a">
+
+        <label style="margin-top:10px;display:block;">
+          Nilai b
+        </label>
+        <input type="number" id="s4b">
+
+        <div class="feedback" id="sf4"></div>
+
+      </div>
+
+
+      <div class="question">
+
+        <div class="question-number">
+          Soal 5
+        </div>
+
+        <div class="math">
+          \[
+          \frac{2}{\sqrt7+\sqrt5}
+          \]
+        </div>
+
+        <p>
+          Hasil akhirnya berbentuk:
+          \[
+          a\sqrt7-b\sqrt5
+          \]
+        </p>
+
+        <label>Nilai a</label>
+        <input type="number" id="s5a">
+
+        <label style="margin-top:10px;display:block;">
+          Nilai b
+        </label>
+
+        <input type="number" id="s5b">
+
+        <div class="feedback" id="sf5"></div>
+
+      </div>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Temukan Polanya</h3>
+
+      <p>
+        Jika penyebut:
+      </p>
+
+      <div class="math">
+        \[
+        \sqrt a+\sqrt b
+        \]
+      </div>
+
+      <p>
+        maka bentuk sekawannya:
+      </p>
+
+      <div class="math">
+        \[
+        \boxed{\sqrt a-\sqrt b}
+        \]
+      </div>
+
+      <p>
+        Sedangkan:
+      </p>
+
+      <div class="math">
+        \[
+        \sqrt a-\sqrt b
+        \]
+      </div>
+
+      <p>
+        mempunyai bentuk sekawan:
+      </p>
+
+      <div class="math">
+        \[
+        \boxed{\sqrt a+\sqrt b}
+        \]
+      </div>
+
+    </div>
+
+
+    <div class="actions">
+
+      <button class="btn-secondary" onclick="goToLevel(1)">
+        ← Kembali
+      </button>
+
+      <button class="btn-primary" onclick="checkLevel2()">
+        Periksa Jawaban
+      </button>
+
+      <button class="btn-success" onclick="goToLevel(3)">
+        Lanjut HOTS →
+      </button>
+
+    </div>
+
+  </section>
+
+
+  <!-- ================================================= -->
+  <!-- LEVEL 3 HOTS -->
+  <!-- ================================================= -->
+
+  <section class="section" id="level3">
+
+    <div class="level-title">
+      <span class="level-badge hots">HOTS</span>
+      <h2>Analisis dan Pemecahan Masalah</h2>
+    </div>
+
+
+    <!-- HOTS 1 -->
+
+    <div class="card">
+
+      <div class="question">
+
+        <div class="question-number">
+          Tantangan 1 — Temukan Kesalahan
+        </div>
+
+        <div class="math">
+          \[
+          \frac{3}{\sqrt5+\sqrt2}
+          \]
+        </div>
+
+        <p>
+          Raka mengerjakan dengan mengalikan:
+        </p>
+
+        <div class="math">
+          \[
+          \frac{\sqrt5+\sqrt2}
+               {\sqrt5+\sqrt2}
+          \]
+        </div>
+
+        <p>
+          Menurut Raka, cara tersebut sudah benar.
+        </p>
+
+        <p>
+          Apakah cara Raka benar?
+        </p>
+
+        <select id="h1">
+          <option value="">Pilih jawaban</option>
+          <option value="1">Benar</option>
+          <option value="0">Salah</option>
+        </select>
+
+        <div class="feedback" id="hf1"></div>
+
+      </div>
+
+
+      <!-- HOTS 2 -->
+
+      <div class="question">
+
+        <div class="question-number">
+          Tantangan 2 — Cari Bilangan yang Hilang
+        </div>
+
+        <div class="math">
+          \[
+          \frac{4}{\sqrt7-\sqrt3}
+          =
+          \frac{4(\sqrt7+\sqrt3)}{x}
+          \]
+        </div>
+
+        <p>Tentukan nilai \(x\).</p>
+
+        <input type="number" id="h2">
+
+        <div class="feedback" id="hf2"></div>
+
+      </div>
+
+
+      <!-- HOTS 3 -->
+
+      <div class="question">
+
+        <div class="question-number">
+          Tantangan 3 — Bandingkan Strategi
+        </div>
+
+        <div class="math">
+          \[
+          \frac{2}{\sqrt5+\sqrt3}
+          \]
+        </div>
+
+        <p>
+          Siswa A menggunakan:
+        </p>
+
+        <div class="math">
+          \[
+          \frac{\sqrt5-\sqrt3}
+               {\sqrt5-\sqrt3}
+          \]
+        </div>
+
+        <p>
+          Siswa B menggunakan:
+        </p>
+
+        <div class="math">
+          \[
+          \frac{\sqrt5+\sqrt3}
+               {\sqrt5+\sqrt3}
+          \]
+        </div>
+
+        <p>
+          Siapa yang menggunakan strategi yang tepat?
+        </p>
+
+        <select id="h3">
+          <option value="">Pilih jawaban</option>
+          <option value="1">Siswa A</option>
+          <option value="2">Siswa B</option>
+        </select>
+
+        <div class="feedback" id="hf3"></div>
+
+      </div>
+
+
+      <!-- HOTS 4 -->
+
+      <div class="question">
+
+        <div class="question-number">
+          Tantangan 4 — Periksa Jawaban
+        </div>
+
+        <div class="math">
+          \[
+          \frac{3}{\sqrt6-\sqrt2}
+          \]
+        </div>
+
+        <p>
+          Seorang siswa memperoleh:
+        </p>
+
+        <div class="math">
+          \[
+          \frac{3\sqrt6+3\sqrt2}{4}
+          \]
+        </div>
+
+        <p>
+          Apakah jawaban tersebut benar?
+        </p>
+
+        <select id="h4">
+          <option value="">Pilih jawaban</option>
+          <option value="1">Benar</option>
+          <option value="0">Salah</option>
+        </select>
+
+        <div class="feedback" id="hf4"></div>
+
+      </div>
+
+
+      <!-- HOTS 5 -->
+
+      <div class="question">
+
+        <div class="question-number">
+          Tantangan 5 — Buat Sendiri
+        </div>
+
+        <p>
+          Buat sebuah bentuk:
+        </p>
+
+        <div class="math">
+          \[
+          \frac{a}{\sqrt m+\sqrt n}
+          \]
+        </div>
+
+        <p>
+          sehingga setelah dirasionalkan,
+          penyebutnya menjadi <strong>2</strong>.
+        </p>
+
+        <div class="input-group">
+          <label>Nilai m</label>
+          <input type="number" id="h5m">
+        </div>
+
+        <div class="input-group">
+          <label>Nilai n</label>
+          <input type="number" id="h5n">
+        </div>
+
+        <p style="font-size:13px;color:#6b7280;">
+          Syarat: \(m-n=2\).
+        </p>
+
+        <div class="feedback" id="hf5"></div>
+
+      </div>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Refleksi</h3>
+
+      <p>
+        Lengkapi kesimpulan berikut.
+      </p>
+
+      <div class="math">
+        \[
+        \frac{a}{\sqrt b}
+        \]
+      </div>
+
+      <p>
+        dirasionalkan dengan mengalikan pembilang dan penyebut
+        dengan:
+      </p>
+
+      <input
+        type="text"
+        id="ref1"
+        placeholder="Tuliskan bentuknya"
+      >
+
+      <p>
+        Untuk penyebut:
+      </p>
+
+      <div class="math">
+        \[
+        \sqrt a+\sqrt b
+        \]
+      </div>
+
+      <p>
+        kita menggunakan bentuk:
+      </p>
+
+      <input
+        type="text"
+        id="ref2"
+        placeholder="Tuliskan bentuk sekawannya"
+      >
+
+    </div>
+
+
+    <div class="actions">
+
+      <button class="btn-secondary" onclick="goToLevel(2)">
+        ← Kembali
+      </button>
+
+      <button class="btn-primary" onclick="checkHOTS()">
+        Periksa HOTS
+      </button>
+
+      <button class="btn-success" onclick="showResult()">
+        Lihat Hasil
+      </button>
+
+    </div>
+
+  </section>
+
+
+  <!-- ================================================= -->
+  <!-- HASIL -->
+  <!-- ================================================= -->
+
+  <section class="section" id="result">
+
+    <div class="score-box">
+
+      <h2>LKPD Selesai</h2>
+
+      <div class="score-number" id="finalScore">
+        0
+      </div>
+
+      <div class="score-message" id="finalMessage">
+        Kerjakan semua bagian dengan teliti.
+      </div>
+
+      <button
+        class="btn-primary"
+        onclick="location.reload()">
+        Ulangi LKPD
+      </button>
+
+    </div>
+
+  </section>
+
+
+  <div class="footer">
+    LKPD Matematika — Merasionalkan Penyebut
+  </div>
+
+</div>
+
+
+<script>
+
+  /* ============================================
+     DATA SKOR
+  ============================================ */
+
+  let score = 0;
+  let checked1 = false;
+  let checked2 = false;
+  let checkedHots = false;
+
+
+  /* ============================================
+     NAVIGASI LEVEL
+  ============================================ */
+
+  function goToLevel(level) {
+
+    document.querySelectorAll('.section')
+      .forEach(section => {
+        section.classList.remove('active');
+      });
+
+    document.getElementById('level' + level)
+      .classList.add('active');
+
+    document.getElementById('progressText')
+      .innerText = 'Level ' + level + ' dari 3';
+
+    let progress = (level / 3) * 100;
+
+    document.getElementById('progressFill')
+      .style.width = progress + '%';
+
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  }
+
+
+  /* ============================================
+     FEEDBACK
+  ============================================ */
+
+  function feedback(id, correct, message) {
+
+    const el = document.getElementById(id);
+
+    el.className = 'feedback ' +
+      (correct ? 'correct' : 'wrong');
+
+    el.innerHTML =
+      (correct ? '✓ ' : '✗ ') + message;
+
+    el.style.display = 'block';
+  }
+
+
+  /* ============================================
+     LEVEL 1
+  ============================================ */
+
+  function checkLevel1() {
+
+    if (checked1) return;
+
+    const answers = [
+      [5, 3],
+      [4, 5],
+      [7, 2],
+      [6, 7],
+      [8, 3]
+    ];
+
+    let benar = 0;
+
+    for (let i = 1; i <= 5; i++) {
+
+      let a = Number(
+        document.getElementById('q' + i + 'a').value
+      );
+
+      let b = Number(
+        document.getElementById('q' + i + 'b').value
+      );
+
+      if (
+        a === answers[i - 1][0] &&
+        b === answers[i - 1][1]
+      ) {
+
+        benar++;
+
+        feedback(
+          'f' + i,
+          true,
+          'Jawaban benar.'
+        );
+
+      } else {
+
+        feedback(
+          'f' + i,
+          false,
+          'Periksa kembali proses perkalian dengan akar.'
+        );
+      }
+    }
+
+    score += benar * 5;
+
+    checked1 = true;
+
+    updateScore();
+  }
+
+
+  /* ============================================
+     LEVEL 2
+  ============================================ */
+
+  function checkLevel2() {
+
+    if (checked2) return;
+
+    const answers = [
+      [3, 3],
+      [4, 4],
+      [5, 5],
+      [6, 6],
+      [2, 2]
+    ];
+
+    let benar = 0;
+
+    for (let i = 1; i <= 5; i++) {
+
+      let a = Number(
+        document.getElementById('s' + i + 'a').value
+      );
+
+      let b = Number(
+        document.getElementById('s' + i + 'b').value
+      );
+
+      if (
+        a === answers[i - 1][0] &&
+        b === answers[i - 1][1]
+      ) {
+
+        benar++;
+
+        feedback(
+          'sf' + i,
+          true,
+          'Benar. Kamu menggunakan bentuk sekawan dengan tepat.'
+        );
+
+      } else {
+
+        feedback(
+          'sf' + i,
+          false,
+          'Perhatikan tanda pada bentuk sekawan.'
+        );
+      }
+    }
+
+    score += benar * 5;
+
+    checked2 = true;
+
+    updateScore();
+  }
+
+
+  /* ============================================
+     HOTS
+  ============================================ */
+
+  function checkHOTS() {
+
+    if (checkedHots) return;
+
+    let benar = 0;
+
+
+    // Soal 1
+    if (
+      document.getElementById('h1').value === '0'
+    ) {
+
+      benar++;
+
+      feedback(
+        'hf1',
+        true,
+        'Benar. Bentuk sekawan diperlukan agar penyebut menjadi bilangan rasional.'
+      );
+
+    } else {
+
+      feedback(
+        'hf1',
+        false,
+        'Belum tepat. Perhatikan hasil perkalian dua bentuk yang sama.'
+      );
+    }
+
+
+    // Soal 2
+    if (
+      Number(document.getElementById('h2').value) === 4
+    ) {
+
+      benar++;
+
+      feedback(
+        'hf2',
+        true,
+        'Benar. Karena 7 − 3 = 4.'
+      );
+
+    } else {
+
+      feedback(
+        'hf2',
+        false,
+        'Gunakan selisih kuadrat: 7 − 3.'
+      );
+    }
+
+
+    // Soal 3
+    if (
+      document.getElementById('h3').value === '1'
+    ) {
+
+      benar++;
+
+      feedback(
+        'hf3',
+        true,
+        'Benar. Siswa A menggunakan bentuk sekawan.'
+      );
+
+    } else {
+
+      feedback(
+        'hf3',
+        false,
+        'Perhatikan perubahan tanda pada bentuk sekawan.'
+      );
+    }
+
+
+    // Soal 4
+    if (
+      document.getElementById('h4').value === '1'
+    ) {
+
+      benar++;
+
+      feedback(
+        'hf4',
+        true,
+        'Benar. Penyebut menjadi 6 − 2 = 4.'
+      );
+
+    } else {
+
+      feedback(
+        'hf4',
+        false,
+        'Hitung hasil perkalian sekawan terlebih dahulu.'
+      );
+    }
+
+
+    // Soal 5
+    let m = Number(
+      document.getElementById('h5m').value
+    );
+
+    let n = Number(
+      document.getElementById('h5n').value
+    );
+
+    if (
+      m > 0 &&
+      n > 0 &&
+      m - n === 2
+    ) {
+
+      benar++;
+
+      feedback(
+        'hf5',
+        true,
+        'Benar. Selisih m dan n adalah 2 sehingga penyebut hasil rasional menjadi 2.'
+      );
+
+    } else {
+
+      feedback(
+        'hf5',
+        false,
+        'Pilih dua bilangan positif dengan m − n = 2.'
+      );
+    }
+
+
+    score += benar * 10;
+
+    checkedHots = true;
+
+    updateScore();
+  }
+
+
+  /* ============================================
+     SCORE
+  ============================================ */
+
+  function updateScore() {
+
+    document.getElementById('scoreText')
+      .innerText = 'Skor: ' + score;
+  }
+
+
+  /* ============================================
+     HASIL AKHIR
+  ============================================ */
+
+  function showResult() {
+
+    if (!checked1) {
+      alert('Periksa Level Mudah terlebih dahulu.');
+      return;
+    }
+
+    if (!checked2) {
+      alert('Periksa Level Sedang terlebih dahulu.');
+      return;
+    }
+
+    if (!checkedHots) {
+      alert('Periksa bagian HOTS terlebih dahulu.');
+      return;
+    }
+
+
+    document.querySelectorAll('.section')
+      .forEach(section => {
+        section.classList.remove('active');
+      });
+
+    document.getElementById('result')
+      .classList.add('active');
+
+
+    document.getElementById('finalScore')
+      .innerText = score;
+
+
+    let message = '';
+
+    if (score >= 90) {
+
+      message =
+        'Sangat baik. Kamu sudah memahami konsep merasionalkan penyebut dan mampu menganalisis kesalahan.';
+
+    } else if (score >= 70) {
+
+      message =
+        'Baik. Konsep dasar sudah dikuasai. Periksa kembali penggunaan bentuk sekawan.';
+
+    } else {
+
+      message =
+        'Masih perlu latihan. Fokus pada pola perkalian bentuk sekawan.';
+    }
+
+
+    document.getElementById('finalMessage')
+      .innerText = message;
+
+
+    document.getElementById('progressText')
+      .innerText = 'LKPD selesai';
+
+    document.getElementById('progressFill')
+      .style.width = '100%';
+
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  }
+
+</script>
+
+</body>
+</html>

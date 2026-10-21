@@ -1,0 +1,7 @@
+
+# Google Apps Script clasp config (berisi scriptId)
+.clasp.json
+
+# OS / editor
+.DS_Store
+Thumbs.db

@@ -1,0 +1,1392 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+
+  <base target="_top">
+
+  <meta charset="UTF-8">
+
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+  <title>Pangkat dari Pangkat - LKPD Matematika</title>
+
+
+  <style>
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f5f7fb;
+      color: #1f2937;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 900px;
+      margin: auto;
+      padding: 15px;
+    }
+
+
+    /* =========================
+       TOP BAR
+    ========================= */
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px;
+    }
+
+    .back-btn {
+      text-decoration: none;
+      color: #374151;
+      background: white;
+      border: 1px solid #e5e7eb;
+      padding: 9px 13px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: bold;
+    }
+
+    .materi {
+      color: #6b7280;
+      font-size: 13px;
+    }
+
+
+    /* =========================
+       HEADER
+    ========================= */
+
+    .header {
+      background: linear-gradient(
+        135deg,
+        #2563eb,
+        #4f46e5
+      );
+
+      color: white;
+      border-radius: 22px;
+      padding: 28px 24px;
+      margin-bottom: 18px;
+    }
+
+    .header-label {
+      font-size: 12px;
+      font-weight: bold;
+      opacity: .85;
+      margin-bottom: 8px;
+      letter-spacing: .5px;
+    }
+
+    .header h1 {
+      margin: 0 0 8px;
+      font-size: clamp(26px, 5vw, 36px);
+    }
+
+    .header p {
+      margin: 0;
+      line-height: 1.6;
+      font-size: 14px;
+      opacity: .92;
+    }
+
+
+    /* =========================
+       CARD
+    ========================= */
+
+    .card {
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 18px;
+      padding: 22px;
+      margin-bottom: 16px;
+      box-shadow: 0 5px 18px rgba(0,0,0,.04);
+    }
+
+    .level {
+      display: inline-block;
+      background: #eff6ff;
+      color: #2563eb;
+      padding: 5px 9px;
+      border-radius: 8px;
+      font-size: 11px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .card h2 {
+      margin: 0 0 8px;
+      font-size: 20px;
+    }
+
+    .description {
+      color: #6b7280;
+      line-height: 1.6;
+      font-size: 14px;
+      margin-bottom: 18px;
+    }
+
+
+    /* =========================
+       MATEMATIKA
+    ========================= */
+
+    .math-box {
+      background: #f8fafc;
+      border: 1px solid #e5e7eb;
+      border-radius: 14px;
+      padding: 18px;
+      margin-bottom: 12px;
+      text-align: center;
+    }
+
+    .math {
+      font-size: 23px;
+      font-weight: bold;
+      margin: 7px 0;
+    }
+
+
+    /* =========================
+       QUESTION
+    ========================= */
+
+    .question-box {
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      border-radius: 14px;
+      padding: 17px;
+      margin-top: 18px;
+    }
+
+    .question-box strong {
+      display: block;
+      margin-bottom: 8px;
+    }
+
+
+    /* =========================
+       INPUT
+    ========================= */
+
+    .input-row {
+      display: flex;
+      justify-content: center;
+      align-items: end;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 15px;
+    }
+
+    .input-group {
+      text-align: center;
+    }
+
+    .input-group label {
+      display: block;
+      color: #6b7280;
+      font-size: 12px;
+      margin-bottom: 5px;
+    }
+
+    input[type="number"] {
+      width: 85px;
+      padding: 11px;
+      border-radius: 10px;
+      border: 1px solid #d1d5db;
+      font-size: 17px;
+      text-align: center;
+      outline: none;
+    }
+
+    input[type="number"]:focus {
+      border-color: #2563eb;
+      box-shadow: 0 0 0 3px rgba(37,99,235,.1);
+    }
+
+
+    /* =========================
+       BUTTON
+    ========================= */
+
+    .btn {
+      border: none;
+      cursor: pointer;
+      border-radius: 10px;
+      padding: 11px 17px;
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    .btn-primary {
+      background: #2563eb;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #1d4ed8;
+    }
+
+    .btn-secondary {
+      background: #f3f4f6;
+      color: #374151;
+    }
+
+    .btn-block {
+      width: 100%;
+      margin-top: 16px;
+    }
+
+
+    /* =========================
+       FEEDBACK
+    ========================= */
+
+    .feedback {
+      display: none;
+      margin-top: 13px;
+      padding: 13px;
+      border-radius: 10px;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .feedback.correct {
+      display: block;
+      background: #ecfdf5;
+      color: #047857;
+      border: 1px solid #a7f3d0;
+    }
+
+    .feedback.wrong {
+      display: block;
+      background: #fef2f2;
+      color: #b91c1c;
+      border: 1px solid #fecaca;
+    }
+
+
+    /* =========================
+       RESULT
+    ========================= */
+
+    .result {
+      display: none;
+      text-align: center;
+    }
+
+    .score {
+      font-size: 40px;
+      font-weight: bold;
+      color: #2563eb;
+      margin: 15px 0;
+    }
+
+
+    /* =========================
+       MOBILE
+    ========================= */
+
+    @media (max-width: 600px) {
+
+      .container {
+        padding: 12px;
+      }
+
+      .header {
+        padding: 23px 19px;
+      }
+
+      .card {
+        padding: 18px;
+      }
+
+      .math {
+        font-size: 20px;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+  <!-- =================================
+       TOP BAR
+  ================================== -->
+
+  <div class="topbar">
+
+    <a
+      href="?page=Index"
+      class="back-btn">
+
+      ← Dashboard
+
+    </a>
+
+    <div class="materi">
+
+      Pangkat dari Pangkat
+
+    </div>
+
+  </div>
+
+
+  <!-- =================================
+       HEADER
+  ================================== -->
+
+  <section class="header">
+
+    <div class="header-label">
+
+      LKPD MATEMATIKA • KELAS IX
+
+    </div>
+
+    <h1>
+
+      Pangkat dari Pangkat
+
+    </h1>
+
+    <p>
+
+      Temukan pola ketika suatu bilangan berpangkat
+      dipangkatkan kembali.
+
+    </p>
+
+  </section>
+
+
+  <!-- =================================
+       AKTIVITAS 1
+  ================================== -->
+
+  <section class="card">
+
+    <span class="level">
+
+      AKTIVITAS 1 • AMATI
+
+    </span>
+
+
+    <h2>
+
+      Uraikan bentuk pangkat
+
+    </h2>
+
+
+    <div class="description">
+
+      Perhatikan contoh berikut.
+      Coba lihat berapa kali bilangan 2 muncul
+      sebagai faktor.
+
+    </div>
+
+
+    <div class="math-box">
+
+      <div class="math">
+
+        (2²)³
+
+      </div>
+
+      <div class="math">
+
+        = (2 × 2) × (2 × 2) × (2 × 2)
+
+      </div>
+
+      <div class="math">
+
+        = 2⁶
+
+      </div>
+
+    </div>
+
+
+    <div class="question-box">
+
+      <strong>
+
+        Sekarang perhatikan:
+
+      </strong>
+
+
+      <div class="math">
+
+        (3²)⁴ = 3<sup>?</sup>
+
+      </div>
+
+
+      <div class="input-row">
+
+        <div class="input-group">
+
+          <label>
+
+            Pangkat hasil
+
+          </label>
+
+          <input
+            type="number"
+            id="a1"
+            min="0"
+            placeholder="?">
+
+        </div>
+
+      </div>
+
+
+      <button
+        class="btn btn-primary btn-block"
+        onclick="cek1()">
+
+        Cek Jawaban
+
+      </button>
+
+
+      <div
+        id="f1"
+        class="feedback">
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =================================
+       AKTIVITAS 2
+  ================================== -->
+
+  <section class="card">
+
+    <span class="level">
+
+      AKTIVITAS 2 • TEMUKAN POLA
+
+    </span>
+
+
+    <h2>
+
+      Apa yang terjadi pada pangkat?
+
+    </h2>
+
+
+    <div class="description">
+
+      Lengkapi bentuk berikut.
+
+    </div>
+
+
+    <div class="math-box">
+
+      <div class="math">
+
+        (5²)³ = 5<sup>?</sup>
+
+      </div>
+
+
+      <div class="input-row">
+
+        <div class="input-group">
+
+          <label>
+            Jawaban
+          </label>
+
+          <input
+            type="number"
+            id="a2"
+            min="0"
+            placeholder="?">
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="math-box">
+
+      <div class="math">
+
+        (7³)² = 7<sup>?</sup>
+
+      </div>
+
+
+      <div class="input-row">
+
+        <div class="input-group">
+
+          <label>
+            Jawaban
+          </label>
+
+          <input
+            type="number"
+            id="a2b"
+            min="0"
+            placeholder="?">
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <button
+      class="btn btn-primary btn-block"
+      onclick="cek2()">
+
+      Cek Jawaban
+
+    </button>
+
+
+    <div
+      id="f2"
+      class="feedback">
+    </div>
+
+  </section>
+
+
+  <!-- =================================
+       AKTIVITAS 3
+  ================================== -->
+
+  <section class="card">
+
+    <span class="level">
+
+      AKTIVITAS 3 • APLIKASI
+
+    </span>
+
+
+    <h2>
+
+      Tentukan pangkat yang hilang
+
+    </h2>
+
+
+    <div class="description">
+
+      Gunakan pola yang sudah kamu temukan.
+
+    </div>
+
+
+    <div class="math-box">
+
+      <div class="math">
+
+        (2³)⁴ = 2<sup>?</sup>
+
+      </div>
+
+
+      <div class="input-row">
+
+        <div class="input-group">
+
+          <label>
+            Pangkat hasil
+          </label>
+
+          <input
+            type="number"
+            id="a3"
+            min="0"
+            placeholder="?">
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="math-box">
+
+      <div class="math">
+
+        (4²)⁵ = 4<sup>?</sup>
+
+      </div>
+
+
+      <div class="input-row">
+
+        <div class="input-group">
+
+          <label>
+            Pangkat hasil
+          </label>
+
+          <input
+            type="number"
+            id="a3b"
+            min="0"
+            placeholder="?">
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <button
+      class="btn btn-primary btn-block"
+      onclick="cek3()">
+
+      Cek Jawaban
+
+    </button>
+
+
+    <div
+      id="f3"
+      class="feedback">
+    </div>
+
+  </section>
+
+
+  <!-- =================================
+       AKTIVITAS 4
+  ================================== -->
+
+  <section class="card">
+
+    <span class="level">
+
+      AKTIVITAS 4 • CARI YANG HILANG
+
+    </span>
+
+
+    <h2>
+
+      Tentukan pangkat di dalam kurung
+
+    </h2>
+
+
+    <div class="description">
+
+      Perhatikan bentuk berikut.
+
+    </div>
+
+
+    <div class="math-box">
+
+      <div class="math">
+
+        (3<sup>?</sup>)² = 3⁸
+
+      </div>
+
+
+      <div class="input-row">
+
+        <div class="input-group">
+
+          <label>
+            Pangkat yang hilang
+          </label>
+
+          <input
+            type="number"
+            id="a4"
+            min="0"
+            placeholder="?">
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <button
+      class="btn btn-primary btn-block"
+      onclick="cek4()">
+
+      Cek Jawaban
+
+    </button>
+
+
+    <div
+      id="f4"
+      class="feedback">
+    </div>
+
+  </section>
+
+
+  <!-- =================================
+       AKTIVITAS 5 — HOTS
+  ================================== -->
+
+  <section class="card">
+
+    <span class="level">
+
+      AKTIVITAS 5 • HOTS
+
+    </span>
+
+
+    <h2>
+
+      Periksa jawaban temanmu
+
+    </h2>
+
+
+    <div class="description">
+
+      Seorang siswa mengerjakan:
+
+      <br><br>
+
+      <strong>
+
+        (2³)⁴ = 2⁷
+
+      </strong>
+
+      <br><br>
+
+      Ia mengatakan bahwa pangkatnya dijumlahkan.
+
+      Apakah jawabannya benar?
+
+    </div>
+
+
+    <div class="input-row">
+
+      <button
+        class="btn btn-secondary"
+        onclick="jawabHOTS(false)">
+
+        Salah
+
+      </button>
+
+
+      <button
+        class="btn btn-secondary"
+        onclick="jawabHOTS(true)">
+
+        Benar
+
+      </button>
+
+    </div>
+
+
+    <div
+      id="f5"
+      class="feedback">
+    </div>
+
+  </section>
+
+
+  <!-- =================================
+       AKTIVITAS 6
+  ================================== -->
+
+  <section class="card">
+
+    <span class="level">
+
+      KESIMPULAN
+
+    </span>
+
+
+    <h2>
+
+      Temukan aturannya
+
+    </h2>
+
+
+    <div class="description">
+
+      Berdasarkan pola yang kamu temukan,
+      lengkapi aturan berikut.
+
+    </div>
+
+
+    <div class="math-box">
+
+      <div class="math">
+
+        (a<sup>m</sup>)<sup>n</sup>
+        =
+        a<sup>?</sup>
+
+      </div>
+
+
+      <div class="input-row">
+
+        <div class="input-group">
+
+          <label>
+            Pangkat hasil
+          </label>
+
+          <input
+            type="number"
+            id="m"
+            min="0"
+            placeholder="m">
+
+        </div>
+
+
+        <div class="math">
+
+          ×
+
+        </div>
+
+
+        <div class="input-group">
+
+          <label>
+            Pangkat luar
+          </label>
+
+          <input
+            type="number"
+            id="n"
+            min="0"
+            placeholder="n">
+
+        </div>
+
+
+        <div class="math">
+
+          =
+
+        </div>
+
+
+        <div class="input-group">
+
+          <label>
+            Hasil contoh
+          </label>
+
+          <input
+            type="number"
+            id="hasil"
+            min="0"
+            placeholder="?">
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <button
+      class="btn btn-primary btn-block"
+      onclick="cekKesimpulan()">
+
+      Periksa Kesimpulan
+
+    </button>
+
+
+    <div
+      id="f6"
+      class="feedback">
+    </div>
+
+  </section>
+
+
+  <!-- =================================
+       HASIL
+  ================================== -->
+
+  <section
+    class="card result"
+    id="result">
+
+    <h2>
+
+      LKPD Selesai
+
+    </h2>
+
+
+    <p>
+
+      Kamu telah menyelesaikan LKPD
+      Pangkat dari Pangkat.
+
+    </p>
+
+
+    <div
+      class="score"
+      id="score">
+
+      0 / 6
+
+    </div>
+
+
+    <p>
+
+      aktivitas benar
+
+    </p>
+
+
+    <a
+      href="?page=Index"
+      class="btn btn-primary">
+
+      Kembali ke Dashboard
+
+    </a>
+
+  </section>
+
+
+</div>
+
+
+<script>
+
+  let skor = 0;
+
+
+  let sudahDicek = {
+    a1: false,
+    a2: false,
+    a3: false,
+    a4: false,
+    a5: false,
+    a6: false
+  };
+
+
+  /* =================================
+     FEEDBACK
+  ================================= */
+
+  function feedback(id, benar, pesanBenar, pesanSalah) {
+
+    const el =
+      document.getElementById(id);
+
+    if (benar) {
+
+      el.className =
+        'feedback correct';
+
+      el.innerHTML =
+        pesanBenar;
+
+    } else {
+
+      el.className =
+        'feedback wrong';
+
+      el.innerHTML =
+        pesanSalah;
+
+    }
+
+  }
+
+
+  /* =================================
+     AKTIVITAS 1
+  ================================= */
+
+  function cek1() {
+
+    if (sudahDicek.a1) return;
+
+    const jawaban =
+      Number(
+        document.getElementById('a1').value
+      );
+
+
+    if (jawaban === 8) {
+
+      skor++;
+
+      sudahDicek.a1 = true;
+
+      feedback(
+        'f1',
+        true,
+        'Benar. Pada (3²)⁴, terdapat empat kelompok 3². Jadi 2 × 4 = 8.',
+        ''
+      );
+
+    } else {
+
+      feedback(
+        'f1',
+        false,
+        '',
+        'Belum tepat. Perhatikan bahwa 3² diulang sebanyak 4 kali.'
+      );
+
+    }
+
+    updateScore();
+
+  }
+
+
+  /* =================================
+     AKTIVITAS 2
+  ================================= */
+
+  function cek2() {
+
+    if (sudahDicek.a2) return;
+
+    const a =
+      Number(
+        document.getElementById('a2').value
+      );
+
+    const b =
+      Number(
+        document.getElementById('a2b').value
+      );
+
+
+    if (a === 6 && b === 6) {
+
+      skor++;
+
+      sudahDicek.a2 = true;
+
+      feedback(
+        'f2',
+        true,
+        'Benar. Pada kedua contoh, pangkat 2 × 3 dan 3 × 2 menghasilkan 6.',
+        ''
+      );
+
+    } else {
+
+      feedback(
+        'f2',
+        false,
+        '',
+        'Perhatikan pangkat di dalam kurung dan pangkat di luar kurung. Keduanya dikalikan.'
+      );
+
+    }
+
+    updateScore();
+
+  }
+
+
+  /* =================================
+     AKTIVITAS 3
+  ================================= */
+
+  function cek3() {
+
+    if (sudahDicek.a3) return;
+
+    const a =
+      Number(
+        document.getElementById('a3').value
+      );
+
+    const b =
+      Number(
+        document.getElementById('a3b').value
+      );
+
+
+    if (a === 12 && b === 10) {
+
+      skor++;
+
+      sudahDicek.a3 = true;
+
+      feedback(
+        'f3',
+        true,
+        'Benar. 3 × 4 = 12 dan 2 × 5 = 10.',
+        ''
+      );
+
+    } else {
+
+      feedback(
+        'f3',
+        false,
+        '',
+        'Gunakan pola: pangkat di dalam kurung × pangkat di luar kurung.'
+      );
+
+    }
+
+    updateScore();
+
+  }
+
+
+  /* =================================
+     AKTIVITAS 4
+  ================================= */
+
+  function cek4() {
+
+    if (sudahDicek.a4) return;
+
+    const jawaban =
+      Number(
+        document.getElementById('a4').value
+      );
+
+
+    if (jawaban === 4) {
+
+      skor++;
+
+      sudahDicek.a4 = true;
+
+      feedback(
+        'f4',
+        true,
+        'Benar. Karena ? × 2 = 8, maka ? = 4.',
+        ''
+      );
+
+    } else {
+
+      feedback(
+        'f4',
+        false,
+        '',
+        'Cari bilangan yang jika dikalikan 2 menghasilkan 8.'
+      );
+
+    }
+
+    updateScore();
+
+  }
+
+
+  /* =================================
+     HOTS
+  ================================= */
+
+  function jawabHOTS(jawabanBenar) {
+
+    if (sudahDicek.a5) return;
+
+
+    /*
+      (2³)⁴
+
+      3 × 4 = 12
+
+      Jadi:
+      (2³)⁴ = 2¹²
+
+      Bukan 2⁷.
+    */
+
+
+    if (jawabanBenar === false) {
+
+      skor++;
+
+      sudahDicek.a5 = true;
+
+      feedback(
+        'f5',
+        true,
+        'Tepat. Jawabannya salah. Pangkat tidak dijumlahkan. Pada pangkat dari pangkat, pangkat dikalikan: 3 × 4 = 12.',
+        ''
+      );
+
+    } else {
+
+      feedback(
+        'f5',
+        false,
+        '',
+        'Periksa kembali. Pada (aᵐ)ⁿ, apakah pangkat dijumlahkan atau dikalikan?'
+      );
+
+    }
+
+    updateScore();
+
+  }
+
+
+  /* =================================
+     KESIMPULAN
+  ================================= */
+
+  function cekKesimpulan() {
+
+    if (sudahDicek.a6) return;
+
+
+    const m =
+      Number(
+        document.getElementById('m').value
+      );
+
+    const n =
+      Number(
+        document.getElementById('n').value
+      );
+
+    const hasil =
+      Number(
+        document.getElementById('hasil').value
+      );
+
+
+    /*
+      Contoh yang digunakan:
+
+      (a³)⁴
+
+      m = 3
+      n = 4
+      hasil = 12
+    */
+
+
+    if (
+      m === 3 &&
+      n === 4 &&
+      hasil === 12
+    ) {
+
+      skor++;
+
+      sudahDicek.a6 = true;
+
+      feedback(
+        'f6',
+        true,
+        'Benar. Dari contoh tersebut terlihat bahwa pangkat dikalikan. Jadi secara umum (aᵐ)ⁿ = aᵐⁿ.',
+        ''
+      );
+
+    } else {
+
+      feedback(
+        'f6',
+        false,
+        '',
+        'Gunakan contoh (a³)⁴. Maka m = 3, n = 4, dan m × n = 12.'
+      );
+
+    }
+
+    updateScore();
+
+  }
+
+
+  /* =================================
+     SCORE
+  ================================= */
+
+  function updateScore() {
+
+    document.getElementById('score')
+      .textContent = skor + ' / 6';
+
+
+    if (skor === 6) {
+
+      const result =
+        document.getElementById('result');
+
+      result.style.display =
+        'block';
+
+      result.scrollIntoView({
+        behavior: 'smooth'
+      });
+
+    }
+
+  }
+
+</script>
+
+
+</body>
+</html>

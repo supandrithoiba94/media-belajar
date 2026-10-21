@@ -1,0 +1,1099 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <base target="_top">
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Perkalian Pangkat - LKPD Matematika</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f5f7fb;
+      color: #1f2937;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: auto;
+      padding: 16px;
+    }
+
+    /* =========================
+       TOP BAR
+    ========================== */
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .back-btn {
+      text-decoration: none;
+      color: #374151;
+      background: white;
+      border: 1px solid #e5e7eb;
+      padding: 9px 13px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: bold;
+    }
+
+    .progress {
+      font-size: 13px;
+      color: #6b7280;
+    }
+
+    /* =========================
+       HEADER
+    ========================== */
+
+    .header {
+      background: linear-gradient(
+        135deg,
+        #2563eb,
+        #4f46e5
+      );
+
+      color: white;
+      border-radius: 22px;
+      padding: 28px 24px;
+      margin-bottom: 18px;
+    }
+
+    .label {
+      font-size: 12px;
+      font-weight: bold;
+      letter-spacing: .5px;
+      opacity: .85;
+      margin-bottom: 8px;
+    }
+
+    .header h1 {
+      margin: 0 0 8px;
+      font-size: clamp(25px, 5vw, 36px);
+    }
+
+    .header p {
+      margin: 0;
+      line-height: 1.6;
+      opacity: .92;
+      font-size: 14px;
+    }
+
+    /* =========================
+       CARD
+    ========================== */
+
+    .card {
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 18px;
+      padding: 22px;
+      margin-bottom: 16px;
+      box-shadow: 0 5px 18px rgba(0,0,0,.04);
+    }
+
+    .card h2 {
+      margin: 0 0 8px;
+      font-size: 20px;
+    }
+
+    .card-description {
+      color: #6b7280;
+      font-size: 14px;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    /* =========================
+       CONCEPT DISCOVERY
+    ========================== */
+
+    .example {
+      background: #f8fafc;
+      border: 1px solid #e5e7eb;
+      border-radius: 14px;
+      padding: 16px;
+      margin-bottom: 12px;
+    }
+
+    .example-title {
+      font-size: 13px;
+      color: #6b7280;
+      margin-bottom: 8px;
+    }
+
+    .math {
+      font-size: 20px;
+      font-weight: bold;
+      text-align: center;
+      padding: 8px;
+    }
+
+    .question {
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      border-radius: 14px;
+      padding: 16px;
+      margin-top: 18px;
+    }
+
+    .question strong {
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    /* =========================
+       INPUT
+    ========================== */
+
+    .input-row {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 15px;
+    }
+
+    .input-group {
+      text-align: center;
+    }
+
+    .input-group label {
+      display: block;
+      font-size: 12px;
+      color: #6b7280;
+      margin-bottom: 5px;
+    }
+
+    input[type="number"] {
+      width: 90px;
+      padding: 11px;
+      border: 1px solid #d1d5db;
+      border-radius: 10px;
+      text-align: center;
+      font-size: 17px;
+      outline: none;
+    }
+
+    input[type="number"]:focus {
+      border-color: #2563eb;
+      box-shadow: 0 0 0 3px rgba(37,99,235,.1);
+    }
+
+    /* =========================
+       BUTTON
+    ========================== */
+
+    .btn {
+      border: none;
+      cursor: pointer;
+      border-radius: 10px;
+      padding: 11px 17px;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    .btn-primary {
+      background: #2563eb;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #1d4ed8;
+    }
+
+    .btn-secondary {
+      background: #f3f4f6;
+      color: #374151;
+    }
+
+    .btn-block {
+      width: 100%;
+      margin-top: 18px;
+    }
+
+    /* =========================
+       FEEDBACK
+    ========================== */
+
+    .feedback {
+      display: none;
+      margin-top: 14px;
+      padding: 13px;
+      border-radius: 10px;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .feedback.correct {
+      display: block;
+      background: #ecfdf5;
+      color: #047857;
+      border: 1px solid #a7f3d0;
+    }
+
+    .feedback.wrong {
+      display: block;
+      background: #fef2f2;
+      color: #b91c1c;
+      border: 1px solid #fecaca;
+    }
+
+    /* =========================
+       LEVEL
+    ========================== */
+
+    .level {
+      display: inline-block;
+      padding: 5px 9px;
+      border-radius: 8px;
+      font-size: 11px;
+      font-weight: bold;
+      background: #eff6ff;
+      color: #2563eb;
+      margin-bottom: 10px;
+    }
+
+    /* =========================
+       SUMMARY
+    ========================== */
+
+    .result {
+      display: none;
+      text-align: center;
+    }
+
+    .score {
+      font-size: 42px;
+      font-weight: bold;
+      color: #2563eb;
+      margin: 15px 0;
+    }
+
+    /* =========================
+       MOBILE
+    ========================== */
+
+    @media (max-width: 600px) {
+
+      .container {
+        padding: 12px;
+      }
+
+      .header {
+        padding: 23px 19px;
+      }
+
+      .card {
+        padding: 18px;
+      }
+
+      .input-row {
+        align-items: stretch;
+      }
+
+      input[type="number"] {
+        width: 75px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <!-- TOP BAR -->
+
+  <div class="topbar">
+
+    <a
+      href="?page=Index"
+      class="back-btn">
+      ← Dashboard
+    </a>
+
+    <div class="progress">
+      Perkalian Pangkat
+    </div>
+
+  </div>
+
+
+  <!-- HEADER -->
+
+  <section class="header">
+
+    <div class="label">
+      LKPD MATEMATIKA • KELAS IX
+    </div>
+
+    <h1>
+      Perkalian Pangkat
+    </h1>
+
+    <p>
+      Temukan sendiri pola perkalian bilangan berpangkat
+      melalui contoh-contoh berikut.
+    </p>
+
+  </section>
+
+
+  <!-- ==================================
+       AKTIVITAS 1
+  =================================== -->
+
+  <section class="card">
+
+    <span class="level">
+      AKTIVITAS 1 • MENEMUKAN POLA
+    </span>
+
+    <h2>
+      Amati contoh berikut
+    </h2>
+
+    <div class="card-description">
+      Perhatikan bagaimana bilangan berpangkat dituliskan
+      sebagai perkalian berulang.
+    </div>
+
+
+    <div class="example">
+
+      <div class="example-title">
+        Contoh 1
+      </div>
+
+      <div class="math">
+        2² × 2³
+      </div>
+
+      <div class="math">
+        = (2 × 2) × (2 × 2 × 2)
+      </div>
+
+      <div class="math">
+        = 2⁵
+      </div>
+
+    </div>
+
+
+    <div class="example">
+
+      <div class="example-title">
+        Contoh 2
+      </div>
+
+      <div class="math">
+        3² × 3⁴
+      </div>
+
+      <div class="math">
+        = (3 × 3) × (3 × 3 × 3 × 3)
+      </div>
+
+      <div class="math">
+        = 3⁶
+      </div>
+
+    </div>
+
+
+    <div class="question">
+
+      <strong>
+        Menurutmu, apa hubungan antara pangkat sebelum
+        dan sesudah perkalian?
+      </strong>
+
+      <p>
+        Isikan pangkat hasilnya.
+      </p>
+
+      <div class="input-row">
+
+        <div class="input-group">
+
+          <label>
+            4² × 4³ = 4<sup>?</sup>
+          </label>
+
+          <input
+            type="number"
+            id="aktivitas1"
+            min="0"
+            placeholder="?">
+
+        </div>
+
+      </div>
+
+      <button
+        class="btn btn-primary btn-block"
+        onclick="cekAktivitas1()">
+
+        Cek Jawaban
+
+      </button>
+
+      <div
+        id="feedback1"
+        class="feedback">
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- ==================================
+       AKTIVITAS 2
+  =================================== -->
+
+  <section class="card">
+
+    <span class="level">
+      AKTIVITAS 2 • MENEMUKAN ATURAN
+    </span>
+
+    <h2>
+      Lengkapi pola
+    </h2>
+
+    <div class="card-description">
+      Gunakan pola yang kamu temukan pada aktivitas sebelumnya.
+    </div>
+
+
+    <div class="example">
+
+      <div class="math">
+        5² × 5⁴ = 5<sup>?</sup>
+      </div>
+
+      <div class="input-row">
+
+        <div class="input-group">
+
+          <label>
+            Pangkat hasil
+          </label>
+
+          <input
+            type="number"
+            id="aktivitas2"
+            min="0"
+            placeholder="?">
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="example">
+
+      <div class="math">
+        7³ × 7² = 7<sup>?</sup>
+      </div>
+
+      <div class="input-row">
+
+        <div class="input-group">
+
+          <label>
+            Pangkat hasil
+          </label>
+
+          <input
+            type="number"
+            id="aktivitas2b"
+            min="0"
+            placeholder="?">
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <button
+      class="btn btn-primary btn-block"
+      onclick="cekAktivitas2()">
+
+      Cek Jawaban
+
+    </button>
+
+    <div
+      id="feedback2"
+      class="feedback">
+    </div>
+
+  </section>
+
+
+  <!-- ==================================
+       AKTIVITAS 3
+  =================================== -->
+
+  <section class="card">
+
+    <span class="level">
+      AKTIVITAS 3 • APLIKASI
+    </span>
+
+    <h2>
+      Tentukan pangkat yang hilang
+    </h2>
+
+    <div class="card-description">
+      Sekarang gunakan pola tersebut untuk menyelesaikan
+      masalah berikut.
+    </div>
+
+
+    <div class="example">
+
+      <div class="math">
+        2³ × 2<sup>?</sup> = 2⁸
+      </div>
+
+      <div class="input-row">
+
+        <div class="input-group">
+
+          <label>
+            Pangkat yang hilang
+          </label>
+
+          <input
+            type="number"
+            id="aktivitas3"
+            min="0"
+            placeholder="?">
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="example">
+
+      <div class="math">
+        5<sup>?</sup> × 5² = 5⁷
+      </div>
+
+      <div class="input-row">
+
+        <div class="input-group">
+
+          <label>
+            Pangkat yang hilang
+          </label>
+
+          <input
+            type="number"
+            id="aktivitas3b"
+            min="0"
+            placeholder="?">
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <button
+      class="btn btn-primary btn-block"
+      onclick="cekAktivitas3()">
+
+      Cek Jawaban
+
+    </button>
+
+    <div
+      id="feedback3"
+      class="feedback">
+    </div>
+
+  </section>
+
+
+  <!-- ==================================
+       AKTIVITAS 4
+  =================================== -->
+
+  <section class="card">
+
+    <span class="level">
+      AKTIVITAS 4 • HOTS
+    </span>
+
+    <h2>
+      Periksa jawaban
+    </h2>
+
+    <div class="card-description">
+      Seorang siswa menjawab:
+      <br><br>
+
+      <strong>
+        3² × 3⁴ = 3⁸
+      </strong>
+
+      Apakah jawaban tersebut benar?
+    </div>
+
+
+    <div class="input-row">
+
+      <button
+        class="btn btn-secondary"
+        onclick="jawabHOTS(true)">
+
+        Benar
+
+      </button>
+
+      <button
+        class="btn btn-secondary"
+        onclick="jawabHOTS(false)">
+
+        Salah
+
+      </button>
+
+    </div>
+
+
+    <div
+      id="feedback4"
+      class="feedback">
+    </div>
+
+  </section>
+
+
+  <!-- ==================================
+       KESIMPULAN
+  =================================== -->
+
+  <section class="card">
+
+    <span class="level">
+      REFLEKSI
+    </span>
+
+    <h2>
+      Apa yang kamu temukan?
+    </h2>
+
+    <div class="card-description">
+
+      Lengkapi aturan berikut berdasarkan pola
+      yang telah kamu temukan.
+
+    </div>
+
+
+    <div class="example">
+
+      <div class="math">
+
+        a<sup>m</sup> × a<sup>n</sup>
+        =
+        a<sup>?</sup>
+
+      </div>
+
+
+      <div class="input-row">
+
+        <div class="input-group">
+
+          <label>
+            Pangkat hasil
+          </label>
+
+          <input
+            type="number"
+            id="kesimpulan"
+            placeholder="?">
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <button
+      class="btn btn-primary btn-block"
+      onclick="cekKesimpulan()">
+
+      Periksa Kesimpulan
+
+    </button>
+
+
+    <div
+      id="feedbackKesimpulan"
+      class="feedback">
+    </div>
+
+  </section>
+
+
+  <!-- ==================================
+       HASIL
+  =================================== -->
+
+  <section
+    class="card result"
+    id="result">
+
+    <h2>
+      LKPD Selesai
+    </h2>
+
+    <p>
+      Kamu telah menyelesaikan aktivitas
+      Perkalian Pangkat.
+    </p>
+
+    <div
+      class="score"
+      id="score">
+      0
+    </div>
+
+    <p>
+      jawaban benar
+    </p>
+
+    <a
+      href="?page=Index"
+      class="btn btn-primary">
+
+      Kembali ke Dashboard
+
+    </a>
+
+  </section>
+
+
+</div>
+
+
+<script>
+
+  let skor = 0;
+
+  let aktivitasSudahDicek = {
+    a1: false,
+    a2: false,
+    a3: false,
+    hots: false,
+    kesimpulan: false
+  };
+
+
+  /* =====================================
+     AKTIVITAS 1
+  ====================================== */
+
+  function cekAktivitas1() {
+
+    const input =
+      Number(
+        document.getElementById('aktivitas1').value
+      );
+
+    const feedback =
+      document.getElementById('feedback1');
+
+    if (aktivitasSudahDicek.a1) {
+      return;
+    }
+
+    if (input === 5) {
+
+      skor++;
+
+      aktivitasSudahDicek.a1 = true;
+
+      feedback.className =
+        'feedback correct';
+
+      feedback.innerHTML =
+        'Benar. Pangkat 2 dan 3 dijumlahkan sehingga menghasilkan 5.';
+
+    } else {
+
+      feedback.className =
+        'feedback wrong';
+
+      feedback.innerHTML =
+        'Belum tepat. Perhatikan jumlah faktor 4 yang muncul pada perkalian tersebut.';
+
+    }
+
+    tampilkanHasil();
+
+  }
+
+
+  /* =====================================
+     AKTIVITAS 2
+  ====================================== */
+
+  function cekAktivitas2() {
+
+    const a =
+      Number(
+        document.getElementById('aktivitas2').value
+      );
+
+    const b =
+      Number(
+        document.getElementById('aktivitas2b').value
+      );
+
+    const feedback =
+      document.getElementById('feedback2');
+
+    if (aktivitasSudahDicek.a2) {
+      return;
+    }
+
+    if (a === 6 && b === 5) {
+
+      skor++;
+
+      aktivitasSudahDicek.a2 = true;
+
+      feedback.className =
+        'feedback correct';
+
+      feedback.innerHTML =
+        'Benar. Kamu sudah menemukan pola bahwa pangkat dijumlahkan ketika basisnya sama.';
+
+    } else {
+
+      feedback.className =
+        'feedback wrong';
+
+      feedback.innerHTML =
+        'Masih ada yang belum tepat. Coba jumlahkan pangkat pada masing-masing perkalian.';
+
+    }
+
+    tampilkanHasil();
+
+  }
+
+
+  /* =====================================
+     AKTIVITAS 3
+  ====================================== */
+
+  function cekAktivitas3() {
+
+    const a =
+      Number(
+        document.getElementById('aktivitas3').value
+      );
+
+    const b =
+      Number(
+        document.getElementById('aktivitas3b').value
+      );
+
+    const feedback =
+      document.getElementById('feedback3');
+
+    if (aktivitasSudahDicek.a3) {
+      return;
+    }
+
+    if (a === 5 && b === 5) {
+
+      skor++;
+
+      aktivitasSudahDicek.a3 = true;
+
+      feedback.className =
+        'feedback correct';
+
+      feedback.innerHTML =
+        'Benar. Untuk mencari pangkat yang hilang, gunakan hubungan jumlah kedua pangkat.';
+
+    } else {
+
+      feedback.className =
+        'feedback wrong';
+
+      feedback.innerHTML =
+        'Belum tepat. Ingat: pangkat pertama + pangkat kedua = pangkat hasil.';
+
+    }
+
+    tampilkanHasil();
+
+  }
+
+
+  /* =====================================
+     HOTS
+  ====================================== */
+
+  function jawabHOTS(jawabanBenar) {
+
+    const feedback =
+      document.getElementById('feedback4');
+
+    if (aktivitasSudahDicek.hots) {
+      return;
+    }
+
+    /*
+      3² × 3⁴ = 3⁶
+
+      Jadi pernyataan 3⁸ adalah SALAH.
+    */
+
+    if (jawabanBenar === false) {
+
+      skor++;
+
+      aktivitasSudahDicek.hots = true;
+
+      feedback.className =
+        'feedback correct';
+
+      feedback.innerHTML =
+        'Tepat. Pernyataan tersebut salah karena 2 + 4 = 6, bukan 8. Jadi hasilnya adalah 3⁶.';
+
+    } else {
+
+      feedback.className =
+        'feedback wrong';
+
+      feedback.innerHTML =
+        'Belum tepat. Coba jumlahkan pangkat 2 dan 4.';
+
+    }
+
+    tampilkanHasil();
+
+  }
+
+
+  /* =====================================
+     KESIMPULAN
+  ====================================== */
+
+  function cekKesimpulan() {
+
+    const input =
+      Number(
+        document.getElementById('kesimpulan').value
+      );
+
+    const feedback =
+      document.getElementById('feedbackKesimpulan');
+
+    if (aktivitasSudahDicek.kesimpulan) {
+      return;
+    }
+
+    /*
+      a^m × a^n = a^(m+n)
+
+      Input yang diminta adalah m+n.
+      Karena m dan n berupa variabel,
+      siswa tidak bisa memasukkan ekspresi.
+      Maka kita cek dengan jawaban konsep:
+      siswa memasukkan 0 sebagai placeholder?
+      
+      Untuk LKPD ini kita gunakan angka 7
+      sebagai representasi dari contoh m=3,n=4.
+    */
+
+    if (input === 7) {
+
+      skor++;
+
+      aktivitasSudahDicek.kesimpulan = true;
+
+      feedback.className =
+        'feedback correct';
+
+      feedback.innerHTML =
+        'Benar untuk contoh m = 3 dan n = 4. Secara umum, pangkat dijumlahkan: aᵐ × aⁿ = aᵐ⁺ⁿ.';
+
+    } else {
+
+      feedback.className =
+        'feedback wrong';
+
+      feedback.innerHTML =
+        'Gunakan pola yang kamu temukan: pangkat pada perkalian dengan basis sama dijumlahkan. Untuk contoh 3 + 4, hasilnya 7.';
+
+    }
+
+    tampilkanHasil();
+
+  }
+
+
+  /* =====================================
+     HASIL
+  ====================================== */
+
+  function tampilkanHasil() {
+
+    document.getElementById('score').textContent =
+      skor + ' / 5';
+
+    if (skor === 5) {
+
+      document.getElementById('result').style.display =
+        'block';
+
+      document.getElementById('result')
+        .scrollIntoView({
+          behavior: 'smooth'
+        });
+
+    }
+
+  }
+
+</script>
+
+</body>
+</html>
+```

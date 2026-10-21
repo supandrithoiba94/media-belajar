@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <base target="_top">
+
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+  <title>LKPD Matematika</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f5f7fb;
+      color: #1f2937;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1100px;
+      margin: auto;
+      padding: 20px;
+    }
+
+    /* =========================
+       HEADER
+    ========================= */
+
+    .hero {
+      background: linear-gradient(
+        135deg,
+        #2563eb,
+        #4f46e5
+      );
+
+      color: white;
+      border-radius: 24px;
+      padding: 35px 30px;
+      margin-bottom: 25px;
+      box-shadow: 0 10px 30px rgba(37, 99, 235, 0.18);
+    }
+
+    .hero-label {
+      font-size: 13px;
+      opacity: 0.85;
+      margin-bottom: 8px;
+      font-weight: bold;
+      letter-spacing: 0.5px;
+    }
+
+    .hero h1 {
+      margin: 0 0 10px;
+      font-size: clamp(28px, 5vw, 42px);
+    }
+
+    .hero p {
+      margin: 0;
+      max-width: 650px;
+      line-height: 1.6;
+      opacity: 0.92;
+    }
+
+    /* =========================
+       SECTION
+    ========================= */
+
+    .section-title {
+      margin: 30px 0 15px;
+    }
+
+    .section-title h2 {
+      margin: 0 0 5px;
+      font-size: 22px;
+    }
+
+    .section-title p {
+      margin: 0;
+      color: #6b7280;
+      font-size: 14px;
+    }
+
+    /* =========================
+       LKPD GRID
+    ========================= */
+
+    .lkpd-grid {
+      display: grid;
+      grid-template-columns: repeat(
+        auto-fit,
+        minmax(230px, 1fr)
+      );
+
+      gap: 16px;
+    }
+
+    .lkpd-card {
+      background: white;
+      border-radius: 18px;
+      padding: 20px;
+      border: 1px solid #e5e7eb;
+      box-shadow: 0 5px 18px rgba(0, 0, 0, 0.04);
+
+      display: flex;
+      flex-direction: column;
+
+      transition: transform 0.2s ease,
+                  box-shadow 0.2s ease;
+    }
+
+    .lkpd-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    }
+
+    .lkpd-number {
+      width: 42px;
+      height: 42px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 12px;
+
+      background: #eff6ff;
+      color: #2563eb;
+
+      font-weight: bold;
+      font-size: 16px;
+
+      margin-bottom: 15px;
+    }
+
+    .lkpd-card h3 {
+      margin: 0 0 8px;
+      font-size: 18px;
+    }
+
+    .lkpd-card p {
+      margin: 0 0 20px;
+      color: #6b7280;
+      line-height: 1.5;
+      font-size: 14px;
+      flex: 1;
+    }
+
+    .btn {
+      display: block;
+      text-align: center;
+
+      text-decoration: none;
+
+      background: #2563eb;
+      color: white;
+
+      padding: 11px 15px;
+
+      border-radius: 10px;
+
+      font-size: 14px;
+      font-weight: bold;
+
+      transition: background 0.2s ease;
+    }
+
+    .btn:hover {
+      background: #1d4ed8;
+    }
+
+    /* =========================
+       INFO
+    ========================= */
+
+    .info-box {
+      margin-top: 25px;
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 18px;
+      padding: 20px;
+    }
+
+    .info-box h3 {
+      margin: 0 0 10px;
+      font-size: 17px;
+    }
+
+    .info-box p {
+      margin: 0;
+      color: #6b7280;
+      line-height: 1.6;
+      font-size: 14px;
+    }
+
+    /* =========================
+       FOOTER
+    ========================= */
+
+    footer {
+      text-align: center;
+      color: #9ca3af;
+      font-size: 12px;
+      padding: 30px 0 15px;
+    }
+
+    /* =========================
+       MOBILE
+    ========================= */
+
+    @media (max-width: 600px) {
+
+      .container {
+        padding: 14px;
+      }
+
+      .hero {
+        padding: 25px 20px;
+        border-radius: 20px;
+      }
+
+      .hero h1 {
+        font-size: 28px;
+      }
+
+      .lkpd-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <!-- =========================
+         HERO
+    ========================== -->
+
+    <section class="hero">
+
+      <div class="hero-label">
+        LKPD DIGITAL
+      </div>
+
+      <h1>
+        LKPD Matematika
+      </h1>
+
+      <p>
+        Lembar Kerja Peserta Didik berbasis digital
+        untuk membantu memahami konsep matematika
+        melalui latihan yang bertahap dan interaktif.
+      </p>
+
+    </section>
+
+
+    <!-- =========================
+         DAFTAR LKPD
+    ========================== -->
+
+    <div class="section-title">
+
+      <h2>
+        Materi Pembelajaran
+      </h2>
+
+      <p>
+        Pilih LKPD yang ingin kamu kerjakan.
+      </p>
+
+    </div>
+
+
+    <div class="lkpd-grid">
+
+      <!-- LKPD 1 -->
+
+      <div class="lkpd-card">
+
+        <div class="lkpd-number">
+          01
+        </div>
+
+        <h3>
+          Perkalian Pangkat
+        </h3>
+
+        <p>
+          Memahami aturan perkalian bilangan
+          berpangkat dengan basis yang sama.
+        </p>
+
+        <a
+          href="?page=perkalian-pangkat"
+          class="btn">
+          Mulai LKPD
+        </a>
+
+      </div>
+
+
+      <!-- LKPD 2 -->
+
+      <div class="lkpd-card">
+
+        <div class="lkpd-number">
+          02
+        </div>
+
+        <h3>
+          Pembagian Pangkat
+        </h3>
+
+        <p>
+          Mempelajari aturan pembagian bilangan
+          berpangkat dengan basis yang sama.
+        </p>
+
+        <a
+          href="?page=pembagian-pangkat"
+          class="btn">
+          Mulai LKPD
+        </a>
+
+      </div>
+
+
+      <!-- LKPD 3 -->
+
+      <div class="lkpd-card">
+
+        <div class="lkpd-number">
+          03
+        </div>
+
+        <h3>
+          Pangkat Nol
+        </h3>
+
+        <p>
+          Menemukan dan memahami konsep bilangan
+          berpangkat nol.
+        </p>
+
+        <a
+          href="?page=pangkat-nol"
+          class="btn">
+          Mulai LKPD
+        </a>
+
+      </div>
+
+
+      <!-- LKPD 4 -->
+
+      <div class="lkpd-card">
+
+        <div class="lkpd-number">
+          04
+        </div>
+
+        <h3>
+          Pangkat Negatif
+        </h3>
+
+        <p>
+          Memahami hubungan pangkat negatif
+          dengan bentuk pecahan.
+        </p>
+
+        <a
+          href="?page=pangkat-negatif"
+          class="btn">
+          Mulai LKPD
+        </a>
+
+      </div>
+
+    </div>
+
+
+    <!-- =========================
+         INFORMASI
+    ========================== -->
+
+    <div class="info-box">
+
+      <h3>
+        Petunjuk
+      </h3>
+
+      <p>
+        Pilih salah satu materi untuk memulai.
+        Kerjakan setiap aktivitas dengan teliti
+        dan pahami pola yang ditemukan sebelum
+        melanjutkan ke soal berikutnya.
+      </p>
+
+    </div>
+
+
+    <!-- =========================
+         FOOTER
+    ========================== -->
+
+    <footer>
+      LKPD Matematika • 2026/2027
+    </footer>
+
+  </div>
+
+</body>
+</html>
