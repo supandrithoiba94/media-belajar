@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LKPD Matematika IX B — Translasi</title>
+<style>
+:root{--blue:#2457d6;--blue2:#eaf0ff;--green:#15803d;--ink:#172033;--muted:#64748b;--line:#dbe3ef;--bg:#f4f7fb;--card:#fff;--orange:#b45309}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.6}
+header{background:linear-gradient(135deg,#173a8a,#3268e8);color:#fff;padding:30px 18px 34px}
+.hero,.container{max-width:1000px;margin:auto}.eyebrow{font-size:.78rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;opacity:.85}
+h1{font-size:clamp(1.8rem,5vw,2.8rem);line-height:1.15;margin:8px 0}header p{margin:8px 0 0;opacity:.92}
+.pills{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}.pill{font-size:.8rem;border:1px solid #ffffff70;background:#ffffff1c;padding:5px 10px;border-radius:999px}
+.container{padding:20px 14px 90px}.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px;margin:0 0 16px;box-shadow:0 5px 18px #15264a08}
+h2{font-size:1.25rem;margin:0 0 12px}h3{font-size:1.03rem;margin:15px 0 6px}.muted{color:var(--muted)}.goal{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}.goal>div{padding:13px;background:#f8faff;border-radius:12px}
+.formula{background:var(--blue2);border:1px solid #d4e0ff;padding:14px;border-radius:12px;text-align:center;font-size:1.18rem;font-weight:750;margin:12px 0}
+canvas{display:block;width:100%;height:330px;border:1px solid var(--line);border-radius:12px;background:#fff;touch-action:pan-y}
+.controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:12px;margin:14px 0}.controls label{font-size:.9rem;font-weight:650}.controls input{width:100%;accent-color:var(--blue)}
+table{width:100%;border-collapse:collapse;margin:12px 0}th,td{border:1px solid var(--line);padding:9px;text-align:left}th{background:#f1f5fb}
+.task{border:1px solid var(--line);border-radius:14px;padding:14px;margin:12px 0}.task p{margin:0 0 10px}.task label.option{display:flex;gap:9px;padding:8px 10px;border-radius:9px;margin:4px 0;cursor:pointer}.task label.option:hover{background:#f3f6fc}.task input{accent-color:var(--blue)}
+button{border:0;border-radius:10px;background:var(--blue);color:white;font-weight:750;padding:11px 15px;cursor:pointer;font-size:.95rem}button.secondary{background:#e9eef8;color:#24324c}button:disabled{opacity:.45;cursor:not-allowed}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.feedback{display:none;padding:10px 12px;border-radius:10px;margin-top:10px;background:#f0fdf4;color:#166534}.feedback.bad{background:#fff7ed;color:#9a3412}.answer{display:none;background:#f7f9fc;border-left:3px solid var(--blue);padding:10px 12px;margin-top:10px;border-radius:6px}
+input[type=text],textarea{width:100%;border:1px solid #cbd5e1;border-radius:9px;padding:10px;font:inherit}textarea{min-height:75px;resize:vertical}.small{font-size:.88rem}.score{font-size:1.15rem;font-weight:800;margin-top:12px}
+footer{text-align:center;color:var(--muted);padding:20px;font-size:.85rem}
+@media(max-width:560px){.card{padding:15px}canvas{height:280px}th,td{padding:7px;font-size:.9rem}}
+@media print{body{background:#fff}.container{max-width:none;padding:0}.card{box-shadow:none;break-inside:avoid}header{padding:18px}.interactive-only,button{display:none!important}canvas{height:260px}}
+</style>
+</head>
+<body>
+<header><div class="hero">
+<div class="eyebrow">Lembar Kerja Peserta Didik · Matematika</div>
+<h1>Transformasi Geometri: Translasi</h1>
+<p>Kelas IX B · Dari konsep, eksplorasi koordinat, hingga pemecahan masalah.</p>
+<div class="pills"><span class="pill">Alokasi waktu: 2 JP (80 menit)</span><span class="pill">Mudah · Menengah · HOTS</span><span class="pill">Bisa dibuka di HP</span></div>
+</div></header>
+<main class="container">
+<section class="card">
+<h2>Tujuan Pembelajaran</h2>
+<div class="goal">
+<div><strong>Memahami</strong><br><span class="small">Menjelaskan makna translasi atau pergeseran.</span></div>
+<div><strong>Menentukan</strong><br><span class="small">Menentukan koordinat bayangan titik dan bangun.</span></div>
+<div><strong>Menalar</strong><br><span class="small">Menyelesaikan masalah dan menggabungkan translasi.</span></div>
+</div>
+<h3>Petunjuk pengerjaan</h3>
+<ol><li>Baca konsep translasi terlebih dahulu.</li><li>Gunakan simulasi untuk mengamati perubahan koordinat.</li><li>Kerjakan latihan bertingkat dan tantangan HOTS.</li><li>Tuliskan proses berpikir pada buku tulis, bukan hanya jawabannya.</li></ol>
+</section>
+
+<section class="card">
+<h2>A. Memahami Konsep Translasi</h2>
+<p><strong>Translasi</strong> adalah transformasi yang menggeser titik atau bangun ke posisi baru dengan arah dan jarak tertentu, tanpa mengubah bentuk maupun ukurannya.</p>
+<div class="formula">(x, y) → (x + a, y + b)</div>
+<ul><li><strong>a</strong> adalah pergeseran horizontal: positif ke kanan, negatif ke kiri.</li><li><strong>b</strong> adalah pergeseran vertikal: positif ke atas, negatif ke bawah.</li></ul>
+<p><strong>Contoh:</strong> titik A(2, 3) digeser 4 satuan ke kanan dan 2 satuan ke atas. Bayangannya A′ = (2 + 4, 3 + 2) = <strong>(6, 5)</strong>.</p>
+</section>
+
+<section class="card">
+<h2>B. Simulasi Translasi</h2>
+<p class="muted">Geser pengatur nilai a dan b. Perhatikan posisi titik P dan bayangannya P′ pada bidang koordinat.</p>
+<canvas id="plane" aria-label="Bidang koordinat translasi"></canvas>
+<div class="controls interactive-only">
+<label>Koordinat x titik P: <output id="xVal">1</output><input id="x" type="range" min="-5" max="5" value="1"></label>
+<label>Koordinat y titik P: <output id="yVal">2</output><input id="y" type="range" min="-5" max="5" value="2"></label>
+<label>Pergeseran a: <output id="aVal">3</output><input id="a" type="range" min="-5" max="5" value="3"></label>
+<label>Pergeseran b: <output id="bVal">2</output><input id="b" type="range" min="-5" max="5" value="2"></label>
+</div>
+<div class="formula" id="result">P(1, 2) → P′(4, 4)</div>
+<p id="explain" class="small">Titik bergeser 3 satuan ke kanan dan 2 satuan ke atas.</p>
+<div class="actions interactive-only"><button class="secondary" id="resetSim">Kembalikan ke contoh awal</button></div>
+</section>
+
+<section class="card">
+<h2>C. Kegiatan 1 — Eksplorasi Konsep</h2>
+<p>Gambarkan titik P(1, 2) pada bidang koordinat. Tentukan bayangan titik setelah pergeseran berikut. Kerjakan di buku tulis.</p>
+<table><thead><tr><th>No.</th><th>Pergeseran</th><th>Koordinat bayangan</th></tr></thead><tbody>
+<tr><td>1</td><td>3 satuan ke kanan</td><td>P′ = (…, …)</td></tr>
+<tr><td>2</td><td>2 satuan ke atas</td><td>P′ = (…, …)</td></tr>
+<tr><td>3</td><td>4 satuan ke kiri</td><td>P′ = (…, …)</td></tr>
+<tr><td>4</td><td>3 satuan ke bawah</td><td>P′ = (…, …)</td></tr>
+<tr><td>5</td><td>2 ke kanan dan 3 ke atas</td><td>P′ = (…, …)</td></tr>
+</tbody></table>
+<details><summary><strong>Kunci jawaban kegiatan 1 (buka setelah mencoba)</strong></summary>
+<ol><li>(4, 2)</li><li>(1, 4)</li><li>(−3, 2)</li><li>(1, −1)</li><li>(3, 5)</li></ol>
+</details>
+</section>
+
+<section class="card">
+<h2>D. Kegiatan 2 — Latihan Bertingkat</h2>
+<p class="muted">Pilih satu jawaban pada setiap soal, lalu tekan “Periksa Jawaban”.</p>
+<div id="quiz"></div>
+<div class="actions interactive-only"><button id="checkQuiz">Periksa Jawaban</button><button class="secondary" id="resetQuiz">Ulangi latihan</button></div>
+<div id="score" class="score" aria-live="polite"></div>
+</section>
+
+<section class="card">
+<h2>E. Kegiatan 3 — Tantangan HOTS</h2>
+<p>Sebuah robot berada di titik R(−2, 3). Robot bergerak 5 satuan ke kanan dan 4 satuan ke bawah, kemudian bergerak lagi 2 satuan ke kiri dan 3 satuan ke atas.</p>
+<ol><li>Tentukan koordinat robot setelah pergerakan pertama.</li><li>Tentukan koordinat akhir robot.</li><li>Tentukan satu translasi langsung dari titik awal ke titik akhir.</li><li>Jelaskan mengapa dua translasi tersebut dapat digabungkan menjadi satu translasi.</li></ol>
+<label for="hots1">Tuliskan jawaban dan proses berpikirmu:</label>
+<textarea id="hots1" placeholder="1. Koordinat setelah gerakan pertama ...&#10;2. Koordinat akhir ...&#10;3. Translasi langsung ...&#10;4. Penjelasan ..."></textarea>
+<div class="actions interactive-only"><button class="secondary" id="showHots">Lihat panduan jawaban</button></div>
+<div id="hotsAnswer" class="answer"><strong>Panduan jawaban:</strong><ol><li>R(−2, 3) → (3, −1).</li><li>Dari (3, −1), geser (−2, +3), sehingga titik akhir (1, 2).</li><li>Perpindahan total: (5−2, −4+3) = (3, −1). Jadi translasi langsung T(3, −1).</li><li>Komponen horizontal dijumlahkan dengan komponen horizontal, dan komponen vertikal dijumlahkan dengan komponen vertikal.</li></ol></div>
+</section>
+
+<section class="card">
+<h2>F. Refleksi Pembelajaran</h2>
+<p>Jawab dengan kalimat sendiri.</p>
+<label>1. Apa yang dimaksud dengan translasi?</label><textarea placeholder="Jawabanmu..."></textarea>
+<label>2. Bagaimana cara menentukan koordinat bayangan suatu titik?</label><textarea placeholder="Jawabanmu..."></textarea>
+<label>3. Apa perbedaan pergeseran ke kanan dan ke kiri pada koordinat x?</label><textarea placeholder="Jawabanmu..."></textarea>
+<label>4. Bagian mana yang masih sulit dipahami?</label><textarea placeholder="Jawabanmu..."></textarea>
+<div class="actions interactive-only"><button onclick="window.print()">Cetak LKPD</button></div>
+</section>
+<footer>LKPD Matematika Kelas IX B · Transformasi Geometri</footer>
+</main>
+<script>
+const $=id=>document.getElementById(id);
+const ids=['x','y','a','b'];
+function drawPlane(){
+ const c=$('plane'),ctx=c.getContext('2d'),dpr=window.devicePixelRatio||1;
+ const rect=c.getBoundingClientRect(); c.width=rect.width*dpr;c.height=rect.height*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);
+ const w=rect.width,h=rect.height,unit=Math.min((w-40)/12,(h-35)/12),ox=w/2,oy=h/2;
+ ctx.clearRect(0,0,w,h);ctx.font='12px system-ui';ctx.lineWidth=1;
+ for(let i=-6;i<=6;i++){
+  const xx=ox+i*unit, yy=oy+i*unit;
+  ctx.strokeStyle='#e5ebf4';ctx.beginPath();ctx.moveTo(xx,8);ctx.lineTo(xx,h-8);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(8,yy);ctx.lineTo(w-8,yy);ctx.stroke();
+ }
+ ctx.strokeStyle='#64748b';ctx.lineWidth=1.5;
+ ctx.beginPath();ctx.moveTo(8,oy);ctx.lineTo(w-8,oy);ctx.moveTo(ox,h-8);ctx.lineTo(ox,8);ctx.stroke();
+ ctx.fillStyle='#475569';ctx.fillText('x',w-18,oy-8);ctx.fillText('y',ox+8,17);ctx.fillText('0',ox+5,oy+14);
+ for(let i=-5;i<=5;i++){if(i!==0){ctx.fillText(i,ox+i*unit-4,oy+15);ctx.fillText(i,ox+6,oy-i*unit+4)}}
+ const x=+$('x').value,y=+$('y').value,a=+$('a').value,b=+$('b').value,X=x+a,Y=y+b;
+ function point(px,py,color,label){ctx.fillStyle=color;ctx.beginPath();ctx.arc(ox+px*unit,oy-py*unit,5,0,Math.PI*2);ctx.fill();ctx.font='bold 12px system-ui';ctx.fillText(label,ox+px*unit+8,oy-py*unit-8)}
+ ctx.setLineDash([5,4]);ctx.strokeStyle='#94a3b8';ctx.beginPath();ctx.moveTo(ox+x*unit,oy-y*unit);ctx.lineTo(ox+X*unit,oy-Y*unit);ctx.stroke();ctx.setLineDash([]);
+ point(x,y,'#64748b',`P(${x}, ${y})`);point(X,Y,'#2457d6',`P′(${X}, ${Y})`);
+ $('xVal').textContent=x;$('yVal').textContent=y;$('aVal').textContent=a;$('bVal').textContent=b;
+ $('result').textContent=`P(${x}, ${y}) → P′(${X}, ${Y})`;
+ const horizontal=a===0?'tidak bergeser horizontal':`${Math.abs(a)} satuan ke ${a>0?'kanan':'kiri'}`;
+ const vertical=b===0?'tidak bergeser vertikal':`${Math.abs(b)} satuan ke ${b>0?'atas':'bawah'}`;
+ $('explain').textContent=`Titik bergeser ${horizontal} dan ${vertical}.`;
+}
+ids.forEach(id=>$(id).addEventListener('input',drawPlane));
+$('resetSim').addEventListener('click',()=>{[['x',1],['y',2],['a',3],['b',2]].forEach(([id,v])=>$(id).value=v);drawPlane()});
+window.addEventListener('resize',drawPlane);
+
+const qs=[
+{level:'Mudah',q:'Titik A(3, 4) ditranslasikan oleh T(2, 1). Koordinat A′ adalah …',opts:['(5, 5)','(1, 3)','(5, 3)','(3, 5)'],ans:0,why:'Tambahkan komponen translasi: (3+2, 4+1) = (5, 5).'},
+{level:'Mudah',q:'Titik B(−2, 5) digeser 4 satuan ke kiri. Koordinat bayangannya adalah …',opts:['(2, 5)','(−6, 5)','(−2, 9)','(−2, 1)'],ans:1,why:'Pergeseran ke kiri mengurangi koordinat x: −2−4 = −6.'},
+{level:'Menengah',q:'Titik C(4, −1) berpindah menjadi C′(1, 3). Vektor translasinya adalah …',opts:['(3, −4)','(−3, 4)','(5, 2)','(−5, 2)'],ans:1,why:'Kurangkan koordinat akhir dengan awal: (1−4, 3−(−1)) = (−3, 4).'},
+{level:'Menengah',q:'Titik D(−1, 2) ditranslasikan menjadi D′(3, −4). Nilai a+b adalah …',opts:['−2','2','6','−6'],ans:0,why:'a=3−(−1)=4 dan b=−4−2=−6. Jadi a+b=−2.'},
+{level:'Sulit · HOTS',q:'Titik P(x, y) ditranslasikan oleh T(3, −2) menjadi P′(7, 1). Koordinat P adalah …',opts:['(4, 3)','(10, −1)','(4, −1)','(7, 3)'],ans:0,why:'x+3=7 sehingga x=4. y−2=1 sehingga y=3.'},
+{level:'Sulit · HOTS',q:'Titik A(2, 1) ditranslasikan menjadi A′(5, 4). Dengan translasi yang sama, titik B(−1, 3) menjadi …',opts:['(2, 6)','(2, 0)','(−4, 6)','(4, 6)'],ans:0,why:'Vektor translasi (3,3). Maka B′=(−1+3, 3+3)=(2,6).'}
+];
+function renderQuiz(){
+ $('quiz').innerHTML='';
+ qs.forEach((q,i)=>{
+  const box=document.createElement('div');box.className='task';box.id='q'+i;
+  box.innerHTML=`<p><strong>Soal ${i+1}</strong> <span class="muted small">· ${q.level}</span></p><p>${q.q}</p>`+
+   q.opts.map((o,j)=>`<label class="option"><input type="radio" name="q${i}" value="${j}"> <span>${String.fromCharCode(65+j)}. ${o}</span></label>`).join('')+
+   `<div class="feedback" id="fb${i}"></div>`;
+  $('quiz').appendChild(box);
+ });
+ $('score').textContent='';
+}
+$('checkQuiz').addEventListener('click',()=>{
+ let correct=0,answered=0;
+ qs.forEach((q,i)=>{
+  const chosen=document.querySelector(`input[name="q${i}"]:checked`),fb=$('fb'+i);
+  fb.style.display='block';fb.classList.remove('bad');
+  if(!chosen){fb.textContent='Belum dijawab. ';fb.classList.add('bad')}
+  else{answered++;if(+chosen.value===q.ans){correct++;fb.textContent='Benar. '}else{fb.textContent='Belum tepat. ';fb.classList.add('bad')}}
+  fb.textContent+=`Kunci: ${String.fromCharCode(65+q.ans)}. ${q.why}`;
+ });
+ $('score').textContent=`Skor: ${correct}/${qs.length} benar · ${answered}/${qs.length} soal dijawab.`;
+});
+$('resetQuiz').addEventListener('click',renderQuiz);
+$('showHots').addEventListener('click',()=>{const el=$('hotsAnswer');el.style.display=el.style.display==='block'?'none':'block';$('showHots').textContent=el.style.display==='block'?'Sembunyikan panduan jawaban':'Lihat panduan jawaban'});
+renderQuiz();drawPlane();
+</script>
+</body>
+</html>

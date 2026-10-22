@@ -1,0 +1,1094 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LKPD Matematika IX B — Refleksi (Pencerminan)</title>
+<style>
+:root{--blue:#2457d6;--blue2:#eaf0ff;--green:#15803d;--ink:#172033;--muted:#64748b;--line:#dbe3ef;--bg:#f4f7fb;--card:#fff;--orange:#b45309;--teal:#0f9f8f;--amber:#f59e0b;--purple:#7c3aed;--red:#b91c1c}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.6}
+header{background:linear-gradient(135deg,#173a8a,#3268e8);color:#fff;padding:26px 18px 30px}
+.hero,.container{max-width:1000px;margin:auto}.eyebrow{font-size:.78rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;opacity:.85}
+h1{font-size:clamp(1.7rem,5vw,2.7rem);line-height:1.15;margin:8px 0}header p{margin:8px 0 0;opacity:.92}
+.pills{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}.pill{font-size:.8rem;border:1px solid #ffffff70;background:#ffffff1c;padding:5px 10px;border-radius:999px}
+.hero-top{display:flex;align-items:flex-start;gap:12px;flex-wrap:wrap;justify-content:space-between}
+.teacher-btn{display:inline-flex;align-items:center;gap:8px;background:#ffffff1f;border:1px solid #ffffff66;color:#fff;font-weight:750;font-size:.85rem;padding:9px 14px;border-radius:999px;cursor:pointer;white-space:nowrap}
+.teacher-btn:hover{background:#ffffff2e}.teacher-btn .dot{width:9px;height:9px;border-radius:50%;background:#fbbf24;box-shadow:0 0 0 3px #fbbf2433}
+body.guru .teacher-btn{background:#fbbf24;color:#3b2a05;border-color:#fde68a}
+body.guru .teacher-btn .dot{background:#15803d;box-shadow:0 0 0 3px #15803d33}
+.guru-banner{display:none;background:#fff7ed;border:1px solid #fdba74;color:#9a3412;border-radius:14px;padding:11px 14px;margin:0 0 16px;font-weight:700;font-size:.9rem}
+body.guru .guru-banner{display:block}
+.navchips{display:flex;gap:7px;flex-wrap:wrap;margin:0 0 18px}.navchips a{font-size:.82rem;font-weight:700;text-decoration:none;color:#24324c;background:#fff;border:1px solid var(--line);border-radius:999px;padding:6px 11px}
+.navchips a:hover{background:var(--blue2);border-color:#b9cbf5;color:var(--blue)}
+.container{padding:20px 14px 90px}.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px;margin:0 0 16px;box-shadow:0 5px 18px #15264a08}
+h2{font-size:1.25rem;margin:0 0 12px}h3{font-size:1.03rem;margin:15px 0 6px}.muted{color:var(--muted)}
+.tag{display:inline-block;font-size:.72rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--blue);background:var(--blue2);border:1px solid #d4e0ff;border-radius:999px;padding:2px 9px;margin-bottom:8px}
+.goal{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}.goal>div{padding:13px;background:#f8faff;border-radius:12px}
+.formula{background:var(--blue2);border:1px solid #d4e0ff;padding:14px;border-radius:12px;text-align:center;font-size:1.12rem;font-weight:750;margin:12px 0;overflow-wrap:anywhere}
+.formula.left{text-align:left}
+canvas{display:block;width:100%;height:340px;border:1px solid var(--line);border-radius:12px;background:#fff;touch-action:pan-y}
+.controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:14px 0}.controls label{font-size:.9rem;font-weight:650;display:block}
+.controls input[type=range]{width:100%;accent-color:var(--blue);margin-top:4px}
+.controls input[type=number]{width:100%;margin-top:4px;border:1px solid #cbd5e1;border-radius:9px;padding:8px 9px;font:inherit}
+select{border:1px solid #cbd5e1;border-radius:9px;padding:9px;font:inherit;background:#fff;width:100%;margin-top:4px}
+table{width:100%;border-collapse:collapse;margin:12px 0}th,td{border:1px solid var(--line);padding:9px;text-align:left;vertical-align:top}th{background:#f1f5fb}
+.tablewrap{overflow-x:auto}
+.task{border:1px solid var(--line);border-radius:14px;padding:14px;margin:12px 0}.task p{margin:0 0 10px}.task label.option{display:flex;gap:9px;padding:8px 10px;border-radius:9px;margin:4px 0;cursor:pointer}.task label.option:hover{background:#f3f6fc}.task input{accent-color:var(--blue)}
+.levelbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:6px}
+.levelchip{font-size:.78rem;font-weight:800;border-radius:999px;padding:4px 11px;border:1px solid var(--line);background:#f8fafc;color:#334155}
+.levelchip.mudah{background:#ecfdf5;border-color:#a7f3d0;color:#065f46}
+.levelchip.menengah{background:#eff6ff;border-color:#bfdbfe;color:#1e40af}
+.levelchip.sulit{background:#fdf2f8;border-color:#fbcfe8;color:#9d174d}
+button{border:0;border-radius:10px;background:var(--blue);color:white;font-weight:750;padding:11px 15px;cursor:pointer;font-size:.95rem}button.secondary{background:#e9eef8;color:#24324c}button.ghost{background:#fff;color:#24324c;border:1px solid var(--line)}button:disabled{opacity:.45;cursor:not-allowed}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.feedback{display:none;padding:10px 12px;border-radius:10px;margin-top:10px;background:#f0fdf4;color:#166534}.feedback.bad{background:#fff7ed;color:#9a3412}
+.answer{display:none;background:#f7f9fc;border-left:3px solid var(--blue);padding:10px 12px;margin-top:10px;border-radius:6px}
+details{border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin-top:12px;background:#fbfdff}summary{cursor:pointer;font-weight:750}
+input[type=text],input[type=date],select.text,textarea{width:100%;border:1px solid #cbd5e1;border-radius:9px;padding:10px;font:inherit;background:#fff}
+textarea{min-height:78px;resize:vertical}
+.small{font-size:.88rem}.score{font-size:1.15rem;font-weight:800;margin-top:12px}
+.legend{display:flex;gap:14px;flex-wrap:wrap;color:var(--muted);font-size:.85rem;margin-top:8px}
+.legend i{display:inline-block;width:11px;height:11px;border-radius:50%;margin-right:6px;vertical-align:-1px}
+.legend .c-asal{background:#2563eb}.legend .c-bayan{background:#0f9f8f}.legend .c-cermin{background:#f59e0b}.legend .c-tengah{background:#7c3aed}
+.steps{margin:8px 0 0;padding-left:20px}.steps li{margin:4px 0}
+.idgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}.idgrid label{font-size:.9rem;font-weight:700;display:block;margin-bottom:5px}
+.callout{border-left:4px solid var(--blue);background:#f7faff;border-radius:0 12px 12px 0;padding:12px 14px;margin:12px 0}
+.callout.warn{border-left-color:var(--orange);background:#fff8ef}
+.callout.green{border-left-color:var(--green);background:#f0fdf4}
+.selfrow{border:1px solid var(--line);border-radius:12px;padding:12px;margin:10px 0}
+.selfrow p{margin:0 0 8px;font-weight:650;font-size:.93rem}.scale{display:flex;gap:6px;flex-wrap:wrap}.scale label{font-size:.82rem;border:1px solid var(--line);border-radius:9px;padding:6px 10px;cursor:pointer;background:#f8fafc}.scale input{accent-color:var(--blue);margin-right:5px}
+.guru-only{display:none}
+body.guru .guru-only{display:block}
+body.guru li.guru-only{display:list-item}
+body.guru .guru-inline{display:inline}
+.guru-inline{display:none}
+.bank{border:1px solid var(--line);border-radius:12px;padding:12px;margin:10px 0;background:#fbfdff}
+.bank h4{margin:0 0 6px;font-size:.95rem}.bank p{margin:4px 0;font-size:.9rem}
+footer{text-align:center;color:var(--muted);padding:20px;font-size:.85rem}
+@media(max-width:560px){.card{padding:15px}canvas{height:290px}th,td{padding:7px;font-size:.9rem}.hero-top{gap:8px}.navchips a{font-size:.78rem;padding:5px 9px}.formula{font-size:1rem}}
+@media print{body{background:#fff}.container{max-width:none;padding:0}.card{box-shadow:none;break-inside:avoid}header{padding:18px}.interactive-only,button,.navchips{display:none!important}canvas{height:260px}.guru-only{display:none!important}body.guru .guru-only{display:block!important}}
+</style>
+</head>
+<body>
+<header><div class="hero">
+<div class="hero-top">
+<div>
+<div class="eyebrow">Lembar Kerja Peserta Didik · Matematika</div>
+<h1>Transformasi Geometri: Refleksi (Pencerminan)</h1>
+<p>Kelas IX B · Dari konsep, eksplorasi koordinat, hingga pemecahan masalah.</p>
+<div class="pills"><span class="pill">Alokasi waktu: 2 JP (80 menit)</span><span class="pill">Mudah · Menengah · HOTS</span><span class="pill">Bisa dibuka di HP</span><span class="pill">SMP IT Al-Faruq Wahdah Islamiyah Gorontalo</span></div>
+</div>
+<button class="teacher-btn interactive-only" id="teacherToggle" aria-pressed="false"><span class="dot"></span><span id="teacherToggleText">Mode Guru</span></button>
+</div>
+</div></header>
+<main class="container">
+<div class="guru-banner" role="status">MODE GURU AKTIF — kunci jawaban, pembahasan, dan panduan penilaian ditampilkan. Tekan tombol “Mode Guru” di header untuk menyembunyikannya.</div>
+<nav class="navchips" aria-label="Navigasi bagian LKPD">
+<a href="#identitas">A · Identitas</a><a href="#tujuan">B · Tujuan</a><a href="#apersepsi">C · Apersepsi</a><a href="#materi">D · Ringkasan Materi</a><a href="#eksplorasi">E · Eksplorasi</a><a href="#penemuan">F · Penemuan Konsep</a><a href="#latihan">G · Latihan Bertingkat</a><a href="#hots">H · Tantangan HOTS</a><a href="#refleksi">I · Refleksi Pembelajaran</a><a href="#guru">J · Mode Guru</a>
+</nav>
+
+<section class="card" id="identitas">
+<div class="tag">Bagian A</div>
+<h2>Identitas Peserta Didik</h2>
+<p class="muted small">Isi identitasmu sebelum memulai kegiatan. Data ini dipakai pada lembar refleksi di bagian I.</p>
+<div class="idgrid">
+<div><label for="idNama">Nama Lengkap</label><input type="text" id="idNama" placeholder="Tulis namamu di sini"></div>
+<div><label for="idKelas">Kelas</label><select id="idKelas"><option>IX A</option><option selected>IX B</option><option>IX C</option></select></div>
+<div><label for="idTanggal">Tanggal Pengerjaan</label><input type="date" id="idTanggal"></div>
+</div>
+<p class="small muted" style="margin-bottom:0">Sekolah: <strong>SMP IT Al-Faruq Wahdah Islamiyah Gorontalo</strong> · Mata pelajaran: <strong>Matematika</strong> · Semester: <strong>Ganjil</strong></p>
+</section>
+
+<section class="card" id="tujuan">
+<div class="tag">Bagian B</div>
+<h2>Tujuan Pembelajaran dan Petunjuk Kerja</h2>
+<div class="goal">
+<div><strong>Memahami</strong><br><span class="small">Menjelaskan refleksi sebagai pencerminan titik atau bangun terhadap garis tertentu.</span></div>
+<div><strong>Menentukan</strong><br><span class="small">Menentukan koordinat bayangan titik akibat refleksi.</span></div>
+<div><strong>Menganalisis</strong><br><span class="small">Menjelaskan hubungan titik asal, bayangan, dan garis cermin serta menganalisis refleksi berurutan.</span></div>
+</div>
+<h3>Tujuan pembelajaran</h3>
+<ol>
+<li>Menjelaskan refleksi sebagai pencerminan titik atau bangun terhadap garis tertentu.</li>
+<li>Menentukan koordinat bayangan titik akibat refleksi.</li>
+<li>Menjelaskan hubungan titik asal, bayangan, dan garis cermin.</li>
+<li>Menyelesaikan persoalan refleksi menggunakan penalaran matematis.</li>
+<li>Menganalisis refleksi berurutan dan menjelaskan alasan atas jawabannya.</li>
+</ol>
+<h3>Petunjuk kerja</h3>
+<ol>
+<li>Lengkapi identitas peserta didik pada Bagian A.</li>
+<li>Baca apersepsi dan ringkasan materi (Bagian C–D) sampai kamu paham aturan pencerminan.</li>
+<li>Gunakan simulasi interaktif (Bagian E) untuk mengubah koordinat titik dan memilih garis cermin. Amati lalu simpulkan (Bagian F).</li>
+<li>Kerjakan latihan bertingkat (Bagian G). Tekan “Periksa Jawaban” untuk melihat skor dan pembahasanmu.</li>
+<li>Kerjakan tantangan HOTS (Bagian H) dengan menuliskan proses berpikir, bukan hanya jawaban akhir.</li>
+<li>Isi refleksi pembelajaran (Bagian I) dan cetak lembar ini bila diperlukan.</li>
+</ol>
+</section>
+
+<section class="card" id="apersepsi">
+<div class="tag">Bagian C</div>
+<h2>Apersepsi: Pencerminan di Sekitar Kita</h2>
+<p>Pencerminan bukan hal asing. Setiap hari kamu pasti pernah melihat bayangan sendiri pada cermin kamar mandi, pada layar ponsel yang tergelap, pada permukaan air yang tenang, atau pada gambar yang dicetak bolak-balik di kertas transfer.</p>
+<div class="tablewrap"><table>
+<thead><tr><th>Pengalaman sehari-hari</th><th>Apa yang dicerminkan?</th><th>Kaitannya dengan transformasi geometri</th></tr></thead>
+<tbody>
+<tr><td>Cermin kamar mandi</td><td>Wajah dan tubuh kita</td><td>Bayangan berada di sisi berlawanan, ukuran tetap, tetapi sisi kiri dan kanan tertukar.</td></tr>
+<tr><td>Air tenang di kolam</td><td>Benda di atas permukaan air</td><td>Bayangan mengikuti arah vertikal: yang di atas turun ke bawah (bukan cermin ideal, tetapi mirip).</td></tr>
+<tr><td>Cetak bolak-balik (kertas transfer)</td><td>Gambar logo atau tulisan</td><td>Gambar berubah sisi seperti dicerminkan terhadap garis vertikal — persis seperti refleksi terhadap sumbu-Y.</td></tr>
+<tr><td>Simetris pada bangunan / batik</td><td>Motif dan bentuk bangunan</td><td>Bangun dapat dibagi menjadi dua bagian yang sama melalui garis simetri (garis cermin).</td></tr>
+</tbody></table></div>
+<div class="callout">
+<p style="margin:0"><strong>Pertanyaan pemantik:</strong> Kalau bayangan di cermin selalu “terbalik” kiri-kanan, bagaimana kalau cerminnya diletakkan mendatar? Bagaimana kalau cerminnya berupa garis diagonal? <strong>Jawab dengan kalimatmu sendiri di Bagian F.</strong></p>
+</div>
+<p class="small muted">Catatan: Transformasi geometri membantu kita mendeskripsikan perpindahan itu secara pasti lewat koordinat, bukan sekadar perkiraan.</p>
+</section>
+
+<section class="card" id="materi">
+<div class="tag">Bagian D</div>
+<h2>Ringkasan Materi: Aturan Refleksi</h2>
+<p><strong>Refleksi (pencerminan)</strong> adalah transformasi yang memetakan setiap titik pada bidang datar ke titik bayangan, sehingga <strong>jarak titik asal ke garis cermin sama dengan jarak titik bayangan ke garis cermin</strong>. Bentuk dan ukuran bangun tidak berubah, tetapi orientasi (arah sisinya) dapat terbalik.</p>
+<p>Garis cermin juga sering disebut <em>sumbu cermin</em>, terutama ketika cerminnya berupa sumbu-X atau sumbu-Y. Berikut enam aturan yang paling sering dipakai di SMP.</p>
+<div class="tablewrap"><table>
+<thead><tr><th>No.</th><th>Garis cermin</th><th>Aturan</th><th>Keterangan</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>Sumbu-X (y = 0)</td><td><strong>(x, y) → (x, −y)</strong></td><td>x tetap, y berubah tanda</td></tr>
+<tr><td>2</td><td>Sumbu-Y (x = 0)</td><td><strong>(x, y) → (−x, y)</strong></td><td>x berubah tanda, y tetap</td></tr>
+<tr><td>3</td><td>Garis y = x</td><td><strong>(x, y) → (y, x)</strong></td><td>x dan y saling bertukar</td></tr>
+<tr><td>4</td><td>Garis y = −x</td><td><strong>(x, y) → (−y, −x)</strong></td><td>x dan y bertukar lalu berubah tanda</td></tr>
+<tr><td>5</td><td>Garis x = a</td><td><strong>(x, y) → (2a − x, y)</strong></td><td>jarak ke garis x = a tetap</td></tr>
+<tr><td>6</td><td>Garis y = b</td><td><strong>(x, y) → (x, 2b − y)</strong></td><td>jarak ke garis y = b tetap</td></tr>
+</tbody></table></div>
+<h3>Contoh perhitungan</h3>
+<div class="callout">
+<p style="margin:0 0 6px"><strong>Contoh 1 — terhadap sumbu-X:</strong> A(3, 2) → A′(3, −2)<br><span class="small">x tetap 3, y berubah tanda: 2 menjadi −2.</span></p>
+</div>
+<div class="callout">
+<p style="margin:0 0 6px"><strong>Contoh 2 — terhadap sumbu-Y:</strong> B(−4, 1) → B′(4, 1)<br><span class="small">x berubah tanda: −4 menjadi 4, y tetap 1.</span></p>
+</div>
+<div class="callout">
+<p style="margin:0 0 6px"><strong>Contoh 3 — terhadap garis y = x:</strong> C(2, 5) → C′(5, 2)<br><span class="small">koordinat x dan y saling bertukar: (2, 5) menjadi (5, 2).</span></p>
+</div>
+<div class="callout">
+<p style="margin:0 0 6px"><strong>Contoh 4 — terhadap garis y = −x:</strong> D(1, 3) → D′(−3, −1)<br><span class="small">tukar lebih dulu (3, −1), lalu ganti tanda menjadi (−3, −1).</span></p>
+</div>
+<div class="callout">
+<p style="margin:0 0 6px"><strong>Contoh 5 — terhadap garis x = a, dengan a = 2:</strong> E(5, 1) → E′(2·2 − 5, 1) = E′(−1, 1)<br><span class="small">jarak E ke garis x = 2 adalah 3, dan jarak E′ ke garis x = 2 juga 3.</span></p>
+</div>
+<div class="callout">
+<p style="margin:0 0 6px"><strong>Contoh 6 — terhadap garis y = b, dengan b = 1:</strong> F(3, 4) → F′(3, 2·1 − 4) = F′(3, −2)<br><span class="small">jarak F ke garis y = 1 adalah 3, dan jarak F′ ke garis y = 1 juga 3.</span></p>
+</div>
+</section>
+
+<section class="card" id="eksplorasi">
+<div class="tag">Bagian E</div>
+<h2>Kegiatan Eksplorasi Interaktif: Cermin dan Koordinat</h2>
+<p class="muted">Geser titik <strong>P</strong>, pilih garis cermin, lalu amati posisi bayangan <strong>P′</strong>. Kamu juga bisa menyentuh langsung bidang koordinat untuk memindahkan titik P.</p>
+<canvas id="plane" aria-label="Bidang koordinat untuk simulasi refleksi"></canvas>
+<div class="legend"><span><i class="c-asal"></i>Titik asal P</span><span><i class="c-bayan"></i>Bayangan P′</span><span><i class="c-cermin"></i>Garis cermin</span><span><i class="c-tengah"></i>Titik tengah T (di garis cermin)</span></div>
+<div class="controls interactive-only">
+<div><label for="x">Koordinat x titik P: <output id="xVal">3</output><input id="x" type="range" min="-6" max="6" step="1" value="3"></label></div>
+<div><label for="y">Koordinat y titik P: <output id="yVal">2</output><input id="y" type="range" min="-6" max="6" step="1" value="2"></label></div>
+<div><label for="mirror">Garis cermin<select id="mirror">
+<option value="sumbu-x" selected>Sumbu-X (y = 0)</option>
+<option value="sumbu-y">Sumbu-Y (x = 0)</option>
+<option value="y=x">Garis y = x</option>
+<option value="y=-x">Garis y = −x</option>
+<option value="x=a">Garis x = a</option>
+<option value="y=b">Garis y = b</option>
+</select></label></div>
+<div id="paramWrap"><label for="param">Nilai a atau b: <output id="paramVal">2</output><input id="param" type="range" min="-6" max="6" step="1" value="2"></label></div>
+</div>
+<div class="formula" id="result">P(3, 2) → P′(3, −2)</div>
+<p class="small" id="explain">Titik P berada 2 satuan di atas sumbu-X, maka bayangannya 2 satuan di bawah sumbu-X.</p>
+<div class="callout small" id="distanceBox"><strong>Jarak ke garis cermin:</strong> <span id="distText">jarak P = 2,00 · jarak P′ = 2,00 · sama besar ✓</span></div>
+<h3>Langkah hitung</h3>
+<ol class="steps" id="stepsList"><li>Koordinat x tetap: 3.</li><li>Koordinat y berubah tanda: 2 → −2.</li><li>Jadi P′ = (3, −2).</li></ol>
+<div class="actions interactive-only">
+<button id="applySim">Terapkan Refleksi</button>
+<button class="secondary" id="resetSim">Kembalikan ke contoh awal</button>
+</div>
+<p class="small muted" style="margin-top:10px">Petunjuk: garis putus-putus kuning adalah garis cermin, dan garis ungu tepat di tengahnya adalah titik tengah T. Perhatikan bahwa T selalu berada tepat di garis cermin, dan jarak P ke T sama dengan jarak P′ ke T.</p>
+</section>
+
+<section class="card" id="penemuan">
+<div class="tag">Bagian F</div>
+<h2>Kegiatan Penemuan Konsep</h2>
+<p class="muted">Kerjakan dengan bantuan simulasi di Bagian E. <strong>Jangan langsung menulis rumus</strong> — amati dulu pola yang muncul, lalu nyatakan kesimpulanmu dengan kalimat sendiri.</p>
+<div id="discovery"></div>
+<div class="callout warn small">
+<p style="margin:0"><strong>Petunjuk guru:</strong> Minta siswa menelusuri langkah demi langkah: (1) tetapkan titik asal, (2) ubah satu koordinat saja, (3) amati apa yang berubah, (4) baru menyebutkan aturan. Hindari memberi rumus sebelum siswa melihat minimal dua contoh.</p>
+</div>
+</section>
+
+<section class="card" id="latihan">
+<div class="tag">Bagian G</div>
+<h2>Latihan Bertingkat</h2>
+<p class="muted">Soal dipilih secara acak dari bank soal: 5 soal <strong>Mudah</strong>, 5 soal <strong>Menengah</strong>, dan 5 soal <strong>Sulit/HOTS</strong>. Pilih satu jawaban pada setiap soal, lalu tekan “Periksa Jawaban”.</p>
+<div class="levelbar">
+<span class="levelchip mudah">Mudah · 5 soal</span>
+<span class="levelchip menengah">Menengah · 5 soal</span>
+<span class="levelchip sulit">Sulit/HOTS · 5 soal</span>
+</div>
+<div id="quiz"></div>
+<div class="actions interactive-only">
+<button id="checkQuiz">Periksa Jawaban</button>
+<button class="secondary" id="resetQuiz">Ulangi Latihan</button>
+<button class="ghost" id="shuffleQuiz">Acak Soal Lain</button>
+</div>
+<div id="score" class="score" aria-live="polite"></div>
+<div id="scoreDetail" class="small muted"></div>
+</section>
+
+<section class="card" id="hots">
+<div class="tag">Bagian H</div>
+<h2>Tantangan HOTS</h2>
+<p class="muted">Soal berikut menuntut penalaran, bukan sekadar mengingat rumus. Tuliskan <strong>proses berpikirmu</strong> di setiap kolom, karena yang dinilai adalah cara berpikir.</p>
+<div id="hotsList"></div>
+<div class="actions interactive-only">
+<button class="secondary" id="showHots">Lihat Panduan Jawaban</button>
+</div>
+<div id="hotsAnswer" class="answer"></div>
+</section>
+
+<section class="card" id="refleksi">
+<div class="tag">Bagian I</div>
+<h2>Refleksi Pembelajaran</h2>
+<h3>1. Pernyataan pemahaman</h3>
+<label class="small" for="ref1">Tuliskan pemahamanmu tentang refleksi dengan kalimat sendiri. Apa itu refleksi? Bagaimana cara menentukan koordinat bayangan?</label>
+<textarea id="ref1" placeholder="Menurut saya, refleksi adalah ..."></textarea>
+<h3>2. Konsep yang masih membingungkan</h3>
+<label class="small" for="ref2">Bagian mana yang masih sulit dipahami? Tuliskan juga pertanyaan yang ingin kamu ajukan kepada guru.</label>
+<textarea id="ref2" placeholder="Yang masih membingungkan saya adalah ..."></textarea>
+<h3>3. Kolom kesimpulan</h3>
+<div class="tablewrap"><table>
+<thead><tr><th>No.</th><th>Kesimpulan yang kamu peroleh</th></tr></thead>
+<tbody>
+<tr><td>1</td><td><textarea id="kes1" placeholder="Tulis kesimpulan ..."></textarea></td></tr>
+<tr><td>2</td><td><textarea id="kes2" placeholder="Tulis kesimpulan ..."></textarea></td></tr>
+<tr><td>3</td><td><textarea id="kes3" placeholder="Tulis kesimpulan ..."></textarea></td></tr>
+</tbody></table></div>
+<h3>4. Penilaian diri</h3>
+<p class="small muted">Beri tanda pada setiap pernyataan sesuai tingkat pemahamanmu. Klik “Tampilkan Penilaian” untuk melihat hasilnya.</p>
+<div id="selfAssess"></div>
+<div class="actions interactive-only"><button id="showSelf">Tampilkan Penilaian</button></div>
+<div id="selfResult" class="callout green small" style="display:none"></div>
+<div class="actions interactive-only">
+<button class="secondary" onclick="window.print()">Cetak LKPD</button>
+<button class="ghost" id="printKeys" style="display:none">Cetak Kunci Jawaban</button>
+</div>
+</section>
+
+<section class="card guru-only" id="guru">
+<div class="tag" style="background:#fff7ed;border-color:#fdba74;color:#9a3412">Bagian J</div>
+<h2>Mode Guru</h2>
+<p class="muted small">Bagian ini hanya tampil ketika Mode Guru diaktifkan. Isi dengan kunci jawaban, pembahasan, dan cara menjelaskan konsep kepada siswa.</p>
+<h3>Alur kegiatan (2 JP)</h3>
+<ol>
+<li><strong>10 menit</strong> — Apersepsi: tunjukkan cermin/percetakan bolak-balik, hubungkan dengan simetri.</li>
+<li><strong>15 menit</strong> — Ringkasan materi: bangunkan 6 aturan, minta siswa menebak aturannya satu per satu lewat simulasi.</li>
+<li><strong>20 menit</strong> — Eksplorasi + Penemuan Konsep: siswa menggeser titik, guru hanya memberi pertanyaan pemantik.</li>
+<li><strong>20 menit</strong> — Latihan bertingkat: siswa mengerjakan, guru berkeliling dan mencatat kebutuhan bimbingan.</li>
+<li><strong>10 menit</strong> — HOTS + Refleksi: presentasi dua temuan siswa, dilanjutkan refleksi mandiri.</li>
+</ol>
+<h3>Cara menjelaskan konsep (script guru)</h3>
+<ol>
+<li>Mulai dari <strong>jarak</strong>, bukan dari rumus: “titik asal dan bayangan sama-sama jauh dari cermin”.</li>
+<li>Untuk sumbu-X dan sumbu-Y, minta siswa menebak apa yang berubah, baru menyebutkan aturannya.</li>
+<li>Perkenalkan garis diagonal y = x dan y = −x sebagai “cermin miring” — koordinat ditukar, atau ditukar lalu dibalik tanda.</li>
+<li>Hubungkan garis x = a dan y = b dengan garis tengah pada bilangan: koordinat baru = 2 × nilai garis − koordinat lama.</li>
+<li>Tunjukkan bahwa garis cermin adalah <strong>garis bagi tepat</strong> dari PP′ (titik tengah T) agar siswa melihatnya langsung di simulasi.</li>
+<li>Pada HOTS, arahkan siswa menuliskan alasan; jangan hanya menilai jawaban akhir.</li>
+</ol>
+<h3>Kunci jawaban dan pembahasan bank soal (45 soal)</h3>
+<p class="small muted">Menampilkan seluruh bank soal beserta kunci dan pembahasannya — 15 soal untuk tiap tingkat kesulitan.</p>
+<div id="bankKey"></div>
+<h3>Kunci jawaban kegiatan penemuan konsep (Bagian F)</h3>
+<div id="discoveryKey"></div>
+<h3>Kunci tantangan HOTS (Bagian H)</h3>
+<div id="hotsKey"></div>
+<h3>Rubrik penilaian diri (Bagian I)</h3>
+<div id="rubric"></div>
+</section>
+
+<footer>LKPD Matematika Kelas IX B · Transformasi Geometri · Refleksi (Pencerminan) · SMP IT Al-Faruq Wahdah Islamiyah Gorontalo</footer>
+</main>
+
+<script>
+"use strict";
+/* =========================================================
+   LKPD Matematika IX B — Refleksi (Pencerminan)
+   Modul: 1) Matematika inti   2) Simulasi bidang koordinat
+          3) Bank soal          4) Latihan bertingkat
+          5) HOTS & penemuan   6) Refleksi & guru
+   ========================================================= */
+const $ = id => document.getElementById(id);
+
+/* ===== CORE-MATH-START =====
+   Blok murni matematika (tanpa DOM) supaya bisa diuji otomatis. */
+const fmtNum = n => {
+  const v = Math.abs(n) < 1e-9 ? 0 : n;
+  const s = Number.isInteger(v) ? String(v) : v.toFixed(2);
+  return s.replace('-', '−');
+};
+const fmtPair = (x, y) => '(' + fmtNum(x) + ', ' + fmtNum(y) + ')';
+
+const RULES = {
+  'sumbu-x': { label:'Sumbu-X (y = 0)', eq:'y = 0', rule:'(x, y) → (x, −y)', note:'x tetap, y berubah tanda', dir:[1,0], perp:[0,1] },
+  'sumbu-y': { label:'Sumbu-Y (x = 0)', eq:'x = 0', rule:'(x, y) → (−x, y)', note:'x berubah tanda, y tetap', dir:[0,1], perp:[1,0] },
+  'y=x':     { label:'Garis y = x', eq:'y = x', rule:'(x, y) → (y, x)', note:'x dan y saling bertukar', dir:[1,1], perp:[1,-1] },
+  'y=-x':    { label:'Garis y = −x', eq:'y = −x', rule:'(x, y) → (−y, −x)', note:'x dan y bertukar lalu berubah tanda', dir:[1,-1], perp:[1,1] },
+  'x=a':     { label:'Garis x = a', eq:'x = a', rule:'(x, y) → (2a − x, y)', note:'jarak ke garis x = a tetap', dir:[0,1], perp:[1,0] },
+  'y=b':     { label:'Garis y = b', eq:'y = b', rule:'(x, y) → (x, 2b − y)', note:'jarak ke garis y = b tetap', dir:[1,0], perp:[0,1] }
+};
+
+/* Refleksi satu titik terhadap satu garis cermin. */
+function reflectPoint(x, y, rule, param) {
+  const p = Number(param) || 0;
+  switch (rule) {
+    case 'sumbu-x': return { x: x, y: -y };
+    case 'sumbu-y': return { x: -x, y: y };
+    case 'y=x':     return { x: y, y: x };
+    case 'y=-x':    return { x: -y, y: -x };
+    case 'x=a':     return { x: 2 * p - x, y: y };
+    case 'y=b':     return { x: x, y: 2 * p - y };
+    default:        return { x: x, y: y };
+  }
+}
+
+/* Refleksi berurutan: langkah = [{line, p?}, ...] */
+function reflectSequence(x, y, steps) {
+  let pt = { x: x, y: y };
+  (steps || []).forEach(s => { pt = reflectPoint(pt.x, pt.y, s.line, s.p); });
+  return pt;
+}
+
+/* Jarak titik ke garis cermin (garis miring: |ax+by+c| / √(a²+b²)). */
+function distanceToMirror(rule, x, y, param) {
+  const p = Number(param) || 0;
+  switch (rule) {
+    case 'sumbu-x': return Math.abs(y);
+    case 'sumbu-y': return Math.abs(x);
+    case 'y=x':     return Math.abs(y - x) / Math.SQRT2;
+    case 'y=-x':    return Math.abs(x + y) / Math.SQRT2;
+    case 'x=a':     return Math.abs(x - p);
+    case 'y=b':     return Math.abs(y - p);
+    default:        return 0;
+  }
+}
+
+/* Ringkasan langkah perhitungan untuk ditampilkan ke siswa. */
+function ruleSteps(rule, x, y, param) {
+  const sx = fmtNum(x), sy = fmtNum(y), sp = fmtNum(param);
+  switch (rule) {
+    case 'sumbu-x':
+      return ['Koordinat x tetap: ' + sx + '.',
+              'Koordinat y berubah tanda: ' + sy + ' → ' + fmtNum(-y) + '.',
+              'Jadi P′ = ' + fmtPair(x, -y) + '.'];
+    case 'sumbu-y':
+      return ['Koordinat x berubah tanda: ' + sx + ' → ' + fmtNum(-x) + '.',
+              'Koordinat y tetap: ' + sy + '.',
+              'Jadi P′ = ' + fmtPair(-x, y) + '.'];
+    case 'y=x':
+      return ['Koordinat x dan y saling bertukar: (' + sx + ', ' + sy + ') → (' + sy + ', ' + sx + ').',
+              'Jadi P′ = ' + fmtPair(y, x) + '.'];
+    case 'y=-x':
+      return ['Koordinat x dan y saling bertukar: (' + sx + ', ' + sy + ') → (' + sy + ', ' + sx + ').',
+              'Lalu kedua koordinat diberi tanda negatif: (' + sy + ', ' + sx + ') → (' + fmtNum(-y) + ', ' + fmtNum(-x) + ').',
+              'Jadi P′ = ' + fmtPair(-y, -x) + '.'];
+    case 'x=a':
+      return ['Garis cermin x = ' + sp + ', sehingga 2a = ' + fmtNum(2 * param) + '.',
+              'x′ = 2a − x = ' + fmtNum(2 * param) + ' − ' + sx + ' = ' + fmtNum(2 * param - x) + '.',
+              'Koordinat y tetap: ' + sy + '.',
+              'Jadi P′ = ' + fmtPair(2 * param - x, y) + '.'];
+    case 'y=b':
+      return ['Garis cermin y = ' + sp + ', sehingga 2b = ' + fmtNum(2 * param) + '.',
+              'y′ = 2b − y = ' + fmtNum(2 * param) + ' − ' + sy + ' = ' + fmtNum(2 * param - y) + '.',
+              'Koordinat x tetap: ' + sx + '.',
+              'Jadi P′ = ' + fmtPair(x, 2 * param - y) + '.'];
+    default:
+      return ['Aturan pencerminan tidak dikenal.'];
+  }
+}
+/* ===== CORE-MATH-END ===== */
+
+/* -------------------------------------------------------------
+   MODUL 2 — SIMULASI BIDANG KOORDINAT
+   ------------------------------------------------------------- */
+const fmtDec = n => Number(n).toFixed(2).replace('.', ',');
+const SIM_DEFAULT = { x: 3, y: 2, mirror: 'sumbu-x', param: 2 };
+
+function simState() {
+  return {
+    x: Number($('x').value),
+    y: Number($('y').value),
+    mirror: $('mirror').value,
+    param: Number($('param').value)
+  };
+}
+
+function explainReflection(rule, x, y, param, img) {
+  const d = distanceToMirror(rule, x, y, param);
+  const info = RULES[rule];
+  let arah = '';
+  if (rule === 'sumbu-x') arah = 'P berjarak ' + fmtDec(d) + ' dari sumbu-X, maka P′ berjarak ' + fmtDec(d) + ' dari sumbu-X di sisi berlawanan.';
+  else if (rule === 'sumbu-y') arah = 'P berjarak ' + fmtDec(d) + ' dari sumbu-Y, maka P′ berjarak ' + fmtDec(d) + ' dari sumbu-Y di sisi berlawanan.';
+  else if (rule === 'y=x') arah = 'P berjarak ' + fmtDec(d) + ' dari garis y = x, maka P′ berjarak ' + fmtDec(d) + ' dari garis yang sama.';
+  else if (rule === 'y=-x') arah = 'P berjarak ' + fmtDec(d) + ' dari garis y = −x, maka P′ berjarak ' + fmtDec(d) + ' dari garis yang sama.';
+  else if (rule === 'x=a') arah = 'P berjarak ' + fmtDec(d) + ' dari garis x = ' + fmtNum(param) + ', maka P′ berjarak ' + fmtDec(d) + ' dari garis itu juga.';
+  else arah = 'P berjarak ' + fmtDec(d) + ' dari garis y = ' + fmtNum(param) + ', maka P′ berjarak ' + fmtDec(d) + ' dari garis itu juga.';
+  return info.note + '. ' + arah;
+}
+
+function drawPlane() {
+  const c = $('plane');
+  if (!c) return;
+  const ctx = c.getContext('2d');
+  const dpr = window.devicePixelRatio || 1;
+  const rect = c.getBoundingClientRect();
+  const w = Math.max(240, rect.width), h = Math.max(220, rect.height);
+  c.width = Math.round(w * dpr); c.height = Math.round(h * dpr);
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  const unit = Math.min((w - 48) / 12, (h - 42) / 12);
+  const ox = w / 2, oy = h / 2;
+  const sx = mx => ox + mx * unit, sy = my => oy - my * unit;
+  const st = simState();
+  const info = RULES[st.mirror];
+  const img = reflectPoint(st.x, st.y, st.mirror, st.param);
+
+  ctx.clearRect(0, 0, w, h);
+  ctx.font = '11px system-ui';
+  ctx.lineWidth = 1;
+  for (let i = -6; i <= 6; i++) {
+    ctx.strokeStyle = '#e5ebf4';
+    ctx.beginPath(); ctx.moveTo(sx(i), 8); ctx.lineTo(sx(i), h - 8); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(8, sy(i)); ctx.lineTo(w - 8, sy(i)); ctx.stroke();
+  }
+  /* sumbu koordinat */
+  ctx.strokeStyle = '#64748b'; ctx.lineWidth = 1.6;
+  ctx.beginPath();
+  ctx.moveTo(8, oy); ctx.lineTo(w - 16, oy);
+  ctx.moveTo(w - 16, oy); ctx.lineTo(w - 23, oy - 5);
+  ctx.moveTo(w - 16, oy); ctx.lineTo(w - 23, oy + 5);
+  ctx.moveTo(ox, h - 8); ctx.lineTo(ox, 12);
+  ctx.moveTo(ox, 12); ctx.lineTo(ox - 5, 19);
+  ctx.moveTo(ox, 12); ctx.lineTo(ox + 5, 19);
+  ctx.stroke();
+  ctx.fillStyle = '#475569';
+  ctx.fillText('x', w - 14, oy - 8);
+  ctx.fillText('y', ox + 8, 16);
+  ctx.fillText('0', ox + 5, oy + 13);
+  for (let i = -5; i <= 5; i++) {
+    if (i === 0) continue;
+    ctx.fillText(String(i), sx(i) - 4, oy + 15);
+    ctx.fillText(String(i), ox + 6, sy(i) + 4);
+  }
+  /* garis cermin */
+  ctx.save();
+  ctx.strokeStyle = '#f59e0b'; ctx.lineWidth = 3; ctx.setLineDash([8, 6]);
+  ctx.beginPath();
+  if (st.mirror === 'sumbu-x') { ctx.moveTo(8, oy); ctx.lineTo(w - 8, oy); }
+  else if (st.mirror === 'sumbu-y') { ctx.moveTo(ox, 8); ctx.lineTo(ox, h - 8); }
+  else if (st.mirror === 'y=x') { ctx.moveTo(sx(-6), sy(-6)); ctx.lineTo(sx(6), sy(6)); }
+  else if (st.mirror === 'y=-x') { ctx.moveTo(sx(-6), sy(6)); ctx.lineTo(sx(6), sy(-6)); }
+  else if (st.mirror === 'x=a') { ctx.moveTo(sx(st.param), 8); ctx.lineTo(sx(st.param), h - 8); }
+  else { ctx.moveTo(8, sy(st.param)); ctx.lineTo(w - 8, sy(st.param)); }
+  ctx.stroke();
+  ctx.restore();
+  ctx.fillStyle = '#b45309';
+  ctx.font = 'bold 12px system-ui';
+  ctx.fillText(info.eq, st.mirror === 'x=a' ? sx(st.param) + 6 : st.mirror === 'y=b' ? 12 : st.mirror === 'sumbu-y' ? ox + 6 : st.mirror === 'y=x' ? sx(-5.6) : st.mirror === 'y=-x' ? sx(-5.6) : 12, st.mirror === 'sumbu-x' ? oy - 7 : st.mirror === 'sumbu-y' ? 20 : st.mirror === 'y=x' ? sy(-5.6) + 14 : st.mirror === 'y=-x' ? sy(5.6) + 14 : sy(st.param) - 7);
+
+  /* ruas P–P' dan titik tengah T */
+  const onLine = (st.x === img.x && st.y === img.y);
+  if (!onLine) {
+    ctx.save();
+    ctx.strokeStyle = '#94a3b8'; ctx.lineWidth = 1.6; ctx.setLineDash([5, 4]);
+    ctx.beginPath(); ctx.moveTo(sx(st.x), sy(st.y)); ctx.lineTo(sx(img.x), sy(img.y)); ctx.stroke();
+    ctx.restore();
+    const tx = (st.x + img.x) / 2, ty = (st.y + img.y) / 2;
+    const wv = [st.x - tx, st.y - ty];
+    const wl = Math.hypot(wv[0], wv[1]) || 1;
+    const wu = [wv[0] / wl, wv[1] / wl];
+    const uv = [-wu[1], wu[0]];
+    const len = 11 / unit;
+    ctx.strokeStyle = '#7c3aed'; ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.moveTo(sx(tx), sy(ty));
+    ctx.lineTo(sx(tx + wu[0] * len), sy(ty + wu[1] * len));
+    ctx.lineTo(sx(tx + wu[0] * len + uv[0] * len), sy(ty + wu[1] * len + uv[1] * len));
+    ctx.lineTo(sx(tx + uv[0] * len), sy(ty + uv[1] * len));
+    ctx.stroke();
+    ctx.fillStyle = '#7c3aed';
+    ctx.beginPath(); ctx.arc(sx(tx), sy(ty), 4, 0, Math.PI * 2); ctx.fill();
+    ctx.font = 'bold 11px system-ui';
+    ctx.fillText('T', sx(tx) + 6, sy(ty) - 6);
+  }
+  /* titik asal dan bayangan */
+  const dot = (mx, my, color, label, dx, dy) => {
+    ctx.fillStyle = color;
+    ctx.beginPath(); ctx.arc(sx(mx), sy(my), 6, 0, Math.PI * 2); ctx.fill();
+    ctx.strokeStyle = '#fff'; ctx.lineWidth = 2; ctx.stroke();
+    ctx.fillStyle = color; ctx.font = 'bold 12px system-ui';
+    ctx.fillText(label, sx(mx) + dx, sy(my) + dy);
+  };
+  dot(st.x, st.y, '#2563eb', 'P(' + fmtNum(st.x) + ', ' + fmtNum(st.y) + ')', 9, -9);
+  dot(img.x, img.y, '#0f9f8f', 'P′(' + fmtNum(img.x) + ', ' + fmtNum(img.y) + ')', 9, 16);
+}
+
+function renderSim() {
+  const st = simState();
+  const img = reflectPoint(st.x, st.y, st.mirror, st.param);
+  const info = RULES[st.mirror];
+  $('xVal').textContent = fmtNum(st.x);
+  $('yVal').textContent = fmtNum(st.y);
+  $('paramVal').textContent = fmtNum(st.param);
+  $('paramWrap').style.display = (st.mirror === 'x=a' || st.mirror === 'y=b') ? '' : 'none';
+  $('result').textContent = 'P(' + fmtNum(st.x) + ', ' + fmtNum(st.y) + ') → P′(' + fmtNum(img.x) + ', ' + fmtNum(img.y) + ')';
+  $('explain').textContent = explainReflection(st.mirror, st.x, st.y, st.param, img);
+  const d1 = distanceToMirror(st.mirror, st.x, st.y, st.param);
+  const d2 = distanceToMirror(st.mirror, img.x, img.y, st.param);
+  $('distText').textContent = 'jarak P = ' + fmtDec(d1) + ' · jarak P′ = ' + fmtDec(d2) +
+    (Math.abs(d1 - d2) < 1e-9 ? ' · sama besar ✓' : ' · berbeda ✗');
+  $('stepsList').innerHTML = ruleSteps(st.mirror, st.x, st.y, st.param).map(s => '<li>' + s + '</li>').join('');
+  drawPlane();
+  return img;
+}
+
+/* -------------------------------------------------------------
+   MODUL 3 — BANK SOAL (15 Mudah · 15 Menengah · 15 Sulit/HOTS)
+   Field "test" dipakai skrip validasi otomatis:
+   { x, y, steps:[{line,p?}], coord:"(a, b)", answer:"opsi benar" }
+   ------------------------------------------------------------- */
+const BANK = {
+  Mudah: [
+    { q:'Titik A(3, 2) dicerminkan terhadap sumbu-X. Koordinat bayangan A′ adalah …',
+      opts:['(3, −2)','(3, 2)','(−3, 2)','(−3, −2)'], ans:0,
+      why:'Aturan sumbu-X: (x, y) → (x, −y). Koordinat x tetap 3 dan koordinat y berubah tanda menjadi −2.',
+      test:{ x:3, y:2, steps:[{line:'sumbu-x'}], coord:'(3, −2)', answer:'(3, −2)' } },
+    { q:'Titik B(−4, 1) dicerminkan terhadap sumbu-Y. Koordinat bayangan B′ adalah …',
+      opts:['(4, 1)','(−4, 1)','(4, −1)','(−4, −1)'], ans:0,
+      why:'Aturan sumbu-Y: (x, y) → (−x, y). Hanya koordinat x yang berubah tanda: −4 menjadi 4, sedangkan y tetap 1.',
+      test:{ x:-4, y:1, steps:[{line:'sumbu-y'}], coord:'(4, 1)', answer:'(4, 1)' } },
+    { q:'Titik C(2, 5) dicerminkan terhadap garis y = x. Koordinat bayangan C′ adalah …',
+      opts:['(5, 2)','(2, 5)','(−2, 5)','(5, −2)'], ans:0,
+      why:'Pada garis y = x koordinat x dan y saling bertukar: (2, 5) → (5, 2).',
+      test:{ x:2, y:5, steps:[{line:'y=x'}], coord:'(5, 2)', answer:'(5, 2)' } },
+    { q:'Titik D(1, 3) dicerminkan terhadap garis y = −x. Koordinat bayangan D′ adalah …',
+      opts:['(−3, −1)','(3, 1)','(−3, 1)','(1, −3)'], ans:0,
+      why:'Pada garis y = −x koordinat ditukar lalu diberi tanda negatif: (1, 3) → (3, −1) → (−3, −1).',
+      test:{ x:1, y:3, steps:[{line:'y=-x'}], coord:'(−3, −1)', answer:'(−3, −1)' } },
+    { q:'Titik E(5, 1) dicerminkan terhadap garis x = 2. Koordinat bayangan E′ adalah …',
+      opts:['(−1, 1)','(1, 5)','(−3, 1)','(5, −1)'], ans:0,
+      why:'Aturan garis x = a: (x, y) → (2a − x, y). Dengan a = 2 diperoleh 2a − x = 4 − 5 = −1, dan y tetap 1.',
+      test:{ x:5, y:1, steps:[{line:'x=a', p:2}], coord:'(−1, 1)', answer:'(−1, 1)' } },
+    { q:'Titik F(3, 4) dicerminkan terhadap garis y = 1. Koordinat bayangan F′ adalah …',
+      opts:['(3, −2)','(3, 2)','(−3, 4)','(3, 6)'], ans:0,
+      why:'Aturan garis y = b: (x, y) → (x, 2b − y). Dengan b = 1 diperoleh 2b − y = 2 − 4 = −2, dan x tetap 3.',
+      test:{ x:3, y:4, steps:[{line:'y=b', p:1}], coord:'(3, −2)', answer:'(3, −2)' } },
+    { q:'Perhatikan aturan (x, y) → (x, −y). Garis cermin yang dimaksud adalah …',
+      opts:['Sumbu-X','Sumbu-Y','Garis y = x','Garis y = −x'], ans:0,
+      why:'Koordinat y berubah tanda berarti pencerminan pada garis horizontal, yaitu sumbu-X (y = 0).' },
+    { q:'Perhatikan aturan (x, y) → (y, x). Garis cermin yang dimaksud adalah …',
+      opts:['Garis y = x','Garis y = −x','Sumbu-X','Sumbu-Y'], ans:0,
+      why:'Koordinat x dan y saling bertukar terjadi pada garis y = x.' },
+    { q:'Titik P(2, −4) dicerminkan terhadap sumbu-X. Koordinat bayangan P′ adalah …',
+      opts:['(2, 4)','(2, −4)','(−2, 4)','(−2, −4)'], ans:0,
+      why:'Koordinat x tetap 2, koordinat y berubah tanda: −4 menjadi 4.',
+      test:{ x:2, y:-4, steps:[{line:'sumbu-x'}], coord:'(2, 4)', answer:'(2, 4)' } },
+    { q:'Titik Q(−3, −2) dicerminkan terhadap sumbu-Y. Koordinat bayangan Q′ adalah …',
+      opts:['(3, −2)','(−3, −2)','(3, 2)','(−3, 2)'], ans:0,
+      why:'Koordinat x berubah tanda: −3 menjadi 3, koordinat y tetap −2.',
+      test:{ x:-3, y:-2, steps:[{line:'sumbu-y'}], coord:'(3, −2)', answer:'(3, −2)' } },
+    { q:'Titik R(4, −1) dicerminkan terhadap garis y = x. Koordinat bayangan R′ adalah …',
+      opts:['(−1, 4)','(4, −1)','(1, −4)','(−1, −4)'], ans:0,
+      why:'Koordinat saling bertukar: (4, −1) → (−1, 4).',
+      test:{ x:4, y:-1, steps:[{line:'y=x'}], coord:'(−1, 4)', answer:'(−1, 4)' } },
+    { q:'Titik S(−2, 5) dicerminkan terhadap garis y = −x. Koordinat bayangan S′ adalah …',
+      opts:['(−5, 2)','(5, −2)','(−5, −2)','(2, −5)'], ans:0,
+      why:'Tukar lalu negatif: (−2, 5) → (5, −2) → (−5, 2).',
+      test:{ x:-2, y:5, steps:[{line:'y=-x'}], coord:'(−5, 2)', answer:'(−5, 2)' } },
+    { q:'Titik T(0, 7) dicerminkan terhadap sumbu-Y. Koordinat bayangan T′ adalah …',
+      opts:['(0, 7)','(0, −7)','(7, 0)','(−7, 0)'], ans:0,
+      why:'Karena x = 0, titik T berada tepat pada sumbu-Y sehingga bayangannya berimpit dengan titik asal.',
+      test:{ x:0, y:7, steps:[{line:'sumbu-y'}], coord:'(0, 7)', answer:'(0, 7)' } },
+    { q:'Titik U(6, 2) dicerminkan terhadap garis x = 3. Koordinat bayangan U′ adalah …',
+      opts:['(0, 2)','(6, −2)','(0, −2)','(3, 2)'], ans:0,
+      why:'2a − x = 6 − 6 = 0, koordinat y tetap 2.',
+      test:{ x:6, y:2, steps:[{line:'x=a', p:3}], coord:'(0, 2)', answer:'(0, 2)' } },
+    { q:'Titik V(1, 6) dicerminkan terhadap garis y = 4. Koordinat bayangan V′ adalah …',
+      opts:['(1, 2)','(1, −2)','(−1, 2)','(1, 8)'], ans:0,
+      why:'2b − y = 8 − 6 = 2, koordinat x tetap 1.',
+      test:{ x:1, y:6, steps:[{line:'y=b', p:4}], coord:'(1, 2)', answer:'(1, 2)' } }
+  ],
+  Menengah: [
+    { q:'Titik A(3, 2) dicerminkan terhadap sumbu-Y, kemudian hasilnya dicerminkan terhadap sumbu-X. Koordinat akhir A″ adalah …',
+      opts:['(−3, −2)','(3, −2)','(−3, 2)','(3, 2)'], ans:0,
+      why:'Langkah 1 sumbu-Y: (3, 2) → (−3, 2). Langkah 2 sumbu-X: (−3, 2) → (−3, −2).',
+      test:{ x:3, y:2, steps:[{line:'sumbu-y'},{line:'sumbu-x'}], coord:'(−3, −2)', answer:'(−3, −2)' } },
+    { q:'Titik P(x, y) dicerminkan terhadap garis y = x menghasilkan P′(7, −2). Koordinat titik asal P adalah …',
+      opts:['(−2, 7)','(7, −2)','(2, −7)','(7, 2)'], ans:0,
+      why:'Karena x dan y bertukar, maka y = 7 dan x = −2 sehingga P(−2, 7).',
+      test:{ x:-2, y:7, steps:[{line:'y=x'}], coord:'(7, −2)', answer:'(−2, 7)', reverse:true } },
+    { q:'Titik P(x, y) dicerminkan terhadap garis x = 4 menghasilkan P′(1, 3). Koordinat titik asal P adalah …',
+      opts:['(7, 3)','(1, 3)','(8, 3)','(5, 3)'], ans:0,
+      why:'2a − x = 1 → 8 − x = 1 → x = 7, dan koordinat y tetap 3.',
+      test:{ x:7, y:3, steps:[{line:'x=a', p:4}], coord:'(1, 3)', answer:'(7, 3)', reverse:true } },
+    { q:'Titik P(x, y) dicerminkan terhadap garis y = 3 menghasilkan P′(2, −1). Koordinat titik asal P adalah …',
+      opts:['(2, 7)','(2, −1)','(2, 5)','(5, 2)'], ans:0,
+      why:'2b − y = −1 → 6 − y = −1 → y = 7, dan koordinat x tetap 2.',
+      test:{ x:2, y:7, steps:[{line:'y=b', p:3}], coord:'(2, −1)', answer:'(2, 7)', reverse:true } },
+    { q:'Titik M(2, −3) dicerminkan terhadap garis y = x, kemudian hasilnya dicerminkan terhadap garis y = −x. Koordinat akhir M″ adalah …',
+      opts:['(−2, 3)','(2, −3)','(−3, 2)','(3, −2)'], ans:0,
+      why:'y = x: (2, −3) → (−3, 2). y = −x: (−3, 2) → (−2, 3).',
+      test:{ x:2, y:-3, steps:[{line:'y=x'},{line:'y=-x'}], coord:'(−2, 3)', answer:'(−2, 3)' } },
+    { q:'Titik K(4, −2) dicerminkan terhadap garis x = 1. Koordinat bayangan K′ adalah …',
+      opts:['(−2, −2)','(6, −2)','(−6, −2)','(2, −2)'], ans:0,
+      why:'2a − x = 2 − 4 = −2, koordinat y tetap −2.',
+      test:{ x:4, y:-2, steps:[{line:'x=a', p:1}], coord:'(−2, −2)', answer:'(−2, −2)' } },
+    { q:'Titik N(−1, 5) dicerminkan terhadap garis y = 2. Koordinat bayangan N′ adalah …',
+      opts:['(−1, −1)','(−1, 5)','(1, −1)','(−1, 1)'], ans:0,
+      why:'2b − y = 4 − 5 = −1, koordinat x tetap −1.',
+      test:{ x:-1, y:5, steps:[{line:'y=b', p:2}], coord:'(−1, −1)', answer:'(−1, −1)' } },
+    { q:'Titik T(3, 3) dicerminkan terhadap garis y = x. Koordinat bayangan T′ adalah …',
+      opts:['(3, 3)','(−3, −3)','(3, −3)','(−3, 3)'], ans:0,
+      why:'T(3, 3) berada tepat pada garis y = x sehingga bayangannya berimpit dengan titik asal.',
+      test:{ x:3, y:3, steps:[{line:'y=x'}], coord:'(3, 3)', answer:'(3, 3)' } },
+    { q:'Perhatikan titik A(−2, 5) dan bayangannya A′(2, 5). Garis cermin yang dimaksud adalah …',
+      opts:['Sumbu-Y','Sumbu-X','Garis y = x','Garis y = −x'], ans:0,
+      why:'Koordinat x berubah tanda sementara y tetap, sehingga garis cerminnya sumbu-Y.',
+      test:{ x:-2, y:5, steps:[{line:'sumbu-y'}], coord:'(2, 5)', answer:'Sumbu-Y' } },
+    { q:'Perhatikan titik A(4, 2) dan bayangannya A′(4, −2). Garis cermin yang dimaksud adalah …',
+      opts:['Sumbu-X','Sumbu-Y','Garis y = x','Garis y = −x'], ans:0,
+      why:'Koordinat y berubah tanda sementara x tetap, sehingga garis cerminnya sumbu-X.',
+      test:{ x:4, y:2, steps:[{line:'sumbu-x'}], coord:'(4, −2)', answer:'Sumbu-X' } },
+    { q:'Perhatikan titik A(2, 6) dan bayangannya A′(6, 2). Garis cermin yang dimaksud adalah …',
+      opts:['Garis y = x','Garis y = −x','Sumbu-X','Sumbu-Y'], ans:0,
+      why:'Koordinat x dan y saling bertukar, sehingga garis cerminnya y = x.',
+      test:{ x:2, y:6, steps:[{line:'y=x'}], coord:'(6, 2)', answer:'Garis y = x' } },
+    { q:'Titik W(−2, 3) dicerminkan terhadap garis y = 1, kemudian hasilnya dicerminkan terhadap sumbu-X. Koordinat akhir W″ adalah …',
+      opts:['(−2, 1)','(−2, −1)','(2, 1)','(2, −1)'], ans:0,
+      why:'y = 1: (−2, 3) → (−2, −1). Sumbu-X: (−2, −1) → (−2, 1).',
+      test:{ x:-2, y:3, steps:[{line:'y=b', p:1},{line:'sumbu-x'}], coord:'(−2, 1)', answer:'(−2, 1)' } },
+    { q:'Bangun ABCD dengan A(1, 2), B(4, 2), C(4, 5), D(1, 5) dicerminkan terhadap sumbu-Y. Koordinat A′ adalah …',
+      opts:['(−1, 2)','(1, −2)','(−1, −2)','(1, 2)'], ans:0,
+      why:'Seluruh titik bangun dicerminkan terhadap sumbu-Y, sehingga A(1, 2) → A′(−1, 2).',
+      test:{ x:1, y:2, steps:[{line:'sumbu-y'}], coord:'(−1, 2)', answer:'(−1, 2)' } },
+    { q:'Titik Z(2, −4) dicerminkan terhadap garis y = −x. Koordinat bayangan Z′ adalah …',
+      opts:['(4, −2)','(−4, −2)','(4, 2)','(−4, 2)'], ans:0,
+      why:'Tukar lalu negatif: (2, −4) → (−4, 2) → (4, −2).',
+      test:{ x:2, y:-4, steps:[{line:'y=-x'}], coord:'(4, −2)', answer:'(4, −2)' } },
+    { q:'Nilai x + y dari bayangan titik P(−3, 4) yang dicerminkan terhadap garis y = x adalah …',
+      opts:['1','−1','7','−7'], ans:0,
+      why:'P′ = (4, −3) sehingga x + y = 4 + (−3) = 1.',
+      test:{ x:-3, y:4, steps:[{line:'y=x'}], coord:'(4, −3)', answer:'1' } }
+  ],
+  Sulit: [
+    { q:'Refleksi terhadap sumbu-Y dilanjutkan refleksi terhadap sumbu-X menghasilkan …',
+      opts:['(−x, −y)','(x, y)','(−x, y)','(x, −y)'], ans:0,
+      why:'Sumbu-Y mengubah x menjadi −x dan sumbu-X mengubah y menjadi −y, sehingga hasilnya (−x, −y).',
+      test:{ x:3, y:2, steps:[{line:'sumbu-y'},{line:'sumbu-x'}], coord:'(−3, −2)', answer:'(−x, −y)' } },
+    { q:'Titik P(2, 3) dicerminkan terhadap garis y = x, kemudian hasilnya dicerminkan terhadap sumbu-Y. Koordinat akhir P″ adalah …',
+      opts:['(−3, 2)','(3, −2)','(−3, −2)','(3, 2)'], ans:0,
+      why:'y = x: (2, 3) → (3, 2). Sumbu-Y: (3, 2) → (−3, 2).',
+      test:{ x:2, y:3, steps:[{line:'y=x'},{line:'sumbu-y'}], coord:'(−3, 2)', answer:'(−3, 2)' } },
+    { q:'Titik P(x, y) dicerminkan terhadap garis y = −x menghasilkan P′(−4, 6). Koordinat titik asal P adalah …',
+      opts:['(−6, 4)','(4, −6)','(−4, 6)','(6, −4)'], ans:0,
+      why:'Karena (−y, −x) = (−4, 6) maka y = 4 dan x = −6, sehingga P(−6, 4).',
+      test:{ x:-6, y:4, steps:[{line:'y=-x'}], coord:'(−4, 6)', answer:'(−6, 4)', reverse:true } },
+    { q:'Perhatikan segitiga ABC dengan A(1, 2), B(−3, 1), C(2, −1). Setelah dicerminkan terhadap garis y = x, koordinat B′ adalah …',
+      opts:['(1, −3)','(−3, 1)','(−1, 3)','(3, −1)'], ans:0,
+      why:'Koordinat saling bertukar: B(−3, 1) → B′(1, −3).',
+      test:{ x:-3, y:1, steps:[{line:'y=x'}], coord:'(1, −3)', answer:'(1, −3)' } },
+    { q:'Bayu mengerjakan soal: “Titik P(−2, 5) dicerminkan terhadap garis y = −x.” Bayu menulis P′(−5, −2). Penilaian yang tepat adalah …',
+      opts:['Jawaban Bayu salah; yang benar P′(−5, 2)','Jawaban Bayu benar karena x dan y saling bertukar','Jawaban Bayu salah; yang benar P′(5, −2)','Jawaban Bayu benar karena garis y = −x menukar tanda koordinat'], ans:0,
+      why:'Aturan (x, y) → (−y, −x): untuk P(−2, 5) diperoleh (−5, 2). Bayu tertukar antara (−5, 2) dan (−5, −2).' },
+    { q:'Titik A(3, 5) dan B(−2, 4) dicerminkan terhadap garis y = x. Koordinat bayangan keduanya adalah …',
+      opts:['A′(5, 3) dan B′(4, −2)','A′(5, 3) dan B′(−2, 4)','A′(3, 5) dan B′(4, −2)','A′(5, 3) dan B′(−4, 2)'], ans:0,
+      why:'Tukar koordinat: A(3, 5) → A′(5, 3) dan B(−2, 4) → B′(4, −2).' },
+    { q:'Titik P(2, −5) dicerminkan dua kali. Prosedur I: sumbu-X lalu sumbu-Y. Prosedur II: garis y = x lalu garis y = −x. Kesimpulan yang benar adalah …',
+      opts:['Kedua prosedur menghasilkan titik akhir yang sama, yaitu (−2, 5)','Prosedur I menghasilkan (−2, 5), sedangkan prosedur II menghasilkan (2, −5)','Prosedur I menghasilkan (2, −5), sedangkan prosedur II menghasilkan (−2, 5)','Kedua prosedur menghasilkan titik akhir yang sama, yaitu (5, −2)'], ans:0,
+      why:'Prosedur I: (2, −5) → (2, 5) → (−2, 5). Prosedur II: (2, −5) → (−5, 2) → (−2, 5). Keduanya sama karena kedua pasangan garis saling tegak lurus, sehingga hasilnya rotasi 180° terhadap O.',
+      test:{ x:2, y:-5, steps:[{line:'sumbu-x'},{line:'sumbu-y'}], coord:'(−2, 5)', answer:'Kedua prosedur menghasilkan titik akhir yang sama, yaitu (−2, 5)' } },
+    { q:'Titik-titik yang tidak bergerak setelah dicerminkan terhadap garis y = x adalah titik yang …',
+      opts:['berada tepat pada garis y = x','berada pada sumbu-X','berada pada sumbu-Y','berada pada garis y = −x'], ans:0,
+      why:'Jarak titik ke garis cermin adalah 0, sehingga titik itu berimpit dengan bayangannya sendiri.' },
+    { q:'Pada refleksi terhadap sumbu-Y, koordinat yang berubah tanda adalah …',
+      opts:['Koordinat x','Koordinat y','Keduanya','Tidak ada yang berubah'], ans:0,
+      why:'Aturan sumbu-Y: (x, y) → (−x, y). Hanya koordinat x yang berubah tanda.' },
+    { q:'Refleksi terhadap garis y = x merupakan transformasi yang …',
+      opts:['menjaga jarak dan besar sudut, tetapi membalik orientasi bangun','mengubah ukuran bangun','menggeser bangun tanpa mengubah bentuk dan ukuran','memutar bangunan sebesar 90°'], ans:0,
+      why:'Pencerminan menghasilkan bangun yang kongruen (sama besar) tetapi orientasi atau arah sisinya terbalik.' },
+    { q:'Titik A(2, 6) dan B(2, −2) dicerminkan terhadap garis y = 2. Koordinat A′ dan B′ adalah …',
+      opts:['A′(2, −2) dan B′(2, 6)','A′(2, 6) dan B′(2, −2)','A′(−2, 2) dan B′(2, −2)','A′(2, −2) dan B′(2, 2)'], ans:0,
+      why:'2b − y = 4 − 6 = −2 dan 4 − (−2) = 6, sehingga kedua titik bertukar posisi: A′ = B dan B′ = A.',
+      test:{ x:2, y:6, steps:[{line:'y=b', p:2}], coord:'(2, −2)', answer:'A′(2, −2) dan B′(2, 6)' } },
+    { q:'Koordinat titik asal adalah (a, b). Setelah dicerminkan terhadap garis y = x lalu terhadap sumbu-Y, koordinat akhirnya adalah …',
+      opts:['(−b, a)','(b, −a)','(−a, b)','(a, −b)'], ans:0,
+      why:'y = x: (a, b) → (b, a). Sumbu-Y: (b, a) → (−b, a).',
+      test:{ x:3, y:5, steps:[{line:'y=x'},{line:'sumbu-y'}], coord:'(−5, 3)', answer:'(−b, a)' } },
+    { q:'Bangun XYZ dengan X(−2, 3), Y(−2, 6), Z(1, 6) dicerminkan terhadap sumbu-Y. Pernyataan yang tepat adalah …',
+      opts:['Luas bangun tetap sama, tetapi bangun berada di belah kiri sumbu-Y','Luas bangun menjadi dua kali lebih besar','Luas bangun menjadi setengahnya','Bangun berubah menjadi segitiga'], ans:0,
+      why:'Pencerminan mempertahankan ukuran dan bentuk, hanya posisi yang berubah ke arah berlawanan terhadap garis cermin.' },
+    { q:'Titik P(3, 7) dicerminkan terhadap garis y = x sebanyak dua kali berturut-turut. Hasil akhirnya adalah …',
+      opts:['Kembali ke titik asal, yaitu (3, 7)','(7, 3)','(−3, −7)','(−7, −3)'], ans:0,
+      why:'Dua kali penukaran koordinat mengembalikan titik ke posisi semula: (3, 7) → (7, 3) → (3, 7).',
+      test:{ x:3, y:7, steps:[{line:'y=x'},{line:'y=x'}], coord:'(3, 7)', answer:'Kembali ke titik asal, yaitu (3, 7)' } },
+    { q:'Titik P(4, 6) dicerminkan terhadap sumbu-X menjadi P′(4, −6), kemudian P′ dicerminkan terhadap garis y = −x. Koordinat akhir titik adalah …',
+      opts:['(6, −4)','(−6, −4)','(6, 4)','(4, −6)'], ans:0,
+      why:'y = −x: (4, −6) → (6, −4).',
+      test:{ x:4, y:6, steps:[{line:'sumbu-x'},{line:'y=-x'}], coord:'(6, −4)', answer:'(6, −4)' } }
+  ]
+};
+const LEVELS = ['Mudah', 'Menengah', 'Sulit'];
+const LEVEL_CLASS = { Mudah:'mudah', Menengah:'menengah', Sulit:'sulit' };
+const PICK_PER_LEVEL = 5;
+
+/* -------------------------------------------------------------
+   MODUL 4 — LATIHAN BERTINGKAT (acak 5 soal per tingkat)
+   ------------------------------------------------------------- */
+function shuffle(arr) {
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    const t = a[i]; a[i] = a[j]; a[j] = t;
+  }
+  return a;
+}
+let QUIZ = [];
+
+function buildQuiz() {
+  QUIZ = [];
+  LEVELS.forEach(lv => {
+    const pool = BANK[lv].map((q, i) => ({ q: q, id: lv + '-' + i }));
+    shuffle(pool).slice(0, PICK_PER_LEVEL).forEach(item => {
+      const opts = shuffle(item.q.opts.map((text, i) => ({ text: text, ok: i === item.q.ans })));
+      QUIZ.push({
+        lv: lv,
+        q: item.q.q,
+        opts: opts.map(o => o.text),
+        ans: opts.findIndex(o => o.ok),
+        why: item.q.why,
+        no: QUIZ.length + 1
+      });
+    });
+  });
+}
+
+function renderQuiz() {
+  const box = $('quiz');
+  box.innerHTML = '';
+  QUIZ.forEach((item, i) => {
+    const d = document.createElement('div');
+    d.className = 'task';
+    d.innerHTML =
+      '<p><strong>Soal ' + item.no + '</strong> <span class="levelchip ' + LEVEL_CLASS[item.lv] + '">' + item.lv + '</span></p>' +
+      '<p>' + item.q + '</p>' +
+      item.opts.map((o, j) =>
+        '<label class="option"><input type="radio" name="q' + i + '" value="' + j + '"> <span>' +
+        String.fromCharCode(65 + j) + '. ' + o + '</span></label>').join('') +
+      '<div class="feedback" id="fb' + i + '"></div>';
+    box.appendChild(d);
+  });
+  $('score').textContent = '';
+  $('scoreDetail').textContent = '';
+}
+
+function checkQuiz() {
+  let benar = 0, dijawab = 0;
+  const perLevel = { Mudah:[0,0], Menengah:[0,0], Sulit:[0,0] };
+  QUIZ.forEach((item, i) => {
+    const chosen = document.querySelector('input[name="q' + i + '"]:checked');
+    const fb = $('fb' + i);
+    fb.style.display = 'block';
+    fb.classList.remove('bad');
+    perLevel[item.lv][1]++;
+    if (!chosen) {
+      fb.textContent = 'Belum dijawab. ';
+      fb.classList.add('bad');
+    } else {
+      dijawab++;
+      if (Number(chosen.value) === item.ans) {
+        benar++; perLevel[item.lv][0]++;
+        fb.textContent = 'Benar. ';
+      } else {
+        fb.textContent = 'Belum tepat. ';
+        fb.classList.add('bad');
+      }
+    }
+    fb.textContent += 'Kunci: ' + String.fromCharCode(65 + item.ans) + '. Pembahasan: ' + item.why;
+  });
+  $('score').textContent = 'Skor: ' + benar + '/' + QUIZ.length + ' benar · ' + dijawab + '/' + QUIZ.length + ' soal dijawab.';
+  const garis = LEVELS.map(lv => lv + ' ' + perLevel[lv][0] + '/' + perLevel[lv][1]).join(' · ');
+  const nilai = benar / QUIZ.length;
+  let predikat = 'Perlu bimbingan guru, please diskusikan kembali di Bagian F.';
+  if (nilai >= 0.87) predikat = 'Sangat baik, kamu sudah menguasai refleksi dengan baik.';
+  else if (nilai >= 0.67) predikat = 'Baik, tinggal sedikit latihan lagi pada soal yang salah.';
+  else if (nilai >= 0.47) predikat = 'Cukup, ulangi bagian penemuan konsep lalu coba lagi.';
+  $('scoreDetail').textContent = 'Per tingkat — ' + garis + '. ' + predikat;
+}
+
+/* -------------------------------------------------------------
+   MODUL 5 — PENEMUAN KONSEP (Bagian F) & HOTS (Bagian H)
+   ------------------------------------------------------------- */
+const DISCOVERY = [
+  { q:'Koordinat mana yang berubah tanda ketika titik dicerminkan terhadap sumbu-X? Geser titik P beberapa kali dan amati.',
+    hint:'Coba P(2, 5), lalu P(−2, −5). Perhatikan koordinat mana yang tidak pernah berubah.',
+    key:'Koordinat y yang berubah tanda, koordinat x tetap. Aturannya: (x, y) → (x, −y).',
+    preset:{ x:2, y:5, mirror:'sumbu-x' } },
+  { q:'Koordinat mana yang berubah tanda ketika titik dicerminkan terhadap sumbu-Y?',
+    hint:'Bandingkan dengan kasus sumbu-X. Apa yang berbeda?',
+    key:'Koordinat x yang berubah tanda, koordinat y tetap. Aturannya: (x, y) → (−x, y).',
+    preset:{ x:2, y:5, mirror:'sumbu-y' } },
+  { q:'Kapan koordinat x dan y saling bertukar? Coba garis cermin yang miring.',
+    hint:'Pilih garis y = x dan garis y = −x, lalu bandingkan hasilnya.',
+    key:'Pada garis y = x koordinat saling bertukar: (x, y) → (y, x). Pada garis y = −x koordinat ditukar lalu berubah tanda: (x, y) → (−y, −x).',
+    preset:{ x:3, y:-2, mirror:'y=x' } },
+  { q:'Bagaimana hubungan jarak titik asal dan bayangan terhadap garis cermin?',
+    hint:'Lihat teks "Jarak ke garis cermin" pada simulasi, dan perhatikan titik T di garis cermin.',
+    key:'Jarak titik asal ke garis cermin sama dengan jarak bayangan ke garis cermin. Garis cermin merupakan garis bagi tepat (garis bagi tepat) dari ruas PP′, dan titik tengah T selalu berada tepat di garis cermin.',
+    preset:{ x:3, y:2, mirror:'y=x' } },
+  { q:'Mengapa titik yang terletak tepat pada garis cermin tidak berpindah?',
+    hint:'Letakkan titik P tepat pada garis cermin, misalnya P(3, 3) dengan garis y = x.',
+    key:'Jarak titik ke garis cermin adalah 0, sehingga bayangan berimpit dengan titik asal. Karena itu semua titik pada garis cermin merupakan titik tetap (fixed point).',
+    preset:{ x:3, y:3, mirror:'y=x' } },
+  { q:'Rumuskan aturanmu sendiri untuk garis cermin x = a dan y = b, lalu ujilah di simulasi.',
+    hint:'Bandingkan jarak titik asal ke garis dengan jarak bayangan ke garis, lalu cari pola bilangannya.',
+    key:'Koordinat yang tegak lurus garis cermin dihitung sebagai dua kali nilai garis dikurangi koordinat lama: x′ = 2a − x atau y′ = 2b − y. Koordinat lain tetap.',
+    preset:{ x:5, y:1, mirror:'x=a', param:2 } }
+];
+
+const HOTS = [
+  { title:'Menentukan titik asal berdasarkan bayangan',
+    text:'Nilai bayangan suatu titik P terhadap garis y = x adalah P′(−3, 4). Tentukan koordinat titik asal P dan jelaskan cara mendapatkannya.',
+    parts:['Koordinat titik asal P adalah …','Jelaskan langkah penyelesaianmu …'],
+    key:['P(4, −3).','Pada garis y = x koordinat x dan y saling bertukar, sehingga y = −3 dan x = 4.'] },
+  { title:'Mencari kesalahan dalam penyelesaian',
+    text:'Andi mengerjakan soal berikut: “Titik Q(−3, 6) dicerminkan terhadap sumbu-Y.” Andi menulis Q′(−3, −6) dengan alasan “nilai x dan y sama-sama dibalik”. Tentukan kesalahannya, lalu tuliskan jawaban yang benar.',
+    parts:['Kesalahan Andi adalah …','Jawaban yang benar adalah …'],
+    key:['Andi keliru karena pada sumbu-Y hanya koordinat x yang berubah tanda, sedangkan koordinat y tetap. Ada dua kesalahan sekaligus: tanda x tidak dibalik dan y ikut dibalik.',
+         'Q′(3, 6), karena (−3, 6) → (−x, y) = (3, 6).'] },
+  { title:'Menganalisis dua refleksi yang berurutan',
+    text:'Titik R(2, −4) dicerminkan terhadap sumbu-X, kemudian hasilnya dicerminkan terhadap garis y = x. Tentukan koordinat akhirnya. Sekarang lakukan dengan urutan terbalik (garis y = x dahulu, lalu sumbu-X) dan bandingkan hasilnya.',
+    parts:['Urutan 1 (sumbu-X lalu y = x) menghasilkan …','Urutan 2 (y = x lalu sumbu-X) menghasilkan …','Jelaskan mengapa hasilnya bisa berbeda …'],
+    key:['Urutan 1: sumbu-X: (2, −4) → (2, 4); lalu y = x: (2, 4) → (4, 2).',
+         'Urutan 2: y = x: (2, −4) → (−4, 2); lalu sumbu-X: (−4, 2) → (−4, −2).',
+         'Hasilnya berbeda karena setiap bayangan menjadi titik asal untuk refleksi berikutnya, sehingga urutan menentukan titik akhir.'] },
+  { title:'Membandingkan hasil refleksi terhadap dua sumbu',
+    text:'Lukman ingin membuat salinan logo sekolah yang dicerminkan terhadap sumbu-Y. Titik P(3, 2) terdapat pada logo.',
+    parts:['Tentukan P₁ (bayangan terhadap sumbu-X) dan P₂ (bayangan terhadap sumbu-Y).','Tentukan titik tengah segmen P₁P₂.','Jelaskan hubungan titik tengah tersebut dengan titik asal P.'],
+    key:['P₁(3, −2) dan P₂(−3, 2).',
+         'Titik tengah P₁P₂ = ((3 + (−3))/2, (−2 + 2)/2) = (0, 0) = O.',
+         'Titik tengah P₁P₂ adalah titik asal O(0, 0), dan jarak O ke P₁, P₂, serta P semuanya sama. Jadi O menjadi pusat simetri keempat titik tersebut.'] },
+  { title:'Membuktikan dua prosedur menghasilkan titik akhir yang sama',
+    text:'Dina dan Rangga sama-sama mencerminkan titik P(2, −5) dua kali. Dina: sumbu-X lalu sumbu-Y. Rangga: garis y = x lalu garis y = −x. Apakah titik akhir mereka sama? Buktikan dengan perhitungan, lalu berikan alasan mengatikanya.',
+    parts:['Perhitungan Dina menghasilkan …','Perhitungan Rangga menghasilkan …','Kesimpulan dan alasan …'],
+    key:['Dina: (2, −5) → sumbu-X → (2, 5) → sumbu-Y → (−2, 5).',
+         'Rangga: (2, −5) → y = x → (−5, 2) → y = −x → (−2, 5).',
+         'Hasilnya sama, yaitu (−2, 5). Alasannya: kedua prosedur merupakan rotasi 180° terhadap O karena kedua pasangan garis cermin saling tegak lurus.'] }
+];
+
+const SELF_ITEMS = [
+  'Saya dapat menjelaskan apa itu refleksi (pencerminan).',
+  'Saya dapat menentukan koordinat bayangan terhadap sumbu-X, sumbu-Y, dan garis diagonal y = x serta y = −x.',
+  'Saya dapat menentukan koordinat bayangan terhadap garis x = a dan y = b.',
+  'Saya dapat menganalisis refleksi berurutan dan menjelaskan alasan atas jawabannya.'
+];
+const SCALE = [
+  { v:4, t:'Sangat paham' },
+  { v:3, t:'Paham' },
+  { v:2, t:'Cukup paham' },
+  { v:1, t:'Belum paham' }
+];
+
+/* -------------------------------------------------------------
+   MODUL 6 — RENDERER BAGIAN F, H, I
+   ------------------------------------------------------------- */
+function applyPreset(p) {
+  if (p.x !== undefined) $('x').value = p.x;
+  if (p.y !== undefined) $('y').value = p.y;
+  if (p.mirror !== undefined) $('mirror').value = p.mirror;
+  if (p.param !== undefined) $('param').value = p.param;
+  renderSim();
+  $('eksplorasi').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function renderDiscovery() {
+  const box = $('discovery');
+  box.innerHTML = '';
+  DISCOVERY.forEach((d, i) => {
+    const el = document.createElement('div');
+    el.className = 'task';
+    const preset = JSON.stringify(d.preset).replace(/"/g, '&quot;');
+    el.innerHTML =
+      '<p><strong>Pertanyaan ' + (i + 1) + '</strong></p><p>' + d.q + '</p>' +
+      '<label class="small" for="disc' + i + '">Kesimpulanmu (tulis dengan kalimat sendiri):</label>' +
+      '<textarea id="disc' + i + '" placeholder="Menurut saya, ..."></textarea>' +
+      '<details><summary>Petunjuk</summary><p class="small" style="margin:6px 0 0">' + d.hint + '</p></details>' +
+      '<div class="actions interactive-only"><button class="secondary" data-preset="' + preset + '">Coba di simulasi</button></div>' +
+      '<div class="guru-only callout green small" style="margin-top:10px"><strong>Jawaban yang diharapkan:</strong> ' + d.key + '</div>';
+    box.appendChild(el);
+  });
+  box.querySelectorAll('button[data-preset]').forEach(b => {
+    b.addEventListener('click', () => applyPreset(JSON.parse(b.getAttribute('data-preset'))));
+  });
+}
+
+function renderHots() {
+  const box = $('hotsList');
+  box.innerHTML = '';
+  HOTS.forEach((h, i) => {
+    const el = document.createElement('div');
+    el.className = 'task';
+    el.innerHTML =
+      '<p><strong>' + (i + 1) + '. ' + h.title + '</strong></p><p>' + h.text + '</p>' +
+      h.parts.map((p, j) =>
+        '<label class="small" for="hots' + i + '_' + j + '">' + p + '</label>' +
+        '<textarea id="hots' + i + '_' + j + '" placeholder="Tulis jawaban beserta alasannya ..."></textarea>').join('') +
+      '<div class="guru-only callout green small" style="margin-top:10px"><strong>Panduan jawaban:</strong><ol>' +
+      h.key.map(k => '<li>' + k + '</li>').join('') + '</ol></div>';
+    box.appendChild(el);
+  });
+  $('hotsAnswer').innerHTML = '<strong>Panduan jawaban HOTS:</strong><ol>' +
+    HOTS.map(h => '<li><strong>' + h.title + '</strong><ul>' +
+      h.key.map(k => '<li>' + k + '</li>').join('') + '</ul></li>').join('') + '</ol>';
+}
+
+function renderSelfAssess() {
+  const box = $('selfAssess');
+  box.innerHTML = '';
+  SELF_ITEMS.forEach((t, i) => {
+    const el = document.createElement('div');
+    el.className = 'selfrow';
+    el.innerHTML = '<p>' + (i + 1) + '. ' + t + '</p><div class="scale">' +
+      SCALE.map(s => '<label><input type="radio" name="sa' + i + '" value="' + s.v + '"> ' + s.t + '</label>').join('') +
+      '</div>';
+    box.appendChild(el);
+  });
+}
+
+function showSelf() {
+  let total = 0, terisi = 0;
+  SELF_ITEMS.forEach((t, i) => {
+    const c = document.querySelector('input[name="sa' + i + '"]:checked');
+    if (c) { total += Number(c.value); terisi++; }
+  });
+  const out = $('selfResult');
+  out.style.display = 'block';
+  if (terisi === 0) {
+    out.textContent = 'Belum ada penilaian yang diisi. Pilih satu jawaban pada setiap pernyataan terlebih dahulu.';
+    return;
+  }
+  const maks = SELF_ITEMS.length * 4;
+  const persen = Math.round(total / maks * 100);
+  let ket = '';
+  if (total >= 13) ket = 'Kamu sudah sangat baik. Lanjut ke latihan tingkat Sulit/HOTS dan kamu siap mengerjakan tantangan berikutnya.';
+  else if (total >= 10) ket = 'Pemahamanmu sudah baik. Perbanyak latihan soal pada tingkat menengah dan HOTS.';
+  else if (total >= 6) ket = 'Pemahamanmu sedang berkembang. Ulangi kegiatan eksplorasi di Bagian E dan diskusikan dengan guru.';
+  else ket = 'Kamu perlu bimbingan lebih lanjut. Bawa lembar ini kepada guru untuk pendampingan pribadi.';
+  out.innerHTML = '<strong>Penilaian diri: ' + total + '/' + maks + ' (' + persen + '%).</strong> ' + ket +
+    '<br><span class="small muted">Rincian: ' + terisi + ' dari ' + SELF_ITEMS.length + ' pernyataan telah dinilai.</span>';
+}
+
+/* -------------------------------------------------------------
+   MODUL 7 — MODE GURU (kunci jawaban, pembahasan, rubrik)
+   ------------------------------------------------------------- */
+function renderBankKey() {
+  let html = '';
+  LEVELS.forEach(lv => {
+    html += '<h3>' + lv + ' — ' + BANK[lv].length + ' soal</h3>';
+    BANK[lv].forEach((q, i) => {
+      html += '<div class="bank"><h4>Soal ' + (i + 1) + '</h4><p>' + q.q + '</p><p>' +
+        q.opts.map((o, j) => (j === q.ans
+          ? '<strong>' + String.fromCharCode(65 + j) + '. ' + o + ' ✓</strong>'
+          : String.fromCharCode(65 + j) + '. ' + o)).join(' &nbsp;|&nbsp; ') +
+        '</p><p><strong>Kunci: ' + String.fromCharCode(65 + q.ans) + '</strong> — ' + q.why + '</p></div>';
+    });
+  });
+  $('bankKey').innerHTML = html;
+}
+
+function renderTeacherBlocks() {
+  $('discoveryKey').innerHTML = DISCOVERY.map((d, i) =>
+    '<div class="bank"><h4>Pertanyaan ' + (i + 1) + '</h4><p>' + d.q + '</p><p><strong>Jawaban:</strong> ' + d.key + '</p></div>').join('');
+  $('hotsKey').innerHTML = HOTS.map((h, i) =>
+    '<div class="bank"><h4>' + (i + 1) + '. ' + h.title + '</h4><p>' + h.text + '</p><ol>' +
+    h.key.map(k => '<li>' + k + '</li>').join('') + '</ol></div>').join('');
+  $('rubric').innerHTML =
+    '<div class="tablewrap"><table><thead><tr><th>Aspek</th><th>Skor</th><th>Deskripsi</th></tr></thead><tbody>' +
+    '<tr><td>Pemahaman konsep</td><td>13–16</td><td>Menguasai semua aturan refleksi dan dapat mengaitkannya dengan contoh nyata.</td></tr>' +
+    '<tr><td>Pemahaman konsep</td><td>10–12</td><td>Menguasai sebagian besar aturan, masih perlu latihan pada garis x = a dan y = b.</td></tr>' +
+    '<tr><td>Pemahaman konsep</td><td>6–9</td><td>Memahami aturan dasar, perlu mengulang eksplorasi di Bagian E.</td></tr>' +
+    '<tr><td>Pemahaman konsep</td><td>0–5</td><td>Perlu pendampingan intensif satu-on-one bersama guru.</td></tr>' +
+    '<tr><td>Skor latihan (Bagian G)</td><td>13–15</td><td>Excellent, siap masuk materi rotasi.</td></tr>' +
+    '<tr><td>Skor latihan (Bagian G)</td><td>10–12</td><td>Baik, ulangi soal yang keliru dengan pendampingan guru.</td></tr>' +
+    '<tr><td>Skor latihan (Bagian G)</td><td>7–9</td><td>Cukup, kerjakan ulang bagian penemuan konsep.</td></tr>' +
+    '<tr><td>Skor latihan (Bagian G)</td><td>0–6</td><td>Perlu bimbingan guru sebelum melanjutkan.</td></tr>' +
+    '</tbody></table></div>';
+}
+
+function setTeacherMode(on) {
+  document.body.classList.toggle('guru', on);
+  $('teacherToggle').setAttribute('aria-pressed', on ? 'true' : 'false');
+  $('teacherToggleText').textContent = on ? 'Keluar Mode Guru' : 'Mode Guru';
+  $('printKeys').style.display = on ? '' : 'none';
+}
+
+/* -------------------------------------------------------------
+   INISIALISASI
+   ------------------------------------------------------------- */
+function init() {
+  const now = new Date();
+  $('idTanggal').value = now.toISOString().slice(0, 10);
+
+  ['x', 'y', 'param'].forEach(id => $(id).addEventListener('input', renderSim));
+  $('mirror').addEventListener('change', renderSim);
+  $('applySim').addEventListener('click', () => {
+    renderSim();
+    $('result').scrollIntoView({ behavior: 'smooth', block: 'center' });
+  });
+  $('resetSim').addEventListener('click', () => {
+    $('x').value = SIM_DEFAULT.x; $('y').value = SIM_DEFAULT.y;
+    $('mirror').value = SIM_DEFAULT.mirror; $('param').value = SIM_DEFAULT.param;
+    renderSim();
+  });
+  $('plane').addEventListener('click', ev => {
+    const rect = $('plane').getBoundingClientRect();
+    const unit = Math.min((rect.width - 48) / 12, (rect.height - 42) / 12);
+    const x = Math.round((ev.clientX - rect.left - rect.width / 2) / unit);
+    const y = Math.round((rect.height / 2 - (ev.clientY - rect.top)) / unit);
+    $('x').value = Math.max(-6, Math.min(6, x));
+    $('y').value = Math.max(-6, Math.min(6, y));
+    renderSim();
+  });
+  window.addEventListener('resize', drawPlane);
+
+  buildQuiz();
+  renderQuiz();
+  $('checkQuiz').addEventListener('click', checkQuiz);
+  $('resetQuiz').addEventListener('click', () => { buildQuiz(); renderQuiz(); });
+  $('shuffleQuiz').addEventListener('click', () => { buildQuiz(); renderQuiz(); });
+
+  renderDiscovery();
+  renderHots();
+  $('showHots').addEventListener('click', () => {
+    const el = $('hotsAnswer');
+    const tampil = el.style.display === 'block';
+    el.style.display = tampil ? 'none' : 'block';
+    $('showHots').textContent = tampil ? 'Lihat Panduan Jawaban' : 'Sembunyikan Panduan Jawaban';
+  });
+
+  renderSelfAssess();
+  $('showSelf').addEventListener('click', showSelf);
+
+  renderBankKey();
+  renderTeacherBlocks();
+  $('teacherToggle').addEventListener('click', () => setTeacherMode(!document.body.classList.contains('guru')));
+  $('printKeys').addEventListener('click', () => window.print());
+
+  renderSim();
+}
+document.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>
