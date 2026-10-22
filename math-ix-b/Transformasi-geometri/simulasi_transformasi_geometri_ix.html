@@ -33,6 +33,10 @@ button{font:inherit}.btn{border:0;border-radius:10px;padding:10px 14px;font-weig
 .note{background:#fff7ed;border:1px solid #fed7aa;color:#9a3412;padding:12px;border-radius:12px;font-size:.9rem;line-height:1.5}
 .steps{display:grid;gap:8px}.step{padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:#fbfdff}.step b{color:#1d4ed8}
 footer{text-align:center;color:var(--muted);font-size:.82rem;padding:0 20px 24px}
+footer a{color:var(--blue);font-weight:800;text-decoration:none}
+footer a:hover{text-decoration:underline}
+.back-link{display:inline-flex;align-items:center;gap:7px;margin-top:14px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.35);color:white;text-decoration:none;font-size:.88rem;font-weight:700;padding:8px 14px;border-radius:999px}
+.back-link:hover{background:rgba(255,255,255,.28)}
 .hidden{display:none!important}
 @media(max-width:900px){main{grid-template-columns:1fr;padding:12px}.canvas-wrap{padding:7px}.panel-body{padding:14px}}
 @media(max-width:430px){.field-grid{grid-template-columns:1fr 1fr;gap:9px}.panel-head{padding:13px}.tab{padding:8px 9px;font-size:.86rem}}
@@ -43,6 +47,7 @@ footer{text-align:center;color:var(--muted);font-size:.82rem;padding:0 20px 24px
   <div class="eyebrow">Media belajar interaktif • Matematika kelas IX</div>
   <h1>Laboratorium Transformasi Geometri</h1>
   <p>Amati bagaimana sebuah bangun berpindah, bercermin, berputar, dan berubah ukuran pada bidang koordinat. Ubah nilai transformasi, lalu bandingkan bangun awal dengan bayangannya.</p>
+  <a href="index.html" class="back-link"><span aria-hidden="true">&#8592;</span> Kembali ke halaman materi</a>
 </header>
 <main>
 <section class="panel">
@@ -90,7 +95,7 @@ footer{text-align:center;color:var(--muted);font-size:.82rem;padding:0 20px 24px
   <div class="panel-body" id="coordinates"></div>
 </section>
 </main>
-<footer>Gunakan tab transformasi untuk berpindah materi. Cocok ditampilkan di HP, laptop, atau Smart TV.</footer>
+<footer>Gunakan tab transformasi untuk berpindah materi. Cocok ditampilkan di HP, laptop, atau Smart TV. &nbsp;•&nbsp; <a href="index.html">Kembali ke materi Transformasi Geometri</a></footer>
 <script>
 (() => {
 const canvas = document.getElementById('plane'), ctx = canvas.getContext('2d');
