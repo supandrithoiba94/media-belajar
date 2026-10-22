@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Laboratorium Transformasi Geometri — Kelas IX</title>
+<style>
+:root{--bg:#f3f7fb;--panel:#fff;--ink:#17233b;--muted:#65748b;--line:#dbe4ef;--blue:#2563eb;--teal:#0f9f8f;--orange:#f59e0b;--purple:#7c3aed;--shadow:0 8px 24px rgba(30,64,110,.08)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}
+header{padding:22px clamp(16px,4vw,44px);background:linear-gradient(120deg,#123c72,#2563eb);color:white}
+header .eyebrow{font-size:.78rem;text-transform:uppercase;letter-spacing:.13em;opacity:.8;font-weight:700}
+h1{margin:6px 0 8px;font-size:clamp(1.55rem,3vw,2.5rem)}header p{margin:0;max-width:780px;color:#e5efff;line-height:1.55}
+main{max-width:1400px;margin:auto;padding:20px;display:grid;grid-template-columns:minmax(0,1.55fr) minmax(300px,.8fr);gap:18px}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);overflow:hidden}
+.panel-head{padding:16px 18px;border-bottom:1px solid var(--line);display:flex;gap:12px;justify-content:space-between;align-items:center;flex-wrap:wrap}
+.panel-head h2{font-size:1.05rem;margin:0}.panel-body{padding:18px}
+.tabs{display:flex;gap:7px;flex-wrap:wrap}.tab{border:1px solid var(--line);background:#f8fafc;color:#34445d;padding:9px 12px;border-radius:10px;font-weight:750;cursor:pointer}
+.tab.active{background:#dbeafe;color:#1d4ed8;border-color:#93c5fd}
+.canvas-wrap{padding:12px;background:#f8fbff}.canvas-wrap canvas{display:block;width:100%;height:auto;border-radius:12px;background:white;touch-action:pan-y}
+.legend{display:flex;gap:15px;flex-wrap:wrap;padding:12px 18px;color:var(--muted);font-size:.86rem}
+.dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px}.blue{background:var(--blue)}.teal{background:var(--teal)}.orange{background:var(--orange)}
+.control-title{font-size:.85rem;color:var(--muted);font-weight:800;text-transform:uppercase;letter-spacing:.07em;margin:0 0 12px}
+.field-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+label{display:block;font-size:.87rem;font-weight:700;color:#3d4d65;margin-bottom:6px}
+input,select{width:100%;padding:10px 11px;border:1px solid #cbd7e6;border-radius:10px;background:white;color:var(--ink);font:inherit}
+input:focus,select:focus{outline:3px solid #bfdbfe;border-color:var(--blue)}
+.field{min-width:0}.range-line{display:flex;align-items:center;gap:10px}.range-line input{padding:0;accent-color:var(--blue)}.range-value{min-width:34px;font-weight:800;color:var(--blue);text-align:right}
+.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:15px}
+button{font:inherit}.btn{border:0;border-radius:10px;padding:10px 14px;font-weight:800;cursor:pointer;background:var(--blue);color:white}.btn.secondary{background:#eaf0f8;color:#334155}.btn.green{background:var(--teal)}.btn:focus-visible,.tab:focus-visible{outline:3px solid #93c5fd;outline-offset:2px}
+.result{margin-top:15px;background:#f0fdfa;border:1px solid #99f6e4;border-radius:13px;padding:13px 14px;line-height:1.55}
+.result strong{color:#0f766e}.formula{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;background:#eef2ff;padding:10px 12px;border-radius:10px;overflow-wrap:anywhere;margin:10px 0}
+.explain{line-height:1.65;color:#42526a;font-size:.93rem}.coord-table{width:100%;border-collapse:collapse;margin-top:10px;font-size:.88rem}.coord-table th,.coord-table td{padding:8px;border-bottom:1px solid var(--line);text-align:left}.coord-table th{color:var(--muted);font-weight:700}
+.note{background:#fff7ed;border:1px solid #fed7aa;color:#9a3412;padding:12px;border-radius:12px;font-size:.9rem;line-height:1.5}
+.steps{display:grid;gap:8px}.step{padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:#fbfdff}.step b{color:#1d4ed8}
+footer{text-align:center;color:var(--muted);font-size:.82rem;padding:0 20px 24px}
+.hidden{display:none!important}
+@media(max-width:900px){main{grid-template-columns:1fr;padding:12px}.canvas-wrap{padding:7px}.panel-body{padding:14px}}
+@media(max-width:430px){.field-grid{grid-template-columns:1fr 1fr;gap:9px}.panel-head{padding:13px}.tab{padding:8px 9px;font-size:.86rem}}
+</style>
+</head>
+<body>
+<header>
+  <div class="eyebrow">Media belajar interaktif • Matematika kelas IX</div>
+  <h1>Laboratorium Transformasi Geometri</h1>
+  <p>Amati bagaimana sebuah bangun berpindah, bercermin, berputar, dan berubah ukuran pada bidang koordinat. Ubah nilai transformasi, lalu bandingkan bangun awal dengan bayangannya.</p>
+</header>
+<main>
+<section class="panel">
+  <div class="panel-head"><h2>Bidang koordinat</h2><button class="btn secondary" id="resetView">Atur ulang</button></div>
+  <div class="canvas-wrap"><canvas id="plane" width="900" height="650" aria-label="Bidang koordinat transformasi geometri"></canvas></div>
+  <div class="legend">
+    <span><i class="dot blue"></i>Bangun awal</span>
+    <span><i class="dot teal"></i>Bayangan</span>
+    <span><i class="dot orange"></i>Titik pusat / acuan</span>
+  </div>
+</section>
+<section class="panel">
+  <div class="panel-head"><h2>Atur transformasi</h2></div>
+  <div class="panel-body">
+    <div class="tabs" role="tablist" aria-label="Jenis transformasi">
+      <button class="tab active" data-mode="translasi">Translasi</button>
+      <button class="tab" data-mode="refleksi">Refleksi</button>
+      <button class="tab" data-mode="rotasi">Rotasi</button>
+      <button class="tab" data-mode="dilatasi">Dilatasi</button>
+    </div>
+    <div style="height:18px"></div>
+    <p class="control-title">Bangun awal</p>
+    <div class="field-grid">
+      <div class="field"><label for="shape">Pilih bangun</label><select id="shape"><option value="segitiga">Segitiga ABC</option><option value="persegi">Persegi ABCD</option></select></div>
+      <div class="field"><label for="speed">Animasi</label><select id="speed"><option value="0">Langsung</option><option value="700">Cepat</option><option value="1400" selected>Pelan</option></select></div>
+    </div>
+    <div style="height:18px"></div>
+    <div id="controls"></div>
+    <div class="actions">
+      <button class="btn" id="apply">Terapkan transformasi</button>
+      <button class="btn green" id="animate">▶ Animasi</button>
+    </div>
+    <div id="result" class="result" aria-live="polite"></div>
+  </div>
+</section>
+<section class="panel">
+  <div class="panel-head"><h2>Amati dan simpulkan</h2></div>
+  <div class="panel-body">
+    <div id="explanation" class="explain"></div>
+    <div class="note" style="margin-top:14px"><b>Pertanyaan pemantik:</b> Apa yang berubah dan apa yang tetap pada bangun setelah transformasi? Jelaskan berdasarkan gambar dan koordinatnya.</div>
+  </div>
+</section>
+<section class="panel">
+  <div class="panel-head"><h2>Koordinat titik</h2><span style="font-size:.8rem;color:var(--muted)">Sebelum & sesudah</span></div>
+  <div class="panel-body" id="coordinates"></div>
+</section>
+</main>
+<footer>Gunakan tab transformasi untuk berpindah materi. Cocok ditampilkan di HP, laptop, atau Smart TV.</footer>
+<script>
+(() => {
+const canvas = document.getElementById('plane'), ctx = canvas.getContext('2d');
+const controls = document.getElementById('controls');
+const result = document.getElementById('result');
+const explanation = document.getElementById('explanation');
+const coordinates = document.getElementById('coordinates');
+let mode='translasi', animProgress=1, animFrame=null;
+const defaults = {
+  segitiga:[[-3,-2],[1,-2],[-1,2]],
+  persegi:[[-2,-2],[2,-2],[2,2],[-2,2]]
+};
+const labels = {translasi:'Translasi',refleksi:'Refleksi',rotasi:'Rotasi',dilatasi:'Dilatasi'};
+const configs = {
+ translasi: `
+ <p class="control-title">Vektor translasi T(a, b)</p>
+ <div class="field-grid">
+  <div class="field"><label for="a">a: kanan (+) / kiri (−)</label><div class="range-line"><input id="a" type="range" min="-6" max="6" value="3"><span class="range-value" id="av">3</span></div></div>
+  <div class="field"><label for="b">b: atas (+) / bawah (−)</label><div class="range-line"><input id="b" type="range" min="-6" max="6" value="2"><span class="range-value" id="bv">2</span></div></div>
+ </div>`,
+ refleksi: `
+ <p class="control-title">Pilih garis cermin</p>
+ <div class="field"><label for="axis">Garis refleksi</label><select id="axis"><option value="x">Sumbu X (y = 0)</option><option value="y">Sumbu Y (x = 0)</option><option value="y=x">Garis y = x</option><option value="y=-x">Garis y = −x</option></select></div>`,
+ rotasi: `
+ <p class="control-title">Rotasi terhadap pusat O(0, 0)</p>
+ <div class="field-grid">
+  <div class="field"><label for="angle">Sudut rotasi</label><select id="angle"><option value="90">90° berlawanan jarum jam</option><option value="180">180°</option><option value="270">270° berlawanan jarum jam</option><option value="-90">90° searah jarum jam</option></select></div>
+  <div class="field"><label for="center">Pusat rotasi</label><select id="center"><option value="0,0">O(0, 0)</option><option value="1,1">P(1, 1)</option></select></div>
+ </div>`,
+ dilatasi: `
+ <p class="control-title">Dilatasi terhadap pusat O(0, 0)</p>
+ <div class="field"><label for="factor">Faktor skala (k)</label><div class="range-line"><input id="factor" type="range" min="-2" max="3" step=".5" value="2"><span class="range-value" id="fv">2</span></div></div>
+ <p class="explain">|k| lebih dari 1: membesar. 0 &lt; |k| &lt; 1: mengecil. k negatif: bayangan berada di arah berlawanan terhadap pusat.</p>`
+};
+function getPoints(){return defaults[document.getElementById('shape').value].map(p=>p.slice());}
+function val(id){return document.getElementById(id)?.value;}
+function params(){
+ if(mode==='translasi') return {a:+val('a'),b:+val('b')};
+ if(mode==='refleksi') return {axis:val('axis')};
+ if(mode==='rotasi') return {angle:+val('angle'),center:val('center').split(',').map(Number)};
+ return {k:+val('factor')};
+}
+function transform(p, m=mode, q=params()){
+ const [x,y]=p;
+ if(m==='translasi') return [x+q.a,y+q.b];
+ if(m==='refleksi'){
+  if(q.axis==='x') return [x,-y];
+  if(q.axis==='y') return [-x,y];
+  if(q.axis==='y=x') return [y,x];
+  return [-y,-x];
+ }
+ if(m==='rotasi'){
+  const [cx,cy]=q.center, r=q.angle*Math.PI/180, dx=x-cx,dy=y-cy;
+  return [cx+dx*Math.cos(r)-dy*Math.sin(r),cy+dx*Math.sin(r)+dy*Math.cos(r)];
+ }
+ return [x*q.k,y*q.k];
+}
+function fmt(n){let v=Math.abs(n)<1e-8?0:n;return Number(v.toFixed(2)).toString();}
+function screen(p){const scale=Math.min(canvas.width/18,canvas.height/14);return [canvas.width/2+p[0]*scale,canvas.height/2-p[1]*scale];}
+function drawGrid(){
+ ctx.clearRect(0,0,canvas.width,canvas.height);
+ const scale=Math.min(canvas.width/18,canvas.height/14), ox=canvas.width/2,oy=canvas.height/2;
+ ctx.lineWidth=1;ctx.font='15px system-ui';ctx.textAlign='center';ctx.textBaseline='middle';
+ for(let x=-9;x<=9;x++){let sx=ox+x*scale;ctx.strokeStyle=x===0?'#64748b':'#e5edf5';ctx.lineWidth=x===0?2:1;ctx.beginPath();ctx.moveTo(sx,0);ctx.lineTo(sx,canvas.height);ctx.stroke();if(x!==0){ctx.fillStyle='#74839a';ctx.fillText(x,sx,oy+17)}}
+ for(let y=-7;y<=7;y++){let sy=oy-y*scale;ctx.strokeStyle=y===0?'#64748b':'#e5edf5';ctx.lineWidth=y===0?2:1;ctx.beginPath();ctx.moveTo(0,sy);ctx.lineTo(canvas.width,sy);ctx.stroke();if(y!==0){ctx.fillStyle='#74839a';ctx.fillText(y,ox+16,sy)}}
+ ctx.fillStyle='#34445d';ctx.font='bold 17px system-ui';ctx.fillText('x',canvas.width-18,oy-17);ctx.fillText('y',ox+18,16);ctx.fillText('O',ox-14,oy+16);
+ // axis or center markers for current mode
+ if(mode==='refleksi'){
+  const a=val('axis');
+  ctx.save();ctx.strokeStyle='#f59e0b';ctx.lineWidth=3;ctx.setLineDash([8,6]);ctx.beginPath();
+  if(a==='x'){ctx.moveTo(0,oy);ctx.lineTo(canvas.width,oy)}
+  else if(a==='y'){ctx.moveTo(ox,0);ctx.lineTo(ox,canvas.height)}
+  else {let p1=screen(a==='y=x'?[-9,-9]:[-9,9]),p2=screen(a==='y=x'?[9,9]:[9,-9]);ctx.moveTo(...p1);ctx.lineTo(...p2)}
+  ctx.stroke();ctx.restore();
+ }
+ if(mode==='rotasi'||mode==='dilatasi'){
+  let c=mode==='rotasi'?params().center:[0,0], s=screen(c);
+  ctx.fillStyle='#f59e0b';ctx.beginPath();ctx.arc(s[0],s[1],7,0,Math.PI*2);ctx.fill();
+ }
+}
+function polygon(points,color,fill,labelPrefix){
+ const pts=points.map(screen);
+ ctx.beginPath();pts.forEach((p,i)=>i?ctx.lineTo(...p):ctx.moveTo(...p));ctx.closePath();
+ ctx.fillStyle=fill;ctx.fill();ctx.strokeStyle=color;ctx.lineWidth=4;ctx.stroke();
+ pts.forEach((p,i)=>{ctx.fillStyle=color;ctx.beginPath();ctx.arc(p[0],p[1],5.5,0,Math.PI*2);ctx.fill();ctx.font='bold 17px system-ui';ctx.textAlign='left';ctx.fillText(labelPrefix+' '+String.fromCharCode(65+i),p[0]+9,p[1]-10)});
+}
+function interpolate(a,b,t){return a.map((v,i)=>v+(b[i]-v)*t);}
+function draw(){
+ drawGrid();
+ const start=getPoints(), end=start.map(p=>transform(p));
+ if(animProgress<1){polygon(start,'#2563eb','rgba(37,99,235,.10)','');polygon(start.map((p,i)=>interpolate(p,end[i],animProgress)),'#0f9f8f','rgba(15,159,143,.17)',"'");}
+ else {polygon(start,'#2563eb','rgba(37,99,235,.10)','');polygon(end,'#0f9f8f','rgba(15,159,143,.17)',"'");}
+}
+function describe(){
+ const p=params();let formula='',text='';
+ if(mode==='translasi'){
+  formula=`(x, y) → (x ${p.a>=0?'+':'−'} ${Math.abs(p.a)}, y ${p.b>=0?'+':'−'} ${Math.abs(p.b)})`;
+  text=`Setiap titik bergeser ${Math.abs(p.a)} satuan ${p.a>0?'ke kanan':p.a<0?'ke kiri':'secara horizontal tidak berubah'} dan ${Math.abs(p.b)} satuan ${p.b>0?'ke atas':p.b<0?'ke bawah':'secara vertikal tidak berubah'}. Bentuk, ukuran, dan orientasi tetap.`;
+ }else if(mode==='refleksi'){
+  const f={'x':'(x, y) → (x, −y)','y':'(x, y) → (−x, y)','y=x':'(x, y) → (y, x)','y=-x':'(x, y) → (−y, −x)'};
+  formula=f[p.axis];text=`Setiap titik dicerminkan terhadap ${p.axis==='x'?'sumbu X':p.axis==='y'?'sumbu Y':p.axis==='y=x'?'garis y = x':'garis y = −x'}. Jarak titik ke garis cermin tetap sama; bentuk dan ukuran tidak berubah, tetapi orientasi dapat terbalik.`;
+ }else if(mode==='rotasi'){
+  formula=`Rotasi ${p.angle}° dengan pusat (${p.center.join(', ')})`;
+  text=`Setiap titik diputar ${Math.abs(p.angle)}° ${p.angle>0?'berlawanan arah jarum jam':'searah jarum jam'} mengelilingi pusat (${p.center.join(', ')}). Jarak setiap titik ke pusat rotasi tetap.`;
+ }else{
+  formula=`(x, y) → (${fmt(p.k)}x, ${fmt(p.k)}y)`;
+  text=`Setiap koordinat dikalikan faktor skala k = ${fmt(p.k)}. Jika |k| > 1 bangun membesar; jika 0 < |k| < 1 bangun mengecil; jika k negatif bayangan berada di arah berlawanan dari pusat.`;
+ }
+ result.innerHTML=`<strong>Aturan ${labels[mode]}</strong><div class="formula">${formula}</div>${text}`;
+ explanation.innerHTML=`<div class="steps"><div class="step"><b>1. Amati</b><br>Bangun biru adalah posisi awal, bangun hijau adalah bayangan.</div><div class="step"><b>2. Perhatikan aturan</b><br>${formula}</div><div class="step"><b>3. Simpulkan</b><br>${text}</div></div>`;
+ const s=getPoints(), e=s.map(pt=>transform(pt));
+ coordinates.innerHTML=`<table class="coord-table"><thead><tr><th>Titik</th><th>Awal</th><th>Bayangan</th></tr></thead><tbody>${s.map((pt,i)=>`<tr><td>${String.fromCharCode(65+i)}${"′"}</td><td>(${fmt(pt[0])}, ${fmt(pt[1])})</td><td>(${fmt(e[i][0])}, ${fmt(e[i][1])})</td></tr>`).join('')}</tbody></table>`;
+ draw();
+}
+function syncRanges(){
+ ['a','b','factor'].forEach(id=>{const el=document.getElementById(id),out=document.getElementById(({a:'av',b:'bv',factor:'fv'})[id]);if(el&&out)out.textContent=el.value;});
+}
+function setMode(m){
+ mode=m;animProgress=1;
+ document.querySelectorAll('.tab').forEach(b=>{b.classList.toggle('active',b.dataset.mode===m);b.setAttribute('aria-selected',b.dataset.mode===m?'true':'false')});
+ controls.innerHTML=configs[m];syncRanges();
+ controls.querySelectorAll('input,select').forEach(el=>el.addEventListener('input',()=>{syncRanges();describe()}));
+ describe();
+}
+function animate(){
+ if(animFrame) cancelAnimationFrame(animFrame);
+ const duration=Number(val('speed'))||0;
+ if(!duration){animProgress=1;describe();return}
+ const start=performance.now();animProgress=0;
+ function tick(now){animProgress=Math.min(1,(now-start)/duration);draw();if(animProgress<1)animFrame=requestAnimationFrame(tick);else{animFrame=null;describe()}}
+ animFrame=requestAnimationFrame(tick);
+}
+document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>setMode(b.dataset.mode)));
+document.getElementById('shape').addEventListener('change',describe);
+document.getElementById('apply').addEventListener('click',()=>{animProgress=1;describe()});
+document.getElementById('animate').addEventListener('click',animate);
+document.getElementById('resetView').addEventListener('click',()=>{document.getElementById('shape').value='segitiga';setMode(mode)});
+setMode('translasi');
+})();
+</script>
+</body>
+</html>
