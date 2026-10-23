@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Matematika Kelas VII — Bilangan Bulat</title>
+<style>
+  :root {
+    --ink: #1f2937;
+    --muted: #64748b;
+    --line: #dbe3ee;
+    --blue: #1e40af;
+    --blue-dark: #172554;
+    --pale: #eff6ff;
+    --green: #166534;
+    --green-pale: #f0fdf4;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: #f3f6fb;
+    color: var(--ink);
+    font: 16px/1.55 Arial, Helvetica, sans-serif;
+  }
+  .page {
+    max-width: 920px;
+    margin: 24px auto;
+    padding: 34px 42px;
+    background: #fff;
+    box-shadow: 0 4px 22px #0f172a12;
+  }
+  header {
+    text-align: center;
+    border-bottom: 2px solid var(--blue);
+    padding-bottom: 18px;
+    margin-bottom: 22px;
+  }
+  h1 { margin: 0; color: var(--blue); font-size: 27px; line-height: 1.25; }
+  .subtitle { margin: 8px 0 0; color: var(--muted); }
+
+  .section-title {
+    font-weight: 700;
+    font-size: 18px;
+    color: var(--blue-dark);
+    margin: 26px 0 10px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--line);
+  }
+  .section-desc { margin: 0 0 14px; color: var(--muted); font-size: 14px; }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 14px;
+  }
+  .card {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 14px 16px;
+    background: #fff;
+    transition: .15s;
+  }
+  .card:hover {
+    border-color: var(--blue);
+    background: var(--pale);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px #1e40af14;
+  }
+  .card .badge {
+    display: inline-block;
+    font-size: 11px;
+    letter-spacing: .02em;
+    color: var(--blue);
+    background: var(--pale);
+    border: 1px solid #c7dbff;
+    padding: 2px 8px;
+    border-radius: 999px;
+    margin-bottom: 8px;
+  }
+  .card h3 { margin: 0 0 6px; font-size: 16px; color: var(--blue-dark); }
+  .card p { margin: 0; font-size: 13.5px; color: var(--muted); line-height: 1.5; }
+  .card .file {
+    display: block;
+    margin-top: 8px;
+    font-size: 11.5px;
+    color: #94a3b8;
+    font-family: monospace;
+    word-break: break-all;
+  }
+
+  .note {
+    background: var(--pale);
+    border-left: 4px solid var(--blue);
+    padding: 12px 16px;
+    margin: 26px 0 0;
+    font-size: 14px;
+    color: var(--ink);
+  }
+  .note strong { color: var(--blue-dark); }
+
+  .foot {
+    color: var(--muted);
+    font-size: 12px;
+    text-align: center;
+    margin-top: 30px;
+  }
+
+  @media (max-width: 640px) {
+    .page { margin: 0; padding: 22px 18px; box-shadow: none; }
+    h1 { font-size: 22px; }
+    .grid { grid-template-columns: 1fr; }
+  }
+  @media print {
+    body { background: #fff; font-size: 11pt; }
+    .page { max-width: none; margin: 0; padding: 0; box-shadow: none; }
+    .card { break-inside: avoid; }
+    header { margin-top: 0; }
+    .card:hover { transform: none; box-shadow: none; background: #fff; }
+  }
+</style>
+</head>
+<body>
+<main class="page">
+
+<header>
+  <h1>MATEMATIKA KELAS VII<br>MATERI BILANGAN BULAT</h1>
+  <p class="subtitle">Daftar materi interaktif, latihan, permainan, dan try out — Bab 1</p>
+</header>
+
+<!-- LATIHAN & LEMBAR KERJA -->
+<div class="section-title">📒 Latihan &amp; Lembar Kerja</div>
+<p class="section-desc">Urutan pembelajaran dari konsep dasar sampai operasi hitung.</p>
+<div class="grid">
+
+  <a class="card" href="lkpd_bilangan_bulat_tp1.html">
+    <span class="badge">TP 1 • Konsep</span>
+    <h3>LKPD Interaktif — Bilangan Bulat</h3>
+    <p>Pengenalan konsep bilangan bulat: bilangan positif, negatif, nol, lawan bilangan, dan garis bilangan.</p>
+    <span class="file">lkpd_bilangan_bulat_tp1.html</span>
+  </a>
+
+  <a class="card" href="tp2_bil_bulat.html">
+    <span class="badge">TP 2 • Perbandingan</span>
+    <h3>Membandingkan Bilangan Bulat</h3>
+    <p>Latihan membandingkan bilangan positif dan negatif menggunakan garis bilangan.</p>
+    <span class="file">tp2_bil_bulat.html</span>
+  </a>
+
+  <a class="card" href="TP3_Bilangan_Bulat_Penjumlahan_VII.html">
+    <span class="badge">TP 3 • Penjumlahan</span>
+    <h3>Penjumlahan Bilangan Bulat</h3>
+    <p>Latihan penjumlahan bilangan bulat dengan tanda sama dan tanda berbeda.</p>
+    <span class="file">TP3_Bilangan_Bulat_Penjumlahan_VII.html</span>
+  </a>
+
+  <a class="card" href="tp4-bil-bulat.html">
+    <span class="badge">TP 4 • Operasi Hitung</span>
+    <h3>Operasi Hitung Bilangan Bulat</h3>
+    <p>Pengurangan dan operasi hitung campuran bilangan bulat.</p>
+    <span class="file">tp4-bil-bulat.html</span>
+  </a>
+
+  <a class="card" href="perkalian-bilangan-bulat-ifp.html">
+    <span class="badge">Perkalian • Game</span>
+    <h3>Petualangan Lembah Bilangan Bulat</h3>
+    <p>Permainan interaktif untuk melatih perkalian bilangan bulat sambil bermain.</p>
+    <span class="file">perkalian-bilangan-bulat-ifp.html</span>
+  </a>
+
+  <a class="card" href="visualisasi-perkalian.html">
+    <span class="badge">Perkalian • Visual</span>
+    <h3>Visualisasi Garis Bilangan — Perkalian</h3>
+    <p>Simulasi interaktif perkalian bilangan bulat pada garis bilangan.</p>
+    <span class="file">visualisasi-perkalian.html</span>
+  </a>
+
+</div>
+
+<!-- TRY OUT -->
+<div class="section-title">📝 Try Out</div>
+<p class="section-desc">Uji pemahaman dengan soal berisi kunci jawaban dan pembahasan.</p>
+<div class="grid">
+
+  <a class="card" href="tryout-bil-bulat.html">
+    <span class="badge">Try Out • 20 Soal</span>
+    <h3>Try Out Bilangan Bulat</h3>
+    <p>20 soal pilihan ganda, pilihan ganda kompleks, dan benar–salah lengkap dengan pembahasan. Dapat dicetak atau disimpan sebagai PDF.</p>
+    <span class="file">tryout-bil-bulat.html</span>
+  </a>
+
+</div>
+
+<div class="note">
+  <strong>Cara menggunakan:</strong> Klik salah satu kartu materi untuk membukanya.
+  Materi disusun berurutan dari TP 1 sampai TP 4, dilanjutkan dengan permainan dan visualisasi perkalian,
+  lalu ditutup dengan try out untuk mengukur pemahaman.
+</div>
+
+<p class="foot">Matematika Kelas VII • Bab 1 — Bilangan Bulat</p>
+
+</main>
+</body>
+</html>
