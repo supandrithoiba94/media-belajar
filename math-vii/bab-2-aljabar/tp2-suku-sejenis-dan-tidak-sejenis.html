@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TP 2 — Suku Sejenis dan Tidak Sejenis | MATH-7</title>
+<style>
+:root{
+  --accent:#0e7490;
+  --accent-dark:#155e75;
+  --bg:#eef2f8;
+  --ink:#1f2937;
+  --muted:#5b6472;
+  --line:#dde5f0;
+  --ok:#16a34a;
+  --bad:#dc2626;
+  --warn:#f59e0b;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 Arial,Helvetica,sans-serif}
+.wrap{max-width:940px;margin:0 auto;padding:18px 14px 40px}
+a{color:var(--accent)}
+.top{background:linear-gradient(135deg,var(--accent-dark),var(--accent));color:#fff;border-radius:18px;padding:22px 24px;margin-bottom:16px}
+.top .back{display:inline-block;background:#ffffff2e;color:#fff;text-decoration:none;padding:6px 13px;border-radius:20px;font-size:13px;font-weight:bold;margin-bottom:12px}
+.top .back:hover{background:#ffffff4d}
+.crumb{margin:0 0 6px;font-size:13px;opacity:.9;letter-spacing:.4px}
+.top h1{margin:0 0 6px;font-size:26px;line-height:1.25}
+.lead{margin:0;opacity:.95}
+.target{background:#fff;border-left:5px solid var(--accent);border-radius:14px;padding:14px 16px;margin-bottom:16px;box-shadow:0 3px 12px #0f172a0f}
+.target p{margin:6px 0 0}
+.section{background:#fff;border-radius:18px;padding:20px 22px;margin-bottom:16px;box-shadow:0 3px 14px #0f172a12}
+.sec-title{display:flex;align-items:center;gap:10px;font-size:19px;font-weight:bold;color:var(--accent-dark);margin:0 0 12px;padding-bottom:8px;border-bottom:2px solid var(--line)}
+.sec-desc{margin:0 0 14px;color:var(--muted);font-size:14.5px}
+.pemantik{background:#fff8e6;border:1px solid #fde68a;border-radius:14px;padding:16px 18px}
+.pemantik h3{margin:0 0 8px;color:#92400e}
+.tanya{background:#f8fafc;border-left:4px solid var(--accent);padding:10px 14px;border-radius:0 10px 10px 0;margin:10px 0;font-size:15.5px}
+table{width:100%;border-collapse:collapse;margin:12px 0;font-size:15px}
+th,td{border:1px solid var(--line);padding:9px 10px;text-align:left;vertical-align:top}
+th{background:var(--accent);color:#fff;font-size:14px}
+tr:nth-child(even) td{background:#f8fafc}
+.example{background:#f1f5f9;border-radius:12px;padding:12px 14px;margin:12px 0;border:1px dashed #cbd5e1}
+.example .lbl{display:block;color:var(--accent-dark);font-weight:bold;margin-bottom:6px}
+.note{background:#eff6ff;border:1px solid #bfdbfe;border-radius:12px;padding:12px 14px;margin:12px 0;font-size:15px}
+.warn{background:#fffbeb;border:1px solid #fde68a;border-radius:12px;padding:12px 14px;margin:12px 0;font-size:15px}
+ul,ol{padding-left:22px}
+li{margin:5px 0}
+details{background:#f8fafc;border:1px solid var(--line);border-radius:12px;padding:10px 14px;margin:14px 0}
+summary{cursor:pointer;font-weight:bold;color:var(--accent-dark)}
+details[open]{background:#fff}
+details p,details li{font-size:15px}
+.level-btns{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
+.level-btn{border:2px solid var(--line);background:#f8fafc;padding:12px 8px;border-radius:12px;cursor:pointer;font-weight:bold;color:var(--muted);font-size:14px;font-family:inherit}
+.level-btn.active{background:var(--accent);border-color:var(--accent);color:#fff}
+.level-btn.locked{opacity:.5;cursor:not-allowed}
+.q{border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin-bottom:12px;background:#fff}
+.q.correct{border:2px solid var(--ok);background:#f0fdf4}
+.q.wrong{border:2px solid var(--bad);background:#fef2f2}
+.qt{font-weight:bold;font-size:16.5px;margin-bottom:10px}
+.choices{display:flex;gap:9px;flex-wrap:wrap}
+.choice{flex:1;min-width:120px;border:2px solid var(--line);background:#fff;padding:11px;border-radius:10px;font-size:17px;font-weight:bold;cursor:pointer;font-family:inherit;color:inherit}
+.choice:hover{border-color:var(--accent);background:#eff6ff}
+.choice.sel{background:var(--accent);color:#fff;border-color:var(--accent)}
+.choice.ok{background:var(--ok);border-color:var(--ok);color:#fff}
+.choice.no{background:var(--bad);border-color:var(--bad);color:#fff}
+.inp{width:100%;padding:11px 13px;border:2px solid var(--line);border-radius:10px;font-size:17px;font-family:inherit}
+.inp:focus{outline:none;border-color:var(--accent)}
+.inp.ok{border-color:var(--ok);background:#f0fdf4}
+.inp.no{border-color:var(--bad);background:#fef2f2}
+.fb{font-size:14.5px;margin-top:9px;color:var(--muted)}
+.btn{border:0;padding:12px 18px;border-radius:11px;cursor:pointer;font-weight:bold;font-size:15px;margin:6px 6px 0 0;font-family:inherit}
+.btn-primary{background:var(--accent);color:#fff}
+.btn-success{background:var(--ok);color:#fff}
+.btn-light{background:#e5e7eb;color:#111827}
+.btn:hover{filter:brightness(1.06)}
+.score{margin-top:14px;text-align:center;background:#eff6ff;border-radius:14px;padding:16px}
+.score .num{font-size:36px;font-weight:bold;color:var(--accent)}
+.misi{border:1px solid var(--line);border-left:5px solid var(--warn);border-radius:0 14px 14px 0;padding:14px 16px;margin-bottom:14px;background:#fffdf7}
+.misi h4{margin:0 0 8px;color:#b45309;font-size:17px}
+.boss{border:2px solid var(--warn);border-radius:16px;padding:16px 18px;background:linear-gradient(180deg,#fffbeb,#fff)}
+.boss h3{margin-top:0;color:#b45309}
+.refleksi label{display:flex;gap:10px;align-items:flex-start;background:#f8fafc;border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin:8px 0;cursor:pointer;font-size:15px}
+.refleksi input{margin-top:4px}
+.nav{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:6px}
+.nav a{display:inline-block;text-decoration:none;background:#fff;border:1px solid var(--line);border-radius:11px;padding:11px 15px;font-weight:bold;color:var(--accent-dark);font-size:14px}
+.nav a:hover{border-color:var(--accent);background:#eff6ff}
+footer{text-align:center;color:var(--muted);font-size:13px;padding:14px 0}
+@media(max-width:620px){
+  .level-btns{grid-template-columns:1fr}
+  .top h1{font-size:21px}
+  .choices{flex-direction:column}
+  .choice{min-width:0}
+  .section{padding:16px 14px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="top">
+  <a class="back" href="index.html">← Peta Materi Bab 2</a>
+  <p class="crumb">MATEMATIKA KELAS VII • MATH-7 • BAB 2 — ALJABAR</p>
+  <h1>TP 2 — Suku Sejenis dan Tidak Sejenis</h1>
+  <p class="lead">Mengidentifikasi suku yang dapat dijumlahkan atau dikurangkan.</p>
+</header>
+
+<div class="target">
+  <strong>🎯 Target Pembelajaran</strong>
+  <p>Peserta didik mampu <strong>mengidentifikasi suku yang sejenis dan tidak sejenis</strong>, serta menentukan suku mana yang dapat dijumlahkan atau dikurangkan.</p>
+</div>
+
+<!-- A. PERTANYAAN PEMANTIK -->
+<section class="section">
+  <h2 class="sec-title">A. Pertanyaan Pemantik</h2>
+
+  <div class="pemantik">
+    <h3>💡 Kantong kelereng dan kantong apel</h3>
+    <p>Dito membawa <strong>3 kantong</strong> berisi kelereng, setiap kantong berisi <strong>x</strong> butir. Sari membawa <strong>5 kantong</strong> kelereng yang sama, setiap kantong juga berisi <strong>x</strong> butir.</p>
+    <div class="tanya">Berapa total kelereng yang mereka bawa? → 3x + 5x = <strong>8x</strong> butir ✔</div>
+    <p>Sekarang Dito membawa <strong>3 apel</strong> dan Sari membawa <strong>5 jeruk</strong>. Dapatkah kita menggabungkannya menjadi “8 … apeljeruk”?</p>
+    <div class="tanya">Tentu tidak. Apel dan jeruk adalah barang <strong>berbeda</strong>, sehingga jumlahnya harus ditulis terpisah: <strong>3 apel + 5 jeruk</strong>.</div>
+    <p><strong>Pertanyaan pemantik:</strong> kapan dua suku dalam aljabar boleh digabungkan, dan kapan tidak? Inilah yang akan kita pelajari: <strong>suku sejenis dan suku tidak sejenis</strong>.</p>
+  </div>
+</section>
+
+<!-- B. MATERI -->
+<section class="section">
+  <h2 class="sec-title">B. Suku Sejenis dan Tidak Sejenis</h2>
+
+  <div class="note">
+    <strong>Definisi:</strong> Dua suku disebut <strong>sejenis</strong> jika <strong>variabelnya sama</strong> dan <strong>pangkatnya sama</strong>. Suku yang tidak memenuhi syarat itu disebut <strong>tidak sejenis</strong>.
+  </div>
+
+  <table>
+    <tr><th>Pasangan suku</th><th>Keterangan</th><th>Keputusan</th></tr>
+    <tr><td>3x dan 5x</td><td>Variabel sama (x), pangkat sama (x<sup>1</sup>)</td><td><strong>Sejenis</strong> → boleh dijumlah: 8x</td></tr>
+    <tr><td>3x dan 5y</td><td>Variabelnya berbeda (x dan y)</td><td><strong>Tidak sejenis</strong></td></tr>
+    <tr><td>4x dan 4x<sup>2</sup></td><td>Variabel sama, tetapi pangkatnya berbeda (1 dan 2)</td><td><strong>Tidak sejenis</strong></td></tr>
+    <tr><td>7 dan 10</td><td>Sama-sama konstanta (tanpa variabel)</td><td><strong>Sejenis</strong> → boleh dijumlah: 17</td></tr>
+    <tr><td>7 dan 7a</td><td>Konstanta dengan suku yang mengandung variabel</td><td><strong>Tidak sejenis</strong></td></tr>
+  </table>
+
+  <div class="example">
+    <span class="lbl">Contoh: perhatikan bentuk 4x² + 7x + 3</span>
+    <ul>
+      <li>Suku <strong>4x²</strong> sejenis dengan suku lain yang memiliki variabel x pangkat 2, misalnya 9x².</li>
+      <li>Suku <strong>7x</strong> sejenis dengan −2x.</li>
+      <li>Suku <strong>3</strong> (konstanta) sejenis dengan konstanta lain, misalnya +5.</li>
+      <li>4x², 7x, dan 3 saling <strong>tidak sejenis</strong> — ketiganya tidak bisa digabung menjadi satu suku.</li>
+    </ul>
+  </div>
+
+  <div class="warn">
+    ⚠️ <strong>Kesalahan yang sering terjadi:</strong> 3x + 5y = 8xy adalah <strong>SALAH</strong>. Variabel x dan y berbeda, sehingga keduanya tidak sejenis dan <strong>tidak dapat disederhanakan</strong>. Hasilnya tetap 3x + 5y.
+  </div>
+
+  <div class="example">
+    <span class="lbl">Aturan singkat</span>
+    <ol>
+      <li>Periksa <strong>variabelnya</strong> — sama atau beda?</li>
+      <li>Periksa <strong>pangkatnya</strong> — sama atau beda?</li>
+      <li>Keduanya sama → sejenis → boleh dijumlah/dikurangkan.</li>
+      <li>Satu saja berbeda → tidak sejenis → tulis terpisah.</li>
+    </ol>
+  </div>
+</section>
+
+<!-- C. LATIHAN PEMANASAN -->
+<section class="section">
+  <h2 class="sec-title">C. Latihan Pemanasan</h2>
+  <p class="sec-desc">Tentukan apakah suku-suku berikut sejenis atau tidak, lalu jumlahkan bila memungkinkan. Raih skor minimal <strong>80</strong> untuk membuka level berikutnya.</p>
+
+  <div class="level-btns">
+    <button class="level-btn active" id="btnLevel1" onclick="pilihLevel(1)">🟢 Level 1<br>Mudah</button>
+    <button class="level-btn locked" id="btnLevel2" onclick="pilihLevel(2)">🟡 Level 2<br>Menengah</button>
+    <button class="level-btn locked" id="btnLevel3" onclick="pilihLevel(3)">🔴 Level 3<br>Sulit (HOTS)</button>
+  </div>
+
+  <div class="section" style="box-shadow:none;border:1px solid var(--line);padding:16px">
+    <div class="sec-title" style="font-size:17px" id="judulLevel">🟢 Level 1 — Mudah</div>
+    <div id="petunjuk"></div>
+    <div id="soalContainer"></div>
+    <div>
+      <button class="btn btn-success" onclick="periksa()">✓ Periksa Jawaban</button>
+      <button class="btn btn-light" onclick="tampil()">🔄 Soal Baru</button>
+    </div>
+    <div id="hasil"></div>
+  </div>
+</section>
+
+<!-- D. MISI TANTANGAN -->
+<section class="section">
+  <h2 class="sec-title">D. Misi Tantangan — Berpikir Seperti Ahli Matematika</h2>
+  <p class="sec-desc">Jelaskan alasanmu dengan bahasamu sendiri, baru buka pembahasannya.</p>
+
+  <div class="misi">
+    <h4>🕵️ Misi 1 — Menganalisis Kesalahan</h4>
+    <p>Budi menulis: <em>“Karena 3x dan 5y sama-sama mengandung angka 3 dan 5, maka 3x + 5y = 8xy.”</em></p>
+    <p>Apakah pernyataan Budi benar? Jelaskan kesalahannya dan tuliskan bentuk yang benar.</p>
+    <details>
+      <summary><strong>Kunci jawaban dan pembahasan</strong></summary>
+      <p><strong>SALAH.</strong> 3x dan 5y memiliki variabel berbeda (x dan y), sehingga keduanya <strong>tidak sejenis</strong>. Suku tidak sejenis tidak boleh dijumlahkan, apalagi variabelnya dikalikan menjadi xy.</p>
+      <p>Bentuk yang benar: <strong>3x + 5y</strong> (sudah tidak dapat disederhanakan lagi).</p>
+      <p>Analoginya: 3 apel + 5 jeruk = 3 apel + 5 jeruk, bukan 8 apeljeruk.</p>
+    </details>
+  </div>
+
+  <div class="misi">
+    <h4>🧩 Misi 2 — Menyusun dan Mengelompokkan</h4>
+    <p>Perhatikan bentuk aljabar berikut: <strong>6a + 4b − 2a + 9 − 3b</strong>.</p>
+    <ol>
+      <li>Tuliskan semua pasangan suku yang sejenis.</li>
+      <li>Hasilkan bentuk aljabar yang lebih sederhana dengan mengelompokkan suku sejenis.</li>
+      <li>Berapa banyak suku yang tersisa setelah disederhanakan?</li>
+    </ol>
+    <details>
+      <summary><strong>Kunci jawaban dan pembahasan</strong></summary>
+      <ol>
+        <li>Suku sejenis: <strong>6a dan −2a</strong>; <strong>4b dan −3b</strong>; konstanta <strong>9</strong> (tidak ada pasangan).</li>
+        <li>6a − 2a = 4a; 4b − 3b = b; 9 tetap. Hasilnya: <strong>4a + b + 9</strong>.</li>
+        <li>Ada <strong>3 suku</strong>: 4a, b, dan 9 — ketiganya tidak sejenis sehingga tidak bisa digabung lagi.</li>
+      </ol>
+    </details>
+  </div>
+
+  <div class="boss">
+    <h3>👑 Boss Challenge — Tantangan HOTS</h3>
+    <p>Perhatikan bentuk aljabar: <strong>4x² + 7x + 3</strong></p>
+    <ol>
+      <li>Mengapa suku <strong>4x</strong> tidak sejenis dengan <strong>4x²</strong>, meskipun variabelnya sama?</li>
+      <li>Pasangkan setiap suku dengan suku sejenisnya dari daftar berikut: <em>9x², −5x, 4, 2x, 5x², −7</em>.</li>
+      <li>Tuliskan bentuk hasil penjumlahan (4x² + 7x + 3) + (5x² − 5x + 4).</li>
+      <li>Dua bentuk dikatakan “sejenis” secara keseluruhan jika setiap suku pada bentuk pertama memiliki pasangan sejenis pada bentuk kedua. Apakah 3a + 2b sejenis dengan 5a − 2b? Jelaskan.</li>
+    </ol>
+    <details>
+      <summary><strong>Kunci jawaban dan pembahasan</strong></summary>
+      <ol>
+        <li>Karena pangkatnya berbeda: 4x<sup>1</sup> memiliki pangkat 1, sedangkan 4x<sup>2</sup> memiliki pangkat 2. Syarat suku sejenis adalah variabel <strong>dan</strong> pangkat sama.</li>
+        <li>4x² ↔ 5x²; 7x ↔ 2x dan −5x; 3 ↔ 4 dan −7.</li>
+        <li>(4x² + 5x²) + (7x − 5x) + (3 + 4) = <strong>9x² + 2x + 7</strong>.</li>
+        <li><strong>Ya, sejenis.</strong> 3a berpasangan dengan 5a, dan 2b berpasangan dengan −2b. Semua suku memiliki pasangan, sehingga keduanya dapat disederhanakan menjadi 8a.</li>
+      </ol>
+    </details>
+  </div>
+</section>
+
+<!-- E. REFLEKSI -->
+<section class="section">
+  <h2 class="sec-title">E. Refleksi Pembelajaran</h2>
+  <p class="sec-desc">Sebelum melanjutkan ke TP 3, centang bila kamu sudah mampu menjelaskannya dengan kata-katamu sendiri.</p>
+  <div class="refleksi">
+    <label><input type="checkbox"> Apa syarat dua suku disebut <strong>suku sejenis</strong>?</label>
+    <label><input type="checkbox"> Mengapa 3x dan 3x² <strong>tidak sejenis</strong>?</label>
+    <label><input type="checkbox"> Mengapa 3x + 5y tidak boleh ditulis 8xy?</label>
+    <label><input type="checkbox"> Bagaimana cara mengelompokkan suku sejenis sebelum menjumlahkan?</label>
+  </div>
+  <div class="note"><strong>Target akhir TP 2:</strong> Kamu dapat membedakan suku sejenis dan tidak sejenis, serta tahu suku mana yang boleh dijumlahkan atau dikurangkan.</div>
+</section>
+
+<nav class="nav">
+  <a href="tp1-mengenal-bentuk-aljabar.html">← TP 1 — Mengenal Bentuk Aljabar</a>
+  <a href="tp3-penjumlahan-dan-pengurangan-aljabar.html">Lanjut: TP 3 — Penjumlahan & Pengurangan →</a>
+</nav>
+
+<footer>TP 2 • Suku Sejenis dan Tidak Sejenis • Matematika Kelas VII (MATH-7)</footer>
+
+</div>
+
+<script>
+/* =========================================================
+   BANK SOAL — 3 LEVEL
+========================================================= */
+
+const bank = {
+
+1:{
+  judul:"🟢 Level 1 — Mudah",
+  petunjuk:"Pilih pasangan yang sejenis dengan suku yang ditanyakan.",
+  soal:[
+    {tipe:"pilihan", q:"Manakah yang merupakan suku sejenis dengan 7a?",
+     p:["7b","7a²","−3a","7"], k:2,
+     e:"−3a memiliki variabel a dan pangkat sama (a¹), sehingga sejenis dengan 7a."},
+    {tipe:"pilihan", q:"Suku yang TIDAK sejenis dengan 4x adalah …",
+     p:["9x","−2x","5x²","6x"], k:2,
+     e:"5x² memiliki pangkat 2, sedangkan 4x pangkatnya 1. Pangkat berbeda → tidak sejenis."},
+    {tipe:"pilihan", q:"Dari bentuk aljabar 3x + 5y, pernyataan yang benar adalah …",
+     p:["Hasilnya 8xy","Hasilnya 8x","Tidak dapat disederhanakan","Hasilnya 8y"], k:2,
+     e:"Variabel x dan y berbeda sehingga suku tidak sejenis. Bentuknya tetap 3x + 5y."},
+    {tipe:"pilihan", q:"Manakah pasangan suku yang sejenis?",
+     p:["4p dan 4q","3m dan 3m²","10 dan 20","5r dan 5r²"], k:2,
+     e:"10 dan 20 sama-sama konstanta (tanpa variabel), sehingga sejenis dan boleh dijumlah menjadi 30."},
+    {tipe:"pilihan", q:"Konstanta pada bentuk 8 − 3y + 6y adalah …",
+     p:["−3","6","8","3y"], k:2,
+     e:"Konstanta adalah bilangan tanpa variabel, yaitu 8. Suku lainnya (−3y dan 6y) adalah suku yang mengandung variabel."},
+    {tipe:"pilihan", q:"Berapa banyak suku sejenis yang dapat dikelompokkan dari 2a + 5b − a + 4b?",
+     p:["2 suku","3 suku","4 suku","1 suku"], k:2,
+     e:"2a dengan −a sejenis, 5b dengan 4b sejenis → ada 4 suku yang bisa dikelompokkan menjadi 2 kelompok."}
+  ]
+},
+
+2:{
+  judul:"🟡 Level 2 — Menengah",
+  petunjuk:"Tulis jawaban pada kolom tersedia. Untuk kata, tulis persis “sejenis” atau “tidak sejenis”. Untuk bentuk, tulis tanpa spasi, contoh: 13p^2",
+  soal:[
+    {tipe:"isian", q:"Apakah 4p² dan 9p² termasuk suku sejenis atau tidak sejenis?",
+     a:["sejenis"], e:"Variabel dan pangkatnya sama (p²), jadi sejenis dan jumlahnya 13p²."},
+    {tipe:"isian", q:"Apakah 6x dan 6y termasuk suku sejenis atau tidak sejenis?",
+     a:["tidak sejenis"], e:"Variabelnya berbeda (x dan y), sehingga tidak sejenis."},
+    {tipe:"isian", q:"Apakah 4x dan 4x² termasuk suku sejenis atau tidak sejenis?",
+     a:["tidak sejenis"], e:"Variabel sama tetapi pangkatnya berbeda (1 vs 2), sehingga tidak sejenis."},
+    {tipe:"isian", q:"Sederhanakan: 4p² + 9p² = …",
+     a:["13p^2","13p²"], e:"Suku sejenis dijumlahkan: 4 + 9 = 13, variabel dan pangkat dipertahankan → 13p²."},
+    {tipe:"isian", q:"Sederhanakan: 11m − 4m = …",
+     a:["7m"], e:"11m dan 4m sejenis → 11 − 4 = 7, jadi hasilnya 7m."},
+    {tipe:"isian", q:"Tuliskan bentuk 5b + 3a menurut abjad variabel (a dahulu, lalu b), spasi boleh dihilangkan.",
+     a:["3a+5b"], e:"Urutan suku sebenarnya bebas, yang penting koefisien tetap: 3a + 5b."}
+  ]
+},
+
+3:{
+  judul:"🔴 Level 3 — Sulit (HOTS)",
+  petunjuk:"Kelompokkan suku sejenis lebih dulu, baru berikan kesimpulan.",
+  soal:[
+    {tipe:"isian", q:"Sederhanakan: 6a + 4b − 2a + 9 − 3b = …",
+     a:["4a+b+9","b+4a+9"], e:"(6a − 2a) + (4b − 3b) + 9 = 4a + b + 9."},
+    {tipe:"isian", q:"Sederhanakan: (4x² + 7x + 3) + (5x² − 5x + 4) = …",
+     a:["9x^2+2x+7","9x²+2x+7"], e:"(4x² + 5x²) + (7x − 5x) + (3 + 4) = 9x² + 2x + 7."},
+    {tipe:"isian", q:"Apakah 3a + 2b sejenis dengan 5a − 2b (sebagai dua bentuk)? Tulis “ya” atau “tidak”.",
+     a:["ya","yes"], e:"Setiap suku punya pasangan: 3a dengan 5a, 2b dengan −2b. Jadi keduanya dapat digabung menjadi 8a."},
+    {tipe:"pilihan", q:"Mengapa 4x dan 4x² tidak sejenis, meskipun variabelnya sama?",
+     p:["Karena angka di depannya sama besar",
+        "Karena pangkat variabelnya berbeda",
+        "Karena keduanya adalah suku positif",
+        "Karena keduanya sama-sama memiliki variabel"], k:1,
+     e:"Syarat suku sejenis: variabel SAMA dan pangkat SAMA. Pangkat 1 berbeda dengan pangkat 2."},
+    {tipe:"pilihan", q:"Bentuk 5x² + 3x − x² + 7 disederhanakan menjadi …",
+     p:["5x² + 2x + 7","4x² + 3x + 7","4x² + 7","4x² + 3x"], k:1,
+     e:"Kelompokkan sejenis: (5x² − x²) = 4x², 3x tanpa pasangan, dan konstanta 7 → 4x² + 3x + 7."}
+  ]
+}
+
+};
+
+/* =========================================================
+   MESIN KUIS
+========================================================= */
+
+let lvl = 1;
+let soalAktif = [];
+let dipilih = [];
+let lulus = {1:false, 2:false, 3:false};
+
+function norm(s){
+  return String(s).toLowerCase()
+    .replace(/rp/g, "")
+    .replace(/[\s.,]/g, "")
+    .replace(/[−–—]/g, "-")
+    .replace(/[×·∙]/g, "*")
+    .replace(/[⁰¹²³⁴⁵⁶⁷⁸⁹]/g, d => "0123456789"["⁰¹²³⁴⁵⁶⁷⁸⁹".indexOf(d)])
+    .replace(/\^/g, "");
+}
+
+function acak(arr){
+  const a = [...arr];
+  for(let i = a.length - 1; i > 0; i--){
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function pilihLevel(n){
+  if(n > 1 && !lulus[n - 1]){
+    alert("Selesaikan Level " + (n - 1) + " terlebih dahulu (skor minimal 80).");
+    return;
+  }
+  lvl = n;
+  document.querySelectorAll(".level-btn")
+    .forEach((b, i) => b.classList.toggle("active", i === n - 1));
+  tampil();
+}
+
+function tampil(){
+  const b = bank[lvl];
+
+  document.getElementById("judulLevel").textContent = b.judul;
+  document.getElementById("petunjuk").innerHTML = "<p>📌 " + b.petunjuk + "</p>";
+
+  soalAktif = acak(b.soal).slice(0, Math.min(5, b.soal.length));
+  dipilih = new Array(soalAktif.length).fill(null);
+
+  let html = "";
+
+  soalAktif.forEach((s, i) => {
+    let isi = "";
+
+    if(s.tipe === "pilihan"){
+      isi = '<div class="choices">' +
+        s.p.map((c, j) =>
+          '<button class="choice" id="c-' + i + '-' + j + '" onclick="pilih(' + i + ',' + j + ')">' + c + '</button>'
+        ).join("") + '</div>';
+    } else {
+      isi = '<input class="inp" id="in-' + i + '" placeholder="Tulis jawabanmu di sini...">';
+    }
+
+    html +=
+      '<div class="q" id="q-' + i + '">' +
+        '<div class="qt">' + (i + 1) + '. ' + s.q + '</div>' +
+        isi +
+        '<div class="fb" id="fb-' + i + '"></div>' +
+      '</div>';
+  });
+
+  document.getElementById("soalContainer").innerHTML = html;
+  document.getElementById("hasil").innerHTML = "";
+}
+
+function pilih(i, j){
+  dipilih[i] = j;
+  soalAktif.forEach((s, idx) => {
+    if(s.tipe !== "pilihan") return;
+    s.p.forEach((c, k) => {
+      const el = document.getElementById("c-" + idx + "-" + k);
+      if(el) el.classList.toggle("sel", idx === i && k === j);
+    });
+  });
+}
+
+function periksa(){
+  let kosong = false;
+
+  soalAktif.forEach((s, i) => {
+    if(s.tipe === "pilihan" && dipilih[i] === null) kosong = true;
+    if(s.tipe === "isian"){
+      const el = document.getElementById("in-" + i);
+      if(!el || !el.value.trim()) kosong = true;
+    }
+  });
+
+  if(kosong){
+    alert("Jawab semua soal terlebih dahulu.");
+    return;
+  }
+
+  let benar = 0;
+
+  soalAktif.forEach((s, i) => {
+    const box = document.getElementById("q-" + i);
+    const fb = document.getElementById("fb-" + i);
+    let ok = false;
+    let jawabanTampil = "";
+
+    if(s.tipe === "pilihan"){
+      ok = dipilih[i] === s.k;
+      jawabanTampil = s.p[s.k];
+      s.p.forEach((c, j) => {
+        const btn = document.getElementById("c-" + i + "-" + j);
+        btn.classList.remove("sel", "ok", "no");
+        if(j === s.k) btn.classList.add("ok");
+        else if(j === dipilih[i]) btn.classList.add("no");
+      });
+    } else {
+      const el = document.getElementById("in-" + i);
+      ok = s.a.some(a => norm(a) === norm(el.value));
+      jawabanTampil = s.a[0];
+      el.classList.remove("ok", "no");
+      el.classList.add(ok ? "ok" : "no");
+    }
+
+    box.classList.remove("correct", "wrong");
+    box.classList.add(ok ? "correct" : "wrong");
+
+    if(ok) benar++;
+
+    fb.innerHTML =
+      (ok ? "✅ Benar. " : '❌ Belum tepat. Jawaban benar: <strong>' + jawabanTampil + '</strong>. ') +
+      '<i>' + s.e + '</i>';
+  });
+
+  const nilai = Math.round(benar / soalAktif.length * 100);
+
+  document.getElementById("hasil").innerHTML =
+    '<div class="score">' +
+      '<div>Hasil ' + bank[lvl].judul + '</div>' +
+      '<div class="num">' + nilai + '</div>' +
+      '<div>Benar ' + benar + ' dari ' + soalAktif.length + ' soal</div>' +
+      (nilai >= 80
+        ? '<p>🎉 Tuntas! Level berikutnya sudah terbuka.</p>'
+        : '<p>💡 Belum tuntas. Baca lagi pembahasannya, lalu coba soal baru.</p>') +
+    '</div>';
+
+  if(nilai >= 80){
+    lulus[lvl] = true;
+    if(lvl < 3){
+      document.getElementById("btnLevel" + (lvl + 1)).classList.remove("locked");
+    }
+  }
+}
+
+tampil();
+</script>
+
+</body>
+</html>

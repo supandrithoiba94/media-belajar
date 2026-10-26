@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TP 6 — Substitusi Bentuk Aljabar | MATH-7</title>
+<style>
+:root{
+  --accent:#6d28d9;
+  --accent-dark:#4c1d95;
+  --bg:#eef2f8;
+  --ink:#1f2937;
+  --muted:#5b6472;
+  --line:#dde5f0;
+  --ok:#16a34a;
+  --bad:#dc2626;
+  --warn:#f59e0b;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 Arial,Helvetica,sans-serif}
+.wrap{max-width:940px;margin:0 auto;padding:18px 14px 40px}
+a{color:var(--accent)}
+.top{background:linear-gradient(135deg,var(--accent-dark),var(--accent));color:#fff;border-radius:18px;padding:22px 24px;margin-bottom:16px}
+.top .back{display:inline-block;background:#ffffff2e;color:#fff;text-decoration:none;padding:6px 13px;border-radius:20px;font-size:13px;font-weight:bold;margin-bottom:12px}
+.top .back:hover{background:#ffffff4d}
+.crumb{margin:0 0 6px;font-size:13px;opacity:.9;letter-spacing:.4px}
+.top h1{margin:0 0 6px;font-size:26px;line-height:1.25}
+.lead{margin:0;opacity:.95}
+.target{background:#fff;border-left:5px solid var(--accent);border-radius:14px;padding:14px 16px;margin-bottom:16px;box-shadow:0 3px 12px #0f172a0f}
+.target p{margin:6px 0 0}
+.section{background:#fff;border-radius:18px;padding:20px 22px;margin-bottom:16px;box-shadow:0 3px 14px #0f172a12}
+.sec-title{display:flex;align-items:center;gap:10px;font-size:19px;font-weight:bold;color:var(--accent-dark);margin:0 0 12px;padding-bottom:8px;border-bottom:2px solid var(--line)}
+.sec-desc{margin:0 0 14px;color:var(--muted);font-size:14.5px}
+.pemantik{background:#fff8e6;border:1px solid #fde68a;border-radius:14px;padding:16px 18px}
+.pemantik h3{margin:0 0 8px;color:#92400e}
+.tanya{background:#f8fafc;border-left:4px solid var(--accent);padding:10px 14px;border-radius:0 10px 10px 0;margin:10px 0;font-size:15.5px}
+table{width:100%;border-collapse:collapse;margin:12px 0;font-size:15px}
+th,td{border:1px solid var(--line);padding:9px 10px;text-align:left;vertical-align:top}
+th{background:var(--accent);color:#fff;font-size:14px}
+tr:nth-child(even) td{background:#f8fafc}
+.example{background:#f1f5f9;border-radius:12px;padding:12px 14px;margin:12px 0;border:1px dashed #cbd5e1}
+.example .lbl{display:block;color:var(--accent-dark);font-weight:bold;margin-bottom:6px}
+.note{background:#eff6ff;border:1px solid #bfdbfe;border-radius:12px;padding:12px 14px;margin:12px 0;font-size:15px}
+.warn{background:#fffbeb;border:1px solid #fde68a;border-radius:12px;padding:12px 14px;margin:12px 0;font-size:15px}
+ul,ol{padding-left:22px}
+li{margin:5px 0}
+details{background:#f8fafc;border:1px solid var(--line);border-radius:12px;padding:10px 14px;margin:14px 0}
+summary{cursor:pointer;font-weight:bold;color:var(--accent-dark)}
+details[open]{background:#fff}
+details p,details li{font-size:15px}
+.level-btns{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
+.level-btn{border:2px solid var(--line);background:#f8fafc;padding:12px 8px;border-radius:12px;cursor:pointer;font-weight:bold;color:var(--muted);font-size:14px;font-family:inherit}
+.level-btn.active{background:var(--accent);border-color:var(--accent);color:#fff}
+.level-btn.locked{opacity:.5;cursor:not-allowed}
+.q{border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin-bottom:12px;background:#fff}
+.q.correct{border:2px solid var(--ok);background:#f0fdf4}
+.q.wrong{border:2px solid var(--bad);background:#fef2f2}
+.qt{font-weight:bold;font-size:16.5px;margin-bottom:10px}
+.choices{display:flex;gap:9px;flex-wrap:wrap}
+.choice{flex:1;min-width:120px;border:2px solid var(--line);background:#fff;padding:11px;border-radius:10px;font-size:17px;font-weight:bold;cursor:pointer;font-family:inherit;color:inherit}
+.choice:hover{border-color:var(--accent);background:#eff6ff}
+.choice.sel{background:var(--accent);color:#fff;border-color:var(--accent)}
+.choice.ok{background:var(--ok);border-color:var(--ok);color:#fff}
+.choice.no{background:var(--bad);border-color:var(--bad);color:#fff}
+.inp{width:100%;padding:11px 13px;border:2px solid var(--line);border-radius:10px;font-size:17px;font-family:inherit}
+.inp:focus{outline:none;border-color:var(--accent)}
+.inp.ok{border-color:var(--ok);background:#f0fdf4}
+.inp.no{border-color:var(--bad);background:#fef2f2}
+.fb{font-size:14.5px;margin-top:9px;color:var(--muted)}
+.btn{border:0;padding:12px 18px;border-radius:11px;cursor:pointer;font-weight:bold;font-size:15px;margin:6px 6px 0 0;font-family:inherit}
+.btn-primary{background:var(--accent);color:#fff}
+.btn-success{background:var(--ok);color:#fff}
+.btn-light{background:#e5e7eb;color:#111827}
+.btn:hover{filter:brightness(1.06)}
+.score{margin-top:14px;text-align:center;background:#eff6ff;border-radius:14px;padding:16px}
+.score .num{font-size:36px;font-weight:bold;color:var(--accent)}
+.misi{border:1px solid var(--line);border-left:5px solid var(--warn);border-radius:0 14px 14px 0;padding:14px 16px;margin-bottom:14px;background:#fffdf7}
+.misi h4{margin:0 0 8px;color:#b45309;font-size:17px}
+.boss{border:2px solid var(--warn);border-radius:16px;padding:16px 18px;background:linear-gradient(180deg,#fffbeb,#fff)}
+.boss h3{margin-top:0;color:#b45309}
+.refleksi label{display:flex;gap:10px;align-items:flex-start;background:#f8fafc;border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin:8px 0;cursor:pointer;font-size:15px}
+.refleksi input{margin-top:4px}
+.nav{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:6px}
+.nav a{display:inline-block;text-decoration:none;background:#fff;border:1px solid var(--line);border-radius:11px;padding:11px 15px;font-weight:bold;color:var(--accent-dark);font-size:14px}
+.nav a:hover{border-color:var(--accent);background:#eff6ff}
+footer{text-align:center;color:var(--muted);font-size:13px;padding:14px 0}
+@media(max-width:620px){
+  .level-btns{grid-template-columns:1fr}
+  .top h1{font-size:21px}
+  .choices{flex-direction:column}
+  .choice{min-width:0}
+  .section{padding:16px 14px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="top">
+  <a class="back" href="index.html">← Peta Materi Bab 2</a>
+  <p class="crumb">MATEMATIKA KELAS VII • MATH-7 • BAB 2 — ALJABAR</p>
+  <h1>TP 6 — Substitusi Bentuk Aljabar</h1>
+  <p class="lead">Menghitung nilai bentuk aljabar jika nilai variabel diketahui.</p>
+</header>
+
+<div class="target">
+  <strong>🎯 Target Pembelajaran</strong>
+  <p>Peserta didik mampu <strong>menghitung nilai bentuk aljabar</strong> dengan mengganti variabelnya menggunakan nilai yang diketahui, baik satu variabel maupun lebih.</p>
+</div>
+
+<!-- A. PERTANYAAN PEMANTIK -->
+<section class="section">
+  <h2 class="sec-title">A. Pertanyaan Pemantik</h2>
+
+  <div class="pemantik">
+    <h3>💡 Kembali ke belanja buku di TP 1</h3>
+    <p>Total harga <strong>x</strong> buku tulis dengan harga Rp4.000 per buku adalah <strong>4.000x</strong>. Bentuk ini berlaku untuk jumlah buku apa pun.</p>
+    <div class="tanya">Kini kamu tahu persis yang kamu beli: <strong>x = 6 buku</strong>. Berapa yang harus dibayar?</div>
+    <div class="example">
+      <span class="lbl">Mengganti variabel dengan nilainya</span>
+      4.000x = 4.000 × 6 = <strong>Rp24.000</strong>
+    </div>
+    <p>Kegiatan “mengganti variabel dengan bilangan” ini disebut <strong>substitusi</strong>. Bentuk aljabar yang semula umum kini menjadi satu nilai yang pasti.</p>
+    <p><strong>Pertanyaan pemantik:</strong> bagaimana jika bentuknya lebih rumit, misalnya 3x² − 2x + 1 dengan x = −2? Urutan pengerjaannya menjadi sangat menentukan hasil yang benar.</p>
+  </div>
+</section>
+
+<!-- B. MATERI -->
+<section class="section">
+  <h2 class="sec-title">B. Langkah Substitusi yang Benar</h2>
+
+  <div class="example">
+    <span class="lbl">Empat langkah</span>
+    <ol>
+      <li><strong>Ganti</strong> setiap variabel dengan nilainya — gunakan <strong>tanda kurung</strong> agar tanda ikut terbawa, misalnya x = −2 menjadi (−2).</li>
+      <li><strong>Kerjakan pangkat/kuadrat</strong> lebih dulu.</li>
+      <li><strong>Kerjakan perkalian</strong>, lalu penjumlahan/pengurangan (sesuai urutan hitung).</li>
+      <li><strong>Tulis hasil</strong> — lengkapi dengan satuan bila soalnya bercerita.</li>
+    </ol>
+  </div>
+
+  <table>
+    <tr><th>Bentuk aljabar</th><th>Nilai variabel</th><th>Perhitungan</th><th>Hasil</th></tr>
+    <tr><td>3x + 5</td><td>x = 4</td><td>3(4) + 5</td><td><strong>17</strong></td></tr>
+    <tr><td>2a + 3b</td><td>a = 2, b = −3</td><td>2(2) + 3(−3) = 4 − 9</td><td><strong>−5</strong></td></tr>
+    <tr><td>x² + 2x</td><td>x = −3</td><td>(−3)² + 2(−3) = 9 − 6</td><td><strong>3</strong></td></tr>
+    <tr><td>5(x + 2)</td><td>x = 3</td><td>5(3 + 2)</td><td><strong>25</strong></td></tr>
+  </table>
+
+  <div class="warn">
+    ⚠️ <strong>Kesalahan paling sering:</strong> untuk 3x + 5 dengan x = 4, seorang siswa menulis 3 × (4 + 5) = 27 — <strong>SALAH</strong>. Variabel x hanya menggantikan angka <strong>4</strong>, bukan seluruh isi. Yang benar: 3(4) + 5 = <strong>17</strong>.
+  </div>
+
+  <div class="note">
+    <strong>Perhatikan tanda:</strong> jika x = −2, maka x² = (−2)² = 4 (positif), sedangkan 5x = 5(−2) = −10. Selalu gunakan kurung agar tanda negatif tidak hilang.
+  </div>
+</section>
+
+<!-- C. LATIHAN PEMANASAN -->
+<section class="section">
+  <h2 class="sec-title">C. Latihan Pemanasan</h2>
+  <p class="sec-desc">Hitung nilai setiap bentuk aljabar sesuai nilai variabel yang diberikan. Raih skor minimal <strong>80</strong> untuk membuka level berikutnya.</p>
+
+  <div class="level-btns">
+    <button class="level-btn active" id="btnLevel1" onclick="pilihLevel(1)">🟢 Level 1<br>Mudah</button>
+    <button class="level-btn locked" id="btnLevel2" onclick="pilihLevel(2)">🟡 Level 2<br>Menengah</button>
+    <button class="level-btn locked" id="btnLevel3" onclick="pilihLevel(3)">🔴 Level 3<br>Sulit (HOTS)</button>
+  </div>
+
+  <div class="section" style="box-shadow:none;border:1px solid var(--line);padding:16px">
+    <div class="sec-title" style="font-size:17px" id="judulLevel">🟢 Level 1 — Mudah</div>
+    <div id="petunjuk"></div>
+    <div id="soalContainer"></div>
+    <div>
+      <button class="btn btn-success" onclick="periksa()">✓ Periksa Jawaban</button>
+      <button class="btn btn-light" onclick="tampil()">🔄 Soal Baru</button>
+    </div>
+    <div id="hasil"></div>
+  </div>
+</section>
+
+<!-- D. MISI TANTANGAN -->
+<section class="section">
+  <h2 class="sec-title">D. Misi Tantangan — Berpikir Seperti Ahli Matematika</h2>
+  <p class="sec-desc">Tulis langkah pengerjaanmu lengkap, baru buka pembahasan.</p>
+
+  <div class="misi">
+    <h4>🕵️ Misi 1 — Menganalisis Kesalahan</h4>
+    <p>Sinta menghitung nilai <strong>3x + 5</strong> untuk x = 4 sebagai berikut: <em>3 × (4 + 5) = 27</em>.</p>
+    <p>Apakah jawaban Sinta benar? Jelaskan kesalahannya dan perbaiki dengan langkah yang benar.</p>
+    <details>
+      <summary><strong>Kunci jawaban dan pembahasan</strong></summary>
+      <p><strong>SALAH.</strong> Variabel x berada pada suku 3x saja, sehingga yang diganti hanya x pada suku tersebut: 3<strong>x</strong> + 5 → 3(4) + 5 = 12 + 5 = <strong>17</strong>.</p>
+      <p>Sinta menaruh kurung di sekeliling (4 + 5), seolah-olah bentuknya 3(x + 5) — itu bentuk yang berbeda. Dengan x = 4, 3(x + 5) memang 27, tetapi bukan itu yang ditanyakan.</p>
+      <p><strong>Tes cepat:</strong> jika x = 0, maka 3x + 5 = 5. Perhitungan Sinta akan memberi 15 — membuktikan cara itu tidak tepat.</p>
+    </details>
+  </div>
+
+  <div class="misi">
+    <h4>📐 Misi 2 — Substitusi pada Bentuk Geometri</h4>
+    <p>Sebuah persegi memiliki panjang sisi <strong>(2a + 3) cm</strong>. Jika a = 4:</p>
+    <ol>
+      <li>Berapa panjang sisi persegi tersebut?</li>
+      <li>Berapa keliling persegi itu?</li>
+      <li>Berapa luas persegi itu?</li>
+    </ol>
+    <details>
+      <summary><strong>Kunci jawaban dan pembahasan</strong></summary>
+      <ol>
+        <li>Sisi = 2(4) + 3 = 8 + 3 = <strong>11 cm</strong>.</li>
+        <li>Keliling = 4 × sisi = 4 × 11 = <strong>44 cm</strong>.</li>
+        <li>Luas = sisi × sisi = 11 × 11 = <strong>121 cm²</strong>.</li>
+      </ol>
+    </details>
+  </div>
+
+  <div class="boss">
+    <h3>👑 Boss Challenge — Tantangan HOTS</h3>
+    <p>Sebuah bentuk aljabar <strong>ax + b</strong> memiliki dua fakta berikut:</p>
+    <div class="tanya">Jika x = 2, nilainya 11. &nbsp;•&nbsp; Jika x = 5, nilainya 20.</div>
+    <ol>
+      <li>Tuliskan dua persamaan dari kedua fakta tersebut.</li>
+      <li>Kurangkan kedua persamaan untuk menentukan nilai a.</li>
+      <li>Substitusikan nilai a untuk menemukan nilai b.</li>
+      <li>Tuliskan bentuk aljabarnya, lalu periksa dengan kedua fakta. Apa artinya kemampuan “menebak” bentuk aljabar dari dua data?</li>
+    </ol>
+    <details>
+      <summary><strong>Kunci jawaban dan pembahasan</strong></summary>
+      <ol>
+        <li>Untuk x = 2: <strong>2a + b = 11</strong>. Untuk x = 5: <strong>5a + b = 20</strong>.</li>
+        <li>(5a + b) − (2a + b) = 20 − 11 → 3a = 9 → <strong>a = 3</strong>.</li>
+        <li>2(3) + b = 11 → 6 + b = 11 → <strong>b = 5</strong>.</li>
+        <li>Bentuknya adalah <strong>3x + 5</strong>. Cek: x = 2 → 11 ✓; x = 5 → 20 ✓. Artinya, dari <strong>dua pengamatan</strong> kita dapat menentukan bentuk aljabar yang tepat — inilah dasar pola dan fungsi yang akan kamu pelajari di kelas berikutnya.</li>
+      </ol>
+    </details>
+  </div>
+</section>
+
+<!-- E. REFLEKSI -->
+<section class="section">
+  <h2 class="sec-title">E. Refleksi Pembelajaran</h2>
+  <p class="sec-desc">Sebelum melanjutkan ke TP 7, centang bila kamu sudah mampu menjelaskannya dengan kata-katamu sendiri.</p>
+  <div class="refleksi">
+    <label><input type="checkbox"> Mengapa nilai variabel harus ditulis dalam <strong>tanda kurung</strong>?</label>
+    <label><input type="checkbox"> Apa urutan operasi yang benar saat substitusi?</label>
+    <label><input type="checkbox"> Apa bedanya substitusi pada 3x + 5 dan pada 3(x + 5)?</label>
+    <label><input type="checkbox"> Bagaimana memeriksa kebenaran hasil substitusi?</label>
+  </div>
+  <div class="note"><strong>Target akhir TP 6:</strong> Kamu dapat menghitung nilai bentuk aljabar dengan benar untuk nilai variabel positif maupun negatif, termasuk bentuk bertanda kurung dan bertakaran.</div>
+</section>
+
+<nav class="nav">
+  <a href="tp5-pembagian-bentuk-aljabar.html">← TP 5 — Pembagian Bentuk Aljabar</a>
+  <a href="tp7-penerapan-aljabar.html">Lanjut: TP 7 — Penerapan Aljabar →</a>
+</nav>
+
+<footer>TP 6 • Substitusi Bentuk Aljabar • Matematika Kelas VII (MATH-7)</footer>
+
+</div>
+
+<script>
+/* =========================================================
+   BANK SOAL — 3 LEVEL
+========================================================= */
+
+const bank = {
+
+1:{
+  judul:"🟢 Level 1 — Mudah",
+  petunjuk:"Ganti variabel dengan nilainya, lalu kerjakan operasinya. Tulis hasil akhir saja (boleh tanpa spasi).",
+  soal:[
+    {tipe:"isian", q:"Hitung nilai 2x + 3 jika x = 4.",
+     a:["11"], e:"2(4) + 3 = 8 + 3 = 11."},
+    {tipe:"isian", q:"Hitung nilai 5a − 2 jika a = 3.",
+     a:["13"], e:"5(3) − 2 = 15 − 2 = 13."},
+    {tipe:"isian", q:"Hitung nilai 4x jika x = −2.",
+     a:["-8"], e:"4 × (−2) = −8. Tanda negatif dibawa terus."},
+    {tipe:"isian", q:"Hitung nilai x + 7 jika x = 9.",
+     a:["16"], e:"9 + 7 = 16."},
+    {tipe:"pilihan", q:"Nilai dari 3x + 1 jika x = 5 adalah …",
+     p:["16","8","15","11"], k:0,
+     e:"3(5) + 1 = 15 + 1 = 16."},
+    {tipe:"isian", q:"Hitung nilai 10 − 2y jika y = 3.",
+     a:["4"], e:"10 − 2(3) = 10 − 6 = 4."}
+  ]
+},
+
+2:{
+  judul:"🟡 Level 2 — Menengah",
+  petunjuk:"Perhatikan urutan: pangkat dulu, lalu perkalian, lalu penjumlahan/pengurangan. Untuk dua variabel, ganti keduanya.",
+  soal:[
+    {tipe:"isian", q:"Hitung nilai 3x² jika x = 2.",
+     a:["12"], e:"3 × (2)² = 3 × 4 = 12 (bukan (3×2)² = 36)."},
+    {tipe:"isian", q:"Hitung nilai 2a + 3b jika a = 1 dan b = −2.",
+     a:["-4"], e:"2(1) + 3(−2) = 2 + (−6) = −4."},
+    {tipe:"isian", q:"Hitung nilai x² − 4x jika x = 5.",
+     a:["5"], e:"(5)² − 4(5) = 25 − 20 = 5."},
+    {tipe:"isian", q:"Hitung nilai 4(x − 3) jika x = 5.",
+     a:["8"], e:"4(5 − 3) = 4 × 2 = 8."},
+    {tipe:"pilihan", q:"Nilai dari x² + 2x + 1 jika x = −1 adalah …",
+     p:["0","−2","2","4"], k:0,
+     e:"(−1)² + 2(−1) + 1 = 1 − 2 + 1 = 0."},
+    {tipe:"isian", q:"Hitung nilai 2(x + y) jika x = −4 dan y = 1.",
+     a:["-6"], e:"2(−4 + 1) = 2 × (−3) = −6."}
+  ]
+},
+
+3:{
+  judul:"🔴 Level 3 — Sulit (HOTS)",
+  petunjuk:"Baca situasinya, susun bentuk aljabarnya terlebih dahulu, baru substitusikan nilainya.",
+  soal:[
+    {tipe:"isian", q:"Parkir motor Rp2.000 (x unit) dan parkir mobil Rp5.000 (y unit): P = 2.000x + 5.000y. Berapa rupiah pendapatan jika x = 6 dan y = 4?",
+     a:["32000","32.000"], e:"2.000(6) + 5.000(4) = 12.000 + 20.000 = Rp32.000."},
+    {tipe:"isian", q:"Hitung nilai a² − b² jika a = −4 dan b = 4.",
+     a:["0"], e:"(−4)² − (4)² = 16 − 16 = 0."},
+    {tipe:"isian", q:"Hitung nilai 3x − 2y jika x = −2 dan y = −3.",
+     a:["0"], e:"3(−2) − 2(−3) = −6 + 6 = 0."},
+    {tipe:"isian", q:"Hitung nilai (x + y)(x − y) jika x = 5 dan y = 2.",
+     a:["21"], e:"(5 + 2)(5 − 2) = 7 × 3 = 21. (Dengan pola: 5² − 2² = 25 − 4 = 21)"},
+    {tipe:"pilihan", q:"Jika 2x + 3y = 24 dan y = 4, maka nilai x adalah …",
+     p:["6","3","12","8"], k:0,
+     e:"2x + 3(4) = 24 → 2x + 12 = 24 → 2x = 12 → x = 6."}
+  ]
+}
+
+};
+
+/* =========================================================
+   MESIN KUIS
+========================================================= */
+
+let lvl = 1;
+let soalAktif = [];
+let dipilih = [];
+let lulus = {1:false, 2:false, 3:false};
+
+function norm(s){
+  return String(s).toLowerCase()
+    .replace(/rp/g, "")
+    .replace(/[\s.,]/g, "")
+    .replace(/[−–—]/g, "-")
+    .replace(/[×·∙]/g, "*")
+    .replace(/[⁰¹²³⁴⁵⁶⁷⁸⁹]/g, d => "0123456789"["⁰¹²³⁴⁵⁶⁷⁸⁹".indexOf(d)])
+    .replace(/\^/g, "");
+}
+
+function acak(arr){
+  const a = [...arr];
+  for(let i = a.length - 1; i > 0; i--){
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function pilihLevel(n){
+  if(n > 1 && !lulus[n - 1]){
+    alert("Selesaikan Level " + (n - 1) + " terlebih dahulu (skor minimal 80).");
+    return;
+  }
+  lvl = n;
+  document.querySelectorAll(".level-btn")
+    .forEach((b, i) => b.classList.toggle("active", i === n - 1));
+  tampil();
+}
+
+function tampil(){
+  const b = bank[lvl];
+
+  document.getElementById("judulLevel").textContent = b.judul;
+  document.getElementById("petunjuk").innerHTML = "<p>📌 " + b.petunjuk + "</p>";
+
+  soalAktif = acak(b.soal).slice(0, Math.min(5, b.soal.length));
+  dipilih = new Array(soalAktif.length).fill(null);
+
+  let html = "";
+
+  soalAktif.forEach((s, i) => {
+    let isi = "";
+
+    if(s.tipe === "pilihan"){
+      isi = '<div class="choices">' +
+        s.p.map((c, j) =>
+          '<button class="choice" id="c-' + i + '-' + j + '" onclick="pilih(' + i + ',' + j + ')">' + c + '</button>'
+        ).join("") + '</div>';
+    } else {
+      isi = '<input class="inp" id="in-' + i + '" placeholder="Tulis jawabanmu di sini...">';
+    }
+
+    html +=
+      '<div class="q" id="q-' + i + '">' +
+        '<div class="qt">' + (i + 1) + '. ' + s.q + '</div>' +
+        isi +
+        '<div class="fb" id="fb-' + i + '"></div>' +
+      '</div>';
+  });
+
+  document.getElementById("soalContainer").innerHTML = html;
+  document.getElementById("hasil").innerHTML = "";
+}
+
+function pilih(i, j){
+  dipilih[i] = j;
+  soalAktif.forEach((s, idx) => {
+    if(s.tipe !== "pilihan") return;
+    s.p.forEach((c, k) => {
+      const el = document.getElementById("c-" + idx + "-" + k);
+      if(el) el.classList.toggle("sel", idx === i && k === j);
+    });
+  });
+}
+
+function periksa(){
+  let kosong = false;
+
+  soalAktif.forEach((s, i) => {
+    if(s.tipe === "pilihan" && dipilih[i] === null) kosong = true;
+    if(s.tipe === "isian"){
+      const el = document.getElementById("in-" + i);
+      if(!el || !el.value.trim()) kosong = true;
+    }
+  });
+
+  if(kosong){
+    alert("Jawab semua soal terlebih dahulu.");
+    return;
+  }
+
+  let benar = 0;
+
+  soalAktif.forEach((s, i) => {
+    const box = document.getElementById("q-" + i);
+    const fb = document.getElementById("fb-" + i);
+    let ok = false;
+    let jawabanTampil = "";
+
+    if(s.tipe === "pilihan"){
+      ok = dipilih[i] === s.k;
+      jawabanTampil = s.p[s.k];
+      s.p.forEach((c, j) => {
+        const btn = document.getElementById("c-" + i + "-" + j);
+        btn.classList.remove("sel", "ok", "no");
+        if(j === s.k) btn.classList.add("ok");
+        else if(j === dipilih[i]) btn.classList.add("no");
+      });
+    } else {
+      const el = document.getElementById("in-" + i);
+      ok = s.a.some(a => norm(a) === norm(el.value));
+      jawabanTampil = s.a[0];
+      el.classList.remove("ok", "no");
+      el.classList.add(ok ? "ok" : "no");
+    }
+
+    box.classList.remove("correct", "wrong");
+    box.classList.add(ok ? "correct" : "wrong");
+
+    if(ok) benar++;
+
+    fb.innerHTML =
+      (ok ? "✅ Benar. " : '❌ Belum tepat. Jawaban benar: <strong>' + jawabanTampil + '</strong>. ') +
+      '<i>' + s.e + '</i>';
+  });
+
+  const nilai = Math.round(benar / soalAktif.length * 100);
+
+  document.getElementById("hasil").innerHTML =
+    '<div class="score">' +
+      '<div>Hasil ' + bank[lvl].judul + '</div>' +
+      '<div class="num">' + nilai + '</div>' +
+      '<div>Benar ' + benar + ' dari ' + soalAktif.length + ' soal</div>' +
+      (nilai >= 80
+        ? '<p>🎉 Tuntas! Level berikutnya sudah terbuka.</p>'
+        : '<p>💡 Belum tuntas. Baca lagi pembahasannya, lalu coba soal baru.</p>') +
+    '</div>';
+
+  if(nilai >= 80){
+    lulus[lvl] = true;
+    if(lvl < 3){
+      document.getElementById("btnLevel" + (lvl + 1)).classList.remove("locked");
+    }
+  }
+}
+
+tampil();
+</script>
+
+</body>
+</html>

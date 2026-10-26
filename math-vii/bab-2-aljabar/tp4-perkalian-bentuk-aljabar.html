@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TP 4 — Perkalian Bentuk Aljabar | MATH-7</title>
+<style>
+:root{
+  --accent:#c2410c;
+  --accent-dark:#7c2d12;
+  --bg:#eef2f8;
+  --ink:#1f2937;
+  --muted:#5b6472;
+  --line:#dde5f0;
+  --ok:#16a34a;
+  --bad:#dc2626;
+  --warn:#f59e0b;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 Arial,Helvetica,sans-serif}
+.wrap{max-width:940px;margin:0 auto;padding:18px 14px 40px}
+a{color:var(--accent)}
+.top{background:linear-gradient(135deg,var(--accent-dark),var(--accent));color:#fff;border-radius:18px;padding:22px 24px;margin-bottom:16px}
+.top .back{display:inline-block;background:#ffffff2e;color:#fff;text-decoration:none;padding:6px 13px;border-radius:20px;font-size:13px;font-weight:bold;margin-bottom:12px}
+.top .back:hover{background:#ffffff4d}
+.crumb{margin:0 0 6px;font-size:13px;opacity:.9;letter-spacing:.4px}
+.top h1{margin:0 0 6px;font-size:26px;line-height:1.25}
+.lead{margin:0;opacity:.95}
+.target{background:#fff;border-left:5px solid var(--accent);border-radius:14px;padding:14px 16px;margin-bottom:16px;box-shadow:0 3px 12px #0f172a0f}
+.target p{margin:6px 0 0}
+.section{background:#fff;border-radius:18px;padding:20px 22px;margin-bottom:16px;box-shadow:0 3px 14px #0f172a12}
+.sec-title{display:flex;align-items:center;gap:10px;font-size:19px;font-weight:bold;color:var(--accent-dark);margin:0 0 12px;padding-bottom:8px;border-bottom:2px solid var(--line)}
+.sec-desc{margin:0 0 14px;color:var(--muted);font-size:14.5px}
+.pemantik{background:#fff8e6;border:1px solid #fde68a;border-radius:14px;padding:16px 18px}
+.pemantik h3{margin:0 0 8px;color:#92400e}
+.tanya{background:#f8fafc;border-left:4px solid var(--accent);padding:10px 14px;border-radius:0 10px 10px 0;margin:10px 0;font-size:15.5px}
+table{width:100%;border-collapse:collapse;margin:12px 0;font-size:15px}
+th,td{border:1px solid var(--line);padding:9px 10px;text-align:left;vertical-align:top}
+th{background:var(--accent);color:#fff;font-size:14px}
+tr:nth-child(even) td{background:#f8fafc}
+.example{background:#f1f5f9;border-radius:12px;padding:12px 14px;margin:12px 0;border:1px dashed #cbd5e1}
+.example .lbl{display:block;color:var(--accent-dark);font-weight:bold;margin-bottom:6px}
+.note{background:#eff6ff;border:1px solid #bfdbfe;border-radius:12px;padding:12px 14px;margin:12px 0;font-size:15px}
+.warn{background:#fffbeb;border:1px solid #fde68a;border-radius:12px;padding:12px 14px;margin:12px 0;font-size:15px}
+ul,ol{padding-left:22px}
+li{margin:5px 0}
+details{background:#f8fafc;border:1px solid var(--line);border-radius:12px;padding:10px 14px;margin:14px 0}
+summary{cursor:pointer;font-weight:bold;color:var(--accent-dark)}
+details[open]{background:#fff}
+details p,details li{font-size:15px}
+.level-btns{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
+.level-btn{border:2px solid var(--line);background:#f8fafc;padding:12px 8px;border-radius:12px;cursor:pointer;font-weight:bold;color:var(--muted);font-size:14px;font-family:inherit}
+.level-btn.active{background:var(--accent);border-color:var(--accent);color:#fff}
+.level-btn.locked{opacity:.5;cursor:not-allowed}
+.q{border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin-bottom:12px;background:#fff}
+.q.correct{border:2px solid var(--ok);background:#f0fdf4}
+.q.wrong{border:2px solid var(--bad);background:#fef2f2}
+.qt{font-weight:bold;font-size:16.5px;margin-bottom:10px}
+.choices{display:flex;gap:9px;flex-wrap:wrap}
+.choice{flex:1;min-width:120px;border:2px solid var(--line);background:#fff;padding:11px;border-radius:10px;font-size:17px;font-weight:bold;cursor:pointer;font-family:inherit;color:inherit}
+.choice:hover{border-color:var(--accent);background:#eff6ff}
+.choice.sel{background:var(--accent);color:#fff;border-color:var(--accent)}
+.choice.ok{background:var(--ok);border-color:var(--ok);color:#fff}
+.choice.no{background:var(--bad);border-color:var(--bad);color:#fff}
+.inp{width:100%;padding:11px 13px;border:2px solid var(--line);border-radius:10px;font-size:17px;font-family:inherit}
+.inp:focus{outline:none;border-color:var(--accent)}
+.inp.ok{border-color:var(--ok);background:#f0fdf4}
+.inp.no{border-color:var(--bad);background:#fef2f2}
+.fb{font-size:14.5px;margin-top:9px;color:var(--muted)}
+.btn{border:0;padding:12px 18px;border-radius:11px;cursor:pointer;font-weight:bold;font-size:15px;margin:6px 6px 0 0;font-family:inherit}
+.btn-primary{background:var(--accent);color:#fff}
+.btn-success{background:var(--ok);color:#fff}
+.btn-light{background:#e5e7eb;color:#111827}
+.btn:hover{filter:brightness(1.06)}
+.score{margin-top:14px;text-align:center;background:#eff6ff;border-radius:14px;padding:16px}
+.score .num{font-size:36px;font-weight:bold;color:var(--accent)}
+.misi{border:1px solid var(--line);border-left:5px solid var(--warn);border-radius:0 14px 14px 0;padding:14px 16px;margin-bottom:14px;background:#fffdf7}
+.misi h4{margin:0 0 8px;color:#b45309;font-size:17px}
+.boss{border:2px solid var(--warn);border-radius:16px;padding:16px 18px;background:linear-gradient(180deg,#fffbeb,#fff)}
+.boss h3{margin-top:0;color:#b45309}
+.refleksi label{display:flex;gap:10px;align-items:flex-start;background:#f8fafc;border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin:8px 0;cursor:pointer;font-size:15px}
+.refleksi input{margin-top:4px}
+.nav{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:6px}
+.nav a{display:inline-block;text-decoration:none;background:#fff;border:1px solid var(--line);border-radius:11px;padding:11px 15px;font-weight:bold;color:var(--accent-dark);font-size:14px}
+.nav a:hover{border-color:var(--accent);background:#eff6ff}
+footer{text-align:center;color:var(--muted);font-size:13px;padding:14px 0}
+@media(max-width:620px){
+  .level-btns{grid-template-columns:1fr}
+  .top h1{font-size:21px}
+  .choices{flex-direction:column}
+  .choice{min-width:0}
+  .section{padding:16px 14px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="top">
+  <a class="back" href="index.html">← Peta Materi Bab 2</a>
+  <p class="crumb">MATEMATIKA KELAS VII • MATH-7 • BAB 2 — ALJABAR</p>
+  <h1>TP 4 — Perkalian Bentuk Aljabar</h1>
+  <p class="lead">Memahami sifat distributif dalam perkalian.</p>
+</header>
+
+<div class="target">
+  <strong>🎯 Target Pembelajaran</strong>
+  <p>Peserta didik mampu <strong>menyatakan sifat distributif</strong> dan menggunakannya untuk mengalikan monomial dengan binomial maupun binomial dengan binomial.</p>
+</div>
+
+<!-- A. PERTANYAAN PEMANTIK -->
+<section class="section">
+  <h2 class="sec-title">A. Pertanyaan Pemantik</h2>
+
+  <div class="pemantik">
+    <h3>💡 Kebun sayur di belakang rumah</h3>
+    <p>Sebuah kebun berbentuk persegi panjang dengan <strong>lebar 3 m</strong> dan <strong>panjang (x + 2) m</strong>, di mana x belum diketahui. Berapa luas kebun itu?</p>
+    <div class="tanya">Luas = panjang × lebar = (x + 2) × 3 = <strong>3(x + 2)</strong> m²</div>
+    <p>Kita belum tahu nilai x, tetapi tetap bisa mengembangkan bentuk itu. Bayangkan setiap meter panjang dibagi menjadi bagian x dan bagian 2, lalu dikalikan 3:</p>
+    <div class="example">
+      <span class="lbl">Pengembangan</span>
+      3(x + 2) = 3 × x + 3 × 2 = <strong>3x + 6</strong> m²
+    </div>
+    <p><strong>Pertanyaan pemantik:</strong> mengapa isi kurung bisa “dikirim” satu per satu ke luar? Inilah yang disebut <strong>sifat distributif</strong>.</p>
+  </div>
+</section>
+
+<!-- B. MATERI -->
+<section class="section">
+  <h2 class="sec-title">B. Sifat Distributif dan Macam Perkalian</h2>
+
+  <div class="note">
+    <strong>Sifat distributif:</strong> a(b + c) = ab + ac &nbsp;•&nbsp; a(b − c) = ab − ac<br>
+    Dibaca: bilangan di luar kurung mengalikan <strong>setiap</strong> suku yang ada di dalam kurung.
+  </div>
+
+  <h3 style="color:var(--accent-dark)">1. Monomial × Monomial</h3>
+  <div class="example">
+    <span class="lbl">Aturan</span>
+    <ul>
+      <li>Koefisien × koefisien.</li>
+      <li>Variabel yang sama dikalikan: x · x = x², x² · x³ = x<sup>5</sup> (pangkatnya dijumlahkan).</li>
+    </ul>
+    <p>Contoh: 5x · 4x = 20x² &nbsp;|&nbsp; 2x² · 3x⁴ = 6x<sup>6</sup></p>
+  </div>
+
+  <h3 style="color:var(--accent-dark)">2. Binomial × Monomial (menggunakan distributif)</h3>
+  <div class="example">
+    <span class="lbl">Contoh</span>
+    <p>3x(2x − 5) = 3x · 2x − 3x · 5 = <strong>6x² − 15x</strong></p>
+    <p>−2(3a − 5) = −6a + 10 &nbsp;&nbsp;<em>(tanda − ikut mengalikan)</em></p>
+  </div>
+
+  <h3 style="color:var(--accent-dark)">3. Binomial × Binomial</h3>
+  <p>Setiap suku pada faktor pertama dikalikan dengan <strong>setiap</strong> suku pada faktor kedua.</p>
+  <div class="example">
+    <span class="lbl">Contoh</span>
+    <p>(x + 3)(x + 2) = x·x + x·2 + 3·x + 3·2 = x² + 2x + 3x + 6 = <strong>x² + 5x + 6</strong></p>
+    <p>(2x − 1)(x + 4) = 2x² + 8x − x − 4 = <strong>2x² + 7x − 4</strong></p>
+  </div>
+
+  <table>
+    <tr><th>Bentuk</th><th>Hasil</th><th>Catatan</th></tr>
+    <tr><td>(x + 3)²</td><td><strong>x² + 6x + 9</strong></td><td>= (x+3)(x+3), bukan x² + 9</td></tr>
+    <tr><td>(x + 4)(x − 4)</td><td><strong>x² − 16</strong></td><td>Suku tengah saling menghapus</td></tr>
+    <tr><td>(2x − 3)(2x + 3)</td><td><strong>4x² − 9</strong></td><td>Pola (a − b)(a + b) = a² − b²</td></tr>
+  </table>
+
+  <div class="warn">
+    ⚠️ <strong>Dua kesalahan paling sering:</strong><br>
+    • (x + 3)² = x² + 9 → <strong>SALAH</strong>. Yang benar x² + 6x + 9.<br>
+    • 2(x + 3) = 2x + 3 → <strong>SALAH</strong>. Yang benar 2x + 6 (2 harus mengalikan juga suku 3).
+  </div>
+</section>
+
+<!-- C. LATIHAN PEMANASAN -->
+<section class="section">
+  <h2 class="sec-title">C. Latihan Pemanasan</h2>
+  <p class="sec-desc">Kembangkan bentuk aljabar berikut hingga bentuk paling sederhana. Tulis pangkat dengan <strong>^</strong>, contoh: 10x^2. Raih skor minimal <strong>80</strong> untuk membuka level berikutnya.</p>
+
+  <div class="level-btns">
+    <button class="level-btn active" id="btnLevel1" onclick="pilihLevel(1)">🟢 Level 1<br>Mudah</button>
+    <button class="level-btn locked" id="btnLevel2" onclick="pilihLevel(2)">🟡 Level 2<br>Menengah</button>
+    <button class="level-btn locked" id="btnLevel3" onclick="pilihLevel(3)">🔴 Level 3<br>Sulit (HOTS)</button>
+  </div>
+
+  <div class="section" style="box-shadow:none;border:1px solid var(--line);padding:16px">
+    <div class="sec-title" style="font-size:17px" id="judulLevel">🟢 Level 1 — Mudah</div>
+    <div id="petunjuk"></div>
+    <div id="soalContainer"></div>
+    <div>
+      <button class="btn btn-success" onclick="periksa()">✓ Periksa Jawaban</button>
+      <button class="btn btn-light" onclick="tampil()">🔄 Soal Baru</button>
+    </div>
+    <div id="hasil"></div>
+  </div>
+</section>
+
+<!-- D. MISI TANTANGAN -->
+<section class="section">
+  <h2 class="sec-title">D. Misi Tantangan — Berpikir Seperti Ahli Matematika</h2>
+  <p class="sec-desc">Jelaskan alasanmu dengan bahasamu sendiri, baru buka pembahasan.</p>
+
+  <div class="misi">
+    <h4>🕵️ Misi 1 — Menganalisis Kesalahan</h4>
+    <p>Rina mengerjakan: <em>2(x + 3) = 2x + 3</em></p>
+    <p>Apakah jawaban Rina benar? Jelaskan letak kesalahannya dan perbaiki!</p>
+    <details>
+      <summary><strong>Kunci jawaban dan pembahasan</strong></summary>
+      <p><strong>SALAH.</strong> Menurut sifat distributif, bilangan di luar kurung harus mengalikan <strong>setiap</strong> suku di dalam kurung, bukan hanya suku pertama.</p>
+      <p>2(x + 3) = 2·x + 2·3 = <strong>2x + 6</strong>. Rina mengalikan 2 dengan x tetapi lupa mengalikan 2 dengan 3.</p>
+      <p>Untuk mengecek: jika x = 1, maka 2(1 + 3) = 8, sedangkan 2(1) + 3 = 5 — bukti jawaban Rina tidak konsisten.</p>
+    </details>
+  </div>
+
+  <div class="misi">
+    <h4>🌱 Misi 2 — Model Luas dan Keliling</h4>
+    <p>Sebuah taman berbentuk persegi panjang dengan <strong>panjang (x + 5) m</strong> dan <strong>lebar 4 m</strong>.</p>
+    <ol>
+      <li>Tuliskan luas taman dalam bentuk aljabar.</li>
+      <li>Tuliskan keliling taman dalam bentuk aljabar.</li>
+      <li>Jika x = 6, berapa luas dan keliling taman?</li>
+    </ol>
+    <details>
+      <summary><strong>Kunci jawaban dan pembahasan</strong></summary>
+      <ol>
+        <li>Luas = 4 · (x + 5) = <strong>4x + 20</strong> m².</li>
+        <li>Keliling = 2 · (panjang + lebar) = 2((x + 5) + 4) = 2(x + 9) = <strong>2x + 18</strong> m.</li>
+        <li>x = 6 → Luas = 4(6) + 20 = 44 m²; Keliling = 2(6) + 18 = 30 m. (Cek: panjang 11 m, lebar 4 m → luas 44 m² ✓, keliling 2(11+4) = 30 m ✓)</li>
+      </ol>
+    </details>
+  </div>
+
+  <div class="boss">
+    <h3>👑 Boss Challenge — Tantangan HOTS</h3>
+    <p>Perhatikan pola perkalian berikut: <strong>(2x − 3)(2x + 3)</strong></p>
+    <ol>
+      <li>Kembangkan bentuk tersebut hingga bentuk sederhana.</li>
+      <li>Sederhanakan: (2x − 3)(2x + 3) − (4x² − 16).</li>
+      <li>Jika x = 100, berapakah nilai hasil nomor 2? Apa yang menarik?</li>
+      <li>Temukan pola umum dari (a − b)(a + b), lalu gunakan untuk menulis hasil (5y − 1)(5y + 1).</li>
+    </ol>
+    <details>
+      <summary><strong>Kunci jawaban dan pembahasan</strong></summary>
+      <ol>
+        <li>(2x − 3)(2x + 3) = 4x² + 6x − 6x − 9 = <strong>4x² − 9</strong>. Suku tengah saling menghapus.</li>
+        <li>4x² − 9 − 4x² + 16 = (4x² − 4x²) + (−9 + 16) = <strong>7</strong>.</li>
+        <li>Tetap <strong>7</strong>. Hasilnya tidak bergantung pada x, karena suku x² sudah saling menghapus — nilai apapun untuk x menghasilkan 7.</li>
+        <li>Pola: <strong>(a − b)(a + b) = a² − b²</strong> (selisih kuadrat). Jadi (5y − 1)(5y + 1) = (5y)² − 1² = <strong>25y² − 1</strong>.</li>
+      </ol>
+    </details>
+  </div>
+</section>
+
+<!-- E. REFLEKSI -->
+<section class="section">
+  <h2 class="sec-title">E. Refleksi Pembelajaran</h2>
+  <p class="sec-desc">Sebelum melanjutkan ke TP 5, centang bila kamu sudah mampu menjelaskannya dengan kata-katamu sendiri.</p>
+  <div class="refleksi">
+    <label><input type="checkbox"> Apa itu <strong>sifat distributif</strong>? Berikan satu contoh.</label>
+    <label><input type="checkbox"> Bagaimana mengalikan dua variabel yang sama (x · x)?</label>
+    <label><input type="checkbox"> Mengapa (x + 3)² bukan x² + 9?</label>
+    <label><input type="checkbox"> Kapan suku tengah pada perkalian dua binomial saling menghapus?</label>
+  </div>
+  <div class="note"><strong>Target akhir TP 4:</strong> Kamu dapat mengalikan bentuk aljabar menggunakan sifat distributif dan menghindari kesalahan pada kuadrat binomial.</div>
+</section>
+
+<nav class="nav">
+  <a href="tp3-penjumlahan-dan-pengurangan-aljabar.html">← TP 3 — Penjumlahan & Pengurangan</a>
+  <a href="tp5-pembagian-bentuk-aljabar.html">Lanjut: TP 5 — Pembagian Bentuk Aljabar →</a>
+</nav>
+
+<footer>TP 4 • Perkalian Bentuk Aljabar • Matematika Kelas VII (MATH-7)</footer>
+
+</div>
+
+<script>
+/* =========================================================
+   BANK SOAL — 3 LEVEL
+========================================================= */
+
+const bank = {
+
+1:{
+  judul:"🟢 Level 1 — Mudah",
+  petunjuk:"Gunakan sifat distributif dan aturan perkalian variabel. Tulis pangkat dengan tanda ^, contoh: 10x^2.",
+  soal:[
+    {tipe:"isian", q:"Hitung: 3(x + 4) = …",
+     a:["3x+12"], e:"3 mengalikan setiap suku dalam kurung: 3·x + 3·4 = 3x + 12."},
+    {tipe:"isian", q:"Hitung: 2x · 5x = …",
+     a:["10x^2","10x²"], e:"2 · 5 = 10 dan x · x = x² → 10x²."},
+    {tipe:"isian", q:"Hitung: −2(3a − 5) = …",
+     a:["-6a+10"], e:"−2 · 3a = −6a dan −2 · (−5) = +10 → −6a + 10."},
+    {tipe:"isian", q:"Hitung: 4x · 3x² = …",
+     a:["12x^3","12x³"], e:"4 · 3 = 12 dan x¹ · x² = x³ → 12x³."},
+    {tipe:"pilihan", q:"Hasil dari 5(2x − 3) adalah …",
+     p:["10x − 15","10x − 3","10x + 15","7x − 15"], k:0,
+     e:"5 · 2x = 10x dan 5 · (−3) = −15 → 10x − 15."},
+    {tipe:"isian", q:"Hitung: x · x³ = …",
+     a:["x^4","x⁴"], e:"Pangkatnya dijumlahkan: x¹ · x³ = x⁴."}
+  ]
+},
+
+2:{
+  judul:"🟡 Level 2 — Menengah",
+  petunjuk:"Kalikan setiap suku dengan setiap suku, lalu gabungkan suku sejenis. Contoh hasil: x^2+5x+6",
+  soal:[
+    {tipe:"isian", q:"Hitung: (x + 3)(x + 2) = …",
+     a:["x^2+5x+6","x²+5x+6"], e:"x² + 2x + 3x + 6 = x² + 5x + 6."},
+    {tipe:"isian", q:"Hitung: (2x − 1)(x + 4) = …",
+     a:["2x^2+7x-4","2x²+7x-4"], e:"2x² + 8x − x − 4 = 2x² + 7x − 4."},
+    {tipe:"isian", q:"Hitung: 3x(2x − 5) = …",
+     a:["6x^2-15x","6x²-15x"], e:"3x · 2x = 6x² dan 3x · (−5) = −15x → 6x² − 15x."},
+    {tipe:"isian", q:"Hitung: (x − 4)(x + 4) = …",
+     a:["x^2-16","x²-16"], e:"x² + 4x − 4x − 16 = x² − 16. Suku tengah saling menghapus."},
+    {tipe:"pilihan", q:"Hasil dari (x + 1)(x + 5) adalah …",
+     p:["x² + 6x + 5","x² + 5x + 5","x² + 6x + 6","x² + 1x + 5"], k:0,
+     e:"x² + 5x + 1x + 5 = x² + 6x + 5."},
+    {tipe:"isian", q:"Hitung: (4a − 2b)(2a) = …",
+     a:["8a^2-4ab","8a²-4ab"], e:"4a · 2a = 8a² dan (−2b) · 2a = −4ab → 8a² − 4ab."}
+  ]
+},
+
+3:{
+  judul:"🔴 Level 3 — Sulit (HOTS)",
+  petunjuk:"Perhatikan tanda dan pola khusus seperti (a − b)(a + b) = a² − b² serta (a + b)² = a² + 2ab + b².",
+  soal:[
+    {tipe:"isian", q:"Hitung: (2x − 3)² = …",
+     a:["4x^2-12x+9","4x²-12x+9"], e:"(2x − 3)(2x − 3) = 4x² − 6x − 6x + 9 = 4x² − 12x + 9."},
+    {tipe:"isian", q:"Sederhanakan: (x + 2)(x + 3) − (x² + 2x) = …",
+     a:["3x+6"], e:"(x² + 5x + 6) − x² − 2x = (x² − x²) + (5x − 2x) + 6 = 3x + 6."},
+    {tipe:"isian", q:"Hitung: (2a + b)(a − 2b) = …",
+     a:["2a^2-3ab-2b^2","2a²-3ab-2b²"], e:"2a² − 4ab + ab − 2b² = 2a² − 3ab − 2b²."},
+    {tipe:"pilihan", q:"Seorang siswa menulis (x + 3)² = x² + 9. Penjelasan yang benar adalah …",
+     p:["Karena kuadrat hanya berlaku pada suku pertama",
+        "Karena yang benar (x + 3)² = x² + 6x + 9, suku tengah tidak boleh hilang",
+        "Karena jawabannya benar jika x = 0",
+        "Karena 3² = 9 dan x² = x²"], k:1,
+     e:"(x + 3)² = (x + 3)(x + 3) = x² + 3x + 3x + 9 = x² + 6x + 9."},
+    {tipe:"isian", q:"Sebuah persegi panjang berukuran panjang (x + 3) cm dan lebar (x + 1) cm. Jika x = 4, berapakah luasnya (cm²)?",
+     a:["35"], e:"Panjang = 7 cm, lebar = 5 cm → luas = 7 × 5 = 35 cm². (Dengan aljabar: x² + 4x + 3 = 16 + 16 + 3 = 35)"}
+  ]
+}
+
+};
+
+/* =========================================================
+   MESIN KUIS
+========================================================= */
+
+let lvl = 1;
+let soalAktif = [];
+let dipilih = [];
+let lulus = {1:false, 2:false, 3:false};
+
+function norm(s){
+  return String(s).toLowerCase()
+    .replace(/rp/g, "")
+    .replace(/[\s.,]/g, "")
+    .replace(/[−–—]/g, "-")
+    .replace(/[×·∙]/g, "*")
+    .replace(/[⁰¹²³⁴⁵⁶⁷⁸⁹]/g, d => "0123456789"["⁰¹²³⁴⁵⁶⁷⁸⁹".indexOf(d)])
+    .replace(/\^/g, "");
+}
+
+function acak(arr){
+  const a = [...arr];
+  for(let i = a.length - 1; i > 0; i--){
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function pilihLevel(n){
+  if(n > 1 && !lulus[n - 1]){
+    alert("Selesaikan Level " + (n - 1) + " terlebih dahulu (skor minimal 80).");
+    return;
+  }
+  lvl = n;
+  document.querySelectorAll(".level-btn")
+    .forEach((b, i) => b.classList.toggle("active", i === n - 1));
+  tampil();
+}
+
+function tampil(){
+  const b = bank[lvl];
+
+  document.getElementById("judulLevel").textContent = b.judul;
+  document.getElementById("petunjuk").innerHTML = "<p>📌 " + b.petunjuk + "</p>";
+
+  soalAktif = acak(b.soal).slice(0, Math.min(5, b.soal.length));
+  dipilih = new Array(soalAktif.length).fill(null);
+
+  let html = "";
+
+  soalAktif.forEach((s, i) => {
+    let isi = "";
+
+    if(s.tipe === "pilihan"){
+      isi = '<div class="choices">' +
+        s.p.map((c, j) =>
+          '<button class="choice" id="c-' + i + '-' + j + '" onclick="pilih(' + i + ',' + j + ')">' + c + '</button>'
+        ).join("") + '</div>';
+    } else {
+      isi = '<input class="inp" id="in-' + i + '" placeholder="Tulis jawabanmu di sini...">';
+    }
+
+    html +=
+      '<div class="q" id="q-' + i + '">' +
+        '<div class="qt">' + (i + 1) + '. ' + s.q + '</div>' +
+        isi +
+        '<div class="fb" id="fb-' + i + '"></div>' +
+      '</div>';
+  });
+
+  document.getElementById("soalContainer").innerHTML = html;
+  document.getElementById("hasil").innerHTML = "";
+}
+
+function pilih(i, j){
+  dipilih[i] = j;
+  soalAktif.forEach((s, idx) => {
+    if(s.tipe !== "pilihan") return;
+    s.p.forEach((c, k) => {
+      const el = document.getElementById("c-" + idx + "-" + k);
+      if(el) el.classList.toggle("sel", idx === i && k === j);
+    });
+  });
+}
+
+function periksa(){
+  let kosong = false;
+
+  soalAktif.forEach((s, i) => {
+    if(s.tipe === "pilihan" && dipilih[i] === null) kosong = true;
+    if(s.tipe === "isian"){
+      const el = document.getElementById("in-" + i);
+      if(!el || !el.value.trim()) kosong = true;
+    }
+  });
+
+  if(kosong){
+    alert("Jawab semua soal terlebih dahulu.");
+    return;
+  }
+
+  let benar = 0;
+
+  soalAktif.forEach((s, i) => {
+    const box = document.getElementById("q-" + i);
+    const fb = document.getElementById("fb-" + i);
+    let ok = false;
+    let jawabanTampil = "";
+
+    if(s.tipe === "pilihan"){
+      ok = dipilih[i] === s.k;
+      jawabanTampil = s.p[s.k];
+      s.p.forEach((c, j) => {
+        const btn = document.getElementById("c-" + i + "-" + j);
+        btn.classList.remove("sel", "ok", "no");
+        if(j === s.k) btn.classList.add("ok");
+        else if(j === dipilih[i]) btn.classList.add("no");
+      });
+    } else {
+      const el = document.getElementById("in-" + i);
+      ok = s.a.some(a => norm(a) === norm(el.value));
+      jawabanTampil = s.a[0];
+      el.classList.remove("ok", "no");
+      el.classList.add(ok ? "ok" : "no");
+    }
+
+    box.classList.remove("correct", "wrong");
+    box.classList.add(ok ? "correct" : "wrong");
+
+    if(ok) benar++;
+
+    fb.innerHTML =
+      (ok ? "✅ Benar. " : '❌ Belum tepat. Jawaban benar: <strong>' + jawabanTampil + '</strong>. ') +
+      '<i>' + s.e + '</i>';
+  });
+
+  const nilai = Math.round(benar / soalAktif.length * 100);
+
+  document.getElementById("hasil").innerHTML =
+    '<div class="score">' +
+      '<div>Hasil ' + bank[lvl].judul + '</div>' +
+      '<div class="num">' + nilai + '</div>' +
+      '<div>Benar ' + benar + ' dari ' + soalAktif.length + ' soal</div>' +
+      (nilai >= 80
+        ? '<p>🎉 Tuntas! Level berikutnya sudah terbuka.</p>'
+        : '<p>💡 Belum tuntas. Baca lagi pembahasannya, lalu coba soal baru.</p>') +
+    '</div>';
+
+  if(nilai >= 80){
+    lulus[lvl] = true;
+    if(lvl < 3){
+      document.getElementById("btnLevel" + (lvl + 1)).classList.remove("locked");
+    }
+  }
+}
+
+tampil();
+</script>
+
+</body>
+</html>

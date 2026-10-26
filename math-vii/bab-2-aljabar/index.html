@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bab 2 — Aljabar | Matematika Kelas VII (MATH-7)</title>
+<style>
+:root{
+  --blue:#1e40af;
+  --blue-dark:#172554;
+  --pale:#eff6ff;
+  --ink:#1f2937;
+  --muted:#64748b;
+  --line:#dbe3ee;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:#f3f6fb;
+  color:var(--ink);
+  font:16px/1.6 Arial,Arial,Helvetica,sans-serif;
+}
+.page{
+  max-width:960px;
+  margin:24px auto;
+  padding:34px 42px;
+  background:#fff;
+  box-shadow:0 4px 22px #0f172a12;
+}
+header{text-align:center;border-bottom:2px solid var(--blue);padding-bottom:18px;margin-bottom:22px}
+h1{margin:0;color:var(--blue);font-size:27px;line-height:1.25}
+.subtitle{margin:8px 0 0;color:var(--muted)}
+.section-title{font-weight:700;font-size:18px;color:var(--blue-dark);margin:26px 0 10px;padding-bottom:6px;border-bottom:1px solid var(--line)}
+.section-desc{margin:0 0 14px;color:var(--muted);font-size:14px}
+table{width:100%;border-collapse:collapse;margin:0 0 18px;font-size:15px}
+th,td{border:1px solid var(--line);padding:9px 11px;text-align:left;vertical-align:top}
+th{background:var(--blue);color:#fff;font-size:14px;white-space:nowrap}
+tr:nth-child(even) td{background:#f8fafc}
+td a{font-weight:700;text-decoration:none}
+td a:hover{text-decoration:underline}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
+.card{
+  display:block;text-decoration:none;color:inherit;
+  border:1px solid var(--line);border-radius:14px;padding:16px 17px;background:#fff;
+  transition:.15s;
+}
+.card:hover{border-color:var(--blue);box-shadow:0 6px 16px #0f172a14;transform:translateY(-2px)}
+.badge{
+  display:inline-block;font-size:12px;font-weight:700;letter-spacing:.02em;
+  color:var(--blue);background:var(--pale);padding:4px 9px;border-radius:20px;
+}
+.card h3{margin:10px 0 6px;font-size:17px;color:var(--blue-dark)}
+.card p{margin:0 0 10px;font-size:14.2px;color:var(--muted)}
+.file{display:block;font-size:12px;color:#94a3b8;font-family:monospace;word-break:break-all}
+.intro{background:var(--pale);border-left:4px solid var(--blue);padding:13px 17px;margin:0 0 20px;font-size:15px}
+.intro strong{color:var(--blue-dark)}
+.note{
+  background:var(--pale);border-left:4px solid var(--blue);
+  padding:12px 16px;margin:24px 0 0;font-size:14px;color:var(--ink);
+}
+.note strong{color:var(--blue-dark)}
+.toolbar{max-width:960px;margin:18px auto 0;display:flex;justify-content:space-between;gap:10px;padding:0 8px;flex-wrap:wrap}
+.toolbar a,.toolbar button{
+  font:inherit;font-size:14px;font-weight:700;border:0;border-radius:9px;
+  background:var(--blue);color:#fff;padding:10px 15px;cursor:pointer;text-decoration:none;
+}
+.toolbar a.alt{background:#e5e7eb;color:#1f2937}
+.foot{color:var(--muted);font-size:12px;text-align:center;margin-top:30px}
+@media(max-width:640px){
+  .page{margin:0;padding:24px 18px;box-shadow:none}
+  h1{font-size:22px}
+  .grid{grid-template-columns:1fr}
+  .toolbar{justify-content:center}
+}
+@media print{
+  body{background:#fff;font-size:11pt}
+  .toolbar{display:none}
+  .page{max-width:none;margin:0;padding:0;box-shadow:none}
+  .card{break-inside:avoid}
+  .card:hover{transform:none;box-shadow:none;border-color:var(--line)}
+}
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <a class="alt" href="../index.html">← Kelas VII — Daftar Materi</a>
+  <button onclick="window.print()">🖨️ Cetak / Simpan PDF</button>
+</div>
+
+<main class="page">
+
+<header>
+  <h1>MATEMATIKA KELAS VII<br>BAB 2 — ALJABAR</h1>
+  <p class="subtitle">MATH-7 • Materi, latihan bertingkat (Mudah → Menengah → HOTS), dan asesmen</p>
+</header>
+
+<div class="intro">
+  <strong>Bab 1 — Bilangan Bulat</strong> sudah kita pelajari melalui materi, latihan bertingkat, dan try out.
+  Sekarang kita masuk ke <strong>Bab 2 — Aljabar</strong> dengan pendekatan yang sama, tetapi tantangannya
+  lebih dekat dengan <strong>masalah nyata dan penalaran siswa</strong>.
+</div>
+
+<!-- PETA MATERI -->
+<div class="section-title">🗺️ 1. Peta Materi Bab 2</div>
+<p class="section-desc">Urutan pembelajaran dari pengenalan konsep sampai asesmen akhir bab.</p>
+
+<table>
+  <tr>
+    <th>Urutan</th>
+    <th>Materi</th>
+    <th>Target Pembelajaran</th>
+    <th>Buka</th>
+  </tr>
+  <tr>
+    <td><strong>TP 1</strong></td>
+    <td>Mengenal Bentuk Aljabar</td>
+    <td>Memahami variabel, konstanta, koefisien, dan suku.</td>
+    <td><a href="tp1-mengenal-bentuk-aljabar.html">→ TP 1</a></td>
+  </tr>
+  <tr>
+    <td><strong>TP 2</strong></td>
+    <td>Suku Sejenis dan Tidak Sejenis</td>
+    <td>Mengidentifikasi suku yang dapat dijumlahkan atau dikurangkan.</td>
+    <td><a href="tp2-suku-sejenis-dan-tidak-sejenis.html">→ TP 2</a></td>
+  </tr>
+  <tr>
+    <td><strong>TP 3</strong></td>
+    <td>Penjumlahan dan Pengurangan Aljabar</td>
+    <td>Melakukan operasi bentuk aljabar dengan benar.</td>
+    <td><a href="tp3-penjumlahan-dan-pengurangan-aljabar.html">→ TP 3</a></td>
+  </tr>
+  <tr>
+    <td><strong>TP 4</strong></td>
+    <td>Perkalian Bentuk Aljabar</td>
+    <td>Memahami sifat distributif dalam perkalian.</td>
+    <td><a href="tp4-perkalian-bentuk-aljabar.html">→ TP 4</a></td>
+  </tr>
+  <tr>
+    <td><strong>TP 5</strong></td>
+    <td>Pembagian Bentuk Aljabar</td>
+    <td>Menyederhanakan bentuk aljabar sederhana.</td>
+    <td><a href="tp5-pembagian-bentuk-aljabar.html">→ TP 5</a></td>
+  </tr>
+  <tr>
+    <td><strong>TP 6</strong></td>
+    <td>Substitusi Bentuk Aljabar</td>
+    <td>Menghitung nilai bentuk aljabar jika nilai variabel diketahui.</td>
+    <td><a href="tp6-substitusi-bentuk-aljabar.html">→ TP 6</a></td>
+  </tr>
+  <tr>
+    <td><strong>TP 7</strong></td>
+    <td>Penerapan Aljabar</td>
+    <td>Menyelesaikan masalah kontekstual menggunakan aljabar.</td>
+    <td><a href="tp7-penerapan-aljabar.html">→ TP 7</a></td>
+  </tr>
+  <tr>
+    <td><strong>TP 8</strong></td>
+    <td>Asesmen Bab 2</td>
+    <td>Mengukur pemahaman konsep, penerapan, dan penalaran.</td>
+    <td><a href="tp8-asesmen-bab-2.html">→ TP 8</a></td>
+  </tr>
+</table>
+
+<!-- KARTU MATERI -->
+<div class="section-title">📒 2. Buka Materi &amp; Latihan</div>
+<p class="section-desc">Setiap TP satu file. Tiap file berisi pertanyaan pemantik, materi, latihan tiga level, misi tantangan, tantangan HOTS, dan refleksi.</p>
+
+<div class="grid">
+
+  <a class="card" href="tp1-mengenal-bentuk-aljabar.html">
+    <span class="badge">TP 1 • Konsep</span>
+    <h3>Mengenal Bentuk Aljabar</h3>
+    <p>Variabel, konstanta, koefisien, dan suku — plus menyusun bentuk aljabar dari situasi nyata (belanja &amp; parkir).</p>
+    <span class="file">tp1-mengenal-bentuk-aljabar.html</span>
+  </a>
+
+  <a class="card" href="tp2-suku-sejenis-dan-tidak-sejenis.html">
+    <span class="badge">TP 2 • Konsep</span>
+    <h3>Suku Sejenis &amp; Tidak Sejenis</h3>
+    <p>Mengenali suku yang boleh digabung dan menghindari kesalahan 3x + 5y = 8xy.</p>
+    <span class="file">tp2-suku-sejenis-dan-tidak-sejenis.html</span>
+  </a>
+
+  <a class="card" href="tp3-penjumlahan-dan-pengurangan-aljabar.html">
+    <span class="badge">TP 3 • Operasi</span>
+    <h3>Penjumlahan &amp; Pengurangan</h3>
+    <p>Mengelompokkan suku sejenis dan membuka tanda kurung yang diawali tanda −.</p>
+    <span class="file">tp3-penjumlahan-dan-pengurangan-aljabar.html</span>
+  </a>
+
+  <a class="card" href="tp4-perkalian-bentuk-aljabar.html">
+    <span class="badge">TP 4 • Operasi</span>
+    <h3>Perkalian Bentuk Aljabar</h3>
+    <p>Sifat distributif, perkalian dua binomial, dan pola (a − b)(a + b) = a² − b².</p>
+    <span class="file">tp4-perkalian-bentuk-aljabar.html</span>
+  </a>
+
+  <a class="card" href="tp5-pembagian-bentuk-aljabar.html">
+    <span class="badge">TP 5 • Operasi</span>
+    <h3>Pembagian Bentuk Aljabar</h3>
+    <p>Monomial ÷ monomial, bentuk aljabar ÷ monomial, dan pemeriksaan dengan perkalian balik.</p>
+    <span class="file">tp5-pembagian-bentuk-aljabar.html</span>
+  </a>
+
+  <a class="card" href="tp6-substitusi-bentuk-aljabar.html">
+    <span class="badge">TP 6 • Penerapan</span>
+    <h3>Substitusi Bentuk Aljabar</h3>
+    <p>Menghitung nilai bentuk aljabar — termasuk nilai negatif, kuadrat, dan dua variabel.</p>
+    <span class="file">tp6-substitusi-bentuk-aljabar.html</span>
+  </a>
+
+  <a class="card" href="tp7-penerapan-aljabar.html">
+    <span class="badge">TP 7 • Kontekstual</span>
+    <h3>Penerapan Aljabar</h3>
+    <p>Lima langkah menyelesaikan masalah nyata: belanja, tabungan, geometri, dan tiket.</p>
+    <span class="file">tp7-penerapan-aljabar.html</span>
+  </a>
+
+  <a class="card" href="tp8-asesmen-bab-2.html">
+    <span class="badge">TP 8 • Asesmen • 20 Soal</span>
+    <h3>Asesmen Bab 2</h3>
+    <p>20 butir soal konsep, penerapan, dan penalaran — lengkap dengan skor, analisis per TP, dan remedial.</p>
+    <span class="file">tp8-asesmen-bab-2.html</span>
+  </a>
+
+</div>
+
+<div class="note">
+  <strong>Cara menggunakan:</strong> Kerjakan berurutan dari TP 1 sampai TP 8. Setiap latihan terbagi dalam
+  level <strong>🟢 Mudah → 🟡 Menengah → 🔴 Sulit (HOTS)</strong>; raih skor minimal 80 pada tiap level
+  untuk membuka level berikutnya. Bagian <strong>Misi Tantangan</strong> dan <strong>Boss Challenge</strong>
+  dilengkapi kunci jawaban yang bisa dibuka setelah kamu mencoba sendiri.
+</div>
+
+<p class="foot">Matematika Kelas VII • MATH-7 • Bab 2 — Aljabar</p>
+
+</main>
+</body>
+</html>
