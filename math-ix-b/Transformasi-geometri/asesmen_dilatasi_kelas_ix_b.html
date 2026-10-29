@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Asesmen Dilatasi - Transformasi Geometri Kelas IX B</title>
+<style>
+  :root { --ink:#1f2937; --muted:#64748b; --line:#dbe3ee; --blue:#5b21b6; --pale:#f5f3ff; --green:#166534; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:#f3f6fb; color:var(--ink); font:16px/1.55 Arial, Helvetica, sans-serif; }
+  .page { max-width:900px; margin:24px auto; padding:34px 42px; background:#fff; box-shadow:0 4px 22px #0f172a12; }
+  header { text-align:center; border-bottom:2px solid var(--blue); padding-bottom:18px; margin-bottom:20px; }
+  h1 { margin:0; color:var(--blue); font-size:27px; line-height:1.25; }
+  .subtitle { margin:8px 0 0; color:var(--muted); }
+  .identity { display:flex; flex-wrap:wrap; gap:10px 24px; margin:18px 0; }
+  .identity span { flex:1 1 180px; border-bottom:1px solid #94a3b8; padding-bottom:5px; }
+  .instructions { background:var(--pale); border-left:4px solid var(--blue); padding:12px 16px; margin:18px 0 26px; }
+  .instructions p { margin:3px 0; }
+  table.summary { width:100%; border-collapse:collapse; margin:14px 0 4px; font-size:15px; }
+  table.summary th, table.summary td { border:1px solid var(--line); padding:7px 10px; text-align:left; }
+  table.summary th { background:var(--pale); color:var(--blue); }
+  h2.section-title { margin:30px 0 14px; color:var(--blue); font-size:20px; border-left:5px solid var(--blue); padding-left:10px; }
+  h2.section-title small { display:block; color:var(--muted); font-size:13px; font-weight:400; margin-top:2px; }
+  .question { padding:0 0 18px; margin:0 0 22px; border-bottom:1px solid var(--line); break-inside:avoid; }
+  .qhead { font-weight:700; font-size:17px; margin-bottom:6px; }
+  .tag { display:inline-block; font-size:12px; letter-spacing:.02em; color:var(--blue); background:var(--pale); padding:3px 8px; border-radius:4px; margin-left:6px; vertical-align:2px; }
+  .topic { color:var(--muted); font-size:13px; font-weight:400; }
+  .stem { margin:6px 0 9px; }
+  .options { list-style:none; padding:0 0 0 12px; margin:0 0 10px; }
+  .options li { margin:2px 0; }
+  .match-choices { background:#f8fafc; border:1px dashed #94a3b8; border-radius:8px; padding:10px 14px; margin:8px 0 12px; }
+  .match-choices p { margin:2px 0; }
+  .answer { margin:10px 0 5px; color:var(--green); font-weight:700; }
+  .explanation { margin:0; padding:10px 12px; background:#f8fafc; border-left:3px solid #94a3b8; }
+  .explanation strong { color:#334155; }
+  details.keybox { border:1px solid var(--line); border-radius:10px; padding:12px 16px; margin:22px 0; background:#f8fafc; }
+  details.keybox summary { cursor:pointer; font-weight:700; color:var(--blue); }
+  table.key { width:100%; border-collapse:collapse; margin-top:12px; font-size:15px; }
+  table.key th, table.key td { border:1px solid var(--line); padding:6px 10px; text-align:center; }
+  table.key th { background:var(--pale); color:var(--blue); }
+  .scoring { background:var(--pale); border-left:4px solid var(--blue); padding:12px 16px; margin:22px 0; }
+  .scoring p { margin:4px 0; }
+  .foot { color:var(--muted); font-size:12px; text-align:center; margin-top:30px; }
+  .toolbar { max-width:900px; margin:18px auto 0; display:flex; justify-content:flex-end; gap:10px; padding:0 8px; }
+  button { font:inherit; border:0; border-radius:8px; background:var(--blue); color:white; padding:10px 15px; cursor:pointer; }
+  @media(max-width:640px) { .page{margin:0;padding:22px 18px;box-shadow:none} h1{font-size:23px}.toolbar{padding:12px;justify-content:center} }
+  @media print {
+    body { background:#fff; font-size:11pt; }
+    .toolbar { display:none; }
+    .page { max-width:none; margin:0; padding:0; box-shadow:none; }
+    .question { break-inside:avoid; }
+    header { margin-top:0; }
+    .instructions, .explanation, .scoring, details.keybox { print-color-adjust:exact; -webkit-print-color-adjust:exact; }
+    details.keybox[open] summary { display:none; }
+  }
+</style>
+</head>
+<body>
+<div class="toolbar"><button onclick="window.print()">Cetak / Simpan sebagai PDF</button></div>
+<main class="page">
+<header>
+  <h1>ASESMEN DILATASI<br>TRANSFORMASI GEOMETRI KELAS IX B</h1>
+  <p class="subtitle">20 Soal • Pilihan Ganda, Pilihan Ganda Kompleks, Benar–Salah, dan Menjodohkan</p>
+</header>
+<div class="identity">
+  <span>Nama: ______________________________</span>
+  <span>Kelas: __________</span>
+  <span>Tanggal: __________________</span>
+</div>
+
+<section class="instructions">
+  <strong>Asesmen ini disusun berdasarkan materi dilatasi pada <a href="simulasi_transformasi_geometri_ix.html">Laboratorium Simulasi Transformasi Geometri</a>.</strong>
+  <p>Jumlah: 20 soal, terdiri atas:</p>
+  <table class="summary">
+    <tr><th>Bentuk soal</th><th>Jumlah</th></tr>
+    <tr><td>Pilihan ganda</td><td>8</td></tr>
+    <tr><td>Pilihan ganda kompleks</td><td>4</td></tr>
+    <tr><td>Benar atau salah</td><td>4</td></tr>
+    <tr><td>Menjodohkan</td><td>4</td></tr>
+    <tr><td><strong>Total</strong></td><td><strong>20</strong></td></tr>
+  </table>
+  <p><strong>Petunjuk pengerjaan</strong></p>
+  <p>1–8: pilih satu jawaban yang paling tepat.</p>
+  <p>9–12: pilih semua jawaban yang benar; jawaban dapat lebih dari satu.</p>
+  <p>13–16: tentukan apakah pernyataan benar atau salah.</p>
+  <p>17–20: pasangkan setiap soal dengan jawaban A–D yang tepat; setiap pilihan digunakan satu kali.</p>
+  <p>Materi mencakup pengertian dilatasi, faktor skala k terhadap pusat O(0, 0), pengaruh k terhadap koordinat, panjang sisi, keliling, dan luas. Tingkat kesulitan dibuat bertahap dari pemahaman konsep hingga penalaran (HOTS).</p>
+  <p><strong>Catatan:</strong> Dokumen ini adalah versi pembahasan. Kunci jawaban dan pembahasan dicantumkan tepat di bawah setiap soal.</p>
+</section>
+
+<h2 class="section-title">A. Pilihan Ganda <small>Pilih satu jawaban yang paling tepat. (Soal 1–8)</small></h2>
+
+<section class="question">
+<div class="qhead">Soal 1 <span class="tag">Pilihan Ganda</span> <span class="topic">• Pengertian dilatasi</span></div>
+<p class="stem">Dilatasi dalam transformasi geometri adalah ....</p>
+<ul class="options"><li>A. Pergeseran bangun tanpa mengubah ukurannya</li><li>B. Perubahan ukuran bangun (memperbesar atau memperkecil) terhadap titik pusat tertentu dengan faktor skala tertentu</li><li>C. Pemutaran bangun terhadap titik pusat</li><li>D. Pencerminan bangun terhadap garis cermin</li></ul>
+<p class="answer">Kunci jawaban: B</p><p class="explanation"><strong>Pembahasan:</strong> Dilatasi adalah transformasi yang mengubah ukuran bangun membesar atau mengecil dengan mengalikan koordinat setiap titik dengan faktor skala k terhadap titik pusat dilatasi. Bentuk bangun tetap sama.</p>
+</section>
+
+<section class="question">
+<div class="qhead">Soal 2 <span class="tag">Pilihan Ganda</span> <span class="topic">• Dilatasi dengan k &gt; 1</span></div>
+<p class="stem">Titik P(2, 3) didilatasi terhadap pusat O dengan faktor skala k = 2. Koordinat bayangan P′ adalah ....</p>
+<ul class="options"><li>A. (4, 6)</li><li>B. (1, 6)</li><li>C. (4, 3)</li><li>D. (2, 6)</li></ul>
+<p class="answer">Kunci jawaban: A</p><p class="explanation"><strong>Pembahasan:</strong> Aturan dilatasi pusat O: (x, y) → (kx, ky). Jadi P′ = (2·2, 3·2) = (4, 6).</p>
+</section>
+
+<section class="question">
+<div class="qhead">Soal 3 <span class="tag">Pilihan Ganda</span> <span class="topic">• Dilatasi dengan k = 3</span></div>
+<p class="stem">Titik Q(−1, 5) didilatasi terhadap pusat O dengan faktor skala k = 3. Koordinat bayangan Q′ adalah ....</p>
+<ul class="options"><li>A. (−3, 15)</li><li>B. (−4, 8)</li><li>C. (−3, 5)</li><li>D. (3, 15)</li></ul>
+<p class="answer">Kunci jawaban: A</p><p class="explanation"><strong>Pembahasan:</strong> Q′ = (3·(−1), 3·5) = (−3, 15). Tanda koordinat tidak berubah karena k positif.</p>
+</section>
+
+<section class="question">
+<div class="qhead">Soal 4 <span class="tag">Pilihan Ganda</span> <span class="topic">• Dilatasi dengan 0 &lt; k &lt; 1</span></div>
+<p class="stem">Titik R(8, −4) didilatasi terhadap pusat O dengan faktor skala k = <sup>1</sup>⁄<sub>2</sub>. Koordinat bayangan R′ adalah ....</p>
+<ul class="options"><li>A. (16, −8)</li><li>B. (4, −2)</li><li>C. (8, −2)</li><li>D. (4, −4)</li></ul>
+<p class="answer">Kunci jawaban: B</p><p class="explanation"><strong>Pembahasan:</strong> R′ = (½·8, ½·(−4)) = (4, −2). Karena 0 &lt; k &lt; 1, bayangan lebih dekat ke pusat (bangun mengecil).</p>
+</section>
+
+<section class="question">
+<div class="qhead">Soal 5 <span class="tag">Pilihan Ganda</span> <span class="topic">• Dilatasi dengan k negatif</span></div>
+<p class="stem">Titik S(3, −2) didilatasi terhadap pusat O dengan faktor skala k = −1. Koordinat bayangan S′ adalah ....</p>
+<ul class="options"><li>A. (3, 2)</li><li>B. (−3, −2)</li><li>C. (−3, 2)</li><li>D. (1, −1)</li></ul>
+<p class="answer">Kunci jawaban: C</p><p class="explanation"><strong>Pembahasan:</strong> S′ = (−1·3, −1·(−2)) = (−3, 2). K negatif membuat bayangan berada di sisi berlawanan dari pusat dilatasi.</p>
+</section>
+
+<section class="question">
+<div class="qhead">Soal 6 <span class="tag">Pilihan Ganda</span> <span class="topic">• Pengaruh k terhadap panjang sisi</span></div>
+<p class="stem">Sebuah persegi memiliki sisi 5 cm. Persegi tersebut didilatasi dengan faktor skala k = 3. Panjang sisi bayangannya adalah ....</p>
+<ul class="options"><li>A. 8 cm</li><li>B. 15 cm</li><li>C. 1,67 cm</li><li>D. 20 cm</li></ul>
+<p class="answer">Kunci jawaban: B</p><p class="explanation"><strong>Pembahasan:</strong> Setiap panjang dikalikan dengan |k|. Panjang sisi bayangan = 3 × 5 = 15 cm.</p>
+</section>
+
+<section class="question">
+<div class="qhead">Soal 7 <span class="tag">Pilihan Ganda</span> <span class="topic">• Pengaruh k terhadap luas</span></div>
+<p class="stem">Luas sebuah segitiga adalah 10 cm². Segitiga itu didilatasi dengan faktor skala k = 2. Luas bayangannya adalah ....</p>
+<ul class="options"><li>A. 20 cm²</li><li>B. 40 cm²</li><li>C. 12 cm²</li><li>D. 5 cm²</li></ul>
+<p class="answer">Kunci jawaban: B</p><p class="explanation"><strong>Pembahasan:</strong> Luas berubah sebesar k² kali. Luas bayangan = 2² × 10 = 4 × 10 = 40 cm².</p>
+</section>
+
+<section class="question">
+<div class="qhead">Soal 8 <span class="tag">Pilihan Ganda</span> <span class="topic">• Menentukan titik asal dari bayangannya (HOTS)</span></div>
+<p class="stem">Sebuah titik P(x, y) didilatasi terhadap pusat O dengan faktor skala k = 2 menghasilkan bayangan P′(10, −16). Koordinat titik asal P adalah ....</p>
+<ul class="options"><li>A. (5, −8)</li><li>B. (20, −32)</li><li>C. (8, −14)</li><li>D. (12, −18)</li></ul>
+<p class="answer">Kunci jawaban: A</p><p class="explanation"><strong>Pembahasan:</strong> Karena (2x, 2y) = (10, −16), maka x = 10 ÷ 2 = 5 dan y = −16 ÷ 2 = −8. Jadi P = (5, −8).</p>
+</section>
+
+<h2 class="section-title">B. Pilihan Ganda Kompleks <small>Pilih semua jawaban yang benar. Setiap soal dapat memiliki lebih dari satu jawaban benar. (Soal 9–12)</small></h2>
+
+<section class="question">
+<div class="qhead">Soal 9 <span class="tag">Pilihan Ganda Kompleks</span> <span class="topic">• Beberapa faktor skala pada satu titik</span></div>
+<p class="stem">Diketahui titik P(4, −6). Pilih semua pernyataan yang benar.</p>
+<ul class="options"><li>A. Dilatasi k = <sup>1</sup>⁄<sub>2</sub> menghasilkan (2, −3).</li><li>B. Dilatasi k = 2 menghasilkan (8, −12).</li><li>C. Dilatasi k = <sup>1</sup>⁄<sub>2</sub> menghasilkan (4, −3).</li><li>D. Dilatasi k = −<sup>1</sup>⁄<sub>2</sub> menghasilkan (−2, 3).</li></ul>
+<p class="answer">Kunci jawaban: A, B, D</p><p class="explanation"><strong>Pembahasan:</strong> A: (2, −3) ✓. B: (8, −12) ✓. C: seharusnya (2, −3), bukan (4, −3) — salah. D: (−2, 3) ✓.</p>
+</section>
+
+<section class="question">
+<div class="qhead">Soal 10 <span class="tag">Pilihan Ganda Kompleks</span> <span class="topic">• Makna faktor skala k</span></div>
+<p class="stem">Pilih semua pernyataan yang benar tentang faktor skala k.</p>
+<ul class="options"><li>A. Jika k &gt; 1, bangun menjadi lebih besar.</li><li>B. Jika 0 &lt; k &lt; 1, bangun menjadi lebih kecil.</li><li>C. Jika k negatif, bayangan berada di arah berlawanan dari pusat dilatasi.</li><li>D. Jika k = 0, semua bayangan titik tetap berada pada tempatnya.</li></ul>
+<p class="answer">Kunci jawaban: A, B, C</p><p class="explanation"><strong>Pembahasan:</strong> A, B, dan C adalah sifat faktor skala yang benar. Jika k = 0, semua koordinat menjadi (0, 0) — seluruh titik menyusut ke titik pusat, bukan tetap pada tempatnya. Jadi D salah.</p>
+</section>
+
+<section class="question">
+<div class="qhead">Soal 11 <span class="tag">Pilihan Ganda Kompleks</span> <span class="topic">• Pengaruh dilatasi terhadap ukuran bangun</span></div>
+<p class="stem">Sebuah bangun didilatasi terhadap pusat O dengan faktor skala k. Pilih semua pernyataan yang benar.</p>
+<ul class="options"><li>A. Bentuk bangun tetap sama.</li><li>B. Keliling bayangan = |k| × keliling bangun awal.</li><li>C. Luas bayangan = k² × luas bangun awal.</li><li>D. Ukuran bangun tetap sama persis.</li></ul>
+<p class="answer">Kunci jawaban: A, B, C</p><p class="explanation"><strong>Pembahasan:</strong> Dilatasi mempertahankan bentuk (sebangun), tetapi mengubah ukuran: keliling dikali |k| dan luas dikali k². Pernyataan D salah karena ukuran justru berubah kecuali k = 1.</p>
+</section>
+
+<section class="question">
+<div class="qhead">Soal 12 <span class="tag">Pilihan Ganda Kompleks</span> <span class="topic">• Dilatasi pada bangun beraturan (HOTS)</span></div>
+<p class="stem">Sebuah persegi berjari-jari sisi 4 cm didilatasi dengan faktor skala k = 3. Pilih semua pernyataan yang benar.</p>
+<ul class="options"><li>A. Panjang sisi bayangan adalah 12 cm.</li><li>B. Keliling bayangan adalah 48 cm.</li><li>C. Luas bayangan adalah 9 kali luas persegi awal.</li><li>D. Luas bayangan adalah 3 kali luas persegi awal.</li></ul>
+<p class="answer">Kunci jawaban: A, B, C</p><p class="explanation"><strong>Pembahasan:</strong> Sisi: 3 × 4 = 12 cm. Keliling awal = 16 cm → bayangan = 3 × 16 = 48 cm. Luas dikali k² = 3² = 9. Pernyataan D salah karena luas dikali 9, bukan 3.</p>
+</section>
+
+<h2 class="section-title">C. Benar atau Salah <small>Tentukan apakah setiap pernyataan benar atau salah. (Soal 13–16)</small></h2>
+
+<section class="question">
+<div class="qhead">Soal 13 <span class="tag">Benar–Salah</span> <span class="topic">• Dilatasi k = 3</span></div>
+<p class="stem">Titik A(−5, 2) didilatasi terhadap pusat O dengan k = 3 menghasilkan bayangan (−15, 6).</p>
+<ul class="options"><li>A. Benar</li><li>B. Salah</li></ul>
+<p class="answer">Kunci jawaban: Benar</p><p class="explanation"><strong>Pembahasan:</strong> A′ = (3·(−5), 3·2) = (−15, 6). Pernyataan benar.</p>
+</section>
+
+<section class="question">
+<div class="qhead">Soal 14 <span class="tag">Benar–Salah</span> <span class="topic">• Dilatasi dan luas</span></div>
+<p class="stem">Sebuah bangun berluas 12 cm² didilatasi dengan k = 2, sehingga luas bayangannya menjadi 48 cm².</p>
+<ul class="options"><li>A. Benar</li><li>B. Salah</li></ul>
+<p class="answer">Kunci jawaban: Benar</p><p class="explanation"><strong>Pembahasan:</strong> Luas bayangan = k² × luas awal = 2² × 12 = 4 × 12 = 48 cm². Pernyataan benar.</p>
+</section>
+
+<section class="question">
+<div class="qhead">Soal 15 <span class="tag">Benar–Salah</span> <span class="topic">• Dilatasi dan keliling</span></div>
+<p class="stem">Sebuah bangun memiliki keliling 20 cm. Jika didilatasi dengan k = <sup>1</sup>⁄<sub>2</sub>, keliling bayangannya menjadi 10 cm.</p>
+<ul class="options"><li>A. Benar</li><li>B. Salah</li></ul>
+<p class="answer">Kunci jawaban: Benar</p><p class="explanation"><strong>Pembahasan:</strong> Keliling dikali |k| = ½, sehingga keliling bayangan = ½ × 20 = 10 cm. Pernyataan benar.</p>
+</section>
+
+<section class="question">
+<div class="qhead">Soal 16 <span class="tag">Benar–Salah</span> <span class="topic">• Dilatasi k negatif</span></div>
+<p class="stem">Titik B(6, −4) didilatasi terhadap pusat O dengan k = −1 menghasilkan bayangan (6, 4).</p>
+<ul class="options"><li>A. Benar</li><li>B. Salah</li></ul>
+<p class="answer">Kunci jawaban: Salah</p><p class="explanation"><strong>Pembahasan:</strong> B′ = (−1·6, −1·(−4)) = (−6, 4), bukan (6, 4). Kedua koordinat harus dikalikan −1. Pernyataan salah.</p>
+</section>
+
+<h2 class="section-title">D. Menjodohkan <small>Pasangkan soal nomor 17–20 dengan jawaban A–D yang tepat. Setiap pilihan digunakan satu kali. (Soal 17–20)</small></h2>
+
+<div class="match-choices">
+  <p><strong>Pilihan jawaban:</strong></p>
+  <p>A. (6, 9)</p>
+  <p>B. (−1, 4)</p>
+  <p>C. (12, −8)</p>
+  <p>D. (−4, −4)</p>
+</div>
+
+<section class="question">
+<div class="qhead">Soal 17 <span class="tag">Menjodohkan</span> <span class="topic">• Dilatasi k = 3</span></div>
+<p class="stem">Titik A(2, 3) didilatasi terhadap pusat O dengan k = 3. Koordinat bayangannya adalah ....</p>
+<p class="answer">Kunci jawaban: A — (6, 9)</p><p class="explanation"><strong>Pembahasan:</strong> A′ = (3·2, 3·3) = (6, 9).</p>
+</section>
+
+<section class="question">
+<div class="qhead">Soal 18 <span class="tag">Menjodohkan</span> <span class="topic">• Dilatasi k = 1/2</span></div>
+<p class="stem">Titik B(−2, 8) didilatasi terhadap pusat O dengan k = <sup>1</sup>⁄<sub>2</sub>. Koordinat bayangannya adalah ....</p>
+<p class="answer">Kunci jawaban: B — (−1, 4)</p><p class="explanation"><strong>Pembahasan:</strong> B′ = (½·(−2), ½·8) = (−1, 4).</p>
+</section>
+
+<section class="question">
+<div class="qhead">Soal 19 <span class="tag">Menjodohkan</span> <span class="topic">• Dilatasi k = 2</span></div>
+<p class="stem">Titik C(6, −4) didilatasi terhadap pusat O dengan k = 2. Koordinat bayangannya adalah ....</p>
+<p class="answer">Kunci jawaban: C — (12, −8)</p><p class="explanation"><strong>Pembahasan:</strong> C′ = (2·6, 2·(−4)) = (12, −8).</p>
+</section>
+
+<section class="question">
+<div class="qhead">Soal 20 <span class="tag">Menjodohkan</span> <span class="topic">• Dilatasi k negatif</span></div>
+<p class="stem">Titik D(2, 2) didilatasi terhadap pusat O dengan k = −2. Koordinat bayangannya adalah ....</p>
+<p class="answer">Kunci jawaban: D — (−4, −4)</p><p class="explanation"><strong>Pembahasan:</strong> D′ = (−2·2, −2·2) = (−4, −4).</p>
+</section>
+
+<details class="keybox" open>
+  <summary>Kunci jawaban 1–20 (klik untuk menyembunyikan/menampilkan)</summary>
+  <table class="key">
+    <tr><th>Nomor</th><th>Jawaban</th><th>Nomor</th><th>Jawaban</th></tr>
+    <tr><td>1</td><td>B</td><td>11</td><td>A, B, C</td></tr>
+    <tr><td>2</td><td>A</td><td>12</td><td>A, B, C</td></tr>
+    <tr><td>3</td><td>A</td><td>13</td><td>Benar</td></tr>
+    <tr><td>4</td><td>B</td><td>14</td><td>Benar</td></tr>
+    <tr><td>5</td><td>C</td><td>15</td><td>Benar</td></tr>
+    <tr><td>6</td><td>B</td><td>16</td><td>Salah</td></tr>
+    <tr><td>7</td><td>B</td><td>17</td><td>A</td></tr>
+    <tr><td>8</td><td>A</td><td>18</td><td>B</td></tr>
+    <tr><td>9</td><td>A, B, D</td><td>19</td><td>C</td></tr>
+    <tr><td>10</td><td>A, B, C</td><td>20</td><td>D</td></tr>
+  </table>
+</details>
+
+<section class="scoring">
+  <strong>Pedoman penilaian (total nilai 100)</strong>
+  <p>• Pilihan ganda: 8 soal × 5 poin = 40 poin.</p>
+  <p>• Pilihan ganda kompleks: 4 soal × 10 poin = 40 poin.</p>
+  <p>• Benar atau salah: 4 soal × 2,5 poin = 10 poin.</p>
+  <p>• Menjodohkan: 4 soal × 2,5 poin = 10 poin.</p>
+  <p><strong>Catatan teknis:</strong> Untuk Google Forms, pilihan ganda dan benar–salah dapat dinilai otomatis. Soal ganda kompleks sebaiknya menggunakan tipe kotak centang dengan kunci semua opsi yang tepat. Soal menjodohkan dapat dibuat sebagai kisi pilihan ganda dengan nomor soal sebagai baris dan pilihan A–D sebagai kolom, atau diubah menjadi empat soal pilihan ganda agar penilaian otomatis lebih sederhana.</p>
+</section>
+
+<p class="foot">Asesmen Dilatasi • Transformasi Geometri Kelas IX B</p>
+</main>
+</body>
+</html>

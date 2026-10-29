@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Asesmen Refleksi - Transformasi Geometri Kelas IX B</title>
+<style>
+  :root { --ink:#1f2937; --muted:#64748b; --line:#dbe3ee; --blue:#065f46; --pale:#ecfdf5; --green:#166534; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:#f3f6fb; color:var(--ink); font:16px/1.55 Arial, Helvetica, sans-serif; }
+  .page { max-width:900px; margin:24px auto; padding:34px 42px; background:#fff; box-shadow:0 4px 22px #0f172a12; }
+  header { text-align:center; border-bottom:2px solid var(--blue); padding-bottom:18px; margin-bottom:20px; }
+  h1 { margin:0; color:var(--blue); font-size:27px; line-height:1.25; }
+  .subtitle { margin:8px 0 0; color:var(--muted); }
+  .identity { display:flex; flex-wrap:wrap; gap:10px 24px; margin:18px 0; }
+  .identity span { flex:1 1 180px; border-bottom:1px solid #94a3b8; padding-bottom:5px; }
+  .instructions { background:var(--pale); border-left:4px solid var(--blue); padding:12px 16px; margin:18px 0 26px; }
+  .instructions p { margin:3px 0; }
+  table.summary { width:100%; border-collapse:collapse; margin:14px 0 4px; font-size:15px; }
+  table.summary th, table.summary td { border:1px solid var(--line); padding:7px 10px; text-align:left; }
+  table.summary th { background:var(--pale); color:var(--blue); }
+  h2.section-title { margin:30px 0 14px; color:var(--blue); font-size:20px; border-left:5px solid var(--blue); padding-left:10px; }
+  h2.section-title small { display:block; color:var(--muted); font-size:13px; font-weight:400; margin-top:2px; }
+  .question { padding:0 0 18px; margin:0 0 22px; border-bottom:1px solid var(--line); break-inside:avoid; }
+  .qhead { font-weight:700; font-size:17px; margin-bottom:6px; }
+  .tag { display:inline-block; font-size:12px; letter-spacing:.02em; color:var(--blue); background:var(--pale); padding:3px 8px; border-radius:4px; margin-left:6px; vertical-align:2px; }
+  .topic { color:var(--muted); font-size:13px; font-weight:400; }
+  .stem { margin:6px 0 9px; }
+  .options { list-style:none; padding:0 0 0 12px; margin:0 0 10px; }
+  .options li { margin:2px 0; }
+  .match-choices { background:#f8fafc; border:1px dashed #94a3b8; border-radius:8px; padding:10px 14px; margin:8px 0 12px; }
+  .match-choices p { margin:2px 0; }
+  .answer { margin:10px 0 5px; color:var(--green); font-weight:700; }
+  .explanation { margin:0; padding:10px 12px; background:#f8fafc; border-left:3px solid #94a3b8; }
+  .explanation strong { color:#334155; }
+  details.keybox { border:1px solid var(--line); border-radius:10px; padding:12px 16px; margin:22px 0; background:#f8fafc; }
+  details.keybox summary { cursor:pointer; font-weight:700; color:var(--blue); }
+  table.key { width:100%; border-collapse:collapse; margin-top:12px; font-size:15px; }
+  table.key th, table.key td { border:1px solid var(--line); padding:6px 10px; text-align:center; }
+  table.key th { background:var(--pale); color:var(--blue); }
+  .scoring { background:var(--pale); border-left:4px solid var(--blue); padding:12px 16px; margin:22px 0; }
+  .scoring p { margin:4px 0; }
+  .foot { color:var(--muted); font-size:12px; text-align:center; margin-top:30px; }
+  .toolbar { max-width:900px; margin:18px auto 0; display:flex; justify-content:flex-end; gap:10px; padding:0 8px; }
+  button { font:inherit; border:0; border-radius:8px; background:var(--blue); color:white; padding:10px 15px; cursor:pointer; }
+  @media(max-width:640px) { .page{margin:0;padding:22px 18px;box-shadow:none} h1{font-size:23px}.toolbar{padding:12px;justify-content:center} }
+  @media print {
+    body { background:#fff; font-size:11pt; }
+    .toolbar { display:none; }
+    .page { max-width:none; margin:0; padding:0; box-shadow:none; }
+    .question { break-inside:avoid; }
+    header { margin-top:0; }
+    .instructions, .explanation, .scoring, details.keybox { print-color-adjust:exact; -webkit-print-color-adjust:exact; }
+    details.keybox[open] summary { display:none; }
+  }
+</style>
+</head>
+<body>
+<div class="toolbar"><button onclick="window.print()">Cetak / Simpan sebagai PDF</button></div>
+<main class="page">
+<header>
+  <h1>ASESMEN REFLEKSI (PENCERMINAN)<br>TRANSFORMASI GEOMETRI KELAS IX B</h1>
+  <p class="subtitle">20 Soal • Pilihan Ganda, Pilihan Ganda Kompleks, Benar–Salah, dan Menjodohkan</p>
+</header>
+<div class="identity">
+  <span>Nama: ______________________________</span>
+  <span>Kelas: __________</span>
+  <span>Tanggal: __________________</span>
+</div>
+
+<section class="instructions">
+  <strong>Asesmen ini disusun berdasarkan materi pada LKPD <a href="lkpd_refleksi_kelas_ix_b.html">Transformasi Geometri: Refleksi</a>.</strong>
+  <p>Jumlah: 20 soal, terdiri atas:</p>
+  <table class="summary">
+    <tr><th>Bentuk soal</th><th>Jumlah</th></tr>
+    <tr><td>Pilihan ganda</td><td>8</td></tr>
+    <tr><td>Pilihan ganda kompleks</td><td>4</td></tr>
+    <tr><td>Benar atau salah</td><td>4</td></tr>
+    <tr><td>Menjodohkan</td><td>4</td></tr>
+    <tr><td><strong>Total</strong></td><td><strong>20</strong></td></tr>
+  </table>
+  <p><strong>Petunjuk pengerjaan</strong></p>
+  <p>1–8: pilih satu jawaban yang paling tepat.</p>
+  <p>9–12: pilih semua jawaban yang benar; jawaban dapat lebih dari satu.</p>
+  <p>13–16: tentukan apakah pernyataan benar atau salah.</p>
+  <p>17–20: pasangkan setiap soal dengan jawaban A–D yang tepat; setiap pilihan digunakan satu kali.</p>
+  <p>Materi mencakup pengertian refleksi, enam garis cermin (sumbu-X, sumbu-Y, y = x, y = −x, x = a, y = b), menentukan bayangan titik, serta refleksi berurutan. Tingkat kesulitan dibuat bertahap dari pemahaman konsep hingga penalaran (HOTS).</p>
+  <p><strong>Catatan:</strong> Dokumen ini adalah versi pembahasan. Kunci jawaban dan pembahasan dicantumkan tepat di bawah setiap soal.</p>
+</section>
+
+<h2 class="section-title">A. Pilihan Ganda <small>Pilih satu jawaban yang paling tepat. (Soal 1–8)</small></h2>
+
+<section class="question">
+<div class="qhead">Soal 1 <span class="tag">Pilihan Ganda</span> <span class="topic">• Pengertian refleksi</span></div>
+<p class="stem">Refleksi (pencerminan) dalam transformasi geometri adalah ....</p>
+<ul class="options"><li>A. Memutar bangun terhadap titik pusat</li><li>B. Menggeser bangun tanpa mengubah bentuk dan ukurannya</li><li>C. Memantulkan bangun terhadap garis cermin sehingga terbentuk bayangan seperti pada cermin</li><li>D. Memperbesar ukuran bangun dengan faktor tertentu</li></ul>
+<p class="answer">Kunci jawaban: C</p><p class="explanation"><strong>Pembahasan:</strong> Refleksi memetakan setiap titik ke titik bayangan sehingga jarak titik asal ke garis cermin sama dengan jarak titik bayangan ke garis cermin. Bentuk dan ukuran tidak berubah, tetapi orientasi dapat terbalik.</p>
+</section>
+
+<section class="question">
+<div class="qhead">Soal 2 <span class="tag">Pilihan Ganda</span> <span class="topic">• Refleksi terhadap sumbu-X</span></div>
+<p class="stem">Titik A(3, 2) dicerminkan terhadap sumbu-X. Koordinat bayangan A′ adalah ....</p>
+<ul class="options"><li>A. (3, −2)</li><li>B. (−3, 2)</li><li>C. (2, 3)</li><li>D. (2, −3)</li></ul>
+<p class="answer">Kunci jawaban: A</p><p class="explanation"><strong>Pembahasan:</strong> Aturan refleksi terhadap sumbu-X: (x, y) → (x, −y). Jadi A′ = (3, −2). Koordinat x tetap, y berubah tanda.</p>
+</section>
+
+<section class="question">
+<div class="qhead">Soal 3 <span class="tag">Pilihan Ganda</span> <span class="topic">• Refleksi terhadap sumbu-Y</span></div>
+<p class="stem">Titik B(−4, 1) dicerminkan terhadap sumbu-Y. Koordinat bayangan B′ adalah ....</p>
+<ul class="options"><li>A. (4, 1)</li><li>B. (−4, −1)</li><li>C. (1, −4)</li><li>D. (−1, 4)</li></ul>
+<p class="answer">Kunci jawaban: A</p><p class="explanation"><strong>Pembahasan:</strong> Aturan refleksi terhadap sumbu-Y: (x, y) → (−x, y). Jadi B′ = (4, 1). Koordinat y tetap, x berubah tanda.</p>
+</section>
+
+<section class="question">
+<div class="qhead">Soal 4 <span class="tag">Pilihan Ganda</span> <span class="topic">• Refleksi terhadap garis y = x</span></div>
+<p class="stem">Titik C(2, 5) dicerminkan terhadap garis y = x. Koordinat bayangan C′ adalah ....</p>
+<ul class="options"><li>A. (5, 2)</li><li>B. (−5, 2)</li><li>C. (2, −5)</li><li>D. (−2, −5)</li></ul>
+<p class="answer">Kunci jawaban: A</p><p class="explanation"><strong>Pembahasan:</strong> Aturan refleksi terhadap garis y = x: (x, y) → (y, x). Koordinat x dan y saling bertukar, sehingga C′ = (5, 2).</p>
+</section>
+
+<section class="question">
+<div class="qhead">Soal 5 <span class="tag">Pilihan Ganda</span> <span class="topic">• Refleksi terhadap garis y = −x</span></div>
+<p class="stem">Titik D(−3, −2) dicerminkan terhadap garis y = −x. Koordinat bayangan D′ adalah ....</p>
+<ul class="options"><li>A. (−2, −3)</li><li>B. (2, 3)</li><li>C. (−2, 3)</li><li>D. (3, 2)</li></ul>
+<p class="answer">Kunci jawaban: B</p><p class="explanation"><strong>Pembahasan:</strong> Aturan refleksi terhadap garis y = −x: (x, y) → (−y, −x). Jadi D′ = (−(−2), −(−3)) = (2, 3).</p>
+</section>
+
+<section class="question">
+<div class="qhead">Soal 6 <span class="tag">Pilihan Ganda</span> <span class="topic">• Refleksi terhadap garis x = a</span></div>
+<p class="stem">Titik E(5, −1) dicerminkan terhadap garis x = 2. Koordinat bayangan E′ adalah ....</p>
+<ul class="options"><li>A. (−1, −1)</li><li>B. (1, −1)</li><li>C. (−3, −1)</li><li>D. (7, −1)</li></ul>
+<p class="answer">Kunci jawaban: A</p><p class="explanation"><strong>Pembahasan:</strong> Aturan refleksi terhadap garis x = a: (x, y) → (2a − x, y). Jadi E′ = (2·2 − 5, −1) = (−1, −1). Titik asal berjarak 3 satuan di kanan garis x = 2, bayangannya berjarak 3 satuan di kirinya.</p>
+</section>
+
+<section class="question">
+<div class="qhead">Soal 7 <span class="tag">Pilihan Ganda</span> <span class="topic">• Menentukan titik asal dari bayangannya</span></div>
+<p class="stem">Titik P(a, 4) dicerminkan terhadap sumbu-Y menghasilkan bayangan P′(3, 4). Nilai a adalah ....</p>
+<ul class="options"><li>A. 3</li><li>B. −3</li><li>C. 4</li><li>D. −4</li></ul>
+<p class="answer">Kunci jawaban: B</p><p class="explanation"><strong>Pembahasan:</strong> Refleksi sumbu-Y: (x, y) → (−x, y), sehingga −a = 3 dan 4 = 4. Jadi a = −3; titik asalnya P(−3, 4).</p>
+</section>
+
+<section class="question">
+<div class="qhead">Soal 8 <span class="tag">Pilihan Ganda</span> <span class="topic">• Garis cermin y = b (HOTS)</span></div>
+<p class="stem">Titik F(6, 2) dicerminkan terhadap garis y = b menghasilkan bayangan F′(6, −4). Nilai b adalah ....</p>
+<ul class="options"><li>A. −1</li><li>B. 1</li><li>C. −2</li><li>D. 2</li></ul>
+<p class="answer">Kunci jawaban: A</p><p class="explanation"><strong>Pembahasan:</strong> Aturan garis y = b: (x, y) → (x, 2b − y). Maka 2b − 2 = −4, sehingga 2b = −2 dan b = −1. Garis cerminnya adalah y = −1, yaitu garis yang tepat berada di tengah antara y = 2 dan y = −4.</p>
+</section>
+
+<h2 class="section-title">B. Pilihan Ganda Kompleks <small>Pilih semua jawaban yang benar. Setiap soal dapat memiliki lebih dari satu jawaban benar. (Soal 9–12)</small></h2>
+
+<section class="question">
+<div class="qhead">Soal 9 <span class="tag">Pilihan Ganda Kompleks</span> <span class="topic">• Sifat-sifat refleksi</span></div>
+<p class="stem">Pilih semua pernyataan yang benar tentang refleksi.</p>
+<ul class="options"><li>A. Bentuk bangun tetap sama.</li><li>B. Ukuran bangun selalu berubah.</li><li>C. Titik yang berada tepat di garis cermin tidak berubah (tetap pada tempatnya).</li><li>D. Jarak titik asal ke garis cermin sama dengan jarak bayangan ke garis cermin.</li></ul>
+<p class="answer">Kunci jawaban: A, C, D</p><p class="explanation"><strong>Pembahasan:</strong> Refleksi bersifat isometri: bentuk dan ukuran bangun tidak berubah. Titik pada garis cermin bersifat invarian, dan jarak titik asal maupun bayangan ke garis cermin selalu sama. Pernyataan B salah.</p>
+</section>
+
+<section class="question">
+<div class="qhead">Soal 10 <span class="tag">Pilihan Ganda Kompleks</span> <span class="topic">• Empat garis cermin pada satu titik</span></div>
+<p class="stem">Diketahui titik P(−2, 6). Pilih semua pernyataan yang benar.</p>
+<ul class="options"><li>A. Dicerminkan terhadap sumbu-X menghasilkan (−2, −6).</li><li>B. Dicerminkan terhadap sumbu-Y menghasilkan (2, 6).</li><li>C. Dicerminkan terhadap garis y = x menghasilkan (6, −2).</li><li>D. Dicerminkan terhadap garis y = −x menghasilkan (6, −2).</li></ul>
+<p class="answer">Kunci jawaban: A, B, C</p><p class="explanation"><strong>Pembahasan:</strong> A: (−2, −6) ✓. B: (2, 6) ✓. C: (6, −2) ✓. D: aturan y = −x adalah (x, y) → (−y, −x), sehingga hasilnya (−6, 2), bukan (6, −2) — salah.</p>
+</section>
+
+<section class="question">
+<div class="qhead">Soal 11 <span class="tag">Pilihan Ganda Kompleks</span> <span class="topic">• Refleksi berurutan (HOTS)</span></div>
+<p class="stem">Titik P(3, 4) dicerminkan terhadap sumbu-X menjadi P′, kemudian P′ dicerminkan terhadap sumbu-Y menjadi P″. Pilih semua pernyataan yang benar.</p>
+<ul class="options"><li>A. P′ = (3, −4).</li><li>B. P″ = (−3, −4).</li><li>C. Hasil akhir P″ sama dengan rotasi 180° terhadap titik P terhadap pusat O.</li><li>D. P″ = (3, 4).</li></ul>
+<p class="answer">Kunci jawaban: A, B, C</p><p class="explanation"><strong>Pembahasan:</strong> P′ = (3, −4), lalu P″ = (−3, −4). Kedua pencerminan tersebut setara dengan rotasi 180°: P(3, 4) → (−3, −4). Pernyataan D salah.</p>
+</section>
+
+<section class="question">
+<div class="qhead">Soal 12 <span class="tag">Pilihan Ganda Kompleks</span> <span class="topic">• Enam aturan garis cermin</span></div>
+<p class="stem">Pilih semua pasangan garis cermin dan aturan yang benar.</p>
+<ul class="options"><li>A. Garis y = x: (x, y) → (y, x).</li><li>B. Garis y = −x: (x, y) → (−y, −x).</li><li>C. Garis x = a: (x, y) → (2a − x, y).</li><li>D. Garis y = b: (x, y) → (2b − y, x).</li></ul>
+<p class="answer">Kunci jawaban: A, B, C</p><p class="explanation"><strong>Pembahasan:</strong> Aturan garis y = b adalah (x, y) → (x, 2b − y): hanya y yang berubah dan x tetap. Pernyataan D salah karena mengubah koordinat x.</p>
+</section>
+
+<h2 class="section-title">C. Benar atau Salah <small>Tentukan apakah setiap pernyataan benar atau salah. (Soal 13–16)</small></h2>
+
+<section class="question">
+<div class="qhead">Soal 13 <span class="tag">Benar–Salah</span> <span class="topic">• Refleksi sumbu-X</span></div>
+<p class="stem">Titik A(4, −3) dicerminkan terhadap sumbu-X menghasilkan bayangan (4, 3).</p>
+<ul class="options"><li>A. Benar</li><li>B. Salah</li></ul>
+<p class="answer">Kunci jawaban: Benar</p><p class="explanation"><strong>Pembahasan:</strong> Aturan sumbu-X: (x, y) → (x, −y). Jadi (4, −3) → (4, 3). Pernyataan benar.</p>
+</section>
+
+<section class="question">
+<div class="qhead">Soal 14 <span class="tag">Benar–Salah</span> <span class="topic">• Refleksi garis y = −x</span></div>
+<p class="stem">Titik B(−2, −5) dicerminkan terhadap garis y = −x menghasilkan bayangan (5, 2).</p>
+<ul class="options"><li>A. Benar</li><li>B. Salah</li></ul>
+<p class="answer">Kunci jawaban: Benar</p><p class="explanation"><strong>Pembahasan:</strong> Aturan y = −x: (x, y) → (−y, −x). Jadi (−2, −5) → (−(−5), −(−2)) = (5, 2). Pernyataan benar.</p>
+</section>
+
+<section class="question">
+<div class="qhead">Soal 15 <span class="tag">Benar–Salah</span> <span class="topic">• Titik pada garis cermin</span></div>
+<p class="stem">Titik C(7, 0) yang berada tepat di sumbu-X, jika dicerminkan terhadap sumbu-X menghasilkan bayangan (−7, 0).</p>
+<ul class="options"><li>A. Benar</li><li>B. Salah</li></ul>
+<p class="answer">Kunci jawaban: Salah</p><p class="explanation"><strong>Pembahasan:</strong> Titik yang berada tepat di garis cermin tidak berubah. C(7, 0) tetap (7, 0), bukan (−7, 0). Pernyataan salah.</p>
+</section>
+
+<section class="question">
+<div class="qhead">Soal 16 <span class="tag">Benar–Salah</span> <span class="topic">• Refleksi garis y = b</span></div>
+<p class="stem">Titik D(1, 9) dicerminkan terhadap garis y = 5 menghasilkan bayangan (1, 1).</p>
+<ul class="options"><li>A. Benar</li><li>B. Salah</li></ul>
+<p class="answer">Kunci jawaban: Benar</p><p class="explanation"><strong>Pembahasan:</strong> Aturan garis y = b: (x, y) → (x, 2b − y). Jadi (1, 9) → (1, 2·5 − 9) = (1, 1). Pernyataan benar.</p>
+</section>
+
+<h2 class="section-title">D. Menjodohkan <small>Pasangkan soal nomor 17–20 dengan jawaban A–D yang tepat. Setiap pilihan digunakan satu kali. (Soal 17–20)</small></h2>
+
+<div class="match-choices">
+  <p><strong>Pilihan jawaban:</strong></p>
+  <p>A. (−5, 2)</p>
+  <p>B. (−8, 3)</p>
+  <p>C. (2, 7)</p>
+  <p>D. (−1, −6)</p>
+</div>
+
+<section class="question">
+<div class="qhead">Soal 17 <span class="tag">Menjodohkan</span> <span class="topic">• Refleksi sumbu-Y</span></div>
+<p class="stem">Titik P(5, 2) dicerminkan terhadap sumbu-Y. Koordinat bayangannya adalah ....</p>
+<p class="answer">Kunci jawaban: A — (−5, 2)</p><p class="explanation"><strong>Pembahasan:</strong> Aturan sumbu-Y: (x, y) → (−x, y). Jadi P′ = (−5, 2).</p>
+</section>
+
+<section class="question">
+<div class="qhead">Soal 18 <span class="tag">Menjodohkan</span> <span class="topic">• Refleksi sumbu-X</span></div>
+<p class="stem">Titik Q(−8, −3) dicerminkan terhadap sumbu-X. Koordinat bayangannya adalah ....</p>
+<p class="answer">Kunci jawaban: B — (−8, 3)</p><p class="explanation"><strong>Pembahasan:</strong> Aturan sumbu-X: (x, y) → (x, −y). Jadi Q′ = (−8, 3).</p>
+</section>
+
+<section class="question">
+<div class="qhead">Soal 19 <span class="tag">Menjodohkan</span> <span class="topic">• Refleksi garis y = x</span></div>
+<p class="stem">Titik R(7, 2) dicerminkan terhadap garis y = x. Koordinat bayangannya adalah ....</p>
+<p class="answer">Kunci jawaban: C — (2, 7)</p><p class="explanation"><strong>Pembahasan:</strong> Aturan y = x: (x, y) → (y, x). Jadi R′ = (2, 7).</p>
+</section>
+
+<section class="question">
+<div class="qhead">Soal 20 <span class="tag">Menjodohkan</span> <span class="topic">• Refleksi garis y = −x</span></div>
+<p class="stem">Titik S(6, 1) dicerminkan terhadap garis y = −x. Koordinat bayangannya adalah ....</p>
+<p class="answer">Kunci jawaban: D — (−1, −6)</p><p class="explanation"><strong>Pembahasan:</strong> Aturan y = −x: (x, y) → (−y, −x). Jadi S′ = (−1, −6).</p>
+</section>
+
+<details class="keybox" open>
+  <summary>Kunci jawaban 1–20 (klik untuk menyembunyikan/menampilkan)</summary>
+  <table class="key">
+    <tr><th>Nomor</th><th>Jawaban</th><th>Nomor</th><th>Jawaban</th></tr>
+    <tr><td>1</td><td>C</td><td>11</td><td>A, B, C</td></tr>
+    <tr><td>2</td><td>A</td><td>12</td><td>A, B, C</td></tr>
+    <tr><td>3</td><td>A</td><td>13</td><td>Benar</td></tr>
+    <tr><td>4</td><td>A</td><td>14</td><td>Benar</td></tr>
+    <tr><td>5</td><td>B</td><td>15</td><td>Salah</td></tr>
+    <tr><td>6</td><td>A</td><td>16</td><td>Benar</td></tr>
+    <tr><td>7</td><td>B</td><td>17</td><td>A</td></tr>
+    <tr><td>8</td><td>A</td><td>18</td><td>B</td></tr>
+    <tr><td>9</td><td>A, C, D</td><td>19</td><td>C</td></tr>
+    <tr><td>10</td><td>A, B, C</td><td>20</td><td>D</td></tr>
+  </table>
+</details>
+
+<section class="scoring">
+  <strong>Pedoman penilaian (total nilai 100)</strong>
+  <p>• Pilihan ganda: 8 soal × 5 poin = 40 poin.</p>
+  <p>• Pilihan ganda kompleks: 4 soal × 10 poin = 40 poin.</p>
+  <p>• Benar atau salah: 4 soal × 2,5 poin = 10 poin.</p>
+  <p>• Menjodohkan: 4 soal × 2,5 poin = 10 poin.</p>
+  <p><strong>Catatan teknis:</strong> Untuk Google Forms, pilihan ganda dan benar–salah dapat dinilai otomatis. Soal ganda kompleks sebaiknya menggunakan tipe kotak centang dengan kunci semua opsi yang tepat. Soal menjodohkan dapat dibuat sebagai kisi pilihan ganda dengan nomor soal sebagai baris dan pilihan A–D sebagai kolom, atau diubah menjadi empat soal pilihan ganda agar penilaian otomatis lebih sederhana.</p>
+</section>
+
+<p class="foot">Asesmen Refleksi • Transformasi Geometri Kelas IX B</p>
+</main>
+</body>
+</html>
