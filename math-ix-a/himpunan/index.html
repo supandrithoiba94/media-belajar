@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bab Himpunan | Matematika Kelas IX A (MATH-IX-A)</title>
+<style>
+:root{
+  --blue:#1e40af;
+  --blue-dark:#172554;
+  --pale:#eff6ff;
+  --ink:#1f2937;
+  --muted:#64748b;
+  --line:#dbe3ee;
+  --ok:#16a34a;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:#f3f6fb;
+  color:var(--ink);
+  font:16px/1.6 Arial,Helvetica,sans-serif;
+}
+.page{
+  max-width:960px;
+  margin:24px auto;
+  padding:34px 42px;
+  background:#fff;
+  box-shadow:0 4px 22px #0f172a12;
+}
+header{text-align:center;border-bottom:2px solid var(--blue);padding-bottom:18px;margin-bottom:22px}
+h1{margin:0;color:var(--blue);font-size:27px;line-height:1.25}
+.subtitle{margin:8px 0 0;color:var(--muted)}
+.section-title{font-weight:700;font-size:18px;color:var(--blue-dark);margin:26px 0 10px;padding-bottom:6px;border-bottom:1px solid var(--line)}
+.section-desc{margin:0 0 14px;color:var(--muted);font-size:14px}
+table{width:100%;border-collapse:collapse;margin:0 0 18px;font-size:15px}
+th,td{border:1px solid var(--line);padding:9px 11px;text-align:left;vertical-align:top}
+th{background:var(--blue);color:#fff;font-size:14px;white-space:nowrap}
+tr:nth-child(even) td{background:#f8fafc}
+td a{font-weight:700;text-decoration:none;color:var(--blue)}
+td a:hover{text-decoration:underline}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
+.card{
+  display:block;text-decoration:none;color:inherit;
+  border:1px solid var(--line);border-radius:14px;padding:16px 17px;background:#fff;
+  transition:.15s;
+}
+.card:hover{border-color:var(--blue);box-shadow:0 6px 16px #0f172a14;transform:translateY(-2px)}
+.badge{
+  display:inline-block;font-size:12px;font-weight:700;letter-spacing:.02em;
+  color:var(--blue);background:var(--pale);padding:4px 9px;border-radius:20px;
+}
+.card h3{margin:10px 0 6px;font-size:17px;color:var(--blue-dark)}
+.card p{margin:0 0 10px;font-size:14.2px;color:var(--muted)}
+.file{display:block;font-size:12px;color:#94a3b8;font-family:monospace;word-break:break-all}
+.intro{background:var(--pale);border-left:4px solid var(--blue);padding:13px 17px;margin:0 0 20px;font-size:15px}
+.intro strong{color:var(--blue-dark)}
+.note{
+  background:var(--pale);border-left:4px solid var(--blue);
+  padding:12px 16px;margin:24px 0 0;font-size:14px;color:var(--ink);
+}
+.note strong{color:var(--blue-dark)}
+.toolbar{max-width:960px;margin:18px auto 0;display:flex;justify-content:space-between;gap:10px;padding:0 8px;flex-wrap:wrap}
+.toolbar a,.toolbar button{
+  font:inherit;font-size:14px;font-weight:700;border:0;border-radius:9px;
+  background:var(--blue);color:#fff;padding:10px 15px;cursor:pointer;text-decoration:none;
+}
+.toolbar a.alt{background:#e5e7eb;color:#1f2937}
+.foot{color:var(--muted);font-size:12px;text-align:center;margin-top:30px}
+@media(max-width:640px){
+  .page{margin:0;padding:24px 18px;box-shadow:none}
+  h1{font-size:22px}
+  .grid{grid-template-columns:1fr}
+  .toolbar{justify-content:center}
+}
+@media print{
+  body{background:#fff;font-size:11pt}
+  .toolbar{display:none}
+  .page{max-width:none;margin:0;padding:0;box-shadow:none}
+  .card{break-inside:avoid}
+  .card:hover{transform:none;box-shadow:none;border-color:var(--line)}
+}
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <a class="alt" href="../Index.html">← Kelas IX A — Daftar Materi</a>
+  <button onclick="window.print()">🖨️ Cetak / Simpan PDF</button>
+</div>
+
+<main class="page">
+
+<header>
+  <h1>MATEMATIKA KELAS IX A<br>BAB — HIMPUNAN</h1>
+  <p class="subtitle">MATH-IX-A • Bahan ajar &amp; LKPD • 8 Pertemuan • Kurikulum Merdeka</p>
+</header>
+
+<div class="intro">
+  <strong>Bab Himpunan</strong> disusun dalam <strong>8 pertemuan</strong>, mengikuti urutan materi dari
+  <code>materi.md</code>: pengenalan konsep → notasi → jenis himpunan → hubungan antarhimpunan →
+  diagram Venn → operasi himpunan → penerapan &amp; asesmen. Setiap pertemuan <strong>satu file</strong>
+  yang berisi <strong>bahan ajar</strong> (pertanyaan pemantik, materi, contoh terbimbing) dan
+  <strong>LKPD</strong> (kegiatan eksplorasi, latihan bertingkat, misi tantangan, refleksi).
+</div>
+
+<!-- PETA PERTEMUAN -->
+<div class="section-title">🗺️ 1. Peta Pertemuan</div>
+<p class="section-desc">Urutan pembelajaran dari pengenalan konsep sampai asesmen akhir bab.</p>
+
+<table>
+  <tr>
+    <th>Urutan</th>
+    <th>Fokus Materi</th>
+    <th>Isi Bahan Ajar &amp; LKPD</th>
+    <th>Buka</th>
+  </tr>
+  <tr>
+    <td><strong>Pertemuan 1</strong></td>
+    <td>Konsep Dasar Himpunan</td>
+    <td>Pengertian himpunan, syarat kumpulan disebut himpunan, anggota &amp; bukan anggota (∈, ∉).</td>
+    <td><a href="pertemuan-1-konsep-dasar-himpunan.html">→ Pertemuan 1</a></td>
+  </tr>
+  <tr>
+    <td><strong>Pertemuan 2</strong></td>
+    <td>Cara Menyatakan Himpunan</td>
+    <td>Deskripsi, notasi daftar (kurung kurawal), notasi pembentuk, himpunan berhingga &amp; tak berhingga.</td>
+    <td><a href="pertemuan-2-cara-menyatakan-himpunan.html">→ Pertemuan 2</a></td>
+  </tr>
+  <tr>
+    <td><strong>Pertemuan 3</strong></td>
+    <td>Jenis-Jenis Himpunan</td>
+    <td>Himpunan kosong (∅), himpunan semesta (S), berhingga/tak berhingga, himpunan sama &amp; ekuivalen.</td>
+    <td><a href="pertemuan-3-jenis-jenis-himpunan.html">→ Pertemuan 3</a></td>
+  </tr>
+  <tr>
+    <td><strong>Pertemuan 4</strong></td>
+    <td>Himpunan Bagian &amp; Hubungan Antarhimpunan</td>
+    <td>Himpunan bagian (⊆, ⊂), himpunan sama, saling lepas, beririsan, banyak himpunan bagian 2ⁿ.</td>
+    <td><a href="pertemuan-4-himpunan-bagian-dan-hubungan.html">→ Pertemuan 4</a></td>
+  </tr>
+  <tr>
+    <td><strong>Pertemuan 5</strong></td>
+    <td>Diagram Venn</td>
+    <td>Menggambar diagram Venn, menentukan anggota tiap daerah, soal cerita dua himpunan.</td>
+    <td><a href="pertemuan-5-diagram-venn.html">→ Pertemuan 5</a></td>
+  </tr>
+  <tr>
+    <td><strong>Pertemuan 6</strong></td>
+    <td>Irisan dan Gabungan</td>
+    <td>Operasi ∩ dan ∪, sifat-sifatnya, rumus n(A ∪ B) = n(A) + n(B) − n(A ∩ B).</td>
+    <td><a href="pertemuan-6-irisan-dan-gabungan.html">→ Pertemuan 6</a></td>
+  </tr>
+  <tr>
+    <td><strong>Pertemuan 7</strong></td>
+    <td>Selisih dan Komplemen</td>
+    <td>Operasi A − B dan A′, sifatnya, rumus n(A − B) dan n(A′).</td>
+    <td><a href="pertemuan-7-selisih-dan-komplemen.html">→ Pertemuan 7</a></td>
+  </tr>
+  <tr>
+    <td><strong>Pertemuan 8</strong></td>
+    <td>Penerapan &amp; Asesmen</td>
+    <td>Soal cerita kontekstual, strategi 4 langkah, kamus rumus, asesmen akhir campuran (HOTS).</td>
+    <td><a href="pertemuan-8-penerapan-dan-asesmen.html">→ Pertemuan 8</a></td>
+  </tr>
+</table>
+
+<!-- KARTU MATERI -->
+<div class="section-title">📒 2. Buka Bahan Ajar &amp; LKPD</div>
+<p class="section-desc">Setiap pertemuan satu file. Tiap file berisi pertanyaan pemantik, materi inti, contoh terbimbing, LKPD kegiatan eksplorasi &amp; latihan bertingkat (Mudah → Menengah → HOTS), misi tantangan, dan refleksi.</p>
+
+<div class="grid">
+
+  <a class="card" href="pertemuan-1-konsep-dasar-himpunan.html">
+    <span class="badge">Pertemuan 1 • Konsep</span>
+    <h3>Konsep Dasar Himpunan</h3>
+    <p>Apa itu himpunan? Mengapa “kumpulan siswa yang pandai” bukan himpunan? Kenali simbol ∈ dan ∉.</p>
+    <span class="file">pertemuan-1-konsep-dasar-himpunan.html</span>
+  </a>
+
+  <a class="card" href="pertemuan-2-cara-menyatakan-himpunan.html">
+    <span class="badge">Pertemuan 2 • Notasi</span>
+    <h3>Cara Menyatakan Himpunan</h3>
+    <p>Tiga bentuk penulisan himpunan: kata-kata, daftar anggota, dan notasi pembentuk.</p>
+    <span class="file">pertemuan-2-cara-menyatakan-himpunan.html</span>
+  </a>
+
+  <a class="card" href="pertemuan-3-jenis-jenis-himpunan.html">
+    <span class="badge">Pertemuan 3 • Konsep</span>
+    <h3>Jenis-Jenis Himpunan</h3>
+    <p>Himpunan kosong, semesta, berhingga &amp; tak berhingga, himpunan sama dan ekuivalen.</p>
+    <span class="file">pertemuan-3-jenis-jenis-himpunan.html</span>
+  </a>
+
+  <a class="card" href="pertemuan-4-himpunan-bagian-dan-hubungan.html">
+    <span class="badge">Pertemuan 4 • Hubungan</span>
+    <h3>Himpunan Bagian &amp; Hubungan</h3>
+    <p>⊆, ⊂, himpunan sama, saling lepas, beririsan, dan menghitung banyak himpunan bagian.</p>
+    <span class="file">pertemuan-4-himpunan-bagian-dan-hubungan.html</span>
+  </a>
+
+  <a class="card" href="pertemuan-5-diagram-venn.html">
+    <span class="badge">Pertemuan 5 • Visual</span>
+    <h3>Diagram Venn</h3>
+    <p>Menggambar dan membaca diagram Venn — dari menempatkan anggota sampai soal cerita.</p>
+    <span class="file">pertemuan-5-diagram-venn.html</span>
+  </a>
+
+  <a class="card" href="pertemuan-6-irisan-dan-gabungan.html">
+    <span class="badge">Pertemuan 6 • Operasi</span>
+    <h3>Irisan &amp; Gabungan</h3>
+    <p>Operasi ∩ dan ∪, sifat-sifatnya, serta rumus n(A ∪ B) = n(A) + n(B) − n(A ∩ B).</p>
+    <span class="file">pertemuan-6-irisan-dan-gabungan.html</span>
+  </a>
+
+  <a class="card" href="pertemuan-7-selisih-dan-komplemen.html">
+    <span class="badge">Pertemuan 7 • Operasi</span>
+    <h3>Selisih &amp; Komplemen</h3>
+    <p>A − B dan A′: menentukan hasil operasi serta menghitung banyak anggotanya.</p>
+    <span class="file">pertemuan-7-selisih-dan-komplemen.html</span>
+  </a>
+
+  <a class="card" href="pertemuan-8-penerapan-dan-asesmen.html">
+    <span class="badge">Pertemuan 8 • Asesmen • HOTS</span>
+    <h3>Penerapan &amp; Asesmen</h3>
+    <p>Soal cerita kontekstual, kamus rumus, dan asesmen akhir campuran seluruh materi himpunan.</p>
+    <span class="file">pertemuan-8-penerapan-dan-asesmen.html</span>
+  </a>
+
+</div>
+
+<div class="note">
+  <strong>Cara menggunakan:</strong> kerjakan berurutan dari Pertemuan 1 sampai Pertemuan 8.
+  Bagian <strong>Bahan Ajar</strong> dibaca dulu, lalu kerjakan <strong>LKPD</strong> di bawahnya.
+  Latihan terbagi dalam level <strong>🟢 Mudah → 🟡 Menengah → 🔴 Sulit (HOTS)</strong>; raih skor
+  minimal <strong>80</strong> pada tiap level untuk membuka level berikutnya. Kunci jawaban pada
+  <strong>Misi Tantangan</strong> dan <strong>LKPD</strong> dibuka setelah kamu mencoba sendiri.
+</div>
+
+<p class="foot">Matematika Kelas IX A • MATH-IX-A • Bab Himpunan</p>
+
+</main>
+</body>
+</html>

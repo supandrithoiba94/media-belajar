@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pertemuan 1 — Konsep Dasar Himpunan | MATH-IX-A</title>
+<style>
+:root{
+  --accent:#2563eb;
+  --accent-dark:#1e3a8a;
+  --bg:#eef2f8;
+  --ink:#1f2937;
+  --muted:#5b6472;
+  --line:#dde5f0;
+  --ok:#16a34a;
+  --bad:#dc2626;
+  --warn:#f59e0b;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 Arial,Helvetica,sans-serif}
+.wrap{max-width:940px;margin:0 auto;padding:18px 14px 40px}
+a{color:var(--accent)}
+.top{background:linear-gradient(135deg,var(--accent-dark),var(--accent));color:#fff;border-radius:18px;padding:22px 24px;margin-bottom:16px}
+.top .back{display:inline-block;background:#ffffff2e;color:#fff;text-decoration:none;padding:6px 13px;border-radius:20px;font-size:13px;font-weight:bold;margin-bottom:12px}
+.top .back:hover{background:#ffffff4d}
+.crumb{margin:0 0 6px;font-size:13px;opacity:.9;letter-spacing:.4px}
+.top h1{margin:0 0 6px;font-size:26px;line-height:1.25}
+.lead{margin:0;opacity:.95}
+.target{background:#fff;border-left:5px solid var(--accent);border-radius:14px;padding:14px 16px;margin-bottom:16px;box-shadow:0 3px 12px #0f172a0f}
+.target p{margin:6px 0 0}
+.section{background:#fff;border-radius:18px;padding:20px 22px;margin-bottom:16px;box-shadow:0 3px 14px #0f172a12}
+.sec-title{display:flex;align-items:center;gap:10px;font-size:19px;font-weight:bold;color:var(--accent-dark);margin:0 0 12px;padding-bottom:8px;border-bottom:2px solid var(--line)}
+.sec-desc{margin:0 0 14px;color:var(--muted);font-size:14.5px}
+.badge-top{display:inline-block;font-size:12px;font-weight:bold;letter-spacing:.05em;text-transform:uppercase;background:#ffffff2e;border:1px solid #ffffff59;padding:4px 11px;border-radius:20px;margin-bottom:10px}
+.pemantik{background:#fff8e6;border:1px solid #fde68a;border-radius:14px;padding:16px 18px}
+.pemantik h3{margin:0 0 8px;color:#92400e}
+.tanya{background:#f8fafc;border-left:4px solid var(--accent);padding:10px 14px;border-radius:0 10px 10px 0;margin:10px 0;font-size:15.5px}
+table{width:100%;border-collapse:collapse;margin:12px 0;font-size:15px}
+th,td{border:1px solid var(--line);padding:9px 10px;text-align:left;vertical-align:top}
+th{background:var(--accent);color:#fff;font-size:14px}
+tr:nth-child(even) td{background:#f8fafc}
+.example{background:#f1f5f9;border-radius:12px;padding:12px 14px;margin:12px 0;border:1px dashed #cbd5e1}
+.example .lbl{display:block;color:var(--accent-dark);font-weight:bold;margin-bottom:6px}
+.note{background:#eff6ff;border:1px solid #bfdbfe;border-radius:12px;padding:12px 14px;margin:12px 0;font-size:15px}
+.warn{background:#fffbeb;border:1px solid #fde68a;border-radius:12px;padding:12px 14px;margin:12px 0;font-size:15px}
+.set{font-family:"Courier New",monospace;font-weight:bold;background:#eef2ff;border:1px solid #c7d2fe;border-radius:6px;padding:1px 6px;white-space:nowrap}
+ul,ol{padding-left:22px}
+li{margin:5px 0}
+details{background:#f8fafc;border:1px solid var(--line);border-radius:12px;padding:10px 14px;margin:14px 0}
+summary{cursor:pointer;font-weight:bold;color:var(--accent-dark)}
+details[open]{background:#fff}
+details p,details li{font-size:15px}
+.level-btns{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
+.level-btn{border:2px solid var(--line);background:#f8fafc;padding:12px 8px;border-radius:12px;cursor:pointer;font-weight:bold;color:var(--muted);font-size:14px;font-family:inherit}
+.level-btn.active{background:var(--accent);border-color:var(--accent);color:#fff}
+.level-btn.locked{opacity:.5;cursor:not-allowed}
+.q{border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin-bottom:12px;background:#fff}
+.q.correct{border:2px solid var(--ok);background:#f0fdf4}
+.q.wrong{border:2px solid var(--bad);background:#fef2f2}
+.qt{font-weight:bold;font-size:16.5px;margin-bottom:10px}
+.choices{display:flex;gap:9px;flex-wrap:wrap}
+.choice{flex:1;min-width:120px;border:2px solid var(--line);background:#fff;padding:11px;border-radius:10px;font-size:16px;font-weight:bold;cursor:pointer;font-family:inherit;color:inherit;text-align:left}
+.choice:hover{border-color:var(--accent);background:#eff6ff}
+.choice.sel{background:var(--accent);color:#fff;border-color:var(--accent)}
+.choice.ok{background:var(--ok);border-color:var(--ok);color:#fff}
+.choice.no{background:var(--bad);border-color:var(--bad);color:#fff}
+.inp{width:100%;padding:11px 13px;border:2px solid var(--line);border-radius:10px;font-size:17px;font-family:inherit}
+.inp:focus{outline:none;border-color:var(--accent)}
+.inp.ok{border-color:var(--ok);background:#f0fdf4}
+.inp.no{border-color:var(--bad);background:#fef2f2}
+.fb{font-size:14.5px;margin-top:9px;color:var(--muted)}
+.btn{border:0;padding:12px 18px;border-radius:11px;cursor:pointer;font-weight:bold;font-size:15px;margin:6px 6px 0 0;font-family:inherit}
+.btn-primary{background:var(--accent);color:#fff}
+.btn-success{background:var(--ok);color:#fff}
+.btn-light{background:#e5e7eb;color:#111827}
+.btn:hover{filter:brightness(1.06)}
+.score{margin-top:14px;text-align:center;background:#eff6ff;border-radius:14px;padding:16px}
+.score .num{font-size:36px;font-weight:bold;color:var(--accent)}
+.misi{border:1px solid var(--line);border-left:5px solid var(--warn);border-radius:0 14px 14px 0;padding:14px 16px;margin-bottom:14px;background:#fffdf7}
+.misi h4{margin:0 0 8px;color:#b45309;font-size:17px}
+.boss{border:2px solid var(--warn);border-radius:16px;padding:16px 18px;background:linear-gradient(180deg,#fffbeb,#fff)}
+.boss h3{margin-top:0;color:#b45309}
+.refleksi label{display:flex;gap:10px;align-items:flex-start;background:#f8fafc;border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin:8px 0;cursor:pointer;font-size:15px}
+.refleksi input{margin-top:4px}
+.nav{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:6px}
+.nav a{display:inline-block;text-decoration:none;background:#fff;border:1px solid var(--line);border-radius:11px;padding:11px 15px;font-weight:bold;color:var(--accent-dark);font-size:14px}
+.nav a:hover{border-color:var(--accent);background:#eff6ff}
+footer{text-align:center;color:var(--muted);font-size:13px;padding:14px 0}
+@media(max-width:620px){
+  .level-btns{grid-template-columns:1fr}
+  .top h1{font-size:21px}
+  .choices{flex-direction:column}
+  .choice{min-width:0}
+  .section{padding:16px 14px}
+}
+@media print{
+  body{background:#fff;font-size:11pt}
+  .wrap{max-width:none;padding:0}
+  .top{background:#1e3a8a!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .section{box-shadow:none;border:1px solid var(--line);break-inside:avoid}
+  .nav,.btn,.level-btns{display:none!important}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="top">
+  <a class="back" href="index.html">← Peta Materi Himpunan</a>
+  <p class="crumb">MATEMATIKA KELAS IX A • MATH-IX-A • BAB HIMPUNAN</p>
+  <span class="badge-top">Pertemuan 1 dari 8</span>
+  <h1>Pertemuan 1 — Konsep Dasar Himpunan</h1>
+  <p class="lead">Mengenal pengertian himpunan, syarat sebuah kumpulan disebut himpunan, serta anggota dan bukan anggota himpunan.</p>
+</header>
+
+<div class="target">
+  <strong>🎯 Target Pembelajaran</strong>
+  <p>Peserta didik mampu <strong>menjelaskan pengertian himpunan</strong>, <strong>membedakan himpunan dan bukan himpunan</strong> beserta alasannya, serta <strong>menentukan anggota dan bukan anggota</strong> sebuah himpunan dengan menggunakan simbol ∈ dan ∉.</p>
+</div>
+
+<!-- A. PERTANYAAN PEMANTIK -->
+<section class="section">
+  <h2 class="sec-title">A. Pertanyaan Pemantik</h2>
+
+  <div class="pemantik">
+    <h3>🎒 Bayangkan guru memanggil tiga kelompok siswa berikut.</h3>
+    <ol>
+      <li><strong>Kelompok 1:</strong> “Semua siswa kelas IX A yang membawa payung hari ini.”</li>
+      <li><strong>Kelompok 2:</strong> “Semua siswa kelas IX A yang pandai matematika.”</li>
+      <li><strong>Kelompok 3:</strong> “Semua siswa kelas IX A yang bernomor absen ganjil.”</li>
+    </ol>
+    <div class="tanya">Manakah kelompok yang <strong>anggotanya dapat ditentukan dengan pasti oleh semua orang</strong>? Mengapa kelompok 2 terasa sulit dipastikan?</div>
+    <p>Kelompok 1 dan 3 dapat dicek satu per satu, sehingga anggotanya pasti. Sedangkan kelompok 2 bergantung pada <strong>pendapat orang</strong> — “pandai” menurut siapa? Karena itu, kelompok 2 belum bisa disebut himpunan.</p>
+    <p><strong>Inilah inti pelajaran hari ini:</strong> tidak semua kumpulan bisa disebut himpunan. Ada syarat yang harus dipenuhi agar sebuah kumpulan menjadi himpunan yang benar.</p>
+  </div>
+</section>
+
+<!-- B. MATERI INTI -->
+<section class="section">
+  <h2 class="sec-title">B. Materi Inti — Mengenal Himpunan</h2>
+
+  <h3>1. Pengertian Himpunan</h3>
+  <p><strong>Himpunan</strong> adalah kumpulan objek yang <strong>jelas</strong> dan <strong>dapat ditentukan anggotanya</strong>. Objek penyusun himpunan disebut <strong>anggota</strong> atau <strong>elemen</strong> himpunan.</p>
+
+  <table>
+    <tr><th>Istilah</th><th>Simbol</th><th>Arti</th></tr>
+    <tr><td>Himpunan</td><td>A, B, C, …</td><td>Kumpulan objek (huruf kapital).</td></tr>
+    <tr><td>Anggota / elemen</td><td>a, b, c, …</td><td>Objek penyusun himpunan (huruf kecil).</td></tr>
+    <tr><td>Anggota himpunan</td><td>∈</td><td>Dibaca “termasuk”. Contoh: 3 ∈ A.</td></tr>
+    <tr><td>Bukan anggota himpunan</td><td>∉</td><td>Dibaca “tidak termasuk”. Contoh: 5 ∉ A.</td></tr>
+  </table>
+
+  <div class="example">
+    <span class="lbl">Contoh himpunan</span>
+    Misalkan <span class="set">A = {1, 3, 5, 7, 9}</span> dibaca “himpunan bilangan ganjil kurang dari 10”.
+    Maka anggota himpunan A adalah 1, 3, 5, 7, dan 9, dan kita menulis <span class="set">5 ∈ A</span> dan <span class="set">4 ∉ A</span>.
+  </div>
+
+  <h3>2. Contoh Himpunan dan Bukan Himpunan</h3>
+  <table>
+    <tr><th>Kumpulan</th><th>Keterangan</th><th>Alasan</th></tr>
+    <tr><td>Siswa kelas IX A dengan nomor absen ganjil</td><td>✅ Himpunan</td><td>Anggotanya dapat diperiksa satu per satu dari daftar absen.</td></tr>
+    <tr><td>Bilangan asli kurang dari 5</td><td>✅ Himpunan</td><td>Anggotanya jelas: {1, 2, 3, 4}.</td></tr>
+    <tr><td>Siswa yang pandai matematika</td><td>❌ Bukan himpunan</td><td>Kata “pandai” bersifat <strong>subjektif</strong>, tiap orang berbeda pendapat.</td></tr>
+    <tr><td>Buku-buku yang tebal</td><td>❌ Bukan himpunan</td><td>Tidak ada ukuran pasti berapa cm disebut “tebal”.</td></tr>
+    <tr><td>Anggota kelas yang hadir hari Senin</td><td>✅ Himpunan</td><td>Dapat ditentukan dari daftar hadir.</td></tr>
+  </table>
+
+  <h3>3. Syarat Sebuah Kumpulan Disebut Himpunan</h3>
+  <ol>
+    <li><strong>Objeknya jelas</strong> (dapat dikenali dan dipahami semua orang).</li>
+    <li><strong>Dapat ditentukan anggotanya</strong> (terdefinisi baik, tidak bergantung pada pendapat).</li>
+    <li><strong>Setiap anggota disebut satu kali saja</strong> (anggota ganda tidak ditulis berulang).</li>
+  </ol>
+  <div class="note"><strong>Ingat:</strong> urutan anggota tidak berpengaruh. <span class="set">{1, 2, 3}</span> sama dengan <span class="set">{3, 1, 2}</span>. Selain itu, himpunan tanpa anggota disebut <strong>himpunan kosong</strong> dan ditulis <span class="set">∅</span> atau <span class="set">{ }</span>.</div>
+
+  <h3>4. Menyatakan dan Menentukan Anggota Himpunan</h3>
+  <p>Himpunan dapat ditulis dengan <strong>mendata anggotanya di dalam kurung kurawal</strong>, dipisahkan koma. Contoh:</p>
+  <div class="example">
+    <span class="lbl">Contoh penulisan himpunan</span>
+    <ul>
+      <li><span class="set">B = {sisi, sudut, diagonal}</span> — himpunan bagian-bagian segi empat.</li>
+      <li><span class="set">C = {a, i, u, e, o}</span> — himpunan vokal bahasa Indonesia.</li>
+      <li>Karena <span class="set">B = {sisi, sudut, diagonal}</span>, maka “diagonal” ∈ B dan “rusuk” ∉ B.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- C. CONTOH TERBIMBING -->
+<section class="section">
+  <h2 class="sec-title">C. Contoh Soal Terbimbing</h2>
+
+  <div class="example">
+    <span class="lbl">Contoh 1 — Himpunan atau bukan himpunan?</span>
+    <p>Tentukan apakah kumpulan berikut merupakan himpunan. Jelaskan alasannya.</p>
+    <p><strong>a.</strong> Kumpulan hari dalam seminggu.<br>
+       <strong>b.</strong> Kumpulan siswa yang sering terlambat.</p>
+    <details>
+      <summary><strong>Pembahasan</strong></summary>
+      <ul>
+        <li><strong>a. Himpunan.</strong> Hari dalam seminggu jelas dan dapat disebutkan semua: {Senin, Selasa, Rabu, Kamis, Jumat, Sabtu, Minggu}.</li>
+        <li><strong>b. Bukan himpunan.</strong> Kata “sering” tidak memiliki ukuran pasti — satu guru bisa berbeda penilaiannya dengan guru lain. Kumpulan ini tidak terdefinisi baik.</li>
+      </ul>
+    </details>
+  </div>
+
+  <div class="example">
+    <span class="lbl">Contoh 2 — Menulis himpunan dengan kurung kurawal</span>
+    <p>Ubah pernyataan berikut menjadi notasi himpunan.</p>
+    <p><strong>a.</strong> Himpunan bilangan ganjil dari 1 sampai 7.<br>
+       <strong>b.</strong> Himpunan buah yang berwarna kuning: pisang, jeruk, dan nanas.</p>
+    <details>
+      <summary><strong>Pembahasan</strong></summary>
+      <ul>
+        <li><strong>a.</strong> A = {1, 3, 5, 7}</li>
+        <li><strong>b.</strong> B = {pisang, jeruk, nanas}</li>
+      </ul>
+    </details>
+  </div>
+
+  <div class="example">
+    <span class="lbl">Contoh 3 — Menentukan anggota dan bukan anggota</span>
+    <p>Diketahui <span class="set">P = {apel, mangga, pepaya, semangka}</span>. Manakah yang benar?</p>
+    <details>
+      <summary><strong>Pembahasan</strong></summary>
+      <ul>
+        <li>mangga ∈ P → <strong>benar</strong>, karena mangga ada dalam daftar anggota.</li>
+        <li>jeruk ∈ P → <strong>salah</strong>, karena jeruk tidak ada dalam daftar. Yang benar: jeruk ∉ P.</li>
+        <li>P ∈ apel → <strong>salah</strong>. Simbol ∈ menghubungkan <strong>anggota dengan himpunan</strong>, bukan sebaliknya. Yang benar: apel ∈ P.</li>
+      </ul>
+    </details>
+  </div>
+
+  <div class="warn">⚠️ <strong>Kesalahan yang sering terjadi:</strong> menulis anggota ganda, misalnya <span class="set">{1, 1, 2, 3}</span>. Anggota 1 cukup disebut sekali sehingga yang benar adalah <span class="set">{1, 2, 3}</span>.</div>
+</section>
+
+<!-- D. LKPD KEGIATAN 1 -->
+<section class="section">
+  <h2 class="sec-title">D. 📝 LKPD — Kegiatan 1: Eksplorasi Konsep</h2>
+  <p class="sec-desc">Kerjakan bersama teman sebangku. Tuliskan jawaban pada buku catatan, lalu cocokkan dengan kunci setelah mencoba.</p>
+
+  <h4>Tugas 1 — Klasifikasi Kumpulan</h4>
+  <p>Tentukan apakah kumpulan berikut merupakan himpunan atau bukan himpunan, dan berikan alasan singkat.</p>
+  <table>
+    <tr><th>No.</th><th>Kumpulan</th><th>Himpunan / Bukan</th><th>Alasan</th></tr>
+    <tr><td>1</td><td>Bilangan asli kurang dari 6</td><td>…</td><td>…</td></tr>
+    <tr><td>2</td><td>Siswa yang suka makanan manis</td><td>…</td><td>…</td></tr>
+    <tr><td>3</td><td>Sudut-sudut segitiga</td><td>…</td><td>…</td></tr>
+    <tr><td>4</td><td>Buku-buku yang bagus</td><td>…</td><td>…</td></tr>
+    <tr><td>5</td><td>Alat-alat tulis yang dibawa Andi hari ini</td><td>…</td><td>…</td></tr>
+    <tr><td>6</td><td>Bilangan bulat dari −2 sampai 2</td><td>…</td><td>…</td></tr>
+  </table>
+
+  <h4>Tugas 2 — Menulis dan Membaca Himpunan</h4>
+  <ol>
+    <li>Tuliskan himpunan bilangan prima kurang dari 10 dengan notasi kurung kurawal.</li>
+    <li>Tuliskan himpunan huruf awal kata “MATEMATIKA”.</li>
+    <li>Diketahui <span class="set">G = {merah, biru, kuning, hijau}</span>. Tuliskan satu anggota dan satu bukan anggota himpunan G.</li>
+  </ol>
+
+  <details>
+    <summary><strong>Kunci jawaban dan pembahasan Kegiatan 1 (buka setelah mencoba)</strong></summary>
+    <p><strong>Tugas 1:</strong></p>
+    <ol>
+      <li>✅ Himpunan — anggotanya jelas: {1, 2, 3, 4, 5}.</li>
+      <li>❌ Bukan himpunan — “suka” bersifat subjektif, anggota tidak dapat ditentukan pasti.</li>
+      <li>✅ Himpunan — setiap segitiga selalu punya 3 sudut.</li>
+      <li>❌ Bukan himpunan — “bagus” tidak memiliki ukuran pasti.</li>
+      <li>✅ Himpunan — dapat diperiksa langsung dari isi kotak pensil Andi.</li>
+      <li>✅ Himpunan — anggotanya jelas: {−2, −1, 0, 1, 2}.</li>
+    </ol>
+    <p><strong>Tugas 2:</strong></p>
+    <ol>
+      <li>{2, 3, 5, 7}</li>
+      <li>{M, A, T, E, I, K} — huruf yang sama hanya ditulis sekali.</li>
+      <li>Contoh anggota: merah ∈ G. Contoh bukan anggota: ungu ∉ G (jawaban anggota lain seperti biru juga benar).</li>
+    </ol>
+  </details>
+</section>
+
+<!-- E. LKPD KEGIATAN 2 -->
+<section class="section">
+  <h2 class="sec-title">E. 📝 LKPD — Kegiatan 2: Latihan Bertingkat</h2>
+  <p class="sec-desc">Kerjakan berurutan: <strong>Mudah → Menengah → Sulit (HOTS)</strong>. Raih skor minimal <strong>80</strong> untuk membuka level berikutnya. Tuliskan jawabanmu dengan simbol ∈, ∉, atau { } bila diminta.</p>
+
+  <div class="level-btns">
+    <button class="level-btn active" id="btnLevel1" onclick="pilihLevel(1)">🟢 Level 1<br>Mudah</button>
+    <button class="level-btn locked" id="btnLevel2" onclick="pilihLevel(2)">🟡 Level 2<br>Menengah</button>
+    <button class="level-btn locked" id="btnLevel3" onclick="pilihLevel(3)">🔴 Level 3<br>Sulit (HOTS)</button>
+  </div>
+
+  <div class="section" style="box-shadow:none;border:1px solid var(--line);padding:16px">
+    <div class="sec-title" style="font-size:17px" id="judulLevel">🟢 Level 1 — Mudah</div>
+    <div id="petunjuk"></div>
+    <div id="soalContainer"></div>
+    <div>
+      <button class="btn btn-success" onclick="periksa()">✓ Periksa Jawaban</button>
+      <button class="btn btn-light" onclick="tampil()">🔄 Soal Baru</button>
+    </div>
+    <div id="hasil"></div>
+  </div>
+</section>
+
+<!-- F. MISI TANTANGAN -->
+<section class="section">
+  <h2 class="sec-title">F. Misi Tantangan — Berpikir Seperti Ahli Matematika</h2>
+  <p class="sec-desc">Jangan hanya mencari jawaban akhir — jelaskan juga alasannya dengan kata-katamu sendiri.</p>
+
+  <div class="misi">
+    <h4>🕵️ Misi 1 — Menganalisis Kesalahan Teman</h4>
+    <p>Seorang siswa berkata:</p>
+    <div class="tanya">“<span class="set">A = {1, 1, 2, 3, 4}</span> adalah himpunan bilangan asli kurang dari 5, karena semua anggotanya sudah saya tulis.”</div>
+    <p>Apakah pernyataan siswa tersebut benar? Perbaiki penulisan himpunan tersebut dan jelaskan kesalahannya.</p>
+    <details>
+      <summary><strong>Kunci jawaban dan pembahasan</strong></summary>
+      <p><strong>Salah.</strong> Anggota 1 disebut dua kali, sedangkan sebuah himpunan hanya menyebut tiap anggota <strong>sekali saja</strong>. Yang benar: <span class="set">A = {1, 2, 3, 4}</span>. Jumlah anggota himpunan A adalah 4.</p>
+    </details>
+  </div>
+
+  <div class="misi">
+    <h4>🏫 Misi 2 — Menyusun Himpunan dari Situasi Nyata</h4>
+    <p>Kelas IX A memiliki 32 siswa dengan nomor absen 1 sampai 32. Buatlah <strong>tiga himpunan</strong> dari data kelas tersebut, masing-masing dengan syarat yang <strong>terdefinisi baik</strong> (tidak subjektif). Contoh: himpunan siswa dengan nomor absen kelipatan 5.</p>
+    <ol>
+      <li>Tuliskan ketiga himpunan beserta anggotanya dengan notasi kurung kurawal.</li>
+      <li>Bedakan himpunanmu dengan contoh “himpunan siswa yang ramah” — mengapa yang kedua bukan himpunan?</li>
+    </ol>
+    <details>
+      <summary><strong>Kunci jawaban dan pembahasan</strong></summary>
+      <ul>
+        <li>Contoh himpunan yang benar: nomor absen genap = {2, 4, 6, …, 32}; nomor absen kelipatan 5 = {5, 10, 15, 20, 25, 30}; nomor absen lebih dari 25 = {26, 27, 28, 29, 30, 31, 32}. (Himpunan lain dengan syarat objektif juga diterima.)</li>
+        <li>“Siswa yang ramah” adalah penilaian <strong>subjektif</strong> — anggota tidak dapat ditentukan dengan pasti, sehingga bukan himpunan.</li>
+      </ul>
+    </details>
+  </div>
+
+  <div class="boss">
+    <h3>👑 Boss Challenge — Tantangan HOTS</h3>
+    <p>Sebuah himpunan ditulis <span class="set">S = {x | x adalah bilangan asli dan 5 &lt; x ≤ 9}</span>. Bacaan tersebut adalah “himpunan semua x sehingga x adalah bilangan asli dan lebih dari 5 tetapi kurang dari atau sama dengan 9”.</p>
+    <ol>
+      <li>Tuliskan himpunan S dengan mendata anggotanya.</li>
+      <li>Manakah yang benar: <span class="set">7 ∈ S</span> atau <span class="set">7 ∉ S</span>? Bagaimana dengan bilangan 5 dan 9?</li>
+      <li>Jika <span class="set">T = {7, 8, 9}</span>, apakah himpunan S dan T sama? Berikan alasanmu.</li>
+    </ol>
+    <details>
+      <summary><strong>Kunci jawaban dan pembahasan</strong></summary>
+      <ol>
+        <li>S = {6, 7, 8, 9} (bilangan asli lebih dari 5 dan kurang dari atau sama dengan 9).</li>
+        <li>7 ∈ S (ada dalam daftar). Bilangan 5 ∉ S (karena 5 tidak lebih dari 5), sedangkan 9 ∈ S (karena 9 = 9 diperbolehkan).</li>
+        <li><strong>Tidak sama (S ≠ T).</strong> S = {6, 7, 8, 9} sedangkan T = {7, 8, 9}. Himpunan S memiliki anggota 6 yang tidak dimiliki T, sehingga keduanya berbeda.</li>
+      </ol>
+    </details>
+  </div>
+</section>
+
+<!-- G. REFLEKSI -->
+<section class="section">
+  <h2 class="sec-title">G. Refleksi Pembelajaran</h2>
+  <p class="sec-desc">Centang bila kamu sudah mampu menjelaskannya dengan kata-katamu sendiri.</p>
+  <div class="refleksi">
+    <label><input type="checkbox"> Apa pengertian himpunan dan anggotanya?</label>
+    <label><input type="checkbox"> Sebutkan syarat sebuah kumpulan disebut himpunan.</label>
+    <label><input type="checkbox"> Bagaimana membedakan himpunan dan bukan himpunan beserta alasannya?</label>
+    <label><input type="checkbox"> Apa arti simbol ∈ dan ∉? Berikan contohnya.</label>
+    <label><input type="checkbox"> Mengapa himpunan {1, 1, 2, 3} harus ditulis {1, 2, 3}?</label>
+  </div>
+  <div class="note"><strong>Target akhir Pertemuan 1:</strong> kamu dapat menilai sebuah kumpulan layak disebut himpunan atau tidak, menulis himpunan dengan notasi kurung kurawal, serta membaca anggota sebuah himpunan.</div>
+</section>
+
+<nav class="nav">
+  <a href="index.html">← Peta Materi Himpunan</a>
+  <a href="pertemuan-2-cara-menyatakan-himpunan.html">Lanjut: Pertemuan 2 — Cara Menyatakan Himpunan →</a>
+</nav>
+
+<footer>Pertemuan 1 • Konsep Dasar Himpunan • Matematika Kelas IX A (MATH-IX-A)</footer>
+
+</div>
+
+<script>
+/* =========================================================
+   BANK SOAL — 3 LEVEL
+   tipe "pilihan" : p = pilihan, k = index kunci
+   tipe "isian"   : a = daftar jawaban yang diterima
+========================================================= */
+
+const bank = {
+
+1:{
+  judul:"🟢 Level 1 — Mudah",
+  petunjuk:"Pilih satu jawaban yang paling tepat.",
+  soal:[
+    {tipe:"pilihan", q:"Himpunan adalah kumpulan objek yang …",
+     p:["Jumlahnya banyak sekali","Jelas dan dapat ditentukan anggotanya","Ditulis dengan huruf kecil","Urutannya harus tetap"], k:1,
+     e:"Syarat utama himpunan: objeknya jelas dan anggotanya dapat ditentukan oleh semua orang."},
+    {tipe:"pilihan", q:"Manakah yang merupakan himpunan?",
+     p:["Kumpulan siswa yang tampan","Kumpulan buku yang mahal","Kumpulan bilangan ganjil kurang dari 7","Kumpulan siswa yang ceria"], k:2,
+     e:"Hanya “bilangan ganjil kurang dari 7” yang objektif: {1, 3, 5}. Pilihan lain bersifat subjektif."},
+    {tipe:"pilihan", q:"Manakah yang BUKAN merupakan himpunan?",
+     p:["Hari-hari kerja dalam satu minggu","Himpunan siswa yang pintar","Sudut-sudut persegi panjang","Bilangan asli kurang dari 4"], k:1,
+     e:"“Pintar” adalah penilaian subjektif, sehingga anggotanya tidak dapat ditentukan pasti."},
+    {tipe:"pilihan", q:"Diketahui A = {2, 4, 6, 8}. Pernyataan yang benar adalah …",
+     p:["5 ∈ A","4 ∉ A","6 ∈ A","8 ∉ A"], k:2,
+     e:"6 ada dalam daftar anggota, sehingga 6 ∈ A. Pilihan lain salah: 5 dan 8 tidak sesuai pernyataannya."},
+    {tipe:"pilihan", q:"Diketahui B = {senin, selasa, rabu, kamis, jumat}. Manakah yang benar?",
+     p:["sabtu ∈ B","rabu ∉ B","jumat ∈ B","minggu ∈ B"], k:2,
+     e:"Jumat ada dalam daftar anggota B, sehingga jumat ∈ B."},
+    {tipe:"pilihan", q:"Pernyataan yang tepat tentang himpunan {1, 2, 3, 2} adalah …",
+     p:["Sudah benar karena semua anggota terdata","Harus ditulis {1, 2, 3} karena anggota 2 ganda","Harus ditulis {2, 1, 3, 2}","Termasuk himpunan kosong"], k:1,
+     e:"Setiap anggota hanya disebut sekali. Anggota ganda dihapus sehingga himpunannya {1, 2, 3}."}
+  ]
+},
+
+2:{
+  judul:"🟡 Level 2 — Menengah",
+  petunjuk:"Tulis jawabanmu pada kolom yang tersedia. Untuk himpunan, tulis anggota di dalam kurung kurawal dan pisahkan dengan koma, contoh: {1,2,3}.",
+  soal:[
+    {tipe:"isian", q:"Tuliskan himpunan bilangan asli kurang dari 5 dengan notasi kurung kurawal.",
+     a:["{1,2,3,4}"], e:"Bilangan asli kurang dari 5 adalah 1, 2, 3, dan 4, sehingga A = {1, 2, 3, 4}."},
+    {tipe:"isian", q:"Diketahui A = {1, 3, 5, 7, 9}. Tuliskan satu bukan anggota himpunan A (sebuah bilangan).",
+     a:["2","4","6","8","10","0","-1","-2"], e:"Contoh jawaban: 2. Anggota A hanyalah bilangan ganjil 1 sampai 9, jadi bilangan lain seperti 2, 4, 6, 8, 10 tidak termasuk."},
+    {tipe:"isian", q:"Huruf-huruf awal kata “MATEMATIKA” membentuk himpunan M = {…}. Tuliskan himpunan M (urutan anggota boleh berbeda).",
+     a:["{m,a,t,e,i,k}"], e:"Huruf M, A, T, E, I, K — huruf yang sama hanya ditulis sekali sehingga M = {M, A, T, E, I, K}."},
+    {tipe:"isian", q:"Manakah simbol yang tepat: pada A = {apel, mangga, pepaya}, tuliskan “mangga” … A menggunakan simbol ∈ atau ∉.",
+     a:["∈","in","termasuk"], e:"Mangga ada dalam daftar anggota A, sehingga ditulis mangga ∈ A."},
+    {tipe:"isian", q:"Diketahui S = {−1, 0, 1, 2}. Apakah −3 anggota himpunan S? Tuliskan jawabannya dalam bentuk −3 … S.",
+     a:["-3∉s","-3∉s.","∉"], e:"−3 tidak ada dalam daftar, sehingga −3 ∉ S."},
+    {tipe:"isian", q:"Diketahui P = {x | x bilangan prima kurang dari 10}. Tuliskan himpunan P dengan mendata anggotanya.",
+     a:["{2,3,5,7}"], e:"Bilangan prima kurang dari 10 adalah 2, 3, 5, dan 7."}
+  ]
+},
+
+3:{
+  judul:"🔴 Level 3 — Sulit (HOTS)",
+  petunjuk:"Baca situasinya dengan cermat. Jawaban berupa bilangan, himpunan, atau penjelasan singkat.",
+  soal:[
+    {tipe:"isian", q:"Kelas IX A memiliki 32 siswa dengan nomor absen 1–32. Berapa banyak anggota himpunan siswa dengan nomor absen kelipatan 5?",
+     a:["6"], e:"Kelipatan 5 antara 1 dan 32: 5, 10, 15, 20, 25, 30 — berjumlah 6 siswa."},
+    {tipe:"isian", q:"Dari situasi di atas, tuliskan himpunan siswa dengan nomor absen kelipatan 5.",
+     a:["{5,10,15,20,25,30}"], e:"Himpunannya {5, 10, 15, 20, 25, 30}. Karena jumlah anggotanya terbatas, himpunan ini disebut himpunan berhingga."},
+    {tipe:"isian", q:"Seseorang menulis himpunan “siswa yang hadir di kelas hari ini”. Mengapa kumpulan ini tetap dapat disebut himpunan meskipun daftarnya berbeda tiap hari?",
+     a:["karena dapat ditentukan anggotanya pada hari itu"], e:"Yang membuat suatu kumpulan menjadi himpunan adalah kemungkinan menentukan anggotanya secara pasti — pada hari itu daftar hadir dapat diperiksa, sehingga ia himpunan."},
+    {tipe:"pilihan", q:"Seorang siswa berkata: “Himpunan {kurawal} dan ∅ adalah dua himpunan berbeda.” Pernyataan yang benar adalah …",
+     p:["Benar, karena penulisannya berbeda",
+        "Salah, keduanya sama-sama himpunan kosong",
+        "Benar, karena ∅ hanya untuk matematika",
+        "Salah, keduanya bukan himpunan"], k:1,
+     e:"{ } dan ∅ menunjukkan hal yang sama: himpunan tanpa anggota alias himpunan kosong."},
+    {tipe:"pilihan", q:"Diketahui A = {1, 2, 3}, B = {3, 2, 1}, dan C = {1, 2, 2, 3}. Manakah pernyataan yang benar?",
+     p:["A, B, dan C sama-sama himpunan dan A = B = C",
+        "A = B, tetapi C bukan himpunan karena ada anggota ganda",
+        "Ketiganya berbeda anggotanya",
+        "C adalah himpunan kosong"], k:1,
+     e:"Urutan tidak berpengaruh sehingga A = B. Namun C ditulis dengan anggota ganda (2 dua kali), sehingga cara penulisan C tidak sah sebagai himpunan."}
+  ]
+}
+
+};
+
+/* =========================================================
+   MESIN KUIS
+========================================================= */
+
+let lvl = 1;
+let soalAktif = [];
+let dipilih = [];
+let lulus = {1:false, 2:false, 3:false};
+
+function norm(s){
+  return String(s).toLowerCase()
+    .replace(/rp/g, "")
+    .replace(/[\s.,{}]/g, "")
+    .replace(/[−–—]/g, "-")
+    .replace(/[×·∙]/g, "*")
+    .replace(/[⁰¹²³⁴⁵⁶⁷⁸⁹]/g, d => "0123456789"["⁰¹²³⁴⁵⁶⁷⁸⁹".indexOf(d)])
+    .replace(/\^/g, "");
+}
+
+function acak(arr){
+  const a = [...arr];
+  for(let i = a.length - 1; i > 0; i--){
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function pilihLevel(n){
+  if(n > 1 && !lulus[n - 1]){
+    alert("Selesaikan Level " + (n - 1) + " terlebih dahulu (skor minimal 80).");
+    return;
+  }
+  lvl = n;
+  document.querySelectorAll(".level-btn")
+    .forEach((b, i) => b.classList.toggle("active", i === n - 1));
+  tampil();
+}
+
+function tampil(){
+  const b = bank[lvl];
+
+  document.getElementById("judulLevel").textContent = b.judul;
+  document.getElementById("petunjuk").innerHTML = "<p>📌 " + b.petunjuk + "</p>";
+
+  soalAktif = acak(b.soal).slice(0, Math.min(5, b.soal.length));
+  dipilih = new Array(soalAktif.length).fill(null);
+
+  let html = "";
+
+  soalAktif.forEach((s, i) => {
+    let isi = "";
+
+    if(s.tipe === "pilihan"){
+      isi = '<div class="choices">' +
+        s.p.map((c, j) =>
+          '<button class="choice" id="c-' + i + '-' + j + '" onclick="pilih(' + i + ',' + j + ')">' + c + '</button>'
+        ).join("") + '</div>';
+    } else {
+      isi = '<input class="inp" id="in-' + i + '" placeholder="Tulis jawabanmu di sini...">';
+    }
+
+    html +=
+      '<div class="q" id="q-' + i + '">' +
+        '<div class="qt">' + (i + 1) + '. ' + s.q + '</div>' +
+        isi +
+        '<div class="fb" id="fb-' + i + '"></div>' +
+      '</div>';
+  });
+
+  document.getElementById("soalContainer").innerHTML = html;
+  document.getElementById("hasil").innerHTML = "";
+}
+
+function pilih(i, j){
+  dipilih[i] = j;
+  soalAktif.forEach((s, idx) => {
+    if(s.tipe !== "pilihan") return;
+    s.p.forEach((c, k) => {
+      const el = document.getElementById("c-" + idx + "-" + k);
+      if(el) el.classList.toggle("sel", idx === i && k === j);
+    });
+  });
+}
+
+function periksa(){
+  let kosong = false;
+
+  soalAktif.forEach((s, i) => {
+    if(s.tipe === "pilihan" && dipilih[i] === null) kosong = true;
+    if(s.tipe === "isian"){
+      const el = document.getElementById("in-" + i);
+      if(!el || !el.value.trim()) kosong = true;
+    }
+  });
+
+  if(kosong){
+    alert("Jawab semua soal terlebih dahulu.");
+    return;
+  }
+
+  let benar = 0;
+
+  soalAktif.forEach((s, i) => {
+    const box = document.getElementById("q-" + i);
+    const fb = document.getElementById("fb-" + i);
+    let ok = false;
+    let jawabanTampil = "";
+
+    if(s.tipe === "pilihan"){
+      ok = dipilih[i] === s.k;
+      jawabanTampil = s.p[s.k];
+      s.p.forEach((c, j) => {
+        const btn = document.getElementById("c-" + i + "-" + j);
+        btn.classList.remove("sel", "ok", "no");
+        if(j === s.k) btn.classList.add("ok");
+        else if(j === dipilih[i]) btn.classList.add("no");
+      });
+    } else {
+      const el = document.getElementById("in-" + i);
+      ok = s.a.some(a => norm(a) === norm(el.value));
+      jawabanTampil = s.a[0];
+      el.classList.remove("ok", "no");
+      el.classList.add(ok ? "ok" : "no");
+    }
+
+    box.classList.remove("correct", "wrong");
+    box.classList.add(ok ? "correct" : "wrong");
+
+    if(ok) benar++;
+
+    fb.innerHTML =
+      (ok ? "✅ Benar. " : '❌ Belum tepat. Jawaban benar: <strong>' + jawabanTampil + '</strong>. ') +
+      '<i>' + s.e + '</i>';
+  });
+
+  const nilai = Math.round(benar / soalAktif.length * 100);
+
+  document.getElementById("hasil").innerHTML =
+    '<div class="score">' +
+      '<div>Hasil ' + bank[lvl].judul + '</div>' +
+      '<div class="num">' + nilai + '</div>' +
+      '<div>Benar ' + benar + ' dari ' + soalAktif.length + ' soal</div>' +
+      (nilai >= 80
+        ? '<p>🎉 Tuntas! Level berikutnya sudah terbuka.</p>'
+        : '<p>💡 Belum tuntas. Baca lagi pembahasannya, lalu coba soal baru.</p>') +
+    '</div>';
+
+  if(nilai >= 80){
+    lulus[lvl] = true;
+    if(lvl < 3){
+      document.getElementById("btnLevel" + (lvl + 1)).classList.remove("locked");
+    }
+  }
+}
+
+tampil();
+</script>
+
+</body>
+</html>

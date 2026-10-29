@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pertemuan 2 — Cara Menyatakan Himpunan | MATH-IX-A</title>
+<style>
+:root{
+  --accent:#2563eb;
+  --accent-dark:#1e3a8a;
+  --bg:#eef2f8;
+  --ink:#1f2937;
+  --muted:#5b6472;
+  --line:#dde5f0;
+  --ok:#16a34a;
+  --bad:#dc2626;
+  --warn:#f59e0b;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 Arial,Helvetica,sans-serif}
+.wrap{max-width:940px;margin:0 auto;padding:18px 14px 40px}
+a{color:var(--accent)}
+.top{background:linear-gradient(135deg,var(--accent-dark),var(--accent));color:#fff;border-radius:18px;padding:22px 24px;margin-bottom:16px}
+.top .back{display:inline-block;background:#ffffff2e;color:#fff;text-decoration:none;padding:6px 13px;border-radius:20px;font-size:13px;font-weight:bold;margin-bottom:12px}
+.top .back:hover{background:#ffffff4d}
+.crumb{margin:0 0 6px;font-size:13px;opacity:.9;letter-spacing:.4px}
+.top h1{margin:0 0 6px;font-size:26px;line-height:1.25}
+.lead{margin:0;opacity:.95}
+.target{background:#fff;border-left:5px solid var(--accent);border-radius:14px;padding:14px 16px;margin-bottom:16px;box-shadow:0 3px 12px #0f172a0f}
+.target p{margin:6px 0 0}
+.section{background:#fff;border-radius:18px;padding:20px 22px;margin-bottom:16px;box-shadow:0 3px 14px #0f172a12}
+.sec-title{display:flex;align-items:center;gap:10px;font-size:19px;font-weight:bold;color:var(--accent-dark);margin:0 0 12px;padding-bottom:8px;border-bottom:2px solid var(--line)}
+.sec-desc{margin:0 0 14px;color:var(--muted);font-size:14.5px}
+.badge-top{display:inline-block;font-size:12px;font-weight:bold;letter-spacing:.05em;text-transform:uppercase;background:#ffffff2e;border:1px solid #ffffff59;padding:4px 11px;border-radius:20px;margin-bottom:10px}
+.pemantik{background:#fff8e6;border:1px solid #fde68a;border-radius:14px;padding:16px 18px}
+.pemantik h3{margin:0 0 8px;color:#92400e}
+.tanya{background:#f8fafc;border-left:4px solid var(--accent);padding:10px 14px;border-radius:0 10px 10px 0;margin:10px 0;font-size:15.5px}
+table{width:100%;border-collapse:collapse;margin:12px 0;font-size:15px}
+th,td{border:1px solid var(--line);padding:9px 10px;text-align:left;vertical-align:top}
+th{background:var(--accent);color:#fff;font-size:14px}
+tr:nth-child(even) td{background:#f8fafc}
+.example{background:#f1f5f9;border-radius:12px;padding:12px 14px;margin:12px 0;border:1px dashed #cbd5e1}
+.example .lbl{display:block;color:var(--accent-dark);font-weight:bold;margin-bottom:6px}
+.note{background:#eff6ff;border:1px solid #bfdbfe;border-radius:12px;padding:12px 14px;margin:12px 0;font-size:15px}
+.warn{background:#fffbeb;border:1px solid #fde68a;border-radius:12px;padding:12px 14px;margin:12px 0;font-size:15px}
+.set{font-family:"Courier New",monospace;font-weight:bold;background:#eef2ff;border:1px solid #c7d2fe;border-radius:6px;padding:1px 6px;white-space:nowrap}
+ul,ol{padding-left:22px}
+li{margin:5px 0}
+details{background:#f8fafc;border:1px solid var(--line);border-radius:12px;padding:10px 14px;margin:14px 0}
+summary{cursor:pointer;font-weight:bold;color:var(--accent-dark)}
+details[open]{background:#fff}
+details p,details li{font-size:15px}
+.level-btns{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
+.level-btn{border:2px solid var(--line);background:#f8fafc;padding:12px 8px;border-radius:12px;cursor:pointer;font-weight:bold;color:var(--muted);font-size:14px;font-family:inherit}
+.level-btn.active{background:var(--accent);border-color:var(--accent);color:#fff}
+.level-btn.locked{opacity:.5;cursor:not-allowed}
+.q{border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin-bottom:12px;background:#fff}
+.q.correct{border:2px solid var(--ok);background:#f0fdf4}
+.q.wrong{border:2px solid var(--bad);background:#fef2f2}
+.qt{font-weight:bold;font-size:16.5px;margin-bottom:10px}
+.choices{display:flex;gap:9px;flex-wrap:wrap}
+.choice{flex:1;min-width:120px;border:2px solid var(--line);background:#fff;padding:11px;border-radius:10px;font-size:16px;font-weight:bold;cursor:pointer;font-family:inherit;color:inherit;text-align:left}
+.choice:hover{border-color:var(--accent);background:#eff6ff}
+.choice.sel{background:var(--accent);color:#fff;border-color:var(--accent)}
+.choice.ok{background:var(--ok);border-color:var(--ok);color:#fff}
+.choice.no{background:var(--bad);border-color:var(--bad);color:#fff}
+.inp{width:100%;padding:11px 13px;border:2px solid var(--line);border-radius:10px;font-size:17px;font-family:inherit}
+.inp:focus{outline:none;border-color:var(--accent)}
+.inp.ok{border-color:var(--ok);background:#f0fdf4}
+.inp.no{border-color:var(--bad);background:#fef2f2}
+.fb{font-size:14.5px;margin-top:9px;color:var(--muted)}
+.btn{border:0;padding:12px 18px;border-radius:11px;cursor:pointer;font-weight:bold;font-size:15px;margin:6px 6px 0 0;font-family:inherit}
+.btn-primary{background:var(--accent);color:#fff}
+.btn-success{background:var(--ok);color:#fff}
+.btn-light{background:#e5e7eb;color:#111827}
+.btn:hover{filter:brightness(1.06)}
+.score{margin-top:14px;text-align:center;background:#eff6ff;border-radius:14px;padding:16px}
+.score .num{font-size:36px;font-weight:bold;color:var(--accent)}
+.misi{border:1px solid var(--line);border-left:5px solid var(--warn);border-radius:0 14px 14px 0;padding:14px 16px;margin-bottom:14px;background:#fffdf7}
+.misi h4{margin:0 0 8px;color:#b45309;font-size:17px}
+.boss{border:2px solid var(--warn);border-radius:16px;padding:16px 18px;background:linear-gradient(180deg,#fffbeb,#fff)}
+.boss h3{margin-top:0;color:#b45309}
+.refleksi label{display:flex;gap:10px;align-items:flex-start;background:#f8fafc;border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin:8px 0;cursor:pointer;font-size:15px}
+.refleksi input{margin-top:4px}
+.nav{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:6px}
+.nav a{display:inline-block;text-decoration:none;background:#fff;border:1px solid var(--line);border-radius:11px;padding:11px 15px;font-weight:bold;color:var(--accent-dark);font-size:14px}
+.nav a:hover{border-color:var(--accent);background:#eff6ff}
+footer{text-align:center;color:var(--muted);font-size:13px;padding:14px 0}
+@media(max-width:620px){
+  .level-btns{grid-template-columns:1fr}
+  .top h1{font-size:21px}
+  .choices{flex-direction:column}
+  .choice{min-width:0}
+  .section{padding:16px 14px}
+}
+@media print{
+  body{background:#fff;font-size:11pt}
+  .wrap{max-width:none;padding:0}
+  .top{background:#1e3a8a!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .section{box-shadow:none;border:1px solid var(--line);break-inside:avoid}
+  .nav,.btn,.level-btns{display:none!important}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="top">
+  <a class="back" href="index.html">← Peta Materi Himpunan</a>
+  <p class="crumb">MATEMATIKA KELAS IX A • MATH-IX-A • BAB HIMPUNAN</p>
+  <span class="badge-top">Pertemuan 2 dari 8</span>
+  <h1>Pertemuan 2 — Cara Menyatakan Himpunan</h1>
+  <p class="lead">Belajar menyatakan himpunan dengan kata-kata, mendata anggotanya, serta menggunakan notasi pembentuk dan simbol ∈ dan ∉.</p>
+</header>
+
+<div class="target">
+  <strong>🎯 Target Pembelajaran</strong>
+  <p>Peserta didik mampu <strong>menyatakan himpunan dengan tiga cara</strong> — kata-kata (deskripsi), mendaftar anggota (notasi daftar/kurung kurawal), dan notasi pembentuk — serta <strong>menggunakan simbol ∈ dan ∉ dengan tepat</strong> dan <strong>membedakan himpunan berhingga dengan himpunan tak berhingga</strong> dari cara penulisannya.</p>
+</div>
+
+<!-- A. PERTANYAAN PEMANTIK -->
+<section class="section">
+  <h2 class="sec-title">A. Pertanyaan Pemantik</h2>
+
+  <div class="pemantik">
+    <h3>🎒 Perhatikan tiga cara guru berikut menyatakan himpunan yang sama.</h3>
+    <ol>
+      <li><strong>Cara 1:</strong> “Himpunan bilangan ganjil kurang dari 8.”</li>
+      <li><strong>Cara 2:</strong> <span class="set">{1, 3, 5, 7}</span></li>
+      <li><strong>Cara 3:</strong> <span class="set">{x | x adalah bilangan ganjil dan x &lt; 8}</span></li>
+    </ol>
+    <div class="tanya">Ketiga cara di atas menyatakan himpunan yang <strong>sama</strong>. Menurutmu, kapan kita memakai cara 1, kapan cara 2, dan kapan cara 3?</div>
+    <p>Cara 1 cocok untuk menjelaskan kepada teman dengan bahasa sehari-hari. Cara 2 cocok jika anggotanya sedikit dan bisa disebutkan semua. Cara 3 dipakai jika anggotanya banyak tetapi mengikuti aturan yang jelas, sehingga tidak perlu menyebut satu per satu.</p>
+    <p><strong>Inilah inti pelajaran hari ini:</strong> satu himpunan dapat ditulis dengan berbagai cara. Yang penting, kita bisa mengubah satu bentuk ke bentuk lain dan membacanya dengan benar.</p>
+  </div>
+</section>
+
+<!-- B. MATERI INTI -->
+<section class="section">
+  <h2 class="sec-title">B. Materi Inti — Tiga Cara Menyatakan Himpunan</h2>
+
+  <h3>1. Tiga Cara Menyatakan Himpunan</h3>
+  <table>
+    <tr><th>Cara</th><th>Penulisan</th><th>Cocok digunakan jika…</th></tr>
+    <tr><td><strong>Deskripsi</strong> (kalimat)</td><td>Ditulis dengan kalimat, misalnya “himpunan bilangan ganjil kurang dari 8”.</td><td>Kita ingin menjelaskan himpunan itu dengan bahasa sendiri.</td></tr>
+    <tr><td><strong>Notasi daftar</strong> / roster (kurung kurawal)</td><td>Mendata semua anggota di dalam kurung kurawal, dipisahkan koma: <span class="set">{1, 3, 5, 7}</span>.</td><td>Anggotanya sedikit dan bisa disebutkan semua.</td></tr>
+    <tr><td><strong>Notasi pembentuk</strong> / set builder</td><td><span class="set">{x | syarat x}</span> — dibaca “himpunan semua x sehingga …”.</td><td>Anggotanya banyak atau tak terhingga, tetapi mengikuti aturan yang jelas.</td></tr>
+  </table>
+
+  <div class="example">
+    <span class="lbl">Contoh — himpunan yang sama dalam tiga bentuk</span>
+    <ul>
+      <li><strong>Deskripsi:</strong> himpunan bilangan ganjil kurang dari 8.</li>
+      <li><strong>Notasi daftar:</strong> <span class="set">{1, 3, 5, 7}</span></li>
+      <li><strong>Notasi pembentuk:</strong> <span class="set">{x | x adalah bilangan ganjil dan x &lt; 8}</span></li>
+    </ul>
+    <p>Ketiganya menyatakan himpunan yang sama, yaitu himpunan dengan anggota 1, 3, 5, dan 7.</p>
+  </div>
+
+  <div class="warn">⚠️ <strong>Perhatikan:</strong> pada notasi pembentuk, tanda <span class="set">|</span> (garis tegak) dibaca “sehingga”. Jadi <span class="set">{x | x bilangan ganjil}</span> dibaca “himpunan semua x sehingga x bilangan ganjil”.</div>
+
+  <h3>2. Simbol ∈ (Anggota) dan ∉ (Bukan Anggota)</h3>
+  <p>Setelah himpunan ditulis, kita dapat menyatakan hubungan sebuah objek dengan himpunan memakai dua simbol berikut.</p>
+  <table>
+    <tr><th>Simbol</th><th>Dibaca</th><th>Contoh</th></tr>
+    <tr><td><span class="set">∈</span></td><td>“termasuk” / “adalah anggota”</td><td><span class="set">5 ∈ {1, 3, 5, 7}</span> — 5 termasuk anggota himpunan.</td></tr>
+    <tr><td><span class="set">∉</span></td><td>“tidak termasuk” / “bukan anggota”</td><td><span class="set">4 ∉ {1, 3, 5, 7}</span> — 4 bukan anggota himpunan.</td></tr>
+  </table>
+
+  <div class="example">
+    <span class="lbl">Contoh membaca notasi pembentuk</span>
+    <p>Notasi <span class="set">P = {x | x adalah bilangan prima dan x &lt; 10}</span> dibaca “himpunan semua x sehingga x adalah bilangan prima dan kurang dari 10”.</p>
+    <p>Karena bilangan prima kurang dari 10 adalah 2, 3, 5, dan 7, maka <span class="set">5 ∈ P</span> dan <span class="set">8 ∉ P</span>.</p>
+  </div>
+
+  <h3>3. Himpunan Berhingga dan Himpunan Tak Berhingga</h3>
+  <table>
+    <tr><th>Jenis</th><th>Ciri penulisan</th><th>Contoh</th></tr>
+    <tr><td><strong>Himpunan berhingga</strong></td><td>Anggotanya dapat didata sampai selesai, banyak anggotanya disebut <span class="set">n(A)</span>.</td><td><span class="set">{1, 2, 3, 4, 5}</span> dengan <span class="set">n = 5</span>.</td></tr>
+    <tr><td><strong>Himpunan tak berhingga</strong></td><td>Anggotanya tidak dapat disebutkan semua, ditulis dengan tanda elipsis <span class="set">…</span>.</td><td><span class="set">{1, 2, 3, …}</span> — himpunan bilangan asli.</td></tr>
+  </table>
+  <p>Tanda <span class="set">…</span> (elipsis) menunjukkan bahwa pola anggota <strong>berlanjut terus tanpa batas</strong>. Karena tidak ada anggota terakhir, himpunan seperti ini tidak dapat didata seluruhnya.</p>
+
+  <h3>4. Catatan Penting</h3>
+  <ul>
+    <li><strong>Urutan anggota tidak berpengaruh.</strong> <span class="set">{1, 2, 3}</span> sama dengan <span class="set">{3, 1, 2}</span>.</li>
+    <li><strong>Himpunan kosong</strong> ditulis <span class="set">∅</span> atau <span class="set">{ }</span> — yaitu himpunan yang tidak punya anggota sama sekali, misalnya himpunan bilangan asli kurang dari 1.</li>
+    <li>Setiap anggota hanya disebut <strong>sekali saja</strong>, sehingga <span class="set">{1, 1, 2}</span> harus ditulis <span class="set">{1, 2}</span>.</li>
+  </ul>
+</section>
+
+<!-- C. CONTOH TERBIMBING -->
+<section class="section">
+  <h2 class="sec-title">C. Contoh Soal Terbimbing</h2>
+
+  <div class="example">
+    <span class="lbl">Contoh 1 — Dari deskripsi ke notasi daftar</span>
+    <p>Ubah pernyataan “himpunan bilangan prima kurang dari 10” menjadi notasi daftar (kurung kurawal).</p>
+    <details>
+      <summary><strong>Pembahasan</strong></summary>
+      <ul>
+        <li>Ingat bilangan prima: 2, 3, 5, 7, 11, 13, …</li>
+        <li>Ambil yang kurang dari 10 saja: 2, 3, 5, dan 7. Bilangan 9 tidak prima karena 9 = 3 × 3.</li>
+        <li>Maka himpunan yang diminta adalah <span class="set">{2, 3, 5, 7}</span>.</li>
+      </ul>
+    </details>
+  </div>
+
+  <div class="example">
+    <span class="lbl">Contoh 2 — Dari notasi daftar ke notasi pembentuk</span>
+    <p>Ubah himpunan <span class="set">A = {10, 20, 30, 40}</span> menjadi notasi pembentuk.</p>
+    <details>
+      <summary><strong>Pembahasan</strong></summary>
+      <ul>
+        <li>Amati pola anggotanya: 10, 20, 30, 40 — semuanya <strong>bilangan kelipatan 10</strong> yang <strong>kurang dari atau sama dengan 40</strong>.</li>
+        <li>Notasi pembentuknya: <span class="set">A = {x | x adalah bilangan kelipatan 10 dan x ≤ 40}</span>.</li>
+        <li>Uji kembali: apakah 20 memenuhi syarat? Ya, 20 ∈ A. Apakah 25 memenuhi? Tidak, sehingga 25 ∉ A. ✅</li>
+      </ul>
+    </details>
+  </div>
+
+  <div class="example">
+    <span class="lbl">Contoh 3 — Membaca notasi pembentuk menjadi anggota</span>
+    <p>Diketahui <span class="set">B = {x | x adalah bilangan prima dan 10 &lt; x &lt; 20}</span>. Tuliskan seluruh anggota himpunan B.</p>
+    <details>
+      <summary><strong>Pembahasan</strong></summary>
+      <ul>
+        <li>Baca notasi itu: “himpunan semua x sehingga x bilangan prima dan lebih besar dari 10 tetapi kurang dari 20”.</li>
+        <li>Periksa bilangan di antara 10 dan 20: 11 prima ✅, 12 = 2×6 tidak prima ❌, 13 prima ✅, 14, 15, 16 tidak prima ❌, 17 prima ✅, 18, 19 prima ✅.</li>
+        <li>Maka <span class="set">B = {11, 13, 17, 19}</span> dan banyak anggotanya <span class="set">n(B) = 4</span>.</li>
+      </ul>
+    </details>
+  </div>
+
+  <div class="warn">⚠️ <strong>Kesalahan yang sering terjadi:</strong> mencampur notasi pembentuk dengan notasi daftar, misalnya <span class="set">{x, 2, 3, 4}</span>. “x” hanya dipakai pada notasi pembentuk sebagai nama anggota umum — jika ingin mendata, tuliskan anggotanya satu per satu: <span class="set">{2, 3, 4}</span>.</div>
+</section>
+
+<!-- D. LKPD KEGIATAN 1 -->
+<section class="section">
+  <h2 class="sec-title">D. 📝 LKPD — Kegiatan 1: Eksplorasi Konsep</h2>
+  <p class="sec-desc">Kerjakan bersama teman sebangku. Tuliskan jawaban pada buku catatan, lalu cocokkan dengan kunci setelah mencoba.</p>
+
+  <h4>Tugas 1 — Konversi Antar Bentuk Himpunan</h4>
+  <p>Ubah himpunan berikut sesuai permintaan.</p>
+  <table>
+    <tr><th>No.</th><th>Himpunan / Permintaan</th><th>Jawabanmu</th></tr>
+    <tr><td>1</td><td>Deskripsi “himpunan bilangan asli kurang dari 6” → ubah menjadi notasi daftar.</td><td>…</td></tr>
+    <tr><td>2</td><td>Notasi daftar <span class="set">{Jawa, Sumatera, Kalimantan, Sulawesi, Papua, Bali}</span> → tuliskan deskripsinya.</td><td>…</td></tr>
+    <tr><td>3</td><td>Notasi daftar <span class="set">{1, 4, 9, 16, 25}</span> → ubah menjadi notasi pembentuk.</td><td>…</td></tr>
+    <tr><td>4</td><td>Notasi pembentuk <span class="set">{x | x adalah huruf vokal bahasa Indonesia}</span> → tuliskan anggotanya.</td><td>…</td></tr>
+    <tr><td>5</td><td>Notasi pembentuk <span class="set">{x | x adalah bilangan bulat dan −3 ≤ x &lt; 2}</span> → tuliskan anggotanya.</td><td>…</td></tr>
+  </table>
+
+  <h4>Tugas 2 — Menentukan ∈ atau ∉</h4>
+  <p>Diketahui <span class="set">P = {x | x adalah bilangan prima dan 20 &lt; x &lt; 40}</span>. Lengkapilah pernyataan berikut dengan simbol ∈ atau ∉.</p>
+  <ol>
+    <li>23 … P</li>
+    <li>27 … P</li>
+    <li>31 … P</li>
+    <li>39 … P</li>
+    <li>2 atau 40 … P</li>
+  </ol>
+
+  <details>
+    <summary><strong>Kunci jawaban dan pembahasan Kegiatan 1 (buka setelah mencoba)</strong></summary>
+    <p><strong>Tugas 1:</strong></p>
+    <ol>
+      <li><span class="set">{1, 2, 3, 4, 5}</span> — bilangan asli kurang dari 6 dimulai dari 1 sampai 5.</li>
+      <li>Deskripsi: “himpunan nama-nama pulau di Indonesia” (contoh deskripsi lain yang tepat juga diterima).</li>
+      <li><span class="set">{x | x adalah kuadrat bilangan asli kurang dari atau sama dengan 25}</span> — polanya 1² = 1, 2² = 4, 3² = 9, 4² = 16, 5² = 25.</li>
+      <li><span class="set">{a, i, u, e, o}</span> — terdapat 5 huruf vokal dalam bahasa Indonesia.</li>
+      <li><span class="set">{−3, −2, −1, 0, 1}</span> — perhatikan tanda <span class="set">≤</span> pada −3 (jadi −3 ikut) dan tanda <span class="set">&lt;</span> pada 2 (jadi 2 tidak ikut).</li>
+    </ol>
+    <p><strong>Tugas 2:</strong> bilangan prima antara 20 dan 40 adalah 23, 29, 31, dan 37.</p>
+    <ol>
+      <li><span class="set">23 ∈ P</span> — 23 prima.</li>
+      <li><span class="set">27 ∉ P</span> — 27 = 3 × 9, bukan bilangan prima.</li>
+      <li><span class="set">31 ∈ P</span> — 31 prima.</li>
+      <li><span class="set">39 ∉ P</span> — 39 = 3 × 13, bukan bilangan prima.</li>
+      <li><span class="set">2 ∉ P</span> dan <span class="set">40 ∉ P</span> — keduanya tidak berada di antara 20 dan 40 (2 terlalu kecil, 40 tidak kurang dari 40).</li>
+    </ol>
+  </details>
+</section>
+
+<!-- E. LKPD KEGIATAN 2 -->
+<section class="section">
+  <h2 class="sec-title">E. 📝 LKPD — Kegiatan 2: Latihan Bertingkat</h2>
+  <p class="sec-desc">Kerjakan berurutan: <strong>Mudah → Menengah → Sulit (HOTS)</strong>. Raih skor minimal <strong>80</strong> untuk membuka level berikutnya. Tuliskan jawabanmu dengan simbol ∈, ∉, atau { } bila diminta.</p>
+
+  <div class="level-btns">
+    <button class="level-btn active" id="btnLevel1" onclick="pilihLevel(1)">🟢 Level 1<br>Mudah</button>
+    <button class="level-btn locked" id="btnLevel2" onclick="pilihLevel(2)">🟡 Level 2<br>Menengah</button>
+    <button class="level-btn locked" id="btnLevel3" onclick="pilihLevel(3)">🔴 Level 3<br>Sulit (HOTS)</button>
+  </div>
+
+  <div class="section" style="box-shadow:none;border:1px solid var(--line);padding:16px">
+    <div class="sec-title" style="font-size:17px" id="judulLevel">🟢 Level 1 — Mudah</div>
+    <div id="petunjuk"></div>
+    <div id="soalContainer"></div>
+    <div>
+      <button class="btn btn-success" onclick="periksa()">✓ Periksa Jawaban</button>
+      <button class="btn btn-light" onclick="tampil()">🔄 Soal Baru</button>
+    </div>
+    <div id="hasil"></div>
+  </div>
+</section>
+
+<!-- F. MISI TANTANGAN -->
+<section class="section">
+  <h2 class="sec-title">F. Misi Tantangan — Berpikir Seperti Ahli Matematika</h2>
+  <p class="sec-desc">Jangan hanya mencari jawaban akhir — jelaskan juga alasannya dengan kata-katamu sendiri.</p>
+
+  <div class="misi">
+    <h4>🕵️ Misi 1 — Menganalisis Kesalahan Teman</h4>
+    <p>Seorang siswa berkata:</p>
+    <div class="tanya">“Guruku bilang himpunan bilangan asli tak berhingga. Supaya lengkap, aku menulis <span class="set">A = {1, 2, 3, …, 1000}</span> — semua bilangan asli sampai 1000 sudah kudata semua.”</div>
+    <p>Menurutmu, apakah himpunan siswa tersebut benar-benar memuat <strong>semua</strong> bilangan asli? Apa alasannya, dan bagaimana cara penulisan yang tepat untuk himpunan bilangan asli?</p>
+    <details>
+      <summary><strong>Kunci jawaban dan pembahasan</strong></summary>
+      <p><strong>Salah.</strong> Bilangan asli adalah himpunan <strong>tak berhingga</strong> — setelah 1000 masih ada 1001, 1002, dan seterusnya tanpa batas. Mendata sampai 1000 tetap menyisakan anggota yang tidak terdata, sehingga cara itu tidak lengkap.</p>
+      <p><strong>Cara yang tepat:</strong> tulis dengan elipsis <span class="set">A = {1, 2, 3, …}</span> yang berarti pola 1, 2, 3, berlanjut terus tanpa berhenti. Jika ingin menggunakan notasi pembentuk: <span class="set">A = {x | x adalah bilangan asli}</span>. Tidak ada batas atas sehingga <span class="set">n(A)</span> tidak dapat ditentukan.</p>
+    </details>
+  </div>
+
+  <div class="misi">
+    <h4>🏫 Misi 2 — Menyatakan Himpunan Kelas dengan Tiga Bentuk</h4>
+    <p>Kelas IX A memiliki 32 siswa dengan nomor absen 1 sampai 32. Pilih <strong>satu</strong> himpunan dari kelas ini — contoh: himpunan siswa dengan nomor absen ganjil — lalu nyatakan dengan ketiga cara sekaligus.</p>
+    <ol>
+      <li>Tuliskan <strong>deskripsi</strong> (kalimat) himpunan pilihanmu.</li>
+      <li>Tuliskan himpunan itu dengan <strong>notasi daftar</strong> (kurung kurawal).</li>
+      <li>Tuliskan himpunan itu dengan <strong>notasi pembentuk</strong> <span class="set">{x | …}</span>.</li>
+      <li>Apakah ketiga penulisan itu menyatakan himpunan yang sama? Jelaskan.</li>
+    </ol>
+    <details>
+      <summary><strong>Kunci jawaban dan pembahasan</strong></summary>
+      <p>Contoh jawaban (himpunan nomor absen ganjil):</p>
+      <ul>
+        <li><strong>Deskripsi:</strong> himpunan nomor absen siswa kelas IX A yang ganjil.</li>
+        <li><strong>Notasi daftar:</strong> <span class="set">{1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29, 31}</span>.</li>
+        <li><strong>Notasi pembentuk:</strong> <span class="set">{x | x adalah bilangan ganjil dan 1 ≤ x ≤ 32}</span>.</li>
+      </ul>
+      <p><strong>Ya, ketiganya menyatakan himpunan yang sama</strong> — hanya cara menyatakannya yang berbeda: bahasa sehari-hari, data lengkap, dan syarat umum. Himpunan lain dengan syarat objektif juga diterima, misalnya nomor absen kelipatan 3: <span class="set">{3, 6, 9, …, 30}</span>.</p>
+    </details>
+  </div>
+
+  <div class="boss">
+    <h3>👑 Boss Challenge — Tantangan HOTS</h3>
+    <p>Diketahui himpunan <span class="set">S = {x | x adalah bilangan asli dan x adalah kelipatan 3 kurang dari 20}</span>.</p>
+    <ol>
+      <li>Tuliskan himpunan S dengan mendata anggotanya, lalu tentukan <span class="set">n(S)</span>.</li>
+      <li>Apakah <span class="set">0 ∈ S</span>? Bagaimana dengan <span class="set">20 ∈ S</span>? Berikan alasanmu.</li>
+      <li>Tuliskan himpunan S dengan notasi pembentuk yang <strong>berbeda</strong> bentuknya (misalnya dengan syarat “x = 3k”) namun tetap menyatakan himpunan yang sama.</li>
+    </ol>
+    <details>
+      <summary><strong>Kunci jawaban dan pembahasan</strong></summary>
+      <ol>
+        <li>Kelipatan 3 kurang dari 20: 3, 6, 9, 12, 15, 18. Maka <span class="set">S = {3, 6, 9, 12, 15, 18}</span> dan <span class="set">n(S) = 6</span>.</li>
+        <li><span class="set">0 ∉ S</span> — 0 memang kelipatan 3, tetapi 0 bukan bilangan asli (bilangan asli dimulai dari 1). <span class="set">20 ∉ S</span> — 20 bukan kelipatan 3, dan syaratnya juga kurang dari 20 sehingga 20 sendiri dikeluarkan.</li>
+        <li>Cara lain menulis himpunan yang sama: <span class="set">S = {x | x = 3k, k adalah bilangan asli dan k ≤ 6}</span>. Dengan k = 1, 2, 3, 4, 5, 6 diperoleh x = 3, 6, 9, 12, 15, 18 — persis anggota S ✅. (Penulisan notasi pembentuk lain yang setara dan benar juga diterima.)</li>
+      </ol>
+    </details>
+  </div>
+</section>
+
+<!-- G. REFLEKSI -->
+<section class="section">
+  <h2 class="sec-title">G. Refleksi Pembelajaran</h2>
+  <p class="sec-desc">Centang bila kamu sudah mampu menjelaskannya dengan kata-katamu sendiri.</p>
+  <div class="refleksi">
+    <label><input type="checkbox"> Sebutkan tiga cara menyatakan himpunan beserta contohnya.</label>
+    <label><input type="checkbox"> Bagaimana membaca notasi pembentuk {x | …}? (“semua x sehingga …”)</label>
+    <label><input type="checkbox"> Apa arti simbol ∈ dan ∉? Berikan contohnya.</label>
+    <label><input type="checkbox"> Bagaimana membedakan himpunan berhingga dan tak berhingga dari cara penulisannya?</label>
+    <label><input type="checkbox"> Mengapa himpunan bilangan asli ditulis {1, 2, 3, …} dan bukan didata satu per satu?</label>
+  </div>
+  <div class="note"><strong>Target akhir Pertemuan 2:</strong> kamu dapat mengubah himpunan dari deskripsi ke notasi daftar dan notasi pembentuk (dan sebaliknya), membaca notasi pembentuk dengan benar, serta memakai simbol ∈ dan ∉ secara tepat.</div>
+</section>
+
+<nav class="nav">
+  <a href="pertemuan-1-konsep-dasar-himpunan.html">← Pertemuan 1 — Konsep Dasar Himpunan</a>
+  <a href="index.html">Peta Materi Himpunan</a>
+  <a href="pertemuan-3-jenis-jenis-himpunan.html">Lanjut: Pertemuan 3 — Jenis-Jenis Himpunan →</a>
+</nav>
+
+<footer>Pertemuan 2 • Cara Menyatakan Himpunan • Matematika Kelas IX A (MATH-IX-A)</footer>
+
+</div>
+
+<script>
+/* =========================================================
+   BANK SOAL — 3 LEVEL
+   tipe "pilihan" : p = pilihan, k = index kunci
+   tipe "isian"   : a = daftar jawaban yang diterima
+========================================================= */
+
+const bank = {
+
+1:{
+  judul:"🟢 Level 1 — Mudah",
+  petunjuk:"Pilih satu jawaban yang paling tepat.",
+  soal:[
+    {tipe:"pilihan", q:"Diketahui A = {2, 4, 6, 8, 10}. Pernyataan yang benar adalah …",
+     p:["3 ∈ A","6 ∈ A","10 ∉ A","0 ∈ A"], k:1,
+     e:"6 ada dalam daftar anggota A, sehingga 6 ∈ A. Pilihan lain salah: 3, 0 tidak ada dalam daftar, sedangkan 10 justru ada dalam daftar."},
+    {tipe:"pilihan", q:"Notasi daftar {apel, mangga, pepaya} menyatakan …",
+     p:["himpunan buah-buahan","himpunan anggota kelas yang suka buah","bukan himpunan","himpunan semua buah di dunia"], k:0,
+     e:"Daftar anggotanya berupa jenis buah, sehingga tepat disebut himpunan buah-buahan. Pilihan lain tidak sesuai isi daftarnya."},
+    {tipe:"pilihan", q:"Diketahui V = {a, i, u, e, o}. Manakah yang benar?",
+     p:["b ∈ V","e ∉ V","i ∈ V","u ∉ V"], k:2,
+     e:"Himpunan V berisi huruf vokal, sehingga i ∈ V. Pilihan lain salah: b bukan vokal sehingga b ∉ V, e dan u adalah vokal sehingga e ∈ V dan u ∈ V."},
+    {tipe:"pilihan", q:"Manakah penulisan himpunan yang BENAR?",
+     p:["{1, 1, 2, 3}","{3, 2, 1}","{1, 2, 2, 3, 4}","{x, 1, 2, 3}"], k:1,
+     e:"{3, 2, 1} sudah benar — urutan anggota tidak berpengaruh dan tidak ada anggota ganda. Pilihan lain mengandung anggota ganda (1 atau 2 dua kali) atau mencampur simbol x dengan anggota nyata."},
+    {tipe:"pilihan", q:"Notasi pembentuk {x | x adalah bilangan ganjil dan x &lt; 6} menyatakan himpunan …",
+     p:["{1, 2, 3, 4, 5}","{1, 3, 5}","{1, 3, 5, 7}","{2, 4, 5}"], k:1,
+     e:"Bilangan ganjil kurang dari 6 adalah 1, 3, dan 5. Bilangan 2 dan 4 bukan ganjil, sedangkan 7 tidak kurang dari 6."},
+    {tipe:"pilihan", q:"Himpunan {1, 2, 3, 4, 5, …} (elipsis di akhir) menyatakan …",
+     p:["himpunan berhingga dengan 6 anggota","himpunan berhingga yang belum selesai ditulis","himpunan tak berhingga karena pola anggotanya berlanjut terus","himpunan kosong"], k:2,
+     e:"Tanda … (elipsis) menunjukkan pola berlanjut tanpa batas, sehingga himpunan ini tak berhingga dan tidak dapat didata sampai selesai."}
+  ]
+},
+
+2:{
+  judul:"🟡 Level 2 — Menengah",
+  petunjuk:"Tulis jawabanmu pada kolom yang tersedia. Untuk himpunan, tulis anggota di dalam kurung kurawal dan pisahkan dengan koma, contoh: {1,2,3}.",
+  soal:[
+    {tipe:"isian", q:"Tuliskan himpunan bilangan ganjil kurang dari 8 dengan notasi daftar (kurung kurawal).",
+     a:["{1,3,5,7}","1,3,5,7"], e:"Bilangan ganjil kurang dari 8 adalah 1, 3, 5, dan 7, sehingga himpunannya {1, 3, 5, 7}. Jangan lupa menyertakan kurung kurawal."},
+    {tipe:"isian", q:"Diketahui A = {5, 10, 15, 20}. Lengkapi dengan simbol yang tepat: “15 … A”.",
+     a:["15∈a","15∈A","∈"], e:"15 ada dalam daftar anggota A, sehingga ditulis 15 ∈ A (dibaca “15 termasuk anggota A”)."},
+    {tipe:"isian", q:"Diketahui A = {5, 10, 15, 20}. Lengkapi dengan simbol yang tepat: “7 … A”.",
+     a:["7∉a","7∉A","∉"], e:"7 tidak ada dalam daftar anggota A, sehingga ditulis 7 ∉ A (dibaca “7 bukan anggota A”)."},
+    {tipe:"isian", q:"Tuliskan himpunan bilangan asli yang merupakan kelipatan 3 kurang dari 15 dengan notasi daftar.",
+     a:["{3,6,9,12}","3,6,9,12"], e:"Kelipatan 3 kurang dari 15: 3, 6, 9, dan 12. Perhatikan 15 sendiri tidak ikut karena syaratnya kurang dari 15."},
+    {tipe:"isian", q:"Tuliskan himpunan bilangan bulat dari −2 sampai 2 dengan notasi daftar.",
+     a:["{-2,-1,0,1,2}","-2,-1,0,1,2"], e:"Bilangan bulat dari −2 sampai 2 mencakup bilangan negatif, nol, dan positif: {−2, −1, 0, 1, 2}."},
+    {tipe:"isian", q:"Notasi pembentuk {x | x adalah bilangan asli dan x &lt; 8} menyatakan himpunan … Tuliskan anggotanya dengan notasi daftar.",
+     a:["{1,2,3,4,5,6,7}","1,2,3,4,5,6,7"], e:"Bilangan asli kurang dari 8 adalah 1 sampai 7, sehingga himpunannya {1, 2, 3, 4, 5, 6, 7}. Perhatikan 0 tidak ikut karena 0 bukan bilangan asli."}
+  ]
+},
+
+3:{
+  judul:"🔴 Level 3 — Sulit (HOTS)",
+  petunjuk:"Baca situasinya dengan cermat. Jawaban berupa bilangan, himpunan, atau penjelasan singkat.",
+  soal:[
+    {tipe:"isian", q:"Tuliskan seluruh anggota himpunan {x | x adalah bilangan bulat dan −2 ≤ x &lt; 3} dengan notasi daftar.",
+     a:["{-2,-1,0,1,2}","-2,-1,0,1,2"], e:"Tanda ≤ pada −2 berarti −2 ikut; tanda &lt; pada 3 berarti 3 tidak ikut. Jadi anggotanya: −2, −1, 0, 1, 2 sehingga n = 5."},
+    {tipe:"isian", q:"Tuliskan seluruh anggota himpunan {x | x adalah bilangan prima dan 20 &lt; x &lt; 30} dengan notasi daftar.",
+     a:["{23,29}","23,29"], e:"Periksa bilangan di antara 20 dan 30: 21 = 3×7, 22 = 2×11, 23 prima ✅, 24–28 tidak prima, 29 prima ✅. Jadi {23, 29}."},
+    {tipe:"isian", q:"Berapa banyak anggota himpunan {x | x adalah bilangan bulat dan −2 ≤ x ≤ 7}? Tuliskan nilai n(A).",
+     a:["10"], e:"Dari −2 sampai 7 (kedua batas ikut): −2, −1, 0, 1, 2, 3, 4, 5, 6, 7. Berjumlah 10 anggota. Triknya: 7 − (−2) + 1 = 10."},
+    {tipe:"pilihan", q:"Manakah notasi pembentuk yang TEPAT untuk himpunan A = {−1, 0, 1, 2}?",
+     p:["{x | x adalah bilangan bulat dan −1 ≤ x &lt; 2}",
+        "{x | x adalah bilangan bulat dan −1 &lt; x ≤ 2}",
+        "{x | x adalah bilangan bulat dan −1 ≤ x ≤ 2}",
+        "{x | x adalah bilangan asli dan −1 ≤ x ≤ 2}"], k:2,
+     e:"Pilihan 3 benar karena kedua batas ikut (≤ di kedua ujung). Pilihan 1 salah karena mengeluarkan 2; pilihan 2 salah karena mengeluarkan −1; pilihan 4 salah karena −1 dan 0 bukan bilangan asli."},
+    {tipe:"pilihan", q:"Mengapa himpunan bilangan asli ditulis {1, 2, 3, …} tanpa menyebut anggota terakhirnya?",
+     p:["Karena bilangan asli hanya sampai angka tertentu",
+        "Karena anggotanya tak terhingga sehingga tidak dapat didata semua",
+        "Karena menulisnya lebih singkat saja, isinya tetap berhingga",
+        "Karena … adalah simbol himpunan kosong"], k:1,
+     e:"Bilangan asli tidak memiliki anggota terakhir (setiap bilangan selalu punya successor), sehingga himpunan ini tak berhingga. Elipsis … menunjukkan pola berlanjut tanpa batas — bukan simbol himpunan kosong (∅ adalah simbol himpunan kosong)."},
+    {tipe:"pilihan", q:"Seorang siswa menulis: “Himpunan bilangan asli = {1, 2, 3, …, 1000}”. Kesan siswa tersebut adalah …",
+     p:["benar karena 1000 sudah sangat banyak",
+        "benar karena semua anggota bilangan asli sudah tercakup",
+        "kurang tepat karena setelah 1000 masih ada 1001, 1002, dan seterusnya tanpa batas",
+        "kurang tepat karena bilangan asli harus dimulai dari 0"], k:2,
+     e:"Menulis …, 1000 memberi kesan ada anggota terakhir, padahal bilangan asli tak berhingga. Cara penulisan yang tepat: {1, 2, 3, …} atau {x | x adalah bilangan asli}."}
+  ]
+}
+
+};
+
+/* =========================================================
+   MESIN KUIS
+========================================================= */
+
+let lvl = 1;
+let soalAktif = [];
+let dipilih = [];
+let lulus = {1:false, 2:false, 3:false};
+
+function norm(s){
+  return String(s).toLowerCase()
+    .replace(/rp/g, "")
+    .replace(/[\s.,{}]/g, "")
+    .replace(/[−–—]/g, "-")
+    .replace(/[×·∙]/g, "*")
+    .replace(/[⁰¹²³⁴⁵⁶⁷⁸⁹]/g, d => "0123456789"["⁰¹²³⁴⁵⁶⁷⁸⁹".indexOf(d)])
+    .replace(/\^/g, "");
+}
+
+function acak(arr){
+  const a = [...arr];
+  for(let i = a.length - 1; i > 0; i--){
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function pilihLevel(n){
+  if(n > 1 && !lulus[n - 1]){
+    alert("Selesaikan Level " + (n - 1) + " terlebih dahulu (skor minimal 80).");
+    return;
+  }
+  lvl = n;
+  document.querySelectorAll(".level-btn")
+    .forEach((b, i) => b.classList.toggle("active", i === n - 1));
+  tampil();
+}
+
+function tampil(){
+  const b = bank[lvl];
+
+  document.getElementById("judulLevel").textContent = b.judul;
+  document.getElementById("petunjuk").innerHTML = "<p>📌 " + b.petunjuk + "</p>";
+
+  soalAktif = acak(b.soal).slice(0, Math.min(5, b.soal.length));
+  dipilih = new Array(soalAktif.length).fill(null);
+
+  let html = "";
+
+  soalAktif.forEach((s, i) => {
+    let isi = "";
+
+    if(s.tipe === "pilihan"){
+      isi = '<div class="choices">' +
+        s.p.map((c, j) =>
+          '<button class="choice" id="c-' + i + '-' + j + '" onclick="pilih(' + i + ',' + j + ')">' + c + '</button>'
+        ).join("") + '</div>';
+    } else {
+      isi = '<input class="inp" id="in-' + i + '" placeholder="Tulis jawabanmu di sini...">';
+    }
+
+    html +=
+      '<div class="q" id="q-' + i + '">' +
+        '<div class="qt">' + (i + 1) + '. ' + s.q + '</div>' +
+        isi +
+        '<div class="fb" id="fb-' + i + '"></div>' +
+      '</div>';
+  });
+
+  document.getElementById("soalContainer").innerHTML = html;
+  document.getElementById("hasil").innerHTML = "";
+}
+
+function pilih(i, j){
+  dipilih[i] = j;
+  soalAktif.forEach((s, idx) => {
+    if(s.tipe !== "pilihan") return;
+    s.p.forEach((c, k) => {
+      const el = document.getElementById("c-" + idx + "-" + k);
+      if(el) el.classList.toggle("sel", idx === i && k === j);
+    });
+  });
+}
+
+function periksa(){
+  let kosong = false;
+
+  soalAktif.forEach((s, i) => {
+    if(s.tipe === "pilihan" && dipilih[i] === null) kosong = true;
+    if(s.tipe === "isian"){
+      const el = document.getElementById("in-" + i);
+      if(!el || !el.value.trim()) kosong = true;
+    }
+  });
+
+  if(kosong){
+    alert("Jawab semua soal terlebih dahulu.");
+    return;
+  }
+
+  let benar = 0;
+
+  soalAktif.forEach((s, i) => {
+    const box = document.getElementById("q-" + i);
+    const fb = document.getElementById("fb-" + i);
+    let ok = false;
+    let jawabanTampil = "";
+
+    if(s.tipe === "pilihan"){
+      ok = dipilih[i] === s.k;
+      jawabanTampil = s.p[s.k];
+      s.p.forEach((c, j) => {
+        const btn = document.getElementById("c-" + i + "-" + j);
+        btn.classList.remove("sel", "ok", "no");
+        if(j === s.k) btn.classList.add("ok");
+        else if(j === dipilih[i]) btn.classList.add("no");
+      });
+    } else {
+      const el = document.getElementById("in-" + i);
+      ok = s.a.some(a => norm(a) === norm(el.value));
+      jawabanTampil = s.a[0];
+      el.classList.remove("ok", "no");
+      el.classList.add(ok ? "ok" : "no");
+    }
+
+    box.classList.remove("correct", "wrong");
+    box.classList.add(ok ? "correct" : "wrong");
+
+    if(ok) benar++;
+
+    fb.innerHTML =
+      (ok ? "✅ Benar. " : '❌ Belum tepat. Jawaban benar: <strong>' + jawabanTampil + '</strong>. ') +
+      '<i>' + s.e + '</i>';
+  });
+
+  const nilai = Math.round(benar / soalAktif.length * 100);
+
+  document.getElementById("hasil").innerHTML =
+    '<div class="score">' +
+      '<div>Hasil ' + bank[lvl].judul + '</div>' +
+      '<div class="num">' + nilai + '</div>' +
+      '<div>Benar ' + benar + ' dari ' + soalAktif.length + ' soal</div>' +
+      (nilai >= 80
+        ? '<p>🎉 Tuntas! Level berikutnya sudah terbuka.</p>'
+        : '<p>💡 Belum tuntas. Baca lagi pembahasannya, lalu coba soal baru.</p>') +
+    '</div>';
+
+  if(nilai >= 80){
+    lulus[lvl] = true;
+    if(lvl < 3){
+      document.getElementById("btnLevel" + (lvl + 1)).classList.remove("locked");
+    }
+  }
+}
+
+tampil();
+</script>
+
+</body>
+</html>

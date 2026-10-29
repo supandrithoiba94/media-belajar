@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pertemuan 6 — Irisan dan Gabungan Himpunan | MATH-IX-A</title>
+<style>
+:root{
+  --accent:#2563eb;
+  --accent-dark:#1e3a8a;
+  --bg:#eef2f8;
+  --ink:#1f2937;
+  --muted:#5b6472;
+  --line:#dde5f0;
+  --ok:#16a34a;
+  --bad:#dc2626;
+  --warn:#f59e0b;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 Arial,Helvetica,sans-serif}
+.wrap{max-width:940px;margin:0 auto;padding:18px 14px 40px}
+a{color:var(--accent)}
+.top{background:linear-gradient(135deg,var(--accent-dark),var(--accent));color:#fff;border-radius:18px;padding:22px 24px;margin-bottom:16px}
+.top .back{display:inline-block;background:#ffffff2e;color:#fff;text-decoration:none;padding:6px 13px;border-radius:20px;font-size:13px;font-weight:bold;margin-bottom:12px}
+.top .back:hover{background:#ffffff4d}
+.crumb{margin:0 0 6px;font-size:13px;opacity:.9;letter-spacing:.4px}
+.top h1{margin:0 0 6px;font-size:26px;line-height:1.25}
+.lead{margin:0;opacity:.95}
+.target{background:#fff;border-left:5px solid var(--accent);border-radius:14px;padding:14px 16px;margin-bottom:16px;box-shadow:0 3px 12px #0f172a0f}
+.target p{margin:6px 0 0}
+.section{background:#fff;border-radius:18px;padding:20px 22px;margin-bottom:16px;box-shadow:0 3px 14px #0f172a12}
+.sec-title{display:flex;align-items:center;gap:10px;font-size:19px;font-weight:bold;color:var(--accent-dark);margin:0 0 12px;padding-bottom:8px;border-bottom:2px solid var(--line)}
+.sec-desc{margin:0 0 14px;color:var(--muted);font-size:14.5px}
+.badge-top{display:inline-block;font-size:12px;font-weight:bold;letter-spacing:.05em;text-transform:uppercase;background:#ffffff2e;border:1px solid #ffffff59;padding:4px 11px;border-radius:20px;margin-bottom:10px}
+.pemantik{background:#fff8e6;border:1px solid #fde68a;border-radius:14px;padding:16px 18px}
+.pemantik h3{margin:0 0 8px;color:#92400e}
+.tanya{background:#f8fafc;border-left:4px solid var(--accent);padding:10px 14px;border-radius:0 10px 10px 0;margin:10px 0;font-size:15.5px}
+table{width:100%;border-collapse:collapse;margin:12px 0;font-size:15px}
+th,td{border:1px solid var(--line);padding:9px 10px;text-align:left;vertical-align:top}
+th{background:var(--accent);color:#fff;font-size:14px}
+tr:nth-child(even) td{background:#f8fafc}
+.example{background:#f1f5f9;border-radius:12px;padding:12px 14px;margin:12px 0;border:1px dashed #cbd5e1}
+.example .lbl{display:block;color:var(--accent-dark);font-weight:bold;margin-bottom:6px}
+.note{background:#eff6ff;border:1px solid #bfdbfe;border-radius:12px;padding:12px 14px;margin:12px 0;font-size:15px}
+.warn{background:#fffbeb;border:1px solid #fde68a;border-radius:12px;padding:12px 14px;margin:12px 0;font-size:15px}
+.set{font-family:"Courier New",monospace;font-weight:bold;background:#eef2ff;border:1px solid #c7d2fe;border-radius:6px;padding:1px 6px;white-space:nowrap}
+ul,ol{padding-left:22px}
+li{margin:5px 0}
+details{background:#f8fafc;border:1px solid var(--line);border-radius:12px;padding:10px 14px;margin:14px 0}
+summary{cursor:pointer;font-weight:bold;color:var(--accent-dark)}
+details[open]{background:#fff}
+details p,details li{font-size:15px}
+.level-btns{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
+.level-btn{border:2px solid var(--line);background:#f8fafc;padding:12px 8px;border-radius:12px;cursor:pointer;font-weight:bold;color:var(--muted);font-size:14px;font-family:inherit}
+.level-btn.active{background:var(--accent);border-color:var(--accent);color:#fff}
+.level-btn.locked{opacity:.5;cursor:not-allowed}
+.q{border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin-bottom:12px;background:#fff}
+.q.correct{border:2px solid var(--ok);background:#f0fdf4}
+.q.wrong{border:2px solid var(--bad);background:#fef2f2}
+.qt{font-weight:bold;font-size:16.5px;margin-bottom:10px}
+.choices{display:flex;gap:9px;flex-wrap:wrap}
+.choice{flex:1;min-width:120px;border:2px solid var(--line);background:#fff;padding:11px;border-radius:10px;font-size:16px;font-weight:bold;cursor:pointer;font-family:inherit;color:inherit;text-align:left}
+.choice:hover{border-color:var(--accent);background:#eff6ff}
+.choice.sel{background:var(--accent);color:#fff;border-color:var(--accent)}
+.choice.ok{background:var(--ok);border-color:var(--ok);color:#fff}
+.choice.no{background:var(--bad);border-color:var(--bad);color:#fff}
+.inp{width:100%;padding:11px 13px;border:2px solid var(--line);border-radius:10px;font-size:17px;font-family:inherit}
+.inp:focus{outline:none;border-color:var(--accent)}
+.inp.ok{border-color:var(--ok);background:#f0fdf4}
+.inp.no{border-color:var(--bad);background:#fef2f2}
+.fb{font-size:14.5px;margin-top:9px;color:var(--muted)}
+.btn{border:0;padding:12px 18px;border-radius:11px;cursor:pointer;font-weight:bold;font-size:15px;margin:6px 6px 0 0;font-family:inherit}
+.btn-primary{background:var(--accent);color:#fff}
+.btn-success{background:var(--ok);color:#fff}
+.btn-light{background:#e5e7eb;color:#111827}
+.btn:hover{filter:brightness(1.06)}
+.score{margin-top:14px;text-align:center;background:#eff6ff;border-radius:14px;padding:16px}
+.score .num{font-size:36px;font-weight:bold;color:var(--accent)}
+.misi{border:1px solid var(--line);border-left:5px solid var(--warn);border-radius:0 14px 14px 0;padding:14px 16px;margin-bottom:14px;background:#fffdf7}
+.misi h4{margin:0 0 8px;color:#b45309;font-size:17px}
+.boss{border:2px solid var(--warn);border-radius:16px;padding:16px 18px;background:linear-gradient(180deg,#fffbeb,#fff)}
+.boss h3{margin-top:0;color:#b45309}
+.refleksi label{display:flex;gap:10px;align-items:flex-start;background:#f8fafc;border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin:8px 0;cursor:pointer;font-size:15px}
+.refleksi input{margin-top:4px}
+.nav{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:6px}
+.nav a{display:inline-block;text-decoration:none;background:#fff;border:1px solid var(--line);border-radius:11px;padding:11px 15px;font-weight:bold;color:var(--accent-dark);font-size:14px}
+.nav a:hover{border-color:var(--accent);background:#eff6ff}
+footer{text-align:center;color:var(--muted);font-size:13px;padding:14px 0}
+@media(max-width:620px){
+  .level-btns{grid-template-columns:1fr}
+  .top h1{font-size:21px}
+  .choices{flex-direction:column}
+  .choice{min-width:0}
+  .section{padding:16px 14px}
+}
+@media print{
+  body{background:#fff;font-size:11pt}
+  .wrap{max-width:none;padding:0}
+  .top{background:#1e3a8a!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .section{box-shadow:none;border:1px solid var(--line);break-inside:avoid}
+  .nav,.btn,.level-btns{display:none!important}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="top">
+  <a class="back" href="index.html">← Peta Materi Himpunan</a>
+  <p class="crumb">MATEMATIKA KELAS IX A • MATH-IX-A • BAB HIMPUNAN</p>
+  <span class="badge-top">Pertemuan 6 dari 8</span>
+  <h1>Pertemuan 6 — Irisan dan Gabungan Himpunan</h1>
+  <p class="lead">Menentukan hasil irisan (A ∩ B) dan gabungan (A ∪ B) dua himpunan, menggunakan sifat-sifatnya, serta menghitung banyak anggota gabungan dengan rumus n(A ∪ B) = n(A) + n(B) − n(A ∩ B).</p>
+</header>
+
+<div class="target">
+  <strong>🎯 Target Pembelajaran</strong>
+  <p>Peserta didik mampu <strong>menentukan hasil irisan (A ∩ B) dan gabungan (A ∪ B) dua himpunan</strong>, <strong>menggunakan sifat-sifat irisan dan gabungan</strong> (komutatif, asosiatif, identitas, dan irisan dua himpunan saling lepas), serta <strong>menghitung banyak anggota gabungan</strong> dengan rumus n(A ∪ B) = n(A) + n(B) − n(A ∩ B).</p>
+</div>
+
+<!-- A. PERTANYAAN PEMANTIK -->
+<section class="section">
+  <h2 class="sec-title">A. Pertanyaan Pemantik</h2>
+
+  <div class="pemantik">
+    <h3>🎒 Di kelas IX A, 18 siswa suka sepak bola dan 15 siswa suka bola voli.</h3>
+    <ol>
+      <li>Seorang siswa berkata: “Yang suka olahraga ada 18 + 15 = 33 orang.”</li>
+      <li>Guru menjawab: “Jumlahnya tidak mungkin 33, karena kelas kita cuma 30 siswa.”</li>
+      <li>Ternyata ada 8 siswa yang suka <strong>keduanya</strong>.</li>
+    </ol>
+    <div class="tanya">Mengapa jawaban siswa (33) bisa lebih besar daripada jumlah siswa di kelas? Ke mana perginya 8 siswa yang suka kedua olahraga?</div>
+    <p>8 siswa yang suka sepak bola <strong>dan</strong> bola voli sempat <strong>terhitung dua kali</strong>: sekali saat menghitung pecinta sepak bola, sekali lagi saat menghitung pecinta bola voli.</p>
+    <p><strong>Inilah inti pelajaran hari ini:</strong> saat menggabungkan dua himpunan, anggota yang sama harus dihitung sekali saja. Kita akan mempelajari <strong>irisan</strong> (A ∩ B) dan <strong>gabungan</strong> (A ∪ B) beserta rumus penghitungannya.</p>
+  </div>
+</section>
+
+<!-- B. MATERI INTI -->
+<section class="section">
+  <h2 class="sec-title">B. Materi Inti — Irisan dan Gabungan Himpunan</h2>
+
+  <h3>1. Irisan Dua Himpunan (A ∩ B)</h3>
+  <p><strong>Irisan</strong> dari himpunan A dan B, ditulis <span class="set">A ∩ B</span> (dibaca “A irisan B”), adalah himpunan anggota yang <strong>termasuk A dan termasuk B</strong>. Anggota irisan harus memenuhi kedua syarat sekaligus.</p>
+
+  <div class="example">
+    <span class="lbl">Contoh irisan</span>
+    Misalkan <span class="set">A = {1, 2, 3, 4}</span> dan <span class="set">B = {3, 4, 5, 6}</span>.
+    Anggota yang ada di A <strong>dan</strong> di B adalah 3 dan 4, sehingga
+    <span class="set">A ∩ B = {3, 4}</span>.
+  </div>
+
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 195" width="100%" style="max-width:380px;display:block;margin:12px auto" role="img" aria-label="Diagram Venn irisan A dan B">
+    <defs>
+      <clipPath id="venn6IrisanB"><circle cx="205" cy="95" r="62"/></clipPath>
+    </defs>
+    <rect x="4" y="4" width="332" height="187" rx="12" fill="#f8fafc" stroke="#94a3b8" stroke-width="2"/>
+    <circle cx="135" cy="95" r="62" fill="#dbeafe" stroke="#2563eb" stroke-width="2.5"/>
+    <circle cx="205" cy="95" r="62" fill="#dbeafe" stroke="#2563eb" stroke-width="2.5"/>
+    <g clip-path="url(#venn6IrisanB)"><circle cx="135" cy="95" r="62" fill="#2563eb" fill-opacity="0.8"/></g>
+    <text x="100" y="58" font-family="Arial,Helvetica,sans-serif" font-size="17" font-weight="bold" fill="#1e3a8a" text-anchor="middle">A</text>
+    <text x="240" y="58" font-family="Arial,Helvetica,sans-serif" font-size="17" font-weight="bold" fill="#1e3a8a" text-anchor="middle">B</text>
+    <text x="170" y="101" font-family="Arial,Helvetica,sans-serif" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">A∩B</text>
+    <text x="170" y="182" font-family="Arial,Helvetica,sans-serif" font-size="13" fill="#334155" text-anchor="middle">Daerah biru tua = A ∩ B = {3, 4}</text>
+  </svg>
+
+  <h3>2. Gabungan Dua Himpunan (A ∪ B)</h3>
+  <p><strong>Gabungan</strong> dari himpunan A dan B, ditulis <span class="set">A ∪ B</span> (dibaca “A gabung B”), adalah himpunan anggota yang <strong>termasuk A atau termasuk B atau keduanya</strong>. Setiap anggota cukup disebut sekali saja.</p>
+
+  <div class="example">
+    <span class="lbl">Contoh gabungan</span>
+    Dengan <span class="set">A = {1, 2, 3, 4}</span> dan <span class="set">B = {3, 4, 5, 6}</span>,
+    gabungan berisi semua anggota A dan semua anggota B (anggota 3 dan 4 cukup ditulis sekali), sehingga
+    <span class="set">A ∪ B = {1, 2, 3, 4, 5, 6}</span>.
+  </div>
+
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 195" width="100%" style="max-width:380px;display:block;margin:12px auto" role="img" aria-label="Diagram Venn gabungan A dan B">
+    <rect x="4" y="4" width="332" height="187" rx="12" fill="#f8fafc" stroke="#94a3b8" stroke-width="2"/>
+    <circle cx="135" cy="95" r="62" fill="#2563eb" fill-opacity="0.75" stroke="#1e3a8a" stroke-width="2.5"/>
+    <circle cx="205" cy="95" r="62" fill="#2563eb" fill-opacity="0.75" stroke="#1e3a8a" stroke-width="2.5"/>
+    <text x="100" y="58" font-family="Arial,Helvetica,sans-serif" font-size="17" font-weight="bold" fill="#ffffff" text-anchor="middle">A</text>
+    <text x="240" y="58" font-family="Arial,Helvetica,sans-serif" font-size="17" font-weight="bold" fill="#ffffff" text-anchor="middle">B</text>
+    <text x="170" y="101" font-family="Arial,Helvetica,sans-serif" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">A∪B</text>
+    <text x="170" y="182" font-family="Arial,Helvetica,sans-serif" font-size="13" fill="#1e3a8a" text-anchor="middle">Seluruh dua lingkaran = A ∪ B = {1, 2, 3, 4, 5, 6}</text>
+  </svg>
+
+  <div class="note"><strong>Cara membaca simbol:</strong> <span class="set">∩</span> berbentuk seperti huruf “n” → <em>i</em>risan (anggota ada di ke-<strong>dua</strong> himpunan). <span class="set">∪</span> berbentuk seperti huruf “u” → gabungan (<em>u</em>nic, semua anggota masuk).</div>
+
+  <h3>3. Sifat Irisan dan Gabungan</h3>
+  <table>
+    <tr><th>Sifat</th><th>Irisan</th><th>Gabungan</th></tr>
+    <tr><td><strong>Komutatif</strong> (boleh ditukar urutannya)</td><td>A ∩ B = B ∩ A</td><td>A ∪ B = B ∪ A</td></tr>
+    <tr><td><strong>Asosiatif</strong> (boleh dikelompokkan berbeda)</td><td>(A ∩ B) ∩ C = A ∩ (B ∩ C)</td><td>(A ∪ B) ∪ C = A ∪ (B ∪ C)</td></tr>
+    <tr><td><strong>Identitas</strong> (terhadap ∅ dan semesta S)</td><td>A ∩ ∅ = ∅<br>A ∩ S = A</td><td>A ∪ ∅ = A<br>A ∪ S = S</td></tr>
+  </table>
+  <ul>
+    <li><strong>Komutatif:</strong> urutan tidak memengaruhi hasil. Jika <span class="set">A = {1, 2, 3, 4}</span> dan <span class="set">B = {3, 4, 5, 6}</span>, maka A ∩ B = {3, 4} dan B ∩ A = {3, 4} — keduanya sama.</li>
+    <li><strong>Asosiatif:</strong> saat iris/gabung tiga himpunan, pengelompokan boleh berganti tanpa mengubah hasil.</li>
+    <li><strong>Identitas:</strong> irisan dengan himpunan kosong pasti kosong; irisan dengan semesta tidak mengubah A. Gabungan dengan ∅ tidak mengubah A; gabungan dengan semesta pasti S.</li>
+    <li><strong>Saling lepas:</strong> jika dua himpunan tidak memiliki anggota sama sekali (irisan mereka kosong), mereka disebut <strong>saling lepas</strong>, yaitu <span class="set">A ∩ B = ∅</span>. Contoh: A = {1, 3, 5} dan B = {2, 4, 6} → A ∩ B = ∅.</li>
+  </ul>
+
+  <h3>4. Banyak Anggota Gabungan</h3>
+  <p>Karena anggota irisan terhitung pada kedua himpunan, banyak anggota gabungan dihitung dengan rumus:</p>
+  <div class="example">
+    <span class="lbl">Rumus</span>
+    <p style="font-size:19px;text-align:center;margin:8px 0"><strong>n(A ∪ B) = n(A) + n(B) − n(A ∩ B)</strong></p>
+    <p style="margin:4px 0">n(A) = banyak anggota A, n(B) = banyak anggota B, n(A ∩ B) = banyak anggota irisan A dan B.</p>
+  </div>
+
+  <div class="example">
+    <span class="lbl">Contoh — data kelas</span>
+    Dari 30 siswa kelas IX A, 18 siswa suka sepak bola (himpunan A), 15 siswa suka bola voli (himpunan B), dan 8 siswa suka keduanya. Banyaknya siswa yang suka <strong>minimal satu</strong> olahraga adalah
+    <span class="set">n(A ∪ B) = 18 + 15 − 8 = 25</span> siswa.
+    Sisanya yang <strong>tidak suka keduanya</strong>: 30 − 25 = <strong>5 siswa</strong>.
+  </div>
+
+  <div class="warn">⚠️ <strong>Mengapa harus dikurangi n(A ∩ B)?</strong> Ketika menulis 18 + 15, anggota irisan (8 siswa yang suka keduanya) <strong>terhitung dua kali</strong>: sekali di kelompok sepak bola dan sekali di kelompok bola voli. Pengurangan n(A ∩ B) mengembalikan penghitungan menjadi tepat satu kali. Tanpa pengurangan, hasil 33 bahkan melebihi jumlah siswa kelas (30) — mustahil!</div>
+
+  <div class="note"><strong>Hubungan dengan pertemuan sebelumnya:</strong> pada diagram Venn, A ∩ B adalah daerah tempat dua lingkaran saling menimpa, sedangkan A ∪ B adalah seluruh isi kedua lingkaran. Rumus n(A ∪ B) = n(A) + n(B) − n(A ∩ B) memastikan daerah yang ditimpa tidak dihitung ganda.</div>
+</section>
+
+<!-- C. CONTOH TERBIMBING -->
+<section class="section">
+  <h2 class="sec-title">C. Contoh Soal Terbimbing</h2>
+
+  <div class="example">
+    <span class="lbl">Contoh 1 — Menentukan A ∩ B dan A ∪ B dari notasi daftar</span>
+    <p>Diketahui <span class="set">A = {1, 2, 3, 4}</span> dan <span class="set">B = {3, 4, 5, 6}</span>. Tentukan A ∩ B dan A ∪ B!</p>
+    <details>
+      <summary><strong>Pembahasan</strong></summary>
+      <ul>
+        <li><strong>A ∩ B</strong> = anggota yang ada di A <strong>dan</strong> di B → periksa satu per satu: 1 tidak ada di B, 2 tidak ada di B, 3 ada di B, 4 ada di B, 5 tidak ada di A, 6 tidak ada di A. Jadi <span class="set">A ∩ B = {3, 4}</span>.</li>
+        <li><strong>A ∪ B</strong> = anggota A atau B (sekali tulis) → {1, 2, 3, 4} digabung {3, 4, 5, 6} menjadi <span class="set">A ∪ B = {1, 2, 3, 4, 5, 6}</span>.</li>
+        <li><strong>Periksa dengan rumus:</strong> n(A) = 4, n(B) = 4, n(A ∩ B) = 2, sehingga n(A ∪ B) = 4 + 4 − 2 = 6 — sesuai dengan 6 anggota hasil penggabungan di atas. ✅</li>
+      </ul>
+    </details>
+  </div>
+
+  <div class="example">
+    <span class="lbl">Contoh 2 — Menghitung n(A ∪ B) dengan rumus</span>
+    <p>Sebuah kelas: n(A) = 27 siswa suka matematika, n(B) = 20 siswa suka IPA, dan n(A ∩ B) = 8 siswa suka keduanya. Berapa banyak siswa yang suka matematika atau IPA (atau keduanya)?</p>
+    <details>
+      <summary><strong>Pembahasan</strong></summary>
+      <ol>
+        <li>Tulis rumusnya: n(A ∪ B) = n(A) + n(B) − n(A ∩ B).</li>
+        <li>Masukkan angka: n(A ∪ B) = 27 + 20 − 8.</li>
+        <li>Hitung: 27 + 20 = 47, lalu 47 − 8 = 39.</li>
+        <li>Jadi <strong>39 siswa</strong> suka matematika atau IPA atau keduanya. Pengurangan 8 diperlukan agar 8 siswa penggemar keduanya tidak terhitung dua kali.</li>
+      </ol>
+    </details>
+  </div>
+
+  <div class="example">
+    <span class="lbl">Contoh 3 — Menemukan n(A ∩ B) jika n(A ∪ B) diketahui</span>
+    <p>Diketahui n(A) = 25, n(B) = 22, dan n(A ∪ B) = 35. Tentukan n(A ∩ B)!</p>
+    <details>
+      <summary><strong>Pembahasan</strong></summary>
+      <ol>
+        <li>Mulai dari rumus: n(A ∪ B) = n(A) + n(B) − n(A ∩ B), yaitu 35 = 25 + 22 − n(A ∩ B).</li>
+        <li>Hitung dulu 25 + 22 = 47, sehingga 35 = 47 − n(A ∩ B).</li>
+        <li>Susun ulang (pindahkan): n(A ∩ B) = 47 − 35 = <strong>12</strong>.</li>
+        <li>Bentuk umumnya: <span class="set">n(A ∩ B) = n(A) + n(B) − n(A ∪ B)</span>. Jadi n(A ∩ B) = 12 orang.</li>
+      </ol>
+    </details>
+  </div>
+
+  <div class="warn">⚠️ <strong>Kesalahan yang sering terjadi:</strong> menulis n(A ∪ B) = n(A) + n(B) tanpa mengurangi n(A ∩ B), sehingga anggota irisan terhitung dua kali. Selalu ingat: <strong>kurangi irisan</strong>!</div>
+</section>
+
+<!-- D. LKPD KEGIATAN 1 -->
+<section class="section">
+  <h2 class="sec-title">D. 📝 LKPD — Kegiatan 1: Eksplorasi Konsep</h2>
+  <p class="sec-desc">Kerjakan bersama teman sebangku. Tuliskan jawaban pada buku catatan, lalu cocokkan dengan kunci setelah mencoba.</p>
+
+  <h4>Tugas 1 — Menentukan Irisan dan Gabungan</h4>
+  <p>Tentukan <strong>A ∩ B</strong> dan <strong>A ∪ B</strong> dari tiap pasangan himpunan berikut.</p>
+  <table>
+    <tr><th>No.</th><th>Himpunan A</th><th>Himpunan B</th><th>A ∩ B</th><th>A ∪ B</th></tr>
+    <tr><td>1</td><td>{1, 2, 3, 4}</td><td>{3, 4, 5, 6}</td><td>…</td><td>…</td></tr>
+    <tr><td>2</td><td>{2, 4, 6, 8}</td><td>{6, 8, 10}</td><td>…</td><td>…</td></tr>
+    <tr><td>3</td><td>{a, b, c}</td><td>{b, c, d}</td><td>…</td><td>…</td></tr>
+    <tr><td>4</td><td>{1, 3, 5}</td><td>{2, 4, 6}</td><td>…</td><td>…</td></tr>
+    <tr><td>5</td><td>{satu, dua, tiga}</td><td>{dua, tiga, empat}</td><td>…</td><td>…</td></tr>
+    <tr><td>6</td><td>{1, 2, 3}</td><td>{1, 2, 3}</td><td>…</td><td>…</td></tr>
+  </table>
+
+  <h4>Tugas 2 — Menghitung dengan Rumus n(A ∪ B)</h4>
+  <ol>
+    <li>n(A) = 24, n(B) = 18, n(A ∩ B) = 6. Hitung n(A ∪ B)!</li>
+    <li>n(A) = 15, n(B) = 12, n(A ∩ B) = 5. Hitung n(A ∪ B)!</li>
+    <li>Dari 40 siswa, 26 suka A, 24 suka B, dan 10 suka keduanya. Berapa banyak siswa yang suka minimal satu?</li>
+    <li>Dari 30 siswa, 16 suka kegiatan A, 14 suka kegiatan B, dan 6 suka keduanya. Berapa banyak siswa yang tidak suka keduanya?</li>
+  </ol>
+
+  <details>
+    <summary><strong>Kunci jawaban dan pembahasan Kegiatan 1 (buka setelah mencoba)</strong></summary>
+    <p><strong>Tugas 1:</strong></p>
+    <ol>
+      <li>A ∩ B = {3, 4}; A ∪ B = {1, 2, 3, 4, 5, 6}.</li>
+      <li>A ∩ B = {6, 8}; A ∪ B = {2, 4, 6, 8, 10}.</li>
+      <li>A ∩ B = {b, c}; A ∪ B = {a, b, c, d}.</li>
+      <li>A ∩ B = ∅ (saling lepas — tidak ada anggota yang sama); A ∪ B = {1, 2, 3, 4, 5, 6}.</li>
+      <li>A ∩ B = {dua, tiga}; A ∪ B = {satu, dua, tiga, empat}.</li>
+      <li>A ∩ B = {1, 2, 3}; A ∪ B = {1, 2, 3} — jika A = B, irisan dan gabungan sama dengan himpunan itu sendiri.</li>
+    </ol>
+    <p><strong>Tugas 2:</strong></p>
+    <ol>
+      <li>n(A ∪ B) = 24 + 18 − 6 = 42 − 6 = <strong>36</strong>.</li>
+      <li>n(A ∪ B) = 15 + 12 − 5 = 27 − 5 = <strong>22</strong>.</li>
+      <li>n(A ∪ B) = 26 + 24 − 10 = 50 − 10 = <strong>40 siswa</strong> (artinya setiap siswa suka minimal satu kegiatan).</li>
+      <li>n(A ∪ B) = 16 + 14 − 6 = 30 − 6 = 24 siswa suka minimal satu, sehingga yang tidak suka keduanya = 30 − 24 = <strong>6 siswa</strong>.</li>
+    </ol>
+  </details>
+</section>
+
+<!-- E. LKPD KEGIATAN 2 -->
+<section class="section">
+  <h2 class="sec-title">E. 📝 LKPD — Kegiatan 2: Latihan Bertingkat</h2>
+  <p class="sec-desc">Kerjakan berurutan: <strong>Mudah → Menengah → Sulit (HOTS)</strong>. Raih skor minimal <strong>80</strong> untuk membuka level berikutnya. Untuk himpunan, tulis anggota di dalam kurung kurawal dan pisahkan dengan koma, contoh: {3,4}.</p>
+
+  <div class="level-btns">
+    <button class="level-btn active" id="btnLevel1" onclick="pilihLevel(1)">🟢 Level 1<br>Mudah</button>
+    <button class="level-btn locked" id="btnLevel2" onclick="pilihLevel(2)">🟡 Level 2<br>Menengah</button>
+    <button class="level-btn locked" id="btnLevel3" onclick="pilihLevel(3)">🔴 Level 3<br>Sulit (HOTS)</button>
+  </div>
+
+  <div class="section" style="box-shadow:none;border:1px solid var(--line);padding:16px">
+    <div class="sec-title" style="font-size:17px" id="judulLevel">🟢 Level 1 — Mudah</div>
+    <div id="petunjuk"></div>
+    <div id="soalContainer"></div>
+    <div>
+      <button class="btn btn-success" onclick="periksa()">✓ Periksa Jawaban</button>
+      <button class="btn btn-light" onclick="tampil()">🔄 Soal Baru</button>
+    </div>
+    <div id="hasil"></div>
+  </div>
+</section>
+
+<!-- F. MISI TANTANGAN -->
+<section class="section">
+  <h2 class="sec-title">F. Misi Tantangan — Berpikir Seperti Ahli Matematika</h2>
+  <p class="sec-desc">Jangan hanya mencari jawaban akhir — jelaskan juga alasannya dengan kata-katamu sendiri.</p>
+
+  <div class="misi">
+    <h4>🕵️ Misi 1 — Menganalisis Kesalahan Teman</h4>
+    <p>Seorang siswa berkata:</p>
+    <div class="tanya">“Dari 30 siswa, 18 suka sepak bola dan 15 suka bola voli. Jadi yang suka salah satu olahraga ada 18 + 15 = <strong>33 siswa</strong>.”</div>
+    <p>Apakah pernyataan siswa tersebut benar? Jika tidak, perbaiki hitungannya (misalnya bila ada 8 siswa yang suka keduanya) dan jelaskan kesalahannya.</p>
+    <details>
+      <summary><strong>Kunci jawaban dan pembahasan</strong></summary>
+      <p><strong>Salah.</strong> 8 siswa yang suka kedua olahraga terhitung dua kali, dan hasil 33 mustahil lebih besar daripada jumlah siswa kelas (30). Jika n(A ∩ B) = 8, maka n(A ∪ B) = 18 + 15 − 8 = <strong>25 siswa</strong>, dan yang tidak suka keduanya 30 − 25 = 5 siswa. Kekeliruannya: <strong>lupa mengurangi n(A ∩ B)</strong>.</p>
+    </details>
+  </div>
+
+  <div class="misi">
+    <h4>🧩 Misi 2 — Irisan dan Gabungan dari Data Kelas</h4>
+    <p>Diketahui <span class="set">A = {1, 2, 3, 4}</span> dan <span class="set">B = {3, 4, 5, 6}</span>.</p>
+    <ol>
+      <li>Tentukan A ∩ B dan A ∪ B, lalu hitung banyak anggota masing-masing.</li>
+      <li>Buktikan dengan rumus bahwa n(A ∪ B) = n(A) + n(B) − n(A ∩ B) cocok dengan hasil daftar anggotamu.</li>
+      <li>Jika C = A ∪ B, apakah A ∩ C = A? Jelaskan dengan membandingkan anggotanya.</li>
+    </ol>
+    <details>
+      <summary><strong>Kunci jawaban dan pembahasan</strong></summary>
+      <ol>
+        <li>A ∩ B = {3, 4} sehingga n(A ∩ B) = 2; A ∪ B = {1, 2, 3, 4, 5, 6} sehingga n(A ∪ B) = 6.</li>
+        <li>n(A) = 4 dan n(B) = 4, sehingga n(A) + n(B) − n(A ∩ B) = 4 + 4 − 2 = 6 = n(A ∪ B). ✅ Cocok!</li>
+        <li><strong>Ya, A ∩ C = A.</strong> Karena semua anggota A pasti termasuk dalam C = A ∪ B, irisan A dengan C hanyalah A itu sendiri. Ini juga sesuai sifat: A ∩ S = A (di sini C memegang peran “semesta” bagi A).</li>
+      </ol>
+    </details>
+  </div>
+
+  <div class="boss">
+    <h3>👑 Boss Challenge — Tantangan HOTS</h3>
+    <p>Dari 50 siswa sebuah kelas: 30 siswa membawa <strong>payung</strong> (himpunan P), 28 siswa membawa <strong>topi</strong> (himpunan T), dan 12 siswa membawa <strong>keduanya</strong>.</p>
+    <ol>
+      <li>Berapa banyak siswa yang membawa payung <strong>saja</strong>?</li>
+      <li>Berapa banyak siswa yang membawa topi <strong>saja</strong>?</li>
+      <li>Berapa banyak siswa yang membawa keduanya, dan berapa banyak yang <strong>tidak membawa keduanya</strong>?</li>
+      <li>Ukur semua hasilmu: apakah jumlah (payung saja) + (topi saja) + (keduanya) + (tidak membawa keduanya) kembali menjadi 50?</li>
+    </ol>
+    <details>
+      <summary><strong>Kunci jawaban dan pembahasan</strong></summary>
+      <ol>
+        <li>Payung saja = n(P) − n(P ∩ T) = 30 − 12 = <strong>18 siswa</strong>.</li>
+        <li>Topi saja = n(T) − n(P ∩ T) = 28 − 12 = <strong>16 siswa</strong>.</li>
+        <li>Membawa keduanya = <strong>12 siswa</strong>. Banyak siswa yang membawa minimal satu = n(P ∪ T) = 30 + 28 − 12 = <strong>46 siswa</strong>, sehingga yang tidak membawa keduanya = 50 − 46 = <strong>4 siswa</strong>.</li>
+        <li>Pemeriksaan: 18 + 16 + 12 + 4 = 50. ✅ Semua anggota terhitung tepat satu kali, jumlahnya kembali 50.</li>
+      </ol>
+    </details>
+  </div>
+</section>
+
+<!-- G. REFLEKSI -->
+<section class="section">
+  <h2 class="sec-title">G. Refleksi Pembelajaran</h2>
+  <p class="sec-desc">Centang bila kamu sudah mampu menjelaskannya dengan kata-katamu sendiri.</p>
+  <div class="refleksi">
+    <label><input type="checkbox"> Apa arti irisan A ∩ B dan bagaimana menentukan anggotanya?</label>
+    <label><input type="checkbox"> Apa arti gabungan A ∪ B dan bagaimana menuliskannya tanpa anggota ganda?</label>
+    <label><input type="checkbox"> Sebutkan sifat komutatif, asosiatif, dan identitas irisan/gabungan beserta contohnya.</label>
+    <label><input type="checkbox"> Kapan dua himpunan disebut saling lepas?</label>
+    <label><input type="checkbox"> Tuliskan rumus n(A ∪ B) dan jelaskan mengapa harus dikurangi n(A ∩ B).</label>
+  </div>
+  <div class="note"><strong>Target akhir Pertemuan 6:</strong> kamu dapat menentukan A ∩ B dan A ∪ B dari data anggota maupun data banyak anggota, menggunakan sifat-sifatnya, serta menghitung n(A ∪ B) tanpa menghitung ganda anggota irisan.</div>
+</section>
+
+<nav class="nav">
+  <a href="index.html">← Peta Materi Himpunan</a>
+  <a href="pertemuan-5-diagram-venn.html">← Pertemuan 5 — Diagram Venn</a>
+  <a href="pertemuan-7-selisih-dan-komplemen.html">Lanjut: Pertemuan 7 — Selisih dan Komplemen →</a>
+</nav>
+
+<footer>Pertemuan 6 • Irisan dan Gabungan Himpunan • Matematika Kelas IX A (MATH-IX-A)</footer>
+
+</div>
+
+<script>
+/* =========================================================
+   BANK SOAL — 3 LEVEL
+   tipe "pilihan" : p = pilihan, k = index kunci
+   tipe "isian"   : a = daftar jawaban yang diterima
+======================================================== */
+
+const bank = {
+
+1:{
+  judul:"🟢 Level 1 — Mudah",
+  petunjuk:"Pilih satu jawaban yang paling tepat.",
+  soal:[
+    {tipe:"pilihan", q:"Diketahui A = {1, 2, 3, 4} dan B = {3, 4, 5, 6}. Hasil A ∩ B adalah …",
+     p:["{3, 4}","{1, 2, 5, 6}","{1, 2, 3, 4, 5, 6}","∅"], k:0,
+     e:"Irisan berisi anggota yang ada di A dan di B sekaligus, yaitu 3 dan 4."},
+    {tipe:"pilihan", q:"Diketahui A = {1, 2, 3, 4} dan B = {3, 4, 5, 6}. Hasil A ∪ B adalah …",
+     p:["{3, 4}","{1, 2, 3, 4, 5, 6}","{1, 2}","∅"], k:1,
+     e:"Gabungan berisi semua anggota A dan B; anggota 3 dan 4 cukup ditulis sekali, sehingga A ∪ B = {1, 2, 3, 4, 5, 6}."},
+    {tipe:"pilihan", q:"Jika A = {a, b, c, d} dan B = {c, d, e}, maka A ∩ B = …",
+     p:["{c, d}","{a, b}","{a, b, c, d, e}","{e}"], k:0,
+     e:"Hanya huruf c dan d yang dimiliki kedua himpunan, sehingga A ∩ B = {c, d}."},
+    {tipe:"pilihan", q:"A = {1, 3, 5, 7, 9} (bilangan ganjil) dan B = {2, 4, 6, 8, 10} (bilangan genap). Irisan A dan B adalah …",
+     p:["∅","A","B","{1, 2, 3, …, 10}"], k:0,
+     e:"Tidak ada bilangan yang sekaligus ganjil dan genap, sehingga A ∩ B = ∅ (kedua himpunan saling lepas)."},
+    {tipe:"pilihan", q:"Manakah identitas gabungan yang benar? (S = semesta, ∅ = himpunan kosong)",
+     p:["A ∪ S = A","A ∪ S = S","A ∪ S = ∅","A ∪ S = A ∩ S"], k:1,
+     e:"Gabungan A dengan semesta pasti berisi semua anggota semesta, jadi A ∪ S = S. Identitas lain: A ∪ ∅ = A."},
+    {tipe:"pilihan", q:"Perhatikan pernyataan: A ∩ B = B ∩ A dan A ∪ B = B ∪ A. Sifat tersebut disebut sifat …",
+     p:["komutatif","asosiatif","identitas","saling lepas"], k:0,
+     e:"Komutatif artinya boleh ditukar urutannya tanpa mengubah hasil. Asosiatif menyangkut pengelompokan tiga himpunan."}
+  ]
+},
+
+2:{
+  judul:"🟡 Level 2 — Menengah",
+  petunjuk:"Tulis jawabanmu pada kolom yang tersedia. Untuk himpunan, tulis anggota di dalam kurung kurawal dan pisahkan dengan koma, contoh: {3,4}. Untuk bilangan, cukup tulis angkanya.",
+  soal:[
+    {tipe:"isian", q:"Diketahui A = {1, 2, 3, 4} dan B = {3, 4, 5, 6}. Tuliskan A ∩ B.",
+     a:["{3,4}"], e:"Anggota yang dimiliki kedua himpunan hanyalah 3 dan 4, sehingga A ∩ B = {3, 4}."},
+    {tipe:"isian", q:"Diketahui A = {1, 2, 3, 4} dan B = {3, 4, 5, 6}. Tuliskan A ∪ B.",
+     a:["{1,2,3,4,5,6}"], e:"Gabungan menggabungkan semua anggota kedua himpunan tanpa mengulang, sehingga A ∪ B = {1, 2, 3, 4, 5, 6}."},
+    {tipe:"isian", q:"n(A) = 12, n(B) = 9, dan n(A ∩ B) = 4. Hitunglah n(A ∪ B).",
+     a:["17"], e:"n(A ∪ B) = n(A) + n(B) − n(A ∩ B) = 12 + 9 − 4 = 17."},
+    {tipe:"isian", q:"n(A) = 20, n(B) = 15, dan n(A ∪ B) = 28. Hitunglah n(A ∩ B).",
+     a:["7"], e:"Dari n(A ∪ B) = n(A) + n(B) − n(A ∩ B) diperoleh n(A ∩ B) = 20 + 15 − 28 = 7."},
+    {tipe:"isian", q:"Diketahui A = {1, 2, 3} dan B = {4, 5}. Tuliskan hasil A ∩ B.",
+     a:["∅","kosong","{}"], e:"Kedua himpunan tidak punya anggota yang sama (saling lepas), sehingga A ∩ B = ∅, yaitu himpunan kosong."},
+    {tipe:"isian", q:"Dari 30 siswa: 18 suka A, 15 suka B, dan 8 suka keduanya. Berapa banyak siswa yang suka minimal satu kegiatan?",
+     a:["25"], e:"n(A ∪ B) = 18 + 15 − 8 = 25 siswa (anggota irisan tidak dihitung ganda)."}
+  ]
+},
+
+3:{
+  judul:"🔴 Level 3 — Sulit (HOTS)",
+  petunjuk:"Baca datanya dengan cermat. Jawaban berupa bilangan, himpunan, atau pilihan penilaian.",
+  soal:[
+    {tipe:"pilihan", q:"n(A) = 25, n(B) = 22, dan n(A ∩ B) = 12. Nilai n(A ∪ B) adalah …",
+     p:["47","35","13","10"], k:1,
+     e:"n(A ∪ B) = 25 + 22 − 12 = 47 − 12 = 35. Pengurangan 12 mencegah anggota irisan terhitung dua kali."},
+    {tipe:"isian", q:"n(A) = 18, n(B) = 15, dan n(A ∪ B) = 25. Hitunglah n(A ∩ B).",
+     a:["8"], e:"n(A ∩ B) = n(A) + n(B) − n(A ∪ B) = 18 + 15 − 25 = 8."},
+    {tipe:"isian", q:"Semesta S = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10}, A = {2, 4, 6, 8}, B = {1, 3, 5, 7}. Tuliskan himpunan anggota yang TIDAK termasuk A ∪ B.",
+     a:["{9,10}"], e:"A ∪ B = {1, 2, 3, 4, 5, 6, 7, 8}, sehingga anggota S di luar gabungan hanya 9 dan 10."},
+    {tipe:"pilihan", q:"Seorang siswa berkata: “Karena n(A) = 18 dan n(B) = 15, n(A ∪ B) = 18 + 15 = 33.” Penilaian yang tepat adalah …",
+     p:["Benar, jumlahkan saja n(A) dan n(B)",
+        "Salah — anggota irisan terhitung dua kali; jika n(A ∩ B) = 8 maka n(A ∪ B) = 25",
+        "Salah — n(A ∪ B) selalu sama dengan n(A)",
+        "Benar, selama kedua himpunan berbeda"], k:1,
+     e:"Rumus yang benar n(A ∪ B) = n(A) + n(B) − n(A ∩ B). Dengan irisan 8: 18 + 15 − 8 = 25, bukan 33."},
+    {tipe:"pilihan", q:"Dari 40 siswa: n(A) = 25, n(B) = 22, n(A ∩ B) = 12. Banyak siswa yang TIDAK suka A maupun B adalah …",
+     p:["5","7","13","17"], k:0,
+     e:"n(A ∪ B) = 25 + 22 − 12 = 35, sehingga yang tidak suka keduanya = 40 − 35 = 5 siswa."},
+    {tipe:"isian", q:"n(A) = 10, n(B) = 7, dan n(A ∪ B) = 15. Hitunglah n(A ∩ B).",
+     a:["2"], e:"n(A ∩ B) = 10 + 7 − 15 = 2. Periksa: hasilnya tidak boleh lebih besar dari n(A) maupun n(B) — 2 ≤ 7 dan 2 ≤ 10. ✅"}
+  ]
+}
+
+};
+
+/* =========================================================
+   MESIN KUIS
+======================================================== */
+
+let lvl = 1;
+let soalAktif = [];
+let dipilih = [];
+let lulus = {1:false, 2:false, 3:false};
+
+function norm(s){
+  return String(s).toLowerCase()
+    .replace(/rp/g, "")
+    .replace(/[\s.,{}]/g, "")
+    .replace(/[−–—]/g, "-")
+    .replace(/[×·∙]/g, "*")
+    .replace(/[⁰¹²³⁴⁵⁶⁷⁸⁹]/g, d => "0123456789"["⁰¹²³⁴⁵⁶⁷⁸⁹".indexOf(d)])
+    .replace(/\^/g, "");
+}
+
+function acak(arr){
+  const a = [...arr];
+  for(let i = a.length - 1; i > 0; i--){
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function pilihLevel(n){
+  if(n > 1 && !lulus[n - 1]){
+    alert("Selesaikan Level " + (n - 1) + " terlebih dahulu (skor minimal 80).");
+    return;
+  }
+  lvl = n;
+  document.querySelectorAll(".level-btn")
+    .forEach((b, i) => b.classList.toggle("active", i === n - 1));
+  tampil();
+}
+
+function tampil(){
+  const b = bank[lvl];
+
+  document.getElementById("judulLevel").textContent = b.judul;
+  document.getElementById("petunjuk").innerHTML = "<p>📌 " + b.petunjuk + "</p>";
+
+  soalAktif = acak(b.soal).slice(0, Math.min(5, b.soal.length));
+  dipilih = new Array(soalAktif.length).fill(null);
+
+  let html = "";
+
+  soalAktif.forEach((s, i) => {
+    let isi = "";
+
+    if(s.tipe === "pilihan"){
+      isi = '<div class="choices">' +
+        s.p.map((c, j) =>
+          '<button class="choice" id="c-' + i + '-' + j + '" onclick="pilih(' + i + ',' + j + ')">' + c + '</button>'
+        ).join("") + '</div>';
+    } else {
+      isi = '<input class="inp" id="in-' + i + '" placeholder="Tulis jawabanmu di sini...">';
+    }
+
+    html +=
+      '<div class="q" id="q-' + i + '">' +
+        '<div class="qt">' + (i + 1) + '. ' + s.q + '</div>' +
+        isi +
+        '<div class="fb" id="fb-' + i + '"></div>' +
+      '</div>';
+  });
+
+  document.getElementById("soalContainer").innerHTML = html;
+  document.getElementById("hasil").innerHTML = "";
+}
+
+function pilih(i, j){
+  dipilih[i] = j;
+  soalAktif.forEach((s, idx) => {
+    if(s.tipe !== "pilihan") return;
+    s.p.forEach((c, k) => {
+      const el = document.getElementById("c-" + idx + "-" + k);
+      if(el) el.classList.toggle("sel", idx === i && k === j);
+    });
+  });
+}
+
+function periksa(){
+  let kosong = false;
+
+  soalAktif.forEach((s, i) => {
+    if(s.tipe === "pilihan" && dipilih[i] === null) kosong = true;
+    if(s.tipe === "isian"){
+      const el = document.getElementById("in-" + i);
+      if(!el || !el.value.trim()) kosong = true;
+    }
+  });
+
+  if(kosong){
+    alert("Jawab semua soal terlebih dahulu.");
+    return;
+  }
+
+  let benar = 0;
+
+  soalAktif.forEach((s, i) => {
+    const box = document.getElementById("q-" + i);
+    const fb = document.getElementById("fb-" + i);
+    let ok = false;
+    let jawabanTampil = "";
+
+    if(s.tipe === "pilihan"){
+      ok = dipilih[i] === s.k;
+      jawabanTampil = s.p[s.k];
+      s.p.forEach((c, j) => {
+        const btn = document.getElementById("c-" + i + "-" + j);
+        btn.classList.remove("sel", "ok", "no");
+        if(j === s.k) btn.classList.add("ok");
+        else if(j === dipilih[i]) btn.classList.add("no");
+      });
+    } else {
+      const el = document.getElementById("in-" + i);
+      ok = s.a.some(a => norm(a) === norm(el.value));
+      jawabanTampil = s.a[0];
+      el.classList.remove("ok", "no");
+      el.classList.add(ok ? "ok" : "no");
+    }
+
+    box.classList.remove("correct", "wrong");
+    box.classList.add(ok ? "correct" : "wrong");
+
+    if(ok) benar++;
+
+    fb.innerHTML =
+      (ok ? "✅ Benar. " : '❌ Belum tepat. Jawaban benar: <strong>' + jawabanTampil + '</strong>. ') +
+      '<i>' + s.e + '</i>';
+  });
+
+  const nilai = Math.round(benar / soalAktif.length * 100);
+
+  document.getElementById("hasil").innerHTML =
+    '<div class="score">' +
+      '<div>Hasil ' + bank[lvl].judul + '</div>' +
+      '<div class="num">' + nilai + '</div>' +
+      '<div>Benar ' + benar + ' dari ' + soalAktif.length + ' soal</div>' +
+      (nilai >= 80
+        ? '<p>🎉 Tuntas! Level berikutnya sudah terbuka.</p>'
+        : '<p>💡 Belum tuntas. Baca lagi pembahasannya, lalu coba soal baru.</p>') +
+    '</div>';
+
+  if(nilai >= 80){
+    lulus[lvl] = true;
+    if(lvl < 3){
+      document.getElementById("btnLevel" + (lvl + 1)).classList.remove("locked");
+    }
+  }
+}
+
+tampil();
+</script>
+
+</body>
+</html>
