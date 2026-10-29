@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Asesmen Translasi - Transformasi Geometri Kelas IX B</title>
+<style>
+  :root { --ink:#1f2937; --muted:#64748b; --line:#dbe3ee; --blue:#1e40af; --pale:#eff6ff; --green:#166534; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:#f3f6fb; color:var(--ink); font:16px/1.55 Arial, Helvetica, sans-serif; }
+  .page { max-width:900px; margin:24px auto; padding:34px 42px; background:#fff; box-shadow:0 4px 22px #0f172a12; }
+  header { text-align:center; border-bottom:2px solid var(--blue); padding-bottom:18px; margin-bottom:20px; }
+  h1 { margin:0; color:var(--blue); font-size:27px; line-height:1.25; }
+  .subtitle { margin:8px 0 0; color:var(--muted); }
+  .identity { display:flex; flex-wrap:wrap; gap:10px 24px; margin:18px 0; }
+  .identity span { flex:1 1 180px; border-bottom:1px solid #94a3b8; padding-bottom:5px; }
+  .instructions { background:var(--pale); border-left:4px solid var(--blue); padding:12px 16px; margin:18px 0 26px; }
+  .instructions p { margin:3px 0; }
+  table.summary { width:100%; border-collapse:collapse; margin:14px 0 4px; font-size:15px; }
+  table.summary th, table.summary td { border:1px solid var(--line); padding:7px 10px; text-align:left; }
+  table.summary th { background:var(--pale); color:var(--blue); }
+  h2.section-title { margin:30px 0 14px; color:var(--blue); font-size:20px; border-left:5px solid var(--blue); padding-left:10px; }
+  h2.section-title small { display:block; color:var(--muted); font-size:13px; font-weight:400; margin-top:2px; }
+  .question { padding:0 0 18px; margin:0 0 22px; border-bottom:1px solid var(--line); break-inside:avoid; }
+  .qhead { font-weight:700; font-size:17px; margin-bottom:6px; }
+  .tag { display:inline-block; font-size:12px; letter-spacing:.02em; color:var(--blue); background:var(--pale); padding:3px 8px; border-radius:4px; margin-left:6px; vertical-align:2px; }
+  .topic { color:var(--muted); font-size:13px; font-weight:400; }
+  .stem { margin:6px 0 9px; }
+  .options { list-style:none; padding:0 0 0 12px; margin:0 0 10px; }
+  .options li { margin:2px 0; }
+  .match-choices { background:#f8fafc; border:1px dashed #94a3b8; border-radius:8px; padding:10px 14px; margin:8px 0 12px; }
+  .match-choices p { margin:2px 0; }
+  .answer { margin:10px 0 5px; color:var(--green); font-weight:700; }
+  .explanation { margin:0; padding:10px 12px; background:#f8fafc; border-left:3px solid #94a3b8; }
+  .explanation strong { color:#334155; }
+  details.keybox { border:1px solid var(--line); border-radius:10px; padding:12px 16px; margin:22px 0; background:#f8fafc; }
+  details.keybox summary { cursor:pointer; font-weight:700; color:var(--blue); }
+  table.key { width:100%; border-collapse:collapse; margin-top:12px; font-size:15px; }
+  table.key th, table.key td { border:1px solid var(--line); padding:6px 10px; text-align:center; }
+  table.key th { background:var(--pale); color:var(--blue); }
+  .scoring { background:var(--pale); border-left:4px solid var(--blue); padding:12px 16px; margin:22px 0; }
+  .scoring p { margin:4px 0; }
+  .foot { color:var(--muted); font-size:12px; text-align:center; margin-top:30px; }
+  .toolbar { max-width:900px; margin:18px auto 0; display:flex; justify-content:flex-end; gap:10px; padding:0 8px; }
+  button { font:inherit; border:0; border-radius:8px; background:var(--blue); color:white; padding:10px 15px; cursor:pointer; }
+  @media(max-width:640px) { .page{margin:0;padding:22px 18px;box-shadow:none} h1{font-size:23px}.toolbar{padding:12px;justify-content:center} }
+  @media print {
+    body { background:#fff; font-size:11pt; }
+    .toolbar { display:none; }
+    .page { max-width:none; margin:0; padding:0; box-shadow:none; }
+    .question { break-inside:avoid; }
+    header { margin-top:0; }
+    .instructions, .explanation, .scoring, details.keybox { print-color-adjust:exact; -webkit-print-color-adjust:exact; }
+    details.keybox[open] summary { display:none; }
+  }
+</style>
+</head>
+<body>
+<div class="toolbar"><button onclick="window.print()">Cetak / Simpan sebagai PDF</button></div>
+<main class="page">
+<header>
+  <h1>ASESMEN TRANSLASI<br>TRANSFORMASI GEOMETRI KELAS IX B</h1>
+  <p class="subtitle">20 Soal • Pilihan Ganda, Pilihan Ganda Kompleks, Benar–Salah, dan Menjodohkan</p>
+</header>
+<div class="identity">
+  <span>Nama: ______________________________</span>
+  <span>Kelas: __________</span>
+  <span>Tanggal: __________________</span>
+</div>
+
+<section class="instructions">
+  <strong>Asesmen ini disusun berdasarkan materi pada LKPD <a href="lkpd_translasi_kelas_ix_b.html">Transformasi Geometri: Translasi</a>.</strong>
+  <p>Jumlah: 20 soal, terdiri atas:</p>
+  <table class="summary">
+    <tr><th>Bentuk soal</th><th>Jumlah</th></tr>
+    <tr><td>Pilihan ganda</td><td>8</td></tr>
+    <tr><td>Pilihan ganda kompleks</td><td>4</td></tr>
+    <tr><td>Benar atau salah</td><td>4</td></tr>
+    <tr><td>Menjodohkan</td><td>4</td></tr>
+    <tr><td><strong>Total</strong></td><td><strong>20</strong></td></tr>
+  </table>
+  <p><strong>Petunjuk pengerjaan</strong></p>
+  <p>1–8: pilih satu jawaban yang paling tepat.</p>
+  <p>9–12: pilih semua jawaban yang benar; jawaban dapat lebih dari satu.</p>
+  <p>13–16: tentukan apakah pernyataan benar atau salah.</p>
+  <p>17–20: pasangkan setiap soal dengan jawaban A–D yang tepat; setiap pilihan digunakan satu kali.</p>
+  <p>Materi mencakup pengertian translasi, arah pergeseran pada koordinat, menentukan bayangan titik, serta menggabungkan dua translasi. Tingkat kesulitan dibuat bertahap dari pemahaman konsep hingga penalaran (HOTS).</p>
+  <p><strong>Catatan:</strong> Dokumen ini adalah versi pembahasan. Kunci jawaban dan pembahasan dicantumkan tepat di bawah setiap soal.</p>
+</section>
+
+<h2 class="section-title">A. Pilihan Ganda <small>Pilih satu jawaban yang paling tepat. (Soal 1–8)</small></h2>
+
+<section class="question">
+<div class="qhead">Soal 1 <span class="tag">Pilihan Ganda</span> <span class="topic">• Pengertian translasi</span></div>
+<p class="stem">Translasi dalam transformasi geometri adalah ....</p>
+<ul class="options"><li>A. Memutar bangun terhadap titik pusat</li><li>B. Menggeser bangun tanpa mengubah bentuk dan ukurannya</li><li>C. Mencerminkan bangun terhadap garis</li><li>D. Memperbesar ukuran bangun</li></ul>
+<p class="answer">Kunci jawaban: B</p><p class="explanation"><strong>Pembahasan:</strong> Translasi adalah pergeseran setiap titik bangun sejauh jarak dan ke arah tertentu. Bentuk dan ukuran bangun tetap sama; hanya posisinya yang berubah.</p>
+</section>
+
+<section class="question">
+<div class="qhead">Soal 2 <span class="tag">Pilihan Ganda</span> <span class="topic">• Bayangan titik (geser kanan dan atas)</span></div>
+<p class="stem">Titik A(2, 3) ditranslasikan 4 satuan ke kanan dan 2 satuan ke atas. Koordinat bayangan A′ adalah ....</p>
+<ul class="options"><li>A. (6, 5)</li><li>B. (−2, 1)</li><li>C. (6, 1)</li><li>D. (−2, 5)</li></ul>
+<p class="answer">Kunci jawaban: A</p><p class="explanation"><strong>Pembahasan:</strong> Geser 4 satuan ke kanan berarti x bertambah 4, dan 2 satuan ke atas berarti y bertambah 2. Jadi A′ = (2 + 4, 3 + 2) = (6, 5).</p>
+</section>
+
+<section class="question">
+<div class="qhead">Soal 3 <span class="tag">Pilihan Ganda</span> <span class="topic">• Arah pergeseran (ke kiri)</span></div>
+<p class="stem">Titik B(5, −2) digeser 3 satuan ke kiri. Koordinat bayangan B′ adalah ....</p>
+<ul class="options"><li>A. (8, −2)</li><li>B. (5, −5)</li><li>C. (2, −2)</li><li>D. (2, 1)</li></ul>
+<p class="answer">Kunci jawaban: C</p><p class="explanation"><strong>Pembahasan:</strong> Geser ke kiri berarti koordinat x berkurang. B′ = (5 − 3, −2) = (2, −2). Koordinat y tidak berubah karena arah geserannya mendatar.</p>
+</section>
+
+<section class="question">
+<div class="qhead">Soal 4 <span class="tag">Pilihan Ganda</span> <span class="topic">• Arah pergeseran (ke bawah)</span></div>
+<p class="stem">Titik C(−1, 4) ditranslasikan 3 satuan ke bawah. Koordinat bayangannya adalah ....</p>
+<ul class="options"><li>A. (−1, 7)</li><li>B. (−1, 1)</li><li>C. (2, 4)</li><li>D. (−4, 4)</li></ul>
+<p class="answer">Kunci jawaban: B</p><p class="explanation"><strong>Pembahasan:</strong> Geser ke bawah berarti koordinat y berkurang. C′ = (−1, 4 − 3) = (−1, 1). Koordinat x tetap.</p>
+</section>
+
+<section class="question">
+<div class="qhead">Soal 5 <span class="tag">Pilihan Ganda</span> <span class="topic">• Notasi translasi T(a, b)</span></div>
+<p class="stem">Translasi T(−2, 5) diterapkan pada titik P(4, −1). Koordinat P′ adalah ....</p>
+<ul class="options"><li>A. (6, −6)</li><li>B. (2, 4)</li><li>C. (2, −6)</li><li>D. (6, 4)</li></ul>
+<p class="answer">Kunci jawaban: B</p><p class="explanation"><strong>Pembahasan:</strong> T(a, b) berarti x ditambah a dan y ditambah b. P′ = (4 + (−2), −1 + 5) = (2, 4).</p>
+</section>
+
+<section class="question">
+<div class="qhead">Soal 6 <span class="tag">Pilihan Ganda</span> <span class="topic">• Menentukan translasi dari perpindahan titik</span></div>
+<p class="stem">Titik Q(−3, 2) berpindah menjadi Q′(1, −4). Translasi yang terjadi adalah ....</p>
+<ul class="options"><li>A. T(−4, 6)</li><li>B. T(4, 6)</li><li>C. T(−4, −6)</li><li>D. T(4, −6)</li></ul>
+<p class="answer">Kunci jawaban: D</p><p class="explanation"><strong>Pembahasan:</strong> Translasi diperoleh dari selisih koordinat bayangan dan titik awal: a = 1 − (−3) = 4 dan b = −4 − 2 = −6. Jadi translasinya T(4, −6).</p>
+</section>
+
+<section class="question">
+<div class="qhead">Soal 7 <span class="tag">Pilihan Ganda</span> <span class="topic">• Penggabungan dua translasi</span></div>
+<p class="stem">Sebuah titik P(2, 1) ditranslasikan dengan T(3, −2), kemudian T(−1, 4). Koordinat akhir P″ adalah ....</p>
+<ul class="options"><li>A. (4, 3)</li><li>B. (4, −1)</li><li>C. (6, 3)</li><li>D. (2, 5)</li></ul>
+<p class="answer">Kunci jawaban: A</p><p class="explanation"><strong>Pembahasan:</strong> Translasi gabungan = T(3 + (−1), −2 + 4) = T(2, 2). Maka P″ = (2 + 2, 1 + 2) = (4, 3).</p>
+</section>
+
+<section class="question">
+<div class="qhead">Soal 8 <span class="tag">Pilihan Ganda</span> <span class="topic">• Menerjemahkan koordinat menjadi arah pergeseran (HOTS)</span></div>
+<p class="stem">Titik A(−2, 3) ditranslasikan menjadi A′(4, 1). Pernyataan yang tepat tentang perpindahan tersebut adalah ....</p>
+<ul class="options"><li>A. 6 satuan ke kiri dan 2 satuan ke atas</li><li>B. 6 satuan ke kanan dan 2 satuan ke bawah</li><li>C. 2 satuan ke kanan dan 6 satuan ke bawah</li><li>D. 4 satuan ke kanan dan 1 satuan ke bawah</li></ul>
+<p class="answer">Kunci jawaban: B</p><p class="explanation"><strong>Pembahasan:</strong> Perubahan x = 4 − (−2) = 6 (positif berarti ke kanan) dan perubahan y = 1 − 3 = −2 (negatif berarti ke bawah). Jadi perpindahannya 6 satuan ke kanan dan 2 satuan ke bawah.</p>
+</section>
+
+<h2 class="section-title">B. Pilihan Ganda Kompleks <small>Pilih semua jawaban yang benar. Setiap soal dapat memiliki lebih dari satu jawaban benar. (Soal 9–12)</small></h2>
+
+<section class="question">
+<div class="qhead">Soal 9 <span class="tag">Pilihan Ganda Kompleks</span> <span class="topic">• Pergeseran keempat arah</span></div>
+<p class="stem">Titik P(1, 2) ditranslasikan. Pernyataan manakah yang benar?</p>
+<ul class="options"><li>A. Geser 3 satuan ke kanan menghasilkan P′(4, 2).</li><li>B. Geser 2 satuan ke atas menghasilkan P′(1, 4).</li><li>C. Geser 4 satuan ke kiri menghasilkan P′(5, 2).</li><li>D. Geser 3 satuan ke bawah menghasilkan P′(1, −1).</li></ul>
+<p class="answer">Kunci jawaban: A, B, D</p><p class="explanation"><strong>Pembahasan:</strong> A: (1 + 3, 2) = (4, 2) — benar. B: (1, 2 + 2) = (1, 4) — benar. C: seharusnya (1 − 4, 2) = (−3, 2), bukan (5, 2) — salah. D: (1, 2 − 3) = (1, −1) — benar.</p>
+</section>
+
+<section class="question">
+<div class="qhead">Soal 10 <span class="tag">Pilihan Ganda Kompleks</span> <span class="topic">• Makna komponen vektor translasi</span></div>
+<p class="stem">Diketahui translasi T(3, −2). Pernyataan yang benar adalah ....</p>
+<ul class="options"><li>A. Koordinat x bertambah 3.</li><li>B. Koordinat y berkurang 2.</li><li>C. Titik bergeser 3 satuan ke kiri.</li><li>D. Titik bergeser 2 satuan ke bawah.</li></ul>
+<p class="answer">Kunci jawaban: A, B, D</p><p class="explanation"><strong>Pembahasan:</strong> T(3, −2) berarti x ditambah 3 (geser 3 satuan ke kanan) dan y dikurangi 2 (geser 2 satuan ke bawah). Pernyataan C salah karena geser ke kiri berarti x berkurang.</p>
+</section>
+
+<section class="question">
+<div class="qhead">Soal 11 <span class="tag">Pilihan Ganda Kompleks</span> <span class="topic">• Komposisi dua translasi (HOTS)</span></div>
+<p class="stem">Titik R(−2, 3) mengalami dua translasi, yaitu T(5, −4) kemudian T(−2, 3). Pernyataan yang benar adalah ....</p>
+<ul class="options"><li>A. Setelah translasi pertama, R′ = (3, −1).</li><li>B. Koordinat akhir R″ = (1, 2).</li><li>C. Translasi gabungan adalah T(3, −1).</li><li>D. Translasi gabungan adalah T(7, −7).</li></ul>
+<p class="answer">Kunci jawaban: A, B, C</p><p class="explanation"><strong>Pembahasan:</strong> R′ = (−2 + 5, 3 + (−4)) = (3, −1). Translasi gabungan = T(5 + (−2), −4 + 3) = T(3, −1). R″ = (3 + 3, −1 + 1) = (1, 2). Pernyataan D salah.</p>
+</section>
+
+<section class="question">
+<div class="qhead">Soal 12 <span class="tag">Pilihan Ganda Kompleks</span> <span class="topic">• Sifat-sifat translasi</span></div>
+<p class="stem">Pernyataan yang benar tentang translasi adalah ....</p>
+<ul class="options"><li>A. Bentuk bangun tetap sama.</li><li>B. Ukuran bangun tetap sama.</li><li>C. Setiap titik pada bangun mengalami pergeseran yang sama.</li><li>D. Translasi selalu mengubah panjang sisi bangun.</li></ul>
+<p class="answer">Kunci jawaban: A, B, C</p><p class="explanation"><strong>Pembahasan:</strong> Translasi bersifat isometri: bentuk dan ukuran bangun tidak berubah. Setiap titik digeser dengan vektor translasi yang sama. Pernyataan D salah karena panjang sisi tetap.</p>
+</section>
+
+<h2 class="section-title">C. Benar atau Salah <small>Tentukan apakah setiap pernyataan benar atau salah. (Soal 13–16)</small></h2>
+
+<section class="question">
+<div class="qhead">Soal 13 <span class="tag">Benar–Salah</span> <span class="topic">• Geser ke kiri</span></div>
+<p class="stem">Titik A(3, 4) digeser 2 satuan ke kiri menjadi A′(1, 4).</p>
+<ul class="options"><li>A. Benar</li><li>B. Salah</li></ul>
+<p class="answer">Kunci jawaban: Benar</p><p class="explanation"><strong>Pembahasan:</strong> Geser 2 satuan ke kiri berarti x dikurangi 2: A′ = (3 − 2, 4) = (1, 4). Pernyataan benar.</p>
+</section>
+
+<section class="question">
+<div class="qhead">Soal 14 <span class="tag">Benar–Salah</span> <span class="topic">• Bayangan translasi T(a, b)</span></div>
+<p class="stem">Titik B(−2, 5) ditranslasikan dengan T(3, −2), sehingga bayangannya B′(1, 3).</p>
+<ul class="options"><li>A. Benar</li><li>B. Salah</li></ul>
+<p class="answer">Kunci jawaban: Benar</p><p class="explanation"><strong>Pembahasan:</strong> B′ = (−2 + 3, 5 + (−2)) = (1, 3). Pernyataan benar.</p>
+</section>
+
+<section class="question">
+<div class="qhead">Soal 15 <span class="tag">Benar–Salah</span> <span class="topic">• Gabungan translasi berkebalikan</span></div>
+<p class="stem">Dua translasi T(2, 3) dan T(−2, −3) jika digabungkan menghasilkan translasi T(0, 0).</p>
+<ul class="options"><li>A. Benar</li><li>B. Salah</li></ul>
+<p class="answer">Kunci jawaban: Benar</p><p class="explanation"><strong>Pembahasan:</strong> Translasi gabungan = T(2 + (−2), 3 + (−3)) = T(0, 0), yang berarti titik tidak mengalami pergeseran (posisi tetap).</p>
+</section>
+
+<section class="question">
+<div class="qhead">Soal 16 <span class="tag">Benar–Salah</span> <span class="topic">• Bayangan titik dengan translasi negatif</span></div>
+<p class="stem">Titik P(2, 3) ditranslasikan dengan T(−4, 2), menghasilkan P′(−2, 1).</p>
+<ul class="options"><li>A. Benar</li><li>B. Salah</li></ul>
+<p class="answer">Kunci jawaban: Salah</p><p class="explanation"><strong>Pembahasan:</strong> P′ = (2 + (−4), 3 + 2) = (−2, 5), bukan (−2, 1). Koordinat y seharusnya bertambah 2, jadi pernyataan salah.</p>
+</section>
+
+<h2 class="section-title">D. Menjodohkan <small>Pasangkan soal nomor 17–20 dengan jawaban A–D yang tepat. Setiap pilihan digunakan satu kali. (Soal 17–20)</small></h2>
+
+<div class="match-choices">
+  <p><strong>Pilihan jawaban:</strong></p>
+  <p>A. (−1, 4)</p>
+  <p>B. (5, −3)</p>
+  <p>C. T(3, −1)</p>
+  <p>D. (2, 5)</p>
+</div>
+
+<section class="question">
+<div class="qhead">Soal 17 <span class="tag">Menjodohkan</span> <span class="topic">• Bayangan titik</span></div>
+<p class="stem">Titik A(2, 3) ditranslasikan dengan T(0, 2). Koordinat bayangannya adalah ....</p>
+<p class="answer">Kunci jawaban: D — (2, 5)</p><p class="explanation"><strong>Pembahasan:</strong> A′ = (2 + 0, 3 + 2) = (2, 5).</p>
+</section>
+
+<section class="question">
+<div class="qhead">Soal 18 <span class="tag">Menjodohkan</span> <span class="topic">• Bayangan titik</span></div>
+<p class="stem">Titik B(1, −1) ditranslasikan dengan T(4, −2). Koordinat bayangannya adalah ....</p>
+<p class="answer">Kunci jawaban: B — (5, −3)</p><p class="explanation"><strong>Pembahasan:</strong> B′ = (1 + 4, −1 + (−2)) = (5, −3).</p>
+</section>
+
+<section class="question">
+<div class="qhead">Soal 19 <span class="tag">Menjodohkan</span> <span class="topic">• Bayangan titik</span></div>
+<p class="stem">Titik C(−3, 5) ditranslasikan dengan T(2, −1). Koordinat bayangannya adalah ....</p>
+<p class="answer">Kunci jawaban: A — (−1, 4)</p><p class="explanation"><strong>Pembahasan:</strong> C′ = (−3 + 2, 5 + (−1)) = (−1, 4).</p>
+</section>
+
+<section class="question">
+<div class="qhead">Soal 20 <span class="tag">Menjodohkan</span> <span class="topic">• Translasi gabungan</span></div>
+<p class="stem">Titik R(−2, 3) ditranslasikan dengan T(5, −4), kemudian T(−2, 3). Translasi gabungannya adalah ....</p>
+<p class="answer">Kunci jawaban: C — T(3, −1)</p><p class="explanation"><strong>Pembahasan:</strong> Translasi gabungan = T(5 + (−2), −4 + 3) = T(3, −1).</p>
+</section>
+
+<details class="keybox" open>
+  <summary>Kunci jawaban 1–20 (klik untuk menyembunyikan/menampilkan)</summary>
+  <table class="key">
+    <tr><th>Nomor</th><th>Jawaban</th><th>Nomor</th><th>Jawaban</th></tr>
+    <tr><td>1</td><td>B</td><td>11</td><td>A, B, C</td></tr>
+    <tr><td>2</td><td>A</td><td>12</td><td>A, B, C</td></tr>
+    <tr><td>3</td><td>C</td><td>13</td><td>Benar</td></tr>
+    <tr><td>4</td><td>B</td><td>14</td><td>Benar</td></tr>
+    <tr><td>5</td><td>B</td><td>15</td><td>Benar</td></tr>
+    <tr><td>6</td><td>D</td><td>16</td><td>Salah</td></tr>
+    <tr><td>7</td><td>A</td><td>17</td><td>D</td></tr>
+    <tr><td>8</td><td>B</td><td>18</td><td>B</td></tr>
+    <tr><td>9</td><td>A, B, D</td><td>19</td><td>A</td></tr>
+    <tr><td>10</td><td>A, B, D</td><td>20</td><td>C</td></tr>
+  </table>
+</details>
+
+<section class="scoring">
+  <strong>Pedoman penilaian (total nilai 100)</strong>
+  <p>• Pilihan ganda: 8 soal × 5 poin = 40 poin.</p>
+  <p>• Pilihan ganda kompleks: 4 soal × 10 poin = 40 poin.</p>
+  <p>• Benar atau salah: 4 soal × 2,5 poin = 10 poin.</p>
+  <p>• Menjodohkan: 4 soal × 2,5 poin = 10 poin.</p>
+  <p><strong>Catatan teknis:</strong> Untuk Google Forms, pilihan ganda dan benar–salah dapat dinilai otomatis. Soal ganda kompleks sebaiknya menggunakan tipe kotak centang dengan kunci semua opsi yang tepat. Soal menjodohkan dapat dibuat sebagai kisi pilihan ganda dengan nomor soal sebagai baris dan pilihan A–D sebagai kolom, atau diubah menjadi empat soal pilihan ganda agar penilaian otomatis lebih sederhana.</p>
+</section>
+
+<p class="foot">Asesmen Translasi • Transformasi Geometri Kelas IX B</p>
+</main>
+</body>
+</html>
