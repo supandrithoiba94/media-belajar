@@ -1,0 +1,304 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lab Maya Instalasi Listrik</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#f1f5f9;color:#172033;
+font-family:Arial,sans-serif}
+header{background:#123b61;color:white;padding:20px}
+header h1{font-size:23px;margin:0 0 8px}
+header p{margin:0;color:#d8e8f5;font-size:14px}
+main{max-width:1050px;margin:auto;padding:15px}
+.card{background:white;border-radius:14px;padding:16px;
+margin-bottom:15px;box-shadow:0 3px 12px #1720330c}
+h2{font-size:17px;margin:0 0 14px}
+.controls{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+button,select{padding:12px;border:1px solid #cbd5e1;
+border-radius:9px;background:white;font-size:14px;width:100%}
+button{cursor:pointer;font-weight:bold}
+button.active{background:#164e78;color:white}
+.primary{background:#176b45;color:white;border:0}
+.danger{background:#b91c1c;color:white;border:0}
+.diagram{width:100%;overflow:hidden}
+svg{width:100%;height:auto;display:block;min-height:170px}
+.wire{stroke:#64748b;stroke-width:5;fill:none;
+stroke-linecap:round;stroke-linejoin:round}
+.wire.live{stroke:#16a34a}
+.part{stroke:#334155;stroke-width:3;fill:white}
+.bulb{fill:#cbd5e1;stroke:#64748b;stroke-width:3}
+.bulb.on{fill:#fde047;stroke:#ca8a04}
+svg text{font-size:14px;fill:#172033}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
+.stat{padding:12px;background:#f1f5f9;border-radius:10px}
+.stat small{display:block;color:#64748b;margin-bottom:6px}
+.stat strong{font-size:20px}
+.status{padding:12px;border-radius:9px;background:#ecfdf5;
+color:#166534;font-weight:bold}
+.note{font-size:13px;color:#64748b;line-height:1.6}
+.question{padding:12px 0;border-bottom:1px solid #e2e8f0}
+.question button{margin-top:8px;text-align:left}
+.feedback{font-size:13px;margin-top:6px}
+@media(min-width:700px){
+.controls{grid-template-columns:repeat(4,1fr)}
+}
+</style>
+</head>
+<body>
+<header>
+  <h1>LAB MAYA INSTALASI LISTRIK</h1>
+  <p>Laboratorium virtual • Belajar rangkaian listrik dasar</p>
+</header>
+
+<main>
+<section class="card">
+<h2>1. Panel Kendali</h2>
+<div class="controls">
+  <div>
+    <label for="mode">Jenis rangkaian</label>
+    <select id="mode">
+      <option value="parallel">Paralel</option>
+      <option value="series">Seri</option>
+    </select>
+  </div>
+  <button id="breaker" class="active">MCB: ON</button>
+  <button id="switch" class="active">Sakelar: ON</button>
+  <button id="fault">Gangguan: Tidak ada</button>
+</div>
+<p class="note">
+  Klik tombol untuk mengubah kondisi komponen.
+  Gangguan mensimulasikan satu lampu putus.
+</p>
+</section>
+
+<section class="card">
+<h2>2. Diagram Rangkaian</h2>
+<div class="diagram">
+<svg id="circuit" viewBox="0 0 700 300"
+role="img" aria-label="Diagram rangkaian listrik interaktif">
+</svg>
+</div>
+<div id="status" class="status">Rangkaian beroperasi.</div>
+<p class="note">
+  Hijau = jalur bertegangan dalam model simulasi.
+  Kuning = lampu menyala. Garis diagram merupakan
+  representasi pembelajaran, bukan gambar instalasi fisik.
+</p>
+</section>
+
+<section class="card">
+<h2>3. Hasil Pengukuran Simulasi</h2>
+<div class="stats">
+  <div class="stat"><small>Tegangan sumber</small>
+    <strong>12 V</strong></div>
+  <div class="stat"><small>Arus total</small>
+    <strong id="current">0 A</strong></div>
+  <div class="stat"><small>Lampu menyala</small>
+    <strong id="lit">0 / 2</strong></div>
+</div>
+<p class="note" id="explain"></p>
+</section>
+
+<section class="card">
+<h2>4. Latihan Pemahaman</h2>
+<p class="note">Pilih jawaban yang benar. Hasil muncul setelah memilih.</p>
+<div id="quiz"></div>
+</section>
+
+<section class="card">
+<h2>5. Prinsip Keselamatan</h2>
+<ul class="note">
+  <li>Matikan sumber listrik sebelum pemeriksaan instalasi.</li>
+  <li>Jangan menyentuh kabel terbuka ketika rangkaian bertegangan.</li>
+  <li>Warna kabel saja tidak membuktikan fungsi atau ketiadaan tegangan.</li>
+  <li>Instalasi listrik PLN harus mengikuti standar dan dikerjakan
+      oleh orang yang kompeten.</li>
+</ul>
+</section>
+</main>
+
+<script>
+const $ = id => document.getElementById(id);
+
+const state = {
+  mode: 'parallel',
+  breaker: true,
+  sw: true,
+  fault: false
+};
+
+function buttonState(id, onText, offText, value) {
+  $(id).textContent = onText.replace('ON', value ? 'ON' : 'OFF');
+  $(id).classList.toggle('active', value);
+}
+
+function render() {
+  const powered = state.breaker && state.sw;
+  const lit = state.mode === 'series'
+    ? [powered && !state.fault, powered && !state.fault]
+    : [powered && !state.fault, powered];
+
+  const current = !powered ? 0 :
+    state.mode === 'series'
+      ? (state.fault ? 0 : 0.2)
+      : (state.fault ? 0.4 : 0.8);
+
+  $('breaker').textContent = 'MCB: ' + (state.breaker ? 'ON' : 'OFF');
+  $('switch').textContent = 'Sakelar: ' + (state.sw ? 'ON' : 'OFF');
+  $('fault').textContent = 'Gangguan: ' +
+    (state.fault ? 'Lampu 1 putus' : 'Tidak ada');
+
+  $('breaker').classList.toggle('active', state.breaker);
+  $('switch').classList.toggle('active', state.sw);
+  $('fault').classList.toggle('danger', state.fault);
+
+  const wire = powered ? 'wire live' : 'wire';
+  let svg = '';
+
+  // Sumber tegangan dan kabel utama
+  svg += `<path class="${wire}" d="M90 120 H160
+    M220 120 H300 V80 H500 V120
+    M560 120 H620 V240 H90 V180"/>`;
+
+  // Simbol sumber 12 V
+  svg += `<path class="part" d="M90 120 V140 M70 140 H110
+    M78 151 H102 M90 151 V180"/>`;
+  svg += `<text x="25" y="95">Sumber</text>
+    <text x="25" y="110">12 V DC</text>`;
+
+  // Sakelar
+  svg += `<circle cx="160" cy="120" r="5" class="part"/>
+    <circle cx="220" cy="120" r="5" class="part"/>`;
+  svg += state.sw
+    ? `<path class="wire" d="M160 120 H220"/>`
+    : `<path class="wire" d="M160 120 L211 95"/>`;
+  svg += `<text x="155" y="75">Sakelar</text>`;
+
+  if (state.mode === 'series') {
+    svg += `<path class="${wire}" d="M300 80 H380 V120
+      M440 120 H500"/>`;
+    svg += bulb(410, 120, lit[0], 'Lampu 1');
+    svg += `<path class="${wire}" d="M500 120 V180 H540"/>`;
+    svg += bulb(570, 180, lit[1], 'Lampu 2');
+    svg += `<path class="${wire}" d="M600 180 H620"/>`;
+    svg += `<text x="315" y="55">Rangkaian seri</text>`;
+  } else {
+    svg += `<path class="${wire}" d="M300 80 V50 H370
+      M430 50 H500 V80"/>`;
+    svg += bulb(400, 50, lit[0], 'Lampu 1');
+    svg += `<path class="${wire}" d="M300 80 V180 H370
+      M430 180 H500 V80"/>`;
+    svg += bulb(400, 180, lit[1], 'Lampu 2');
+    svg += `<text x="315" y="25">Rangkaian paralel</text>`;
+  }
+
+  $('circuit').innerHTML = svg;
+  $('lit').textContent = lit.filter(Boolean).length + ' / 2';
+  $('current').textContent = current.toFixed(1) + ' A';
+
+  if (!state.breaker) {
+    $('status').textContent = 'MCB OFF: sumber ke beban terputus.';
+    $('explain').textContent =
+      'Ketika MCB terbuka, arus pada rangkaian beban menjadi nol.';
+  } else if (!state.sw) {
+    $('status').textContent = 'Sakelar OFF: rangkaian terbuka.';
+    $('explain').textContent =
+      'Sakelar terbuka memutus jalur arus pada model rangkaian ini.';
+  } else if (state.fault && state.mode === 'series') {
+    $('status').textContent = 'Gangguan: satu lampu putus, semua padam.';
+    $('explain').textContent =
+      'Pada rangkaian seri, satu komponen putus dapat memutus seluruh rangkaian.';
+  } else if (state.fault) {
+    $('status').textContent = 'Gangguan: lampu 1 putus, lampu 2 tetap menyala.';
+    $('explain').textContent =
+      'Pada rangkaian paralel, cabang lain masih memiliki jalur arus.';
+  } else {
+    $('status').textContent = 'Rangkaian beroperasi; lampu menyala.';
+    $('explain').textContent = state.mode === 'series'
+      ? 'Pada model seri, arus melewati kedua lampu secara berurutan.'
+      : 'Pada model paralel, setiap lampu berada di cabang tersendiri.';
+  }
+}
+
+function bulb(x, y, on, label) {
+  return `<circle class="bulb ${on ? 'on' : ''}"
+    cx="${x}" cy="${y}" r="19"/>
+    <path class="part" d="M${x-9} ${y+13} h18
+    M${x-7} ${y+18} h14"/>
+    <text x="${x-28}" y="${y+39}">${label}</text>`;
+}
+
+$('mode').addEventListener('change', e => {
+  state.mode = e.target.value;
+  render();
+});
+$('breaker').addEventListener('click', () => {
+  state.breaker = !state.breaker;
+  render();
+});
+$('switch').addEventListener('click', () => {
+  state.sw = !state.sw;
+  render();
+});
+$('fault').addEventListener('click', () => {
+  state.fault = !state.fault;
+  render();
+});
+
+const questions = [
+  {
+    q: 'Apa fungsi sakelar?',
+    a: ['Menghubungkan atau memutus rangkaian',
+        'Menaikkan tegangan sumber', 'Menghilangkan kebutuhan kabel'],
+    correct: 0
+  },
+  {
+    q: 'Apa yang terjadi jika satu lampu putus pada rangkaian seri?',
+    a: ['Lampu lain pasti tetap menyala',
+        'Seluruh rangkaian dapat terputus',
+        'Tegangan sumber menjadi nol'],
+    correct: 1
+  },
+  {
+    q: 'Apa kelebihan rangkaian paralel untuk lampu rumah?',
+    a: ['Semua lampu harus padam bersama',
+        'Setiap cabang dapat bekerja secara mandiri',
+        'Tidak memerlukan pengaman'],
+    correct: 1
+  },
+  {
+    q: 'Apakah simulasi 12 V ini membuktikan instalasi PLN aman?',
+    a: ['Ya, selalu aman', 'Tidak, instalasi PLN perlu pemeriksaan sesuai standar'],
+    correct: 1
+  }
+];
+
+$('quiz').innerHTML = questions.map((item, i) => `
+  <div class="question">
+    <strong>${i+1}. ${item.q}</strong>
+    ${item.a.map((answer, j) => `
+      <button data-q="${i}" data-a="${j}">${answer}</button>
+    `).join('')}
+    <div class="feedback" id="feedback${i}"></div>
+  </div>
+`).join('');
+
+$('quiz').addEventListener('click', e => {
+  const btn = e.target.closest('button[data-q]');
+  if (!btn) return;
+  const i = Number(btn.dataset.q);
+  const a = Number(btn.dataset.a);
+  const ok = a === questions[i].correct;
+  $('feedback' + i).textContent = ok
+    ? 'Benar.'
+    : 'Belum tepat. ' + questions[i].a[questions[i].correct];
+  $('feedback' + i).style.color = ok ? '#15803d' : '#b91c1c';
+});
+
+render();
+</script>
+</body>
+</html>
